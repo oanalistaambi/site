@@ -171,7 +171,7 @@ section{ padding-block:clamp(3.5rem,8vw,7rem); }
   display:block; font-family:var(--f-mono); font-size:.6rem;
   letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint);
 }
-.nav__links{ display:flex; gap:1.35rem; align-items:center; }
+.nav__links{ display:flex; flex-wrap:wrap; gap:.4rem 1.15rem; align-items:center; justify-content:flex-end; }
 .nav__links a{
   font-family:var(--f-display); font-size:.92rem; font-weight:500;
   text-decoration:none; color:var(--text-soft);
@@ -478,3 +478,42 @@ footer a{ color:var(--text-soft); }
 .hero .logo, .band .logo, .on-dark .logo{ color:#EEF0EA; }
 .rampa{ display:flex; height:6px; border-radius:1px; overflow:hidden; }
 .rampa i{ flex:1; }
+
+/* ---------- vídeos ---------- */
+.videos{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.8rem; margin-top:var(--gap);
+}
+.video-card{ display:flex; flex-direction:column; gap:.7rem; }
+.video-embed{
+  position:relative; width:100%; padding-top:56.25%;
+  background:var(--bg-sunken); border:1px solid var(--rule); border-radius:2px; overflow:hidden;
+}
+.video-embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.video-card h3{ font-size:1.05rem; }
+.video-card p{
+  font-family:var(--f-mono); font-size:.72rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--text-faint);
+}
+.videos-more{ margin-top:1.4rem; }
+
+/* ---------- cursos (página) ---------- */
+.curso-group{ margin-top:2.4rem; }
+.curso-group:first-child{ margin-top:0; }
+.curso-group h3{
+  font-family:var(--f-mono); font-size:.74rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:.9rem;
+}
+
+/* ---------- newsletter ---------- */
+.newsletter__form{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.5rem; max-width:540px; }
+.newsletter__form input[type="email"],
+.newsletter__form input[type="text"]{
+  flex:1 1 200px; padding:.75rem .95rem; border:1.5px solid var(--rule-strong);
+  border-radius:2px; background:var(--bg-raised); color:var(--text);
+  font-family:var(--f-display); font-size:.95rem;
+}
+.newsletter__form input::placeholder{ color:var(--text-faint); }
+.newsletter__note{ font-size:.8rem; color:var(--text-faint); margin-top:.7rem; max-width:52ch; }
+.on-dark .newsletter__form input{ background:var(--ink); border-color:rgba(143,208,74,.28); color:#EDF2E9; }
+.on-dark .newsletter__note{ color:#8FA893; }
