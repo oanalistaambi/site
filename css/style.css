@@ -347,6 +347,12 @@ section{ padding-block:clamp(3.5rem,8vw,7rem); }
 .social b{ font-family:var(--f-display); font-size:1.06rem; }
 .social span{ font-family:var(--f-mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-faint); }
 .social em{ font-style:normal; color:var(--accent); font-size:.9rem; }
+.social--principal{ background:var(--bg-raised); }
+.social__tag{
+  font-family:var(--f-mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent); background:transparent; border:1px solid var(--accent);
+  padding:.15rem .45rem; border-radius:2px; margin-left:.5rem; display:inline-block;
+}
 
 /* ---------- faixa escura ---------- */
 .band{ background:var(--ink); color:#EDF2E9; }
@@ -495,7 +501,14 @@ footer a{ color:var(--text-soft); }
   font-family:var(--f-mono); font-size:.72rem; letter-spacing:.1em;
   text-transform:uppercase; color:var(--text-faint);
 }
-.videos-more{ margin-top:1.4rem; }
+.videos-more{ margin-top:1.4rem; display:flex; flex-wrap:wrap; gap:.9rem; }
+.videos__ig-head{ margin-top:3.2rem; padding-top:2.4rem; border-top:1px solid var(--rule); }
+.videos__ig-head h3{ font-size:1.3rem; margin-top:.4rem; }
+.videos-ig{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.8rem; margin-top:1.6rem; align-items:start;
+}
+.videos-ig blockquote.instagram-media{ margin:0 auto !important; width:100% !important; }
 
 /* ---------- cursos (página) ---------- */
 .curso-group{ margin-top:2.4rem; }
