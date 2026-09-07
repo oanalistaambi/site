@@ -683,6 +683,77 @@
         "Atenção ao licenciamento combinado: quando a mesma empresa também presta serviço galvanotécnico (B-06-02-5) no mesmo processo, a exigência de RAS vem do código B-06-02-5 (exceção do Art. 19), não do tratamento térmico em si — não atribua a exigência de RAS ao código errado ao ler um parecer com mais de uma atividade listada.",
         "Consumo de óleo de têmpera e geração de resíduos oleosos contaminados são o ponto técnico central — armazenamento adequado e destinação para empresa licenciada costumam ser condicionantes recorrentes."
       ]
+    },
+    "C-02-03-8": {
+      listagem:"C",
+      nome:"Recauchutagem de pneumáticos",
+      potencial:{ar:"M",agua:"P",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<0.3) return "P"; if(v<=0.6) return "M"; return "G"; },
+      porteTexto:"Área útil < 0,3 ha: Pequeno · 0,3 ha ≤ Área útil ≤ 0,6 ha: Médio · Área útil > 0,6 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "É uma das atividades mais recorrentes do Cadastro simples nos casos consultados — borracharias/recauchutadoras de pequeno porte (área útil bem abaixo de 0,3 ha) saem como classe 2, sem critério locacional na maioria dos casos.",
+        "Pneus inservíveis e raspas de borracha geradas no processo de raspagem/recapagem exigem Plano de Gerenciamento de Resíduos Sólidos (PGRS) e destinação a empresa licenciada, mesmo em porte pequeno.",
+        "Não confundir com a fabricação de pneumáticos novos (código C-02-02-1, potencial poluidor Grande, ainda não mapeada aqui) — são atividades e portes muito diferentes dentro da mesma Listagem C."
+      ]
+    },
+    "C-03-02-6": {
+      listagem:"C",
+      nome:"Fabricação de wet-blue e/ou de couro por processo completo, a partir de peles até o couro acabado, com curtimento ao cromo, seus derivados ou tanino sintético",
+      potencial:{ar:"M",agua:"G",solo:"G",geral:"G"},
+      porteParam:"Produção nominal (m²/dia)",
+      calcPorte:function(v){ if(v<380) return "P"; if(v<=4400) return "M"; return "G"; },
+      porteTexto:"Produção nominal < 380 m²/dia (ou < 100 unidades/dia): Pequeno · 380 m²/dia ≤ Produção nominal ≤ 4.400 m²/dia (ou 100 a 1.160 unidades/dia): Médio · Produção nominal > 4.400 m²/dia (ou > 1.160 unidades/dia): Grande. A DN 217 aceita as duas unidades — use a que aparecer no seu projeto/licença.",
+      cadastroPermitido:null,
+      dicas:[
+        "Curtumes (wet-blue) na prática saem quase sempre em classe 5 ou 6 nos casos consultados — potencial poluidor Geral Grande somado a porte tipicamente Médio/Grande — nunca Cadastro nem RAS.",
+        "O efluente industrial é tratado separado em três linhas (alta carga orgânica, cromo do curtimento, corantes/óleos do recurtimento) antes de se juntarem para tratamento final (peneiras, tanques de precipitação de cromo, decantação, flotação, lodo ativado) — é o núcleo técnico do parecer.",
+        "Lodo da ETE com cromo precipitado é resíduo central do processo, junto com aparas de couro, pó de rebaixadeira e resíduo de graxaria — todos exigem PGRS e destinação a empresa licenciada.",
+        "Outorga de recursos hídricos (captação e lançamento de efluentes) é praticamente universal, dado o alto consumo de água do processo de curtimento."
+      ]
+    },
+    "C-07-01-3": {
+      listagem:"C",
+      nome:"Moldagem de termoplástico não organoclorado",
+      potencial:{ar:"M",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Capacidade instalada (t/dia)",
+      calcPorte:function(v){ if(v<=1) return null; if(v<5) return "P"; if(v<=20) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada ≤ 1 t/dia: abaixo do mínimo listado · 1 t/dia < Capacidade instalada < 5 t/dia: Pequeno · 5 t/dia ≤ Capacidade instalada ≤ 20 t/dia: Médio · Capacidade instalada > 20 t/dia: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Injetoras e moldadoras de plástico de pequeno porte (poucas toneladas/dia) saem como Cadastro simples, classe 2, nos casos consultados — é uma das atividades industriais mais comuns nesse padrão.",
+        "Fábricas maiores e mais verticalizadas (com etapas de extrusão, tingimento ou múltiplas linhas) podem somar critérios locacionais e subir de modalidade — sempre confirme a Tabela 4 além do porte.",
+        "Resíduos de plástico fora de especificação e aparas costumam ser reincorporados ao processo ou vendidos para reciclagem — ponto frequente de informação complementar sobre o PGRS."
+      ]
+    },
+    "C-08-07-9": {
+      listagem:"C",
+      nome:"Fiação e/ou tecelagem, exceto tricô e crochê",
+      potencial:{ar:"M",agua:"P",solo:"M",geral:"M"},
+      porteParam:"Capacidade instalada (t/dia)",
+      calcPorte:function(v){ if(v<=0.2) return null; if(v<5) return "P"; if(v<=17) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada ≤ 0,2 t/dia: abaixo do mínimo listado · 0,2 t/dia < Capacidade instalada < 5 t/dia: Pequeno · 5 t/dia ≤ Capacidade instalada ≤ 17 t/dia: Médio · Capacidade instalada > 17 t/dia: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Tecelagens de pequeno porte (comuns nos polos têxteis de MG) saem como Cadastro simples, classe 2, nos casos consultados — inclusive bem perto do limite superior da faixa Pequeno (ex. 4,99 t/dia).",
+        "Fábricas de tecidos técnicos/industriais de maior escala, com etapa de tingimento e lavagem, chegam a classe 4 (LAC1) — o efluente industrial da lavagem de tecidos costuma ser destinado à rede pública via programa específico de recebimento, não necessariamente tratado na própria fábrica.",
+        "Não confundir com o beneficiamento de fibras têxteis (código C-08-01-1, ainda não mapeado) nem com o acabamento de fios/tecidos (C-08-09-1, potencial poluidor Grande) — são etapas diferentes da mesma cadeia produtiva têxtil, com portes e potenciais poluidores distintos."
+      ]
+    },
+    "C-10-01-4": {
+      listagem:"C",
+      nome:"Usinas de produção de concreto comum",
+      potencial:{ar:"M",agua:"G",solo:"M",geral:"M"},
+      porteParam:"Produção (m³/h)",
+      calcPorte:function(v){ if(v<9) return "P"; if(v<=85) return "M"; return "G"; },
+      porteTexto:"Produção < 9 m³/h: Pequeno · 9 m³/h ≤ Produção ≤ 85 m³/h: Médio · Produção > 85 m³/h: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "É uma das atividades mais comuns na consulta pública (centenas de decisões) — em porte pequeno e sem critério locacional, o padrão é Cadastro simples, classe 2.",
+        "Reserva da Biosfera (peso 1) aparece com frequência como critério locacional, subindo de Cadastro para RAS mesmo em usinas pequenas (produção abaixo de 9 m³/h) — confirmado em caso real consultado.",
+        "Complementa a usina de concreto asfáltico (código C-10-02-2, já mapeada nesta calculadora) — são atividades semelhantes, mas com produtos, processos e parâmetros de porte diferentes; não confunda uma com a outra."
+      ]
     }
   };
 
