@@ -548,6 +548,81 @@
         "O titular costuma ser a prefeitura (distrito industrial municipal) ou uma administração de área industrial — mas o mesmo enquadramento vale para qualquer titular.",
         "Como agrega vários lotes/empreendimentos futuros, o RAS foca na infraestrutura comum: drenagem pluvial coletiva, pavimentação e destino do efluente sanitário — cada empreendimento instalado depois licencia separadamente sua própria atividade."
       ]
+    },
+    "G-02-12-7": {
+      listagem:"G",
+      nome:"Aquicultura e/ou unidade de pesca esportiva tipo pesque-pague, exceto tanque-rede",
+      potencial:{ar:"P",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Área inundada (ha)",
+      calcPorte:function(v){ if(v<=2.0) return null; if(v<5.0) return "P"; if(v<=50.0) return "M"; return "G"; },
+      porteTexto:"2,0 ha < Área inundada < 5,0 ha: Pequeno · 5,0 ha ≤ Área inundada ≤ 50,0 ha: Médio · Área inundada > 50,0 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em processos de classe 2 sem critério locacional, o enquadramento observado é LAS Cadastro simples (só certificado, sem parecer técnico).",
+        "Quando há intervenção antrópica antiga em Área de Preservação Permanente (barramento/tanque dentro de APP), aparece Autorização para Intervenção Ambiental (AIA) e Projeto Técnico de Reconstituição da Flora (PTRF) como compensação — confirmado em caso real consultado.",
+        "É comum esse código aparecer no mesmo processo de propriedades rurais que também têm pecuária, silvicultura ou culturas — as demais atividades costumam ficar abaixo do porte mínimo e não entram na classificação, mas o CAR e a outorga de recursos hídricos do imóvel valem para o conjunto.",
+        "A consulta ao IDE-Sisema para checar critério locacional (Reserva da Biosfera, remanescentes de vegetação nativa, curso d'água/APP) é sempre citada no parecer, mesmo quando o resultado é 'sem incidência'."
+      ]
+    },
+    "G-02-13-5": {
+      listagem:"G",
+      nome:"Aquicultura em tanque-rede",
+      potencial:{ar:"P",agua:"G",solo:"P",geral:"M"},
+      porteParam:"Volume útil (m³)",
+      calcPorte:function(v){ if(v<=500) return null; if(v<1000) return "P"; if(v<=5000) return "M"; return "G"; },
+      porteTexto:"500 m³ < Volume útil < 1.000 m³: Pequeno · 1.000 m³ ≤ Volume útil ≤ 5.000 m³: Médio · Volume útil > 5.000 m³: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Registro de aquicultor no IEF e comunicação à Autoridade Marítima (com coordenadas do polígono dos tanques) são documentos recorrentes, além do RCA/PCA ou RAS conforme o porte.",
+        "Fornecimento de água por poço ou captação superficial outorgada, com instrumentação de medição, aparece mesmo quando a atividade em si não consome muita água — é a atividade correlata (abastecimento) que exige outorga.",
+        "Plano de manejo com controle de fuga de espécies exóticas (ex. tilápia) para o corpo d'água e monitoramento de parâmetros físico-químicos da água são condicionantes técnicas centrais, dado o potencial poluidor Grande para o compartimento água.",
+        "Em reservatórios/represas, a atividade costuma ocupar só uma fração pequena da propriedade rural (contrato de comodato de ~1 ha, por exemplo) mesmo quando o volume útil dos tanques já enquadra em porte Grande — confirmado em caso real consultado."
+      ]
+    },
+    "B-01-01-5": {
+      listagem:"B",
+      nome:"Britamento de pedras para construção",
+      potencial:{ar:"G",agua:"P",solo:"P",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<3) return "P"; if(v<=10) return "M"; return "G"; },
+      porteTexto:"Área útil < 3 ha: Pequeno · 3 ha ≤ Área útil ≤ 10 ha: Médio · Área útil > 10 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "É muito comum tramitar no mesmo processo da extração de rocha para produção de britas (código A-02-09-7, Listagem A) — o britamento (Listagem B) é o beneficiamento industrial, a extração (Listagem A) é a lavra em si.",
+        "Reserva da Biosfera (peso 1) aparece com frequência como critério locacional nos casos consultados, subindo de LAS Cadastro para LAS RAS mesmo em porte pequeno (área útil de poucos milhares de m²/ano).",
+        "Controle de emissões atmosféricas (material particulado) é o ponto técnico central, dado o potencial poluidor Grande para o ar — sistemas de aspersão de água nas vias e nas britadeiras costumam aparecer como medida de controle.",
+        "Área de alto/muito alto grau de potencialidade de cavidades (CECAV-ICMBio) também aparece como critério locacional recorrente nessa atividade, exigindo estudo espeleológico específico."
+      ]
+    },
+    "B-01-03-1": {
+      listagem:"B",
+      nome:"Fabricação de cerâmica vermelha (telhas, tijolos e outros artigos de barro cozido)",
+      potencial:{ar:"M",agua:"P",solo:"P",geral:"P"},
+      porteParam:"Matéria-prima processada (t/ano)",
+      calcPorte:function(v){ if(v<=2400) return null; if(v<12000) return "P"; if(v<=50000) return "M"; return "G"; },
+      porteTexto:"2.400 t/ano < Matéria-prima processada < 12.000 t/ano: Pequeno · 12.000 t/ano ≤ Matéria-prima processada ≤ 50.000 t/ano: Médio · Matéria-prima processada > 50.000 t/ano: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Potencial poluidor geral é Pequeno — por isso, mesmo em porte Grande (matéria-prima acima de 50.000 t/ano), o enquadramento observado em caso real consultado ainda saiu como LAS Cadastro, classe 1, sem critério locacional.",
+        "Complementa a atividade minerária de extração de argila para cerâmica vermelha (código A-03-02-6, já mapeada nesta calculadora) — normalmente a olaria/cerâmica e a extração da argila aparecem ligadas na mesma cadeia produtiva, às vezes no mesmo empreendedor.",
+        "Por usar forno (queima do barro), vale conferir se há incidência de critério locacional relacionado à qualidade do ar ou proximidade de áreas urbanas antes de assumir que vai ficar em Cadastro."
+      ]
+    },
+    "B-06-02-5": {
+      listagem:"B",
+      nome:"Serviço galvanotécnico",
+      potencial:{ar:"M",agua:"G",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<0.1) return "P"; if(v<=5) return "M"; return "G"; },
+      porteTexto:"Área útil < 0,1 ha: Pequeno · 0,1 ha ≤ Área útil ≤ 5 ha: Médio · Área útil > 5 ha: Grande.",
+      cadastroPermitido:false,
+      avisoEspecial:"Pelo Art. 19 da DN 217 (inciso I, alínea 'a'), esta atividade não admite Cadastro nas classes 1 ou 2 — o mínimo é RAS. Confirmado em caso real consultado: porte pequeno, sem critério locacional, ainda assim LAS/RAS.",
+      dicas:[
+        "Nunca é Cadastro, mesmo em porte pequeno e sem critério locacional — é a única exceção do Art. 19 na Listagem B (junto com o código B-03-04-2, produção de ferroligas).",
+        "Piso impermeável e canaletas de drenagem interligadas a caixas separadoras de água e óleo (CSAO) sem deflúvio são exigidas em todas as áreas com potencial de gerar resíduo sólido ou efluente oleoso — item recorrente de informação complementar.",
+        "Descrição detalhada do processo (ex. cromagem/galvanoplastia por eletrólise) com relatório fotográfico dos pontos de geração de efluentes, resíduos, gases e odores é exigida, além de CTF/AIDA da empresa e da consultoria responsável.",
+        "Análises de ruído (Lei estadual nº 10.100/1990) podem ser solicitadas como informação complementar, junto com o comprovante de consumo de água e a adequação do sistema de tratamento de efluentes às normas da ABNT."
+      ]
     }
   };
 
