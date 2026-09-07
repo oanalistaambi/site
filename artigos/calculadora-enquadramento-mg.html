@@ -459,6 +459,95 @@
         "O parecer costuma detalhar piso impermeabilizado da área de triagem/prensagem, controle de vetores (roedores, insetos) e destinação do rejeito não reciclável a aterro sanitário licenciado.",
         "Resíduos abrangidos pelo Sistema MTR-MG exigem DMR periódica; os não abrangidos seguem relatório próprio de controle e destinação."
       ]
+    },
+    "A-02-03-8": {
+      listagem:"A",
+      nome:"Lavra a céu aberto – minério de ferro",
+      potencial:{ar:"M",agua:"M",solo:"G",geral:"M"},
+      porteParam:"Produção bruta (t/ano)",
+      calcPorte:function(v){ if(v<=300000) return "P"; if(v<=1500000) return "M"; return "G"; },
+      porteTexto:"produção bruta ≤ 300.000 t/ano: Pequeno · 300.000 < produção ≤ 1.500.000 t/ano: Médio · produção > 1.500.000 t/ano: Grande.",
+      cadastroPermitido:false,
+      avisoEspecial:"Atividade minerária: pelo Art. 20 da DN 217, não é admitido licenciamento por Cadastro nas classes 1 ou 2 — o mínimo é RAS. Este código não está entre as exceções do parágrafo único do Art. 20.",
+      dicas:[
+        "Titularidade e poligonal do processo na ANM (antiga DNPM) é sempre conferida no parecer — confirme se bate com o requerente antes de protocolar.",
+        "Cava, pilha de rejeito/estéril e sistema de drenagem para bacias de contenção formam o núcleo técnico — inclui estudo de estabilidade geotécnica da pilha.",
+        "Monitoramento da qualidade do ar (material particulado) em pontos fixos é condicionante recorrente, junto com outorga de recursos hídricos.",
+        "Nos casos consultados de maior porte, o enquadramento típico já vai direto a LAC1 (grande porte, potencial médio) — raramente fica em RAS."
+      ]
+    },
+    "A-03-02-6": {
+      listagem:"A",
+      nome:"Extração de argila usada na fabricação de cerâmica vermelha",
+      potencial:{ar:"M",agua:"M",solo:"G",geral:"M"},
+      porteParam:"Produção bruta (t/ano)",
+      calcPorte:function(v){ if(v<=12000) return "P"; if(v<=50000) return "M"; return "G"; },
+      porteTexto:"produção bruta ≤ 12.000 t/ano: Pequeno · 12.000 < produção ≤ 50.000 t/ano: Médio · produção > 50.000 t/ano: Grande.",
+      cadastroPermitido:true,
+      avisoEspecial:"É uma das exceções do Art. 20, parágrafo único, inciso III da DN 217: mesmo sendo atividade minerária, admite Cadastro nas classes 1 ou 2 — a Tabela 3 se aplica sem a restrição geral do Art. 20.",
+      dicas:[
+        "Confirme a titularidade do processo minerário na ANM antes de protocolar — é item recorrente de checagem no parecer.",
+        "CAR unificado das áreas de lavra é condicionante comum quando há mais de uma matrícula/propriedade envolvida.",
+        "Um único critério locacional (ex.: Reserva da Biosfera) já é suficiente para subir de Cadastro para RAS no mesmo porte pequeno — confirmado em caso real consultado."
+      ]
+    },
+    "G-03-03-4": {
+      listagem:"G",
+      nome:"Produção de carvão vegetal oriunda de floresta plantada",
+      potencial:{ar:"G",agua:"P",solo:"M",geral:"M"},
+      porteParam:"Produção nominal (mdc/ano)",
+      calcPorte:function(v){ if(v<=50000) return null; if(v<75000) return "P"; if(v<=100000) return "M"; return "G"; },
+      porteTexto:"50.000 mdc/ano < produção nominal < 75.000 mdc/ano: Pequeno · 75.000 mdc/ano ≤ produção ≤ 100.000 mdc/ano: Médio · produção > 100.000 mdc/ano: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em escala industrial (muitos fornos, grande porte), o enquadramento típico observado chega a LAC1 — potencial poluidor do ar é Grande (fumaça/particulado da carbonização).",
+        "Outorga de recursos hídricos e Cadastro de Uso Insignificante para os poços/captações da unidade aparecem quase sempre.",
+        "Monitoramento da qualidade do ar e, quando aplicável, Termo de Cooperação com o IEF (produção de mudas/plantio) são condicionantes recorrentes.",
+        "CAR das áreas de plantio e das áreas onde os fornos estão instalados completa o padrão comum."
+      ]
+    },
+    "G-03-04-2": {
+      listagem:"G",
+      nome:"Produção de carvão vegetal de origem nativa/aproveitamento do rendimento lenhoso",
+      potencial:{ar:"G",agua:"P",solo:"M",geral:"M"},
+      porteParam:"Produção nominal (mdc/ano)",
+      calcPorte:function(v){ if(v<=500) return null; if(v<5000) return "P"; if(v<=25000) return "M"; return "G"; },
+      porteTexto:"500 mdc/ano < produção nominal < 5.000 mdc/ano: Pequeno · 5.000 mdc/ano ≤ produção ≤ 25.000 mdc/ano: Médio · produção > 25.000 mdc/ano: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em porte pequeno (produção nominal baixa), cai em Cadastro simples — confirmado em caso real consultado.",
+        "'Aproveitamento do rendimento lenhoso' normalmente está associado a um processo de supressão de vegetação ou manejo florestal autorizado à parte — verifique se há Guia Florestal/autorização do IEF vinculada.",
+        "Diferente da produção de carvão de floresta plantada (G-03-03-4), a escala observada nos casos consultados é bem menor, refletindo na classe e na modalidade."
+      ]
+    },
+    "E-04-01-4": {
+      listagem:"E",
+      nome:"Loteamento do solo urbano, exceto distritos industriais e similares",
+      potencial:{ar:"P",agua:"M",solo:"G",geral:"M"},
+      porteParam:"Área total (ha)",
+      calcPorte:function(v){ if(v<=15) return null; if(v<50) return "P"; if(v<=100) return "M"; return "G"; },
+      porteTexto:"15 ha < área total < 50 ha: Pequeno · 50 ha ≤ área ≤ 100 ha: Médio · área > 100 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em porte pequeno e sem critério locacional, cai em Cadastro — confirmado em caso real consultado (loteamento pequeno).",
+        "Projeto de drenagem pluvial e de pavimentação, com memorial de cálculo, é documento técnico central mesmo nos casos mais simples.",
+        "Efluente sanitário: durante a implantação, solução provisória (fossa/tratamento móvel); após ocupação, ligação à rede/ETE municipal costuma ser condicionante."
+      ]
+    },
+    "E-04-02-2": {
+      listagem:"E",
+      nome:"Distrito industrial e zona estritamente industrial, comercial ou logística",
+      potencial:{ar:"M",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Área total (ha)",
+      calcPorte:function(v){ if(v<=25) return "P"; if(v<=100) return "M"; return "G"; },
+      porteTexto:"área total ≤ 25 ha: Pequeno · 25 ha < área ≤ 100 ha: Médio · área > 100 ha: Grande.",
+      cadastroPermitido:false,
+      avisoEspecial:"Pelo Art. 19 da DN 217 (inciso II, alínea 'd'), esta atividade não admite Cadastro nas classes 1 ou 2 — o mínimo é RAS.",
+      dicas:[
+        "Nunca é Cadastro, mesmo em porte pequeno — está na mesma lista de exceção do aterro sanitário e da unidade de triagem de recicláveis.",
+        "O titular costuma ser a prefeitura (distrito industrial municipal) ou uma administração de área industrial — mas o mesmo enquadramento vale para qualquer titular.",
+        "Como agrega vários lotes/empreendimentos futuros, o RAS foca na infraestrutura comum: drenagem pluvial coletiva, pavimentação e destino do efluente sanitário — cada empreendimento instalado depois licencia separadamente sua própria atividade."
+      ]
     }
   };
 
