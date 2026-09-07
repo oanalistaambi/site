@@ -784,7 +784,14 @@
 
     var porte = at.calcPorte(v);
     if(porte === null){
-      porteResultado.innerHTML = "<strong>Abaixo da faixa mínima listada na DN 217 para esta atividade.</strong> Pode estar dispensada de licenciamento ou enquadrar em regra própria — confirme na Unidade Regional (URA).";
+      porteResultado.innerHTML = "<strong>Abaixo da faixa mínima de porte da DN 217 para esta atividade — não se enquadra em nenhuma classe.</strong> " +
+        "Pelo Art. 10 da DN 217, isso <strong>dispensa o licenciamento ambiental estadual</strong>, mas essa dispensa " +
+        "<strong>não dispensa</strong> o empreendedor de: (I) obter as autorizações específicas cabíveis quando houver intervenção " +
+        "ambiental ou uso de recurso hídrico — AIA, DAIA, outorga, certidão de uso insignificante, cadastro/registro no IEF, entre outras; " +
+        "(II) implantar e manter as medidas de controle ambiental da atividade; e (III) obter as demais licenças, alvarás e certidões " +
+        "previstas em legislação específica. Na prática, quem mais pede essa <em>declaração de dispensa de licenciamento</em> é um banco " +
+        "ou instituição financeira, como condição para liberar crédito rural — mesmo sem enquadrar na DN 217, vale confirmar na Unidade " +
+        "Regional (URA) se algum outro ato autorizativo específico se aplica ao caso.";
       stepResultado.hidden = true;
       return;
     }
