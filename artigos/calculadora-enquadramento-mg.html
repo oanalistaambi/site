@@ -180,7 +180,7 @@
     </div>
 
     <div class="nota">
-      <strong>Em construção, atividade por atividade.</strong> Hoje a calculadora cobre 5 atividades já lidas
+      <strong>Em construção, atividade por atividade.</strong> Hoje a calculadora cobre 44 atividades já lidas
       com cuidado nos pareceres públicos. As demais listagens da DN 217 aparecem no seletor, mas ainda sem
       atividades cadastradas — elas entram aos poucos, na mesma lógica do
       <a href="checklist-documentos-licenciamento-mg.html">checklist de documentos por modalidade</a>.
@@ -822,6 +822,75 @@
         "Atenção ao piso de porte: diferente da maioria das atividades da DN 217, aqui a própria tabela já começa acima de 0,1 ha — áreas iguais ou menores já caem na dispensa do Art. 10, não em 'Pequeno'.",
         "Dois casos reais consultados (0,438 ha e 0,8 ha, ambos porte Pequeno) confirmam Cadastro em classe 2, sem condicionantes técnicas detalhadas — processo simples típico dessa faixa de porte.",
         "Agrupa atividades bem diferentes entre si (aromatizantes/corantes, sabões e detergentes, preparados de limpeza) sob o mesmo código — o potencial poluidor Médio é o mesmo para todas, mas vale registrar no processo qual delas está sendo licenciada."
+      ]
+    },
+    "C-04-02-2": {
+      listagem:"C",
+      nome:"Refino de petróleo",
+      potencial:{ar:"G",agua:"G",solo:"G",geral:"G"},
+      porteParam:"Capacidade instalada (m³/dia)",
+      calcPorte:function(v){ if(v<10000) return "P"; if(v<=25000) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada < 10.000 m³/dia: Pequeno · 10.000 m³/dia ≤ Capacidade instalada ≤ 25.000 m³/dia: Médio · Capacidade instalada > 25.000 m³/dia: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Atividade de porte tipicamente Grande e potencial poluidor Geral também Grande — os dois casos reais consultados (mesma refinaria, capacidades de 27.500 e 30.750 m³/dia) confirmam classe 6, a mais alta da norma.",
+        "Achado a registrar: apesar da Tabela 3 indicar LAC2 para classe 6 sem critério locacional, um dos certificados reais consultados foi emitido como 'Licença Ambiental Concomitante, LAC1' (fases LP+LI+LO analisadas em uma única etapa) — pode refletir particularidade processual do caso concreto; a checagem confiável da modalidade exata é sempre a análise da Unidade Regional, não só a tabela.",
+        "Múltiplas outorgas de recursos hídricos (captação superficial e subterrânea, vários poços) e autorização para intervenção ambiental são condicionantes recorrentes, dado o porte industrial típico dessa atividade."
+      ]
+    },
+    "C-04-04-9": {
+      listagem:"C",
+      nome:"Fabricação de resinas termoplásticas a partir de produtos petroquímicos básicos",
+      potencial:{ar:"G",agua:"M",solo:"G",geral:"G"},
+      porteParam:"Capacidade instalada (t/ano)",
+      calcPorte:function(v){ if(v<12000) return "P"; if(v<=25000) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada < 12.000 t/ano: Pequeno · 12.000 t/ano ≤ Capacidade instalada ≤ 25.000 t/ano: Médio · Capacidade instalada > 25.000 t/ano: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Muito poucas decisões deferidas no sistema público para este código até agora (achado a registrar, como já ocorreu com o biodiesel) — o único caso consultado tramitou ainda sob a norma anterior à DN 217 (DN COPAM 74/04, revogada em 2017), então não serve como exemplo de porte/classe sob a norma vigente; vale reconsultar em rodada futura.",
+        "Pelo potencial poluidor Geral Grande, mesmo em porte Pequeno a Tabela 2 já enquadra em classe 4 (LAC1) — não espere Cadastro nem RAS nesta atividade.",
+        "Não confundir com a produção de petroquímicos básicos (C-04-03-0, matéria-prima desta atividade, ainda não mapeado) nem com a produção de substâncias químicas gerais (C-04-01-4, código 'genérico' da Listagem C, já mapeado) — são elos diferentes da mesma cadeia produtiva petroquímica."
+      ]
+    },
+    "C-04-06-5": {
+      listagem:"C",
+      nome:"Fabricação de resinas e de fibras e fios artificiais e sintéticos e de borracha e látex sintéticos",
+      potencial:{ar:"M",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<1) return "P"; if(v<=5) return "M"; return "G"; },
+      porteTexto:"Área útil < 1 ha: Pequeno · 1 ha ≤ Área útil ≤ 5 ha: Médio · Área útil > 5 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Dois casos reais consultados (áreas úteis bem pequenas, 0,02 ha) confirmam Cadastro em classe 2, sem condicionantes técnicas detalhadas — processo simples típico dessa faixa de porte.",
+        "O nome do código é amplo (resinas, fibras/fios artificiais e sintéticos, borracha e látex sintéticos) — cobre desde pequenas oficinas até plantas químicas de maior escala; confirme sempre a área/capacidade real antes de assumir que vai ficar em Cadastro."
+      ]
+    },
+    "C-04-09-1": {
+      listagem:"C",
+      nome:"Produção de óleos, gorduras e ceras em bruto, de óleos essenciais, corantes vegetais e animais e outros produtos da destilação da madeira, exceto refinação de óleos e gorduras alimentares",
+      potencial:{ar:"M",agua:"G",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<1) return "P"; if(v<=3) return "M"; return "G"; },
+      porteTexto:"Área útil < 1 ha: Pequeno · 1 ha ≤ Área útil ≤ 3 ha: Médio · Área útil > 3 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Três casos reais consultados (áreas úteis entre 0,5 e 0,9 ha) confirmam Cadastro em classe 2, todos em propriedades rurais do interior de MG — é comum aparecer em fazendas que também têm outras atividades agroindustriais (num dos casos, no mesmo processo da produção de carvão vegetal, código G-03-03-4, já mapeado).",
+        "Apesar do nome amplo (óleos, gorduras, ceras, óleos essenciais, corantes vegetais/animais, produtos da destilação da madeira), o potencial poluidor para o compartimento água é Grande — vale atenção ao efluente do processo mesmo em porte pequeno."
+      ]
+    },
+    "C-04-13-8": {
+      listagem:"C",
+      nome:"Fabricação de produtos domissanitários, exceto sabões e detergentes",
+      potencial:{ar:"G",agua:"G",solo:"G",geral:"G"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<=0.1) return null; if(v<1) return "P"; if(v<=3) return "M"; return "G"; },
+      porteTexto:"Área útil ≤ 0,1 ha: abaixo do porte mínimo (ver Art. 10 da DN 217) · 0,1 ha < Área útil < 1 ha: Pequeno · 1 ha ≤ Área útil ≤ 3 ha: Médio · Área útil > 3 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Um caso real recente (área útil de 6,66 ha, porte Grande) confirmou exatamente o esperado pela Tabela 2: potencial poluidor Geral Grande + porte Grande = classe 6, modalidade LAC2 sem critério locacional — bate com a norma vigente.",
+        "Atenção ao piso de porte: igual ao código de sabões/detergentes (C-04-10-3, já mapeado), a própria tabela começa acima de 0,1 ha — áreas iguais ou menores caem na dispensa do Art. 10, não em 'Pequeno'.",
+        "Cuidado ao ler pareceres mais antigos (anteriores a 2017) sobre esta atividade: vários processos históricos consultados ainda citam classe segundo a norma revogada (DN COPAM 74/04), que usava tabela de enquadramento diferente da atual DN 217 — não use exemplos de classe desses pareceres antigos como referência para o enquadramento vigente.",
+        "É comum aparecer no mesmo processo do código C-04-10-3 (sabões e detergentes, já mapeado) — confirmado em caso real consultado onde os dois códigos tramitaram juntos, além de um terceiro código de outra listagem."
       ]
     }
   };
