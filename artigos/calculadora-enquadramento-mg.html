@@ -324,6 +324,65 @@
         "Outorga de recursos hídricos (quando há intervenção em curso d'água) e CAR retificado aparecem com frequência.",
         "Verifique também a Área de Preservação Permanente do curso d'água associado — é um fator de restrição à parte (Tabela 5), não coberto pela classe/modalidade."
       ]
+    },
+    "D-01-02-5": {
+      listagem:"D",
+      nome:"Abate de animais de grande porte (bovinos, equinos, bubalinos, muares etc.)",
+      potencial:{ar:"M",agua:"G",solo:"G",geral:"G"},
+      porteParam:"Capacidade instalada (cabeças/dia)",
+      calcPorte:function(v){ if(v<=2) return null; if(v<60) return "P"; if(v<=500) return "M"; return "G"; },
+      porteTexto:"2 cabeças/dia < capacidade < 60 cabeças/dia: Pequeno · 60 ≤ capacidade ≤ 500 cabeças/dia: Médio · capacidade > 500 cabeças/dia: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Potencial poluidor geral é Grande — mesmo em porte pequeno ou médio, costuma cair em LAC1 ou LAC2 (raramente RAS, quase nunca Cadastro).",
+        "O ponto central é o tratamento de efluentes: ETE própria (lodo ativado, lagoas anaeróbias/facultativas) ou lançamento na rede pública de esgoto quando o município oferece.",
+        "Resíduos classe I do abate (sangue, vísceras, conteúdo gastrointestinal) vão para empresas licenciadas — condicionante recorrente é a Declaração de Movimentação de Resíduos (DMR) pelo sistema MTR-MG.",
+        "Outorga de recursos hídricos (captação e/ou lançamento) aparece na quase totalidade dos casos consultados."
+      ]
+    },
+    "E-03-07-7": {
+      listagem:"E",
+      nome:"Aterro sanitário, inclusive Aterro Sanitário de Pequeno Porte (ASPP)",
+      potencial:{ar:"M",agua:"G",solo:"M",geral:"M"},
+      porteParam:"CAF — capacidade acumulada final (t)",
+      calcPorte:function(v){ if(v<110000) return "P"; if(v<=2700000) return "M"; return "G"; },
+      porteTexto:"CAF < 110.000 t: Pequeno · 110.000 t ≤ CAF ≤ 2.700.000 t: Médio · CAF > 2.700.000 t: Grande.",
+      cadastroPermitido:false,
+      avisoEspecial:"Pelo Art. 19 da DN 217, esta atividade está na lista que não admite Cadastro nas classes 1 ou 2 — o mínimo é RAS. Confirmado nos casos consultados: até aterros de município pequeno, em classe 1 ou 2, saíram como LAS/RAS, nunca Cadastro.",
+      dicas:[
+        "O RAS típico aborda impermeabilização do solo/manta, drenagem e captação de lixiviado/chorume (caixas coletoras, tratamento próprio ou envio à ETE municipal) e controle de gases.",
+        "Quando há supressão de vegetação nativa, entra também autorização do IEF (DAIA) — presente em mais de um caso consultado.",
+        "PRAD (Plano de Recuperação de Área Degradada) é praticamente constante, pensando no encerramento da vida útil do aterro.",
+        "A maioria dos casos em classe 1-2 consultados são aterros municipais de pequeno porte — o mesmo padrão vale para aterros privados, que tendem a porte e classe maiores."
+      ]
+    },
+    "C-10-02-2": {
+      listagem:"C",
+      nome:"Usinas de produção de concreto asfáltico",
+      potencial:{ar:"G",agua:"P",solo:"M",geral:"M"},
+      porteParam:"Produção nominal (t/h)",
+      calcPorte:function(v){ if(v<60) return "P"; if(v<=100) return "M"; return "G"; },
+      porteTexto:"produção nominal < 60 t/h: Pequeno · 60 t/h ≤ produção ≤ 100 t/h: Médio · produção > 100 t/h: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em porte pequeno ou médio e sem critério locacional (peso 0), cai em Cadastro puro — só certificado e publicação no Diário Oficial, sem parecer técnico próprio.",
+        "Erro comum: preparar RAS ou outro estudo técnico que a atividade não vai pedir nesse enquadramento.",
+        "Costuma estar vinculada a uma obra rodoviária ou contrato público específico — vale confirmar se o enquadramento é para uso temporário da obra ou operação permanente, porque muda o processo."
+      ]
+    },
+    "F-06-01-7": {
+      listagem:"F",
+      nome:"Postos revendedores, postos ou pontos de abastecimento de combustíveis",
+      potencial:{ar:"P",agua:"G",solo:"M",geral:"M"},
+      porteParam:"Capacidade de armazenamento (m³)",
+      calcPorte:function(v){ if(v<=90) return "P"; if(v<=150) return "M"; return "G"; },
+      porteTexto:"capacidade de armazenamento ≤ 90 m³: Pequeno · 90 m³ < capacidade ≤ 150 m³: Médio · capacidade > 150 m³: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Na maior parte dos casos (porte pequeno, sem critério locacional) cai em Cadastro simples — sem parecer técnico.",
+        "Basta um critério locacional incidir (ex.: Reserva da Biosfera, zona de amortecimento de UC) para o mesmo porte pequeno subir de Cadastro para RAS — um caso real consultado mudou de modalidade só por isso.",
+        "Quando exige RAS, os pontos técnicos centrais são: testes de estanqueidade e certificados Inmetro dos tanques, e caixa separadora de água e óleo com automonitoramento (óleos e graxas minerais)."
+      ]
     }
   };
 
@@ -505,7 +564,9 @@
     var notaOverride = "";
     if(at.cadastroPermitido === false && modalidade === "LAS – Cadastro"){
       modalidade = "LAS – RAS";
-      notaOverride = "Ajustado pelo Art. 20 da DN 217 (mineração não admite Cadastro em classe 1 ou 2)";
+      notaOverride = at.listagem === "A"
+        ? "Ajustado pelo Art. 20 da DN 217 (mineração não admite Cadastro em classe 1 ou 2)"
+        : "Ajustado pelo Art. 19 da DN 217 (esta atividade está na lista que não admite Cadastro em classe 1 ou 2)";
     }
 
     outClasse.textContent = classe;
