@@ -623,6 +623,66 @@
         "Descrição detalhada do processo (ex. cromagem/galvanoplastia por eletrólise) com relatório fotográfico dos pontos de geração de efluentes, resíduos, gases e odores é exigida, além de CTF/AIDA da empresa e da consultoria responsável.",
         "Análises de ruído (Lei estadual nº 10.100/1990) podem ser solicitadas como informação complementar, junto com o comprovante de consumo de água e a adequação do sistema de tratamento de efluentes às normas da ABNT."
       ]
+    },
+    "B-01-05-8": {
+      listagem:"B",
+      nome:"Fabricação de cimento",
+      potencial:{ar:"G",agua:"G",solo:"M",geral:"G"},
+      porteParam:"Capacidade instalada (t/ano)",
+      calcPorte:function(v){ if(v<200000) return "P"; if(v<=1000000) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada < 200.000 t/ano: Pequeno · 200.000 t/ano ≤ Capacidade instalada ≤ 1.000.000 t/ano: Médio · Capacidade instalada > 1.000.000 t/ano: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Sempre classe 5 ou 6 nos casos reais consultados (potencial poluidor Geral Grande) — nunca cai em Cadastro nem RAS; a modalidade típica é LAS/RAS em porte médio e LAC1/LAC2 em porte grande.",
+        "Co-processamento de resíduos no forno de clínquer (pneus, resíduos líquidos e sólidos de terceiros) é comum e soma-se à atividade de fabricação em si — costuma vir descrito à parte no parecer, com condicionantes próprias.",
+        "Múltiplas outorgas (poços tubulares, captação superficial e lançamento de efluentes) e monitoramento contínuo de emissões atmosféricas (material particulado, com limite de referência de 50 mg/Nm³ observado em caso real) são o núcleo técnico do RAS/LAC.",
+        "Proximidade de Área de Proteção Especial, RPPN averbada ou área prioritária de conservação aparece com frequência nesse porte de empreendimento — mesmo sem mudar a classe, motiva condicionantes de monitoramento de fauna/qualidade do ar mais extensas.",
+        "O empreendedor pode optar por um trâmite mais rigoroso que o mínimo exigido pela Tabela 3 (ex. RAS mesmo quando a norma já admitiria modalidade mais simples) — o Decreto nº 47.383/2018, art. 14, permite essa escolha; não é erro de enquadramento quando isso aparece no parecer."
+      ]
+    },
+    "B-03-01-8": {
+      listagem:"B",
+      nome:"Produção de aço ligado em qualquer forma, com ou sem redução de minérios, com fusão",
+      potencial:{ar:"G",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Capacidade instalada (t/dia)",
+      calcPorte:function(v){ if(v<50) return "P"; if(v<=500) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada < 50 t/dia: Pequeno · 50 t/dia ≤ Capacidade instalada ≤ 500 t/dia: Médio · Capacidade instalada > 500 t/dia: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em porte pequeno (menos de 50 t/dia) e sem critério locacional, o padrão observado é LAS Cadastro simples, classe 2.",
+        "Em porte médio, um critério locacional de peso 2 (ex. zona de amortecimento de Unidade de Conservação de Proteção Integral, ou Reserva da Biosfera) pode subir a modalidade até LAC2 mesmo em classe 3 — não é erro, é o efeito normal da Tabela 4 somado à Tabela 3.",
+        "Geração de pó de aciaria elétrica (PAE) é classificada como resíduo Classe I – Perigoso e costuma ser o ponto central do PGRS; escória de aciaria e pátio de sucata com caixa separadora de água e óleo (CSAO) também são recorrentes.",
+        "Pedido de intervenção ambiental e outorgas de recursos hídricos tramitam com frequência no mesmo processo, mesmo quando a atividade metalúrgica em si não é a maior consumidora de água do empreendimento."
+      ]
+    },
+    "B-03-07-7": {
+      listagem:"B",
+      nome:"Produção de fundidos de ferro e aço, sem tratamento químico superficial, inclusive a partir de reciclagem",
+      potencial:{ar:"G",agua:"M",solo:"P",geral:"M"},
+      porteParam:"Capacidade instalada (t/dia)",
+      calcPorte:function(v){ if(v<30) return "P"; if(v<=120) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada < 30 t/dia: Pequeno · 30 t/dia ≤ Capacidade instalada ≤ 120 t/dia: Médio · Capacidade instalada > 120 t/dia: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em porte pequeno (menos de 30 t/dia), o padrão observado é LAS Cadastro simples, classe 2 — é o caso mais comum entre fundições de menor escala.",
+        "Em porte grande (mais de 120 t/dia), o enquadramento observado vai a classe 4, normalmente LAC1 — algumas revalidações de licença de operação usam a modalidade LAT (trâmite trifásico, com Relatório de Avaliação de Desempenho Ambiental - RADA), uma opção procedimental do Decreto 47.383/2018, não uma classe diferente.",
+        "Recuperação de areia de fundição e jateamento de granalha são etapas típicas do processo, com resíduos sólidos industriais (inclusive classe I, como pó de aciaria, quando há etapa de fusão em forno elétrico) exigindo Declaração de Movimentação de Resíduos (DMR) pela DN Copam 232/2019.",
+        "Múltiplas outorgas de captação subterrânea (poços tubulares) aparecem mesmo em empreendimentos de porte médio, com resíduos oleosos e contaminados encaminhados a empresas licenciadas para tratamento externo."
+      ]
+    },
+    "B-06-01-7": {
+      listagem:"B",
+      nome:"Tratamento térmico (têmpera) ou tratamento termoquímico",
+      potencial:{ar:"M",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<3) return "P"; if(v<=10) return "M"; return "G"; },
+      porteTexto:"Área útil < 3 ha: Pequeno · 3 ha ≤ Área útil ≤ 10 ha: Médio · Área útil > 10 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Diferente do serviço galvanotécnico (código B-06-02-5, já mapeado nesta calculadora), o tratamento térmico/termoquímico isolado NÃO está na lista de exceções do Art. 19 — em porte pequeno e sem critério locacional, o padrão observado é LAS Cadastro normal, classe 2.",
+        "Atenção ao licenciamento combinado: quando a mesma empresa também presta serviço galvanotécnico (B-06-02-5) no mesmo processo, a exigência de RAS vem do código B-06-02-5 (exceção do Art. 19), não do tratamento térmico em si — não atribua a exigência de RAS ao código errado ao ler um parecer com mais de uma atividade listada.",
+        "Consumo de óleo de têmpera e geração de resíduos oleosos contaminados são o ponto técnico central — armazenamento adequado e destinação para empresa licenciada costumam ser condicionantes recorrentes."
+      ]
     }
   };
 
