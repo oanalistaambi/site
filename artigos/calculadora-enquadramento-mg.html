@@ -383,6 +383,82 @@
         "Basta um critério locacional incidir (ex.: Reserva da Biosfera, zona de amortecimento de UC) para o mesmo porte pequeno subir de Cadastro para RAS — um caso real consultado mudou de modalidade só por isso.",
         "Quando exige RAS, os pontos técnicos centrais são: testes de estanqueidade e certificados Inmetro dos tanques, e caixa separadora de água e óleo com automonitoramento (óleos e graxas minerais)."
       ]
+    },
+    "G-01-03-1": {
+      listagem:"G",
+      nome:"Culturas anuais, semiperenes e perenes, silvicultura e cultivos agrossilvipastoris, exceto horticultura",
+      potencial:{ar:"P",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<=200) return null; if(v<600) return "P"; if(v<1000) return "M"; return "G"; },
+      porteTexto:"200 ha < área útil < 600 ha: Pequeno · 600 ha ≤ área < 1.000 ha: Médio · área ≥ 1.000 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Outorga de recursos hídricos é quase sempre necessária quando há captação para irrigação — em propriedades com várias captações, mais de uma portaria de outorga pode aparecer no mesmo processo.",
+        "CAR retificado e, quando há realocação de área de Reserva Legal, Termo de Compromisso de Averbação junto ao IEF são condicionantes recorrentes.",
+        "Havendo Área de Preservação Permanente (APP) antropizada, o PRADA (recuperação da APP) costuma ser exigido.",
+        "Supressão de vegetação nativa em área prioritária de conservação (critério locacional de peso 2) é o item que mais aparece elevando a classe nos processos maiores consultados."
+      ]
+    },
+    "G-02-02-1": {
+      listagem:"G",
+      nome:"Avicultura",
+      potencial:{ar:"M",agua:"M",solo:"P",geral:"M"},
+      porteParam:"Número de cabeças",
+      calcPorte:function(v){ if(v<=20000) return null; if(v<150000) return "P"; if(v<=300000) return "M"; return "G"; },
+      porteTexto:"20.000 < nº de cabeças < 150.000: Pequeno · 150.000 ≤ nº ≤ 300.000: Médio · nº > 300.000: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Outorga de recursos hídricos para o abastecimento dos aviários aparece em praticamente todos os casos consultados.",
+        "Cama de frango (resíduo do piso do aviário) costuma ser reaproveitada/vendida como adubo — o parecer normalmente pede destinação registrada.",
+        "Carcaças de aves mortas: composteira ou desidratador térmico são as soluções aceitas nos casos lidos, sem incineração.",
+        "DMR pelo Sistema MTR-MG entra para os resíduos abrangidos (embalagens, resíduos de construção); os demais seguem relatório semestral de controle e destinação."
+      ]
+    },
+    "G-02-04-6": {
+      listagem:"G",
+      nome:"Suinocultura",
+      potencial:{ar:"M",agua:"G",solo:"M",geral:"M"},
+      porteParam:"Número de cabeças",
+      calcPorte:function(v){ if(v<=200) return null; if(v<2000) return "P"; if(v<=10000) return "M"; return "G"; },
+      porteTexto:"200 < nº de cabeças < 2.000: Pequeno · 2.000 ≤ nº ≤ 10.000: Médio · nº > 10.000: Grande.",
+      cadastroPermitido:false,
+      avisoEspecial:"Pelo Art. 19 da DN 217 (inciso IV, alínea 'a'), a suinocultura não admite Cadastro nas classes 1 ou 2 — o mínimo é RAS, mesmo em porte pequeno.",
+      dicas:[
+        "Nunca é Cadastro, mesmo em porte pequeno (classe 1) — está na mesma lista de exceção do Art. 19 que o aterro sanitário e a unidade de triagem de recicláveis.",
+        "O ponto técnico central é o manejo de dejetos: nos casos consultados, o padrão mais comum é lagoas de tratamento anaeróbias seguidas de fertirrigação (biodigestor aparece com menos frequência).",
+        "CAR e outorga de recursos hídricos (dessedentação dos animais e limpeza das instalações) aparecem em praticamente todos os processos.",
+        "DMR pelo Sistema MTR-MG para os resíduos abrangidos; os demais seguem relatório semestral de controle e destinação."
+      ]
+    },
+    "E-03-07-8": {
+      listagem:"E",
+      nome:"Estação de transbordo de resíduos sólidos urbanos",
+      potencial:{ar:"M",agua:"G",solo:"M",geral:"M"},
+      porteParam:"Quantidade operada de RSU (t/dia)",
+      calcPorte:function(v){ if(v<60) return "P"; if(v<=1000) return "M"; return "G"; },
+      porteTexto:"quantidade operada < 60 t/dia: Pequeno · 60 t/dia ≤ quantidade ≤ 1.000 t/dia: Médio · quantidade > 1.000 t/dia: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Em porte pequeno e sem critério locacional, cai em Cadastro simples — Certificado direto, sem parecer técnico próprio.",
+        "Um único critério locacional (ex.: Reserva da Biosfera) já é suficiente para subir de Cadastro para RAS no mesmo porte pequeno — confirmado em caso real consultado.",
+        "O RAS típico trata impermeabilização do piso, cobertura/fechamento das laterais do pátio de manobra (contra o lixiviado das caçambas), drenagem pluvial e destinação registrada do lixiviado coletado.",
+        "A maioria dos casos consultados nesse porte é de estações municipais — o mesmo enquadramento vale para estações privadas."
+      ]
+    },
+    "E-03-07-9": {
+      listagem:"E",
+      nome:"Unidade de triagem de recicláveis e/ou de tratamento de resíduos orgânicos de resíduos sólidos urbanos",
+      potencial:{ar:"M",agua:"G",solo:"M",geral:"M"},
+      porteParam:"Quantidade operada de RSU (t/dia)",
+      calcPorte:function(v){ if(v<20) return "P"; if(v<=250) return "M"; return "G"; },
+      porteTexto:"quantidade operada < 20 t/dia: Pequeno · 20 t/dia ≤ quantidade ≤ 250 t/dia: Médio · quantidade > 250 t/dia: Grande.",
+      cadastroPermitido:false,
+      avisoEspecial:"Pelo Art. 19 da DN 217 (inciso II, alínea 'b'), esta atividade não admite Cadastro nas classes 1 ou 2 — o mínimo é RAS.",
+      dicas:[
+        "Nunca é Cadastro, mesmo em porte pequeno (classe 1 ou 2) — confirmado em caso real consultado: unidade pequena, sem critério locacional, saiu como LAS/RAS.",
+        "O parecer costuma detalhar piso impermeabilizado da área de triagem/prensagem, controle de vetores (roedores, insetos) e destinação do rejeito não reciclável a aterro sanitário licenciado.",
+        "Resíduos abrangidos pelo Sistema MTR-MG exigem DMR periódica; os não abrangidos seguem relatório próprio de controle e destinação."
+      ]
     }
   };
 
