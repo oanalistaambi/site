@@ -754,6 +754,75 @@
         "Reserva da Biosfera (peso 1) aparece com frequência como critério locacional, subindo de Cadastro para RAS mesmo em usinas pequenas (produção abaixo de 9 m³/h) — confirmado em caso real consultado.",
         "Complementa a usina de concreto asfáltico (código C-10-02-2, já mapeada nesta calculadora) — são atividades semelhantes, mas com produtos, processos e parâmetros de porte diferentes; não confunda uma com a outra."
       ]
+    },
+    "C-04-14-6": {
+      listagem:"C",
+      nome:"Fabricação de agrotóxicos e afins",
+      potencial:{ar:"G",agua:"G",solo:"G",geral:"G"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<1) return "P"; if(v<=3) return "M"; return "G"; },
+      porteTexto:"Área útil < 1 ha: Pequeno · 1 ha ≤ Área útil ≤ 3 ha: Médio · Área útil > 3 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Não está na lista de exceção do Art. 19 — mas o potencial poluidor Geral Grande já empurra o enquadramento para cima mesmo em porte pequeno (RAS a partir de classe 3).",
+        "Um caso real de porte pequeno (0,03 ha) confirmou classe 4 mesmo com 'total inexistência de efluentes industriais' — o potencial poluidor da atividade em si (não o efluente líquido) é o que pesa na classificação, não o caso concreto de manejo de resíduos.",
+        "É comum aparecer no mesmo processo do código C-04-19-7 (formulação de adubos e fertilizantes) — confirmado em caso real onde a classe predominante do processo (6) veio do agrotóxico, não do fertilizante (classe 1 isoladamente); ao ler um parecer combinado, confira qual atividade está puxando a classe mais alta antes de atribuir uma exigência a um código errado."
+      ]
+    },
+    "C-04-19-7": {
+      listagem:"C",
+      nome:"Formulação de adubos e fertilizantes",
+      potencial:{ar:"M",agua:"P",solo:"P",geral:"P"},
+      porteParam:"Capacidade instalada (t/ano)",
+      calcPorte:function(v){ if(v<70000) return "P"; if(v<=200000) return "M"; return "G"; },
+      porteTexto:"Capacidade instalada < 70.000 t/ano: Pequeno · 70.000 t/ano ≤ Capacidade instalada ≤ 200.000 t/ano: Médio · Capacidade instalada > 200.000 t/ano: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Potencial poluidor Geral baixo (Pequeno) — pela Tabela 2 da DN 217, isso mantém a atividade em classe 1 (Cadastro) mesmo em porte Grande, contanto que não incida critério locacional.",
+        "Confirmado em caso real: uma formuladora de 120 t/ano (bem abaixo do próprio porte Pequeno) obteve Cadastro em classe 1, sem condicionantes técnicas detalhadas — processo simples.",
+        "Não confunda com a fabricação de agrotóxicos (C-04-14-6): são atividades da mesma cadeia de insumos agrícolas, mas com potencial poluidor muito diferente (Pequeno aqui, Grande naquela) — quando aparecem juntas no mesmo empreendimento, é o agrotóxico que normalmente define a classe predominante do processo."
+      ]
+    },
+    "C-04-01-4": {
+      listagem:"C",
+      nome:"Produção de substâncias químicas e de produtos químicos inorgânicos, orgânicos e organo-inorgânicos (exceto derivados de petróleo, rochas oleígenas, carvão-de-pedra e madeira)",
+      potencial:{ar:"M",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<1) return "P"; if(v<=4) return "M"; return "G"; },
+      porteTexto:"Área útil < 1 ha: Pequeno · 1 ha ≤ Área útil ≤ 4 ha: Médio · Área útil > 4 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Funciona como o código 'genérico' da Listagem C para substâncias/produtos químicos que não têm um código mais específico (fertilizante, tinta, agrotóxico etc. têm código próprio, com potencial poluidor diferente) — confira sempre se não existe um código mais específico antes de usar este.",
+        "Confirmado em caso real: uma planta de 0,07 ha (bem pequena) obteve Cadastro em classe 2, processo simples sem condicionantes técnicas detalhadas — coerente com potencial poluidor Médio em porte Pequeno."
+      ]
+    },
+    "C-04-15-4": {
+      listagem:"C",
+      nome:"Fabricação de tintas, esmaltes, lacas, vernizes, impermeabilizantes, solventes e secantes",
+      potencial:{ar:"G",agua:"G",solo:"G",geral:"G"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<2) return "P"; if(v<=5) return "M"; return "G"; },
+      porteTexto:"Área útil < 2 ha: Pequeno · 2 ha ≤ Área útil ≤ 5 ha: Médio · Área útil > 5 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Casos reais confirmam LAC1 (classe 4) como padrão típico já em porte pequeno/médio — o armazenamento de solventes e resinas em tanques metálicos e o controle de emissões atmosféricas (compostos orgânicos voláteis) são os pontos técnicos centrais.",
+        "Mesmo padrão de 'critério locacional muda a modalidade sem mudar a classe' já visto em outras atividades: dois casos reais de mesma classe 4 saíram um como LAC1-LOC e outro como LAC2-LIC+LO — a diferença normalmente vem de um critério locacional incidente, não de erro de enquadramento.",
+        "Efluente líquido típico vem da lavagem de equipamentos/tanques entre lotes de produção — nos casos consultados, geralmente destinado a empresa licenciada em vez de estação de tratamento própria."
+      ]
+    },
+    "C-04-10-3": {
+      listagem:"C",
+      nome:"Fabricação de aromatizantes e corantes de origem mineral ou sintéticos e/ou sabões e detergentes e/ou preparados para limpeza e polimento",
+      potencial:{ar:"M",agua:"M",solo:"M",geral:"M"},
+      porteParam:"Área útil (ha)",
+      calcPorte:function(v){ if(v<=0.1) return null; if(v<1) return "P"; if(v<=3) return "M"; return "G"; },
+      porteTexto:"Área útil ≤ 0,1 ha: abaixo do porte mínimo (ver Art. 10 da DN 217) · 0,1 ha < Área útil < 1 ha: Pequeno · 1 ha ≤ Área útil ≤ 3 ha: Médio · Área útil > 3 ha: Grande.",
+      cadastroPermitido:null,
+      dicas:[
+        "Atenção ao piso de porte: diferente da maioria das atividades da DN 217, aqui a própria tabela já começa acima de 0,1 ha — áreas iguais ou menores já caem na dispensa do Art. 10, não em 'Pequeno'.",
+        "Dois casos reais consultados (0,438 ha e 0,8 ha, ambos porte Pequeno) confirmam Cadastro em classe 2, sem condicionantes técnicas detalhadas — processo simples típico dessa faixa de porte.",
+        "Agrupa atividades bem diferentes entre si (aromatizantes/corantes, sabões e detergentes, preparados de limpeza) sob o mesmo código — o potencial poluidor Médio é o mesmo para todas, mas vale registrar no processo qual delas está sendo licenciada."
+      ]
     }
   };
 
