@@ -6,4 +6,8 @@
   <url><loc>https://www.oanalistaambiental.com/artigos/checklist-documentos-licenciamento-mg.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.oanalistaambiental.com/artigos/calculadora-enquadramento-mg.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.oanalistaambiental.com/cursos.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/index.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/guia.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/fontes.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/privacidade.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
 </urlset>
