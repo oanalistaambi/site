@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidade — Chão Geo MG</title>
+<meta name="description" content="Política de privacidade do aplicativo Chão Geo MG, publicado na Google Play pela Inteligência Ambiental.">
+<link rel="canonical" href="https://www.oanalistaambiental.com/privacidade-chao-geo-mg">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<style>
+  :root{color-scheme:light dark;--fg:#1c2024;--bg:#fff;--mut:#5b6570;--line:#d9dee3;--acc:#1b7f3b}
+  @media (prefers-color-scheme:dark){:root{--fg:#e8eaed;--bg:#0c0d0f;--mut:#aab1b8;--line:#2a2f36;--acc:#7fd18f}}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  main{max-width:46rem;margin:0 auto;padding:1.5rem 1rem 4rem}
+  h1{font-size:1.7rem;line-height:1.25} h2{font-size:1.2rem;margin-top:2rem;border-top:1px solid var(--line);padding-top:1rem}
+  a{color:var(--acc)} code{background:var(--line);padding:.1em .3em;border-radius:4px;font-size:.9em}
+  table{border-collapse:collapse;width:100%;font-size:.92rem;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+  footer{margin-top:3rem;color:var(--mut);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Política de Privacidade — Chão Geo MG</h1>
+<p>Última atualização: 29/09/2026</p>
+<p>O <strong>Chão Geo MG</strong> é um aplicativo Android de perícia e vistoria ambiental de campo. Publicado na Google Play pela <strong>Inteligência Ambiental</strong> (contato@oanalistaambiental.com). Esta política descreve, sem juridiquês, o que o app faz com cada tipo de dado que ele acessa.</p>
+<h2>Resumo</h2>
+<p>O dado da SUA perícia — fotos, coordenadas, sessões, laudo, cadeia de custódia — <strong>nunca sai do aparelho</strong>. Não existe servidor do Chão Geo MG, não existe conta, não existe backup na nuvem, não existe rastreamento de uso, não existe anúncio. O que você registra em campo fica só no seu aparelho até você mesmo decidir exportar ou compartilhar.</p>
+<h2>O que o app acessa, e por quê</h2>
+<table><thead><tr><th>Permissão</th><th>Para quê</th><th>Sai do aparelho?</th></tr></thead><tbody><tr><td>Câmera</td><td>Fotografar e gravar vídeo curto com geotag para a perícia; ler QR code</td><td>Não</td></tr><tr><td>Localização (GNSS)</td><td>Coordenada da foto/medição/ponto, cadeia de custódia. Ao tocar em "Gravar trajeto", o app continua gravando com a tela apagada, com notificação fixa e botão "Parar" (serviço em primeiro plano; não usa localização em segundo plano)</td><td>Não</td></tr><tr><td>Microfone</td><td>Nota de voz na sessão (transcrita no aparelho); som do vídeo curto, se você permitir; decibelímetro (nível de som, não grava áudio)</td><td>Não</td></tr><tr><td>Armazenamento (Android 9 ou anterior)</td><td>Salvar a cópia com legenda na galeria</td><td>Não</td></tr><tr><td>Notificações</td><td>Avisar prazo de condicionante cadastrado por você; mostrar que o trajeto está sendo gravado</td><td>Não</td></tr><tr><td>Internet</td><td>Ver abaixo</td><td>Ver abaixo</td></tr></tbody></table>
+<h2>O que realmente usa internet, e o que trafega</h2>
+<p>O app funciona <strong>offline</strong> para o essencial: fotografar, medir, consultar as ferramentas de cálculo e o pacote de camadas já instalado. Algumas partes específicas usam internet, sempre por uma ação sua (abrir um mapa, tocar num botão de consulta) — nunca em segundo plano sem você pedir:</p>
+<ul><li><strong>Mapa de fundo</strong> (mapinha de referência): baixa blocos de mapa do OpenStreetMap para mostrar ruas/relevo perto do ponto. Só a coordenada aproximada do bloco de mapa trafega — o mesmo que qualquer app de mapa faz.</li><li><strong>Imagem de satélite</strong> (quando você escolhe "Satélite" no mapa): blocos da Esri World Imagery, do mesmo jeito que o mapa de fundo.</li><li><strong>Mapa de fundo offline e camadas da região</strong> (Configurações): quando você toca em "Baixar mapa desta região" ou baixa as camadas do IDE-Sisema, o app pede ao servidor público do IDE-Sisema os blocos e as feições da área em volta de onde você está. A região aproximada trafega, como em qualquer mapa; nenhum dado da perícia vai junto.</li><li><strong>Carimbo do tempo</strong> (quando você toca em carimbar, numa vistoria já selada): só o hash da vistoria (a raiz, 64 caracteres) vai à Autoridade de Carimbo do Tempo configurada. Foto, coordenada e texto não vão; o hash não permite reconstruir nada deles.</li><li><strong>Consulta pública de restrição/decisão ambiental</strong>: quando você usa uma ferramenta de consulta ao SISEMA, a coordenada ou o termo buscado é enviado ao serviço público do órgão — a mesma consulta que você faria pelo navegador.</li><li><strong>Bases públicas no Relatório do ponto</strong> (quando você toca em "Consultar bases públicas"): a coordenada do ponto vai aos servidores do IDE-Sisema (MapBiomas, solo, geologia, aquífero), do Ibama (embargos do Ibama e do ICMBio, CAR, SIGEF, terras indígenas, quilombolas e assentamentos, espelhados pelo Ibama) e do INPE (focos de queimada). Só a coordenada trafega, e o app pede só os campos sem dado pessoal (nunca nome, CPF ou número de processo).</li><li><strong>Identificar planta</strong> (quando você toca em "Identificar"): uma cópia reduzida de cada foto escolhida, regravada sem EXIF (sem coordenada, data ou hash), vai ao serviço público do Pl@ntNet (my-api.plantnet.org), junto com a SUA chave gratuita, que fica só no aparelho. A foto original não muda. A conferência da espécie nas listas oficiais é feita no aparelho, sem internet.</li><li><strong>Completar endereço das fotos</strong> (quando você toca em "Completar endereço", no detalhe da vistoria): a coordenada de cada foto sem endereço vai ao serviço de geocodificação do próprio Android (em geral, o do Google), que devolve rua, bairro e município. Só a coordenada trafega; foto, hash e texto não vão.</li><li><strong>Abrir link externo</strong>: Google Maps, Waze, portais públicos (SISEMA, IEF). O app só abre o link; o que acontece depois é entre você e o serviço de destino, sob a política de privacidade dele.</li><li><strong>Leitor de QR code</strong>: decodifica o código <strong>no aparelho</strong>, sem internet. Só abrir um link lido do QR code usa internet — e só se você tocar em "Abrir link".</li></ul>
+<p>Nenhuma dessas chamadas carrega sessão, laudo ou qualquer dado da sua perícia, e só uma carrega foto: a cópia sem GPS enviada ao Pl@ntNet, quando você toca em Identificar planta. Elas trafegam só o necessário para a própria função (coordenada do mapa, termo da busca).</p>
+<h2>Documentos que você abre no app (Ler documento)</h2>
+<p>Quando você escolhe um PDF (parecer, auto, outorga, estudo), o app:</p>
+<ul><li>copia o arquivo para a pasta do próprio app e calcula o SHA-256 dele;</li><li>lê o texto <strong>no aparelho</strong>, sem internet. Uma página escaneada passa pelo reconhecimento de texto embarcado no app, também sem rede;</li><li>guarda esse texto ao lado do PDF, para não reler a cada abertura.</li></ul>
+<p>O PDF e o texto <strong>não são enviados a lugar nenhum</strong>. Não há leitura por inteligência artificial na nuvem nesta versão. Se um dia houver, ela será opcional, com aviso a cada documento, e esta política será atualizada antes. As camadas criadas a partir do documento ficam no aparelho; só saem se você mesmo exportar ou compartilhar o arquivo (Shapefile, KML, GeoJSON).</p>
+<p>Documento com dado pessoal ou sigiloso (denúncia com denunciante identificado, processo sob sigilo) continua sendo responsabilidade de quem o abre no app. O app não o transmite, mas o arquivo fica no aparelho até você excluir, dentro de Ler documento.</p>
+<h2>O que o app NUNCA faz</h2>
+<ul><li>Não cria conta nem exige login.</li><li>Não envia sessão, laudo ou coordenada de perícia para servidor nenhum. Foto, só a cópia sem GPS que você mesmo manda ao Pl@ntNet em Identificar planta.</li><li>Não usa analytics, rastreamento de comportamento ou identificador de publicidade.</li><li>Não mostra anúncio.</li><li>Não vende nem compartilha dado com terceiros.</li><li>Não acessa contatos, mensagens ou outros apps.</li></ul>
+<h2>Onde o dado fica, e como apagar</h2>
+<p>Todo dado da perícia fica no banco de dados local do app e na pasta de arquivos do app no aparelho. Desinstalar o app apaga tudo. Dentro do app, cada sessão/foto/ponto tem opção de exclusão individual.</p>
+<p>A <strong>personalização</strong> (os temas de trabalho) é opcional e fica só no aparelho. O app não pergunta nome nem registro profissional; o que uma versão anterior tiver guardado é apagado ao salvar a personalização de novo.</p>
+<h2>Compartilhar manualmente</h2>
+<p>Quando você usa um botão "Compartilhar" (foto, laudo, coordenada, resultado de uma ferramenta), o Android abre o seletor de apps do próprio sistema — o Chão Geo MG entrega o arquivo/texto a esse seletor e não sabe nem controla o que acontece depois. Aplicativos de mensagem costumam recomprimir imagem e remover metadado; por isso o app avisa, nesses casos, que o arquivo compartilhado pode não bater mais com o hash original.</p>
+<h2>Crianças</h2>
+<p>O app é uma ferramenta técnica profissional, não direcionada a crianças.</p>
+<h2>Contato</h2>
+<p>Dúvidas sobre esta política: <strong>contato@oanalistaambiental.com</strong></p>
+<h2>Mudanças nesta política</h2>
+<p>Alterações relevantes serão refletidas nesta página, com a data de atualização no topo.</p>
+<footer>Chão Geo MG · Inteligência Ambiental · <a href="mailto:contato@oanalistaambiental.com">contato@oanalistaambiental.com</a></footer>
+</main>
+</body>
+</html>
