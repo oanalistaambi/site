@@ -106,7 +106,7 @@ svg .mh,svg .mb{display:none}svg.h .mn,svg.b .mn{display:none}svg.h .mh{display:
   <button class="btn g" id="play">JOGAR</button>
   <div style="display:flex;gap:8px"><button class="btn gh" id="share1" style="font-size:16px">Mandar no WhatsApp</button><button class="btn gh" id="how" style="font-size:16px">Como jogar</button></div>
   <div class="note" id="best"></div>
-  <a href="../operacao-piracema/" class="note" style="color:#ffd447">Jogar a versão original (patrulha com joystick)</a>
+  <a href="../operacao-piracema-patrulha/" class="note" style="color:#ffd447;font-weight:800">Jogar a Patrulha Resenha (barco com joystick)</a>
   <div class="note">Jogo de humor com fins educativos. Regras do defeso baseadas nas Portarias IEF 154, 155 e 156/2011; confira sempre as portarias vigentes.</div>
 </section>
 
@@ -155,7 +155,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 /* ============ PERSONAGENS (caricaturas em SVG) ============ */
 const mouths=(neu,hap,bad)=>`<g class="mn">${neu}</g><g class="mh">${hap}</g><g class="mb">${bad}</g>`;
 const CH={
-gustavao:{nome:'Gustavão',papel:'O gordo carismático',
+gustavao:{nome:'Gustavão',papel:'O carismático',
  svg:()=>`<svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
 <path d="M0 230Q-4 165 36 150Q100 126 164 150Q204 165 200 230Z" fill="#8d9b3c" ${S}/>
 <ellipse cx="100" cy="222" rx="86" ry="50" fill="#9aa944" opacity=".75"/>
@@ -220,7 +220,7 @@ ${mouths('<path d="M88 134Q100 128 112 134" stroke="#2a0a0a" stroke-width="4" fi
 </svg>`}};
 const IDS=['gustavao','ralph','caio'];
 const FALAS={
-gustavao:{intro:'Se tem peixe, tem regra! Bora fiscalizar, uai!',ok:['Mais um fiscalizado! Isso merece um pastel.','Acertei! Tô de dieta... de multa.','Fiscal bom é igual pão de queijo: quentinho e certeiro.','Nó! Sou bom nisso. E no pastel também.'],bad:['Errei! A barriga atrapalhou a visão.','Foi mal, sô! O pastel me distraiu.','Nó! Essa eu perdi. Culpa do cafezinho.','Errei, mas pelo menos errei com estilo (e com molho).'],time:'Demorei! Tava no segundo pastel.',fim:'Vou ali comer um pastel e já volto pra greve... digo, pro trabalho!'},
+gustavao:{intro:'Se tem peixe, tem regra! Bora fiscalizar, uai!',ok:['Mais um fiscalizado! Isso merece um cafezinho.','Acertei! Pode anotar no caderninho.','Fiscal bom é igual café coado: forte e na hora certa.','Nó! Sou bom nisso. E ainda conto piada.'],bad:['Errei! A pressa atrapalhou a visão.','Foi mal, sô! Fui falar e esqueci de olhar.','Nó! Essa eu perdi. Culpa do papo animado.','Errei, mas pelo menos errei com estilo.'],time:'Demorei! Tava contando uma piada.',fim:'Vou ali tomar um cafezinho e já volto pro trabalho!'},
 ralph:{intro:'Observa, analisa e decide. É assim que funciona.',ok:['Observei, analisei, decidi. Com pH neutro.','Cálculo perfeito. Nem precisei de calculadora.','Estratégia vence sorte. Mas sorte ajuda.','Tá no plano. Aliás, o plano B também.'],bad:['Hmm... meu pH azedou.','Erro de cálculo. Quem nunca?','Isso não estava no plano. Nem no plano B.','Revendo a estratégia: faltou olhar o pescador de novo.'],time:'Fui analisar demais. Análise-paralisia, sô.',fim:'Relatório final: perdemos a batalha, mas o peixe segue subindo o rio.'},
 caio:{intro:'Rio limpo, pesca legal. É nóis!',ok:['Careca esperta, fiscal esperto!','Acertei! O brilho da careca ofuscou o pescador.','Rio limpo, pesca legal. É nóis!','Mandei bem! Sem boné e sem medo.'],bad:['Errei! O sol na careca derreteu o raciocínio.','Opa! Essa passou direto, sô.','Foi mal! Olhei meu reflexo no rio e me distraí.','Errei! Mas a careca continua linda.'],time:'Fiquei admirando meu reflexo na água. Perdi o tempo.',fim:'Greve de braços cruzados? Eu só queria um protetor solar.'}};
 
@@ -240,7 +240,7 @@ const CASOS=[
 {d:'15/12',t:'Seu Tião pesca um dourado de vara no barranco. "É só um, sô!"',c:'M',b:B_DEF,j:'Um dourado no defeso é que nem pão de queijo: ninguém para em um.'},
 {d:'10/01',t:'Dona Neide pesca tilápia de caniço. 2 kg no balde, licença em dia.',c:'L',b:B_EXO,j:'Tilápia é exótica, dona Neide pode! Pode até contar a história.'},
 {d:'20/02',t:'Marquinho tem 6 kg de tilápia "pro churrasco da firma".',c:'M',b:'No defeso o limite é 3 kg + 1 exemplar. Passou disso, é multa.',j:'A firma vai ter churrasco... de auto de infração.'},
-{d:'12/06',t:'Zé da Balsa pesca lambari fora do defeso. 1 kg, licença válida.',c:'L',b:'Fora do defeso, com licença e petrecho permitido, está tudo certo.',j:'Lambari frito com cerveja gelada: a única coisa irregular é o colesterol.'},
+{d:'12/06',t:'Zé da Balsa pesca lambari fora do defeso. 1 kg, licença válida.',c:'L',b:'Fora do defeso, com licença e petrecho permitido, está tudo certo.',j:'Lambari frito com cerveja gelada: o único crime é a fome.'},
 {d:'05/11',t:'Beto joga uma rede de emalhar "só pra testar".',c:'M',b:B_REDE,j:'"Só pra testar" é a frase mais usada antes de uma multa.'},
 {d:'20/08',t:'Pescador sem licença nenhuma, com 3 tilápias no balde.',c:'M',b:B_LIC,j:'Sem licença e sem vergonha: combo completo.'},
 {d:'15/12',t:'Uma capivara está sentada segurando uma vara que alguém esqueceu.',c:'L',b:'Capivara não precisa de licença. Precisa só de respeito (e de lírio-d\'água).',j:'Capivara é a única que pesca de braços cruzados sem ser multada.'},
@@ -249,7 +249,7 @@ const CASOS=[
 {d:'12/06',t:'Pescador deixou garrafas na margem, mas já está catando tudo. "Foi mal, sô!"',c:'O',b:'Lixo na margem prejudica o rio. Quem recolhe e se arrepende merece orientação.',j:'Orientar é mais barato que multar, e dá menos papelada.'},
 {d:'15/09',t:'Pescador no pesque-pague leva 15 kg de tilápia, pagos por quilo.',c:'L',b:'Pesque-pague é criação particular, com regras próprias. Não é pesca no rio.',j:'Aqui o único que fisga é o caixa do pesque-pague.'},
 {d:'05/11',t:'Vovô e neto pescam tilápia de caniço, 1 kg. Licença do vovô em dia.',c:'L',b:B_EXO,j:'Pescaria em família: a melhor fiscalização é o neto perguntando "vó, dá pra comer?"'},
-{d:'20/02',t:'Pescador jura que o dourado "já tava morto, boiando". Tem anzol na boca dele.',c:'M',b:B_DEF,j:'Peixe morto com anzol e vara molhada. Elementar, meu caro pastel.'},
+{d:'20/02',t:'Pescador jura que o dourado "já tava morto, boiando". Tem anzol na boca dele.',c:'M',b:B_DEF,j:'Peixe morto com anzol e vara molhada. Elementar, meu caro pescador.'},
 {d:'03/04',t:'Pescador com 3 peixes de tamanho legal, licença em dia, fora do defeso.',c:'L',b:'Fora do defeso, tudo dentro das regras: pode pescar em paz.',j:'Pescador exemplar! Só falta ensinar o cunhado.'},
 {d:'03/04',t:'Pescador sem licença e com um lambari. "É só pra isca!"',c:'M',b:B_LIC,j:'Isca sem licença é pegadinha que não cola.'},
 {d:'10/01',t:'Turistas em Capitólio pescam tilápia de barranco, licença ok, mas com som alto no talo.',c:'O',b:'Pesca regular! Mas barulho espanta peixe (e vizinho). Vale orientar.',j:'Sertanejo no último volume não é infração... é crime contra os ouvidos.'},
