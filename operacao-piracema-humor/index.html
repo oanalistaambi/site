@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b2a1c">
+<title>Operação Piracema: Edição Resenha</title>
+<meta name="description" content="Fiscalize pescadores nos rios e lagos de Minas Gerais, ria com os fiscais Gustavão, Ralph e Caio e aprenda sobre o defeso. Joga direto no celular!">
+<link rel="canonical" href="https://www.oanalistaambiental.com/operacao-piracema-humor/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="O Analista Ambiental">
+<meta property="og:title" content="Operação Piracema: Edição Resenha 🐟">
+<meta property="og:description" content="Gustavão, Ralph e Caio precisam fiscalizar a pesca em Minas. Será que você dá conta? Joga aí, é grátis!">
+<meta property="og:url" content="https://www.oanalistaambiental.com/operacao-piracema-humor/">
+<meta property="og:image" content="https://www.oanalistaambiental.com/operacao-piracema-humor/capa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.oanalistaambiental.com/operacao-piracema-humor/capa.jpg">
+<style>
+:root{--g:#2fbf5a;--o:#ff9a1f;--r:#e5483a;--b:#3d8fe0;--y:#ffd447;--ink:#fff;--bg:#0b2a1c;--sab:env(safe-area-inset-bottom,0px);--sat:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:17px;line-height:1.3;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;touch-action:manipulation;overscroll-behavior:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0}
+.scr{position:fixed;inset:0;display:none;flex-direction:column;padding:calc(var(--sat) + 10px) 14px calc(var(--sab) + 12px);overflow-y:auto;max-width:560px;margin:0 auto}
+.scr.on{display:flex}
+.title{font-weight:900;font-style:italic;text-align:center;text-shadow:0 3px 0 #000a}
+svg .mh,svg .mb{display:none}svg.h .mn,svg.b .mn{display:none}svg.h .mh{display:inline}svg.b .mb{display:inline}
+.btn{display:block;width:100%;min-height:58px;border-radius:16px;font-weight:900;font-size:20px;padding:8px 14px;box-shadow:0 5px 0 #0007;text-align:center}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #0007}
+.g{background:var(--g);color:#052110}.o{background:var(--o);color:#2b1500}.r{background:var(--r)}.b{background:var(--b)}.gh{background:#1c4d36;border:2px solid #3b8a63}
+/* menu */
+#menu{background:radial-gradient(120% 70% at 50% 0,#1d6a47,#0b2a1c 70%);gap:10px}
+#menu h1{margin:6px 0 0;font-size:30px;letter-spacing:2px}
+#menu h1 b{display:block;font-size:50px;color:var(--o);letter-spacing:1px;line-height:1;text-shadow:0 4px 0 #6a3300,0 8px 12px #0008}
+#menu .sub{text-align:center;font-weight:800;font-size:14px;color:#cdeed9;margin-top:2px}
+.pick{display:flex;gap:8px}
+.pc{flex:1;background:#14402c;border:3px solid #2f7556;border-radius:16px;padding:6px 4px 8px;text-align:center;font-weight:900;font-size:15px}
+.pc svg{width:100%;height:auto;display:block}
+.pc.sel{border-color:var(--o);background:#27553f;box-shadow:0 0 0 3px #ff9a1f55}
+.pc small{display:block;font-weight:700;font-size:12px;color:#bfe0cc}
+#quote{background:#fff;color:#14261b;border-radius:14px;padding:9px 12px;font-weight:800;text-align:center;font-size:16px}
+.note{font-size:12.5px;color:#a8c9b5;text-align:center}
+/* jogo */
+#game{padding:0;background:#0b2a1c}
+#hud{display:flex;align-items:center;gap:6px;padding:calc(var(--sat) + 6px) 8px 4px;font-weight:900}
+#hud>div{flex:1;background:#0008;border:2px solid #2f7556;border-radius:12px;padding:2px 6px;text-align:center;font-size:20px;line-height:1.1}
+#hud small{display:block;font-size:10px;color:#a8c9b5;letter-spacing:.8px}
+#hud #snd{flex:none;width:46px;height:46px;border-radius:12px;background:#0008;border:2px solid #2f7556;font-size:20px}
+#tm{height:10px;margin:0 8px;background:#0008;border-radius:6px;overflow:hidden}
+#tm i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--g),var(--y),var(--r));background-size:300% 100%}
+#scene{position:relative;flex:0 0 33%;min-height:150px;margin:6px 8px;border-radius:16px;overflow:hidden;border:3px solid #000a}
+#scene svg.bg{position:absolute;inset:0;width:100%;height:100%}
+#fiscal{position:absolute;left:2%;bottom:-6px;width:38%;transform-origin:50% 100%}
+#fiscal svg{width:100%;height:auto;display:block}
+#fiscal.up{animation:hop .5s}#fiscal.no{animation:shake .5s}
+#fish{position:absolute;right:-2%;bottom:6%;width:48%;transition:transform .5s}
+#fish.in{animation:sail .7s ease-out}#fish.out{animation:away .6s ease-in forwards}
+@keyframes sail{from{transform:translateX(120%)}to{transform:none}}
+@keyframes away{to{transform:translateX(130%)}}
+@keyframes hop{0%,100%{transform:none}40%{transform:translateY(-16px) scale(1.04)}}
+@keyframes shake{0%,100%{transform:none}20%{transform:translateX(-8px) rotate(-3deg)}60%{transform:translateX(8px) rotate(3deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+#fish svg{width:100%;height:auto;display:block;animation:bob 1.6s ease-in-out infinite}
+#flag{position:absolute;left:8px;top:6px;background:#0009;border-radius:10px;padding:2px 9px;font-size:13px;font-weight:800}
+#card{background:#fff;color:#14261b;border-radius:16px;margin:0 8px;padding:10px 14px;box-shadow:0 5px 0 #0007;flex:1;min-height:90px;display:flex;flex-direction:column;justify-content:center}
+#card .dt{font-size:13px;font-weight:800;color:#5b7b69;margin-bottom:3px}
+#card .tx{font-size:20px;font-weight:800;line-height:1.25}
+#btns{display:flex;flex-direction:column;gap:9px;padding:10px 8px calc(var(--sab) + 12px)}
+#btns .row{display:flex;gap:9px}#btns .row .btn{flex:1;font-size:19px}
+#btns small{display:block;font-size:11.5px;font-weight:700;opacity:.9}
+#fb{position:absolute;inset:0;display:none;align-items:flex-end;background:#000a;z-index:5;padding:14px}
+#fb.on{display:flex}
+#fb .bx{width:100%;max-width:540px;margin:0 auto;background:#fff;color:#14261b;border-radius:20px;padding:14px;box-shadow:0 6px 0 #0007}
+#fb h3{margin:0;font-size:28px;font-weight:900}#fb h3.ok{color:#1e9a45}#fb h3.no{color:var(--r)}
+#fb .pts{font-weight:900;font-size:20px;color:#b36b00}
+#fb p{margin:6px 0;font-size:16px;font-weight:600}
+#fb .say{display:flex;gap:10px;align-items:center;background:#fff4cf;border-radius:12px;padding:8px;font-weight:800;font-size:16px;margin-top:8px}
+#fb .say svg{width:60px;height:auto;flex:none;border-radius:10px;background:#cfeedd}
+#fb .tap{text-align:center;font-size:12px;color:#7a8f82;margin-top:6px}
+/* intro / fim */
+#intro,#over{background:radial-gradient(120% 70% at 50% 0,#1d6a47,#0b2a1c 70%);justify-content:center;gap:10px;text-align:center}
+#intro h2,#over h2{margin:0;font-size:34px}
+#intro .fato{background:#fff;color:#14261b;border-radius:14px;padding:12px;font-weight:700;font-size:17px;text-align:left}
+#over .sc{font-size:56px;font-weight:900;color:var(--y);text-shadow:0 4px 0 #000a;line-height:1}
+.rk{display:flex;justify-content:space-between;background:#14402c;border-radius:10px;padding:6px 12px;font-weight:800;margin-bottom:4px}
+#cover{position:fixed;left:0;top:0;width:1200px;height:630px;display:none;z-index:99;background:radial-gradient(90% 120% at 30% 0,#2a8a5a,#0b2a1c 70%);overflow:hidden}
+#cover .t{position:absolute;right:20px;top:70px;width:440px;text-align:center}
+#cover .t h1{margin:0;font-size:50px;font-style:italic;letter-spacing:3px;text-shadow:0 4px 0 #000a}
+#cover .t b{display:block;font-size:82px;line-height:.95;color:var(--o);text-shadow:0 6px 0 #6a3300}
+#cover .t em{display:inline-block;margin-top:22px;background:#e5483a;border-radius:14px;padding:8px 22px;font-size:30px;font-weight:900;transform:rotate(-2deg)}
+#cover .t p{font-size:27px;font-weight:800;margin:20px 0 0;color:#dff5e6}
+#cover .c{position:absolute;bottom:-10px;width:300px}
+#cover svg{width:100%;height:auto}
+@media (max-height:640px){#scene{flex-basis:26%;min-height:110px}#card .tx{font-size:18px}.btn{min-height:50px}}
+</style>
+</head>
+<body>
+
+<section id="menu" class="scr on">
+  <h1 class="title">OPERAÇÃO<b>PIRACEMA</b></h1>
+  <div class="sub">EDIÇÃO RESENHA · FISCALIZAÇÃO EM MINAS GERAIS</div>
+  <div class="pick" id="pick"></div>
+  <div id="quote"></div>
+  <button class="btn g" id="play">JOGAR</button>
+  <div style="display:flex;gap:8px"><button class="btn gh" id="share1" style="font-size:16px">Mandar no WhatsApp</button><button class="btn gh" id="how" style="font-size:16px">Como jogar</button></div>
+  <div class="note" id="best"></div>
+  <a href="../operacao-piracema/" class="note" style="color:#ffd447">Jogar a versão original (patrulha com joystick)</a>
+  <div class="note">Jogo de humor com fins educativos. Regras do defeso baseadas nas Portarias IEF 154, 155 e 156/2011; confira sempre as portarias vigentes.</div>
+</section>
+
+<section id="intro" class="scr">
+  <div class="note" id="in-n"></div><h2 class="title" id="in-t"></h2><div class="fato" id="in-f"></div>
+  <button class="btn g" id="in-go">BORA FISCALIZAR!</button>
+</section>
+
+<section id="game" class="scr">
+  <div id="hud"><div><small>PONTOS</small><span id="h-p">0</span></div><div><small>PACIÊNCIA</small><span id="h-l"></span></div><div><small>COMBO</small><span id="h-c">x1</span></div><button id="snd" aria-label="Som">🔊</button></div>
+  <div id="tm"><i></i></div>
+  <div id="scene"><svg class="bg" id="bg" viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"></svg><div id="flag"></div><div id="fiscal"></div><div id="fish"></div></div>
+  <div id="card"><div class="dt" id="c-d"></div><div class="tx" id="c-t"></div></div>
+  <div id="btns">
+    <button class="btn g" data-d="L">LIBERAR<small>tá tudo certo, sô</small></button>
+    <div class="row"><button class="btn b" data-d="O">ORIENTAR<small>falha leve</small></button><button class="btn r" data-d="M">MULTAR<small>infração</small></button></div>
+  </div>
+  <div id="fb"><div class="bx" id="fb-b"></div></div>
+</section>
+
+<section id="over" class="scr">
+  <div class="note" id="o-why"></div><h2 class="title" id="o-t"></h2><div class="sc" id="o-s">0</div><div id="o-r" style="font-weight:900;font-size:20px;color:var(--o)"></div>
+  <div id="quote2" style="background:#fff;color:#14261b;border-radius:14px;padding:9px 12px;font-weight:800"></div>
+  <div id="top"></div>
+  <button class="btn g" id="again">JOGAR DE NOVO</button>
+  <button class="btn o" id="share2">Desafiar no WhatsApp</button>
+  <button class="btn gh" id="tomenu">Menu</button>
+</section>
+
+<section id="howto" class="scr" style="background:#0b2a1c;gap:8px">
+  <h2 class="title" style="margin:4px 0">Como jogar</h2>
+  <div style="background:#14402c;border-radius:14px;padding:12px;font-weight:600;font-size:16px">
+  <b>1.</b> Cada pescador chega com uma situação. Leia rápido!<br><b>2.</b> Decida antes da barra acabar: <b style="color:#7dff9b">LIBERAR</b> (tudo certo), <b style="color:#8fc4ff">ORIENTAR</b> (falha leve) ou <b style="color:#ff9a8f">MULTAR</b> (infração).<br><b>3.</b> Acertos em sequência valem mais (combo). Cada erro gasta 1 peixinho de paciência. Sem paciência, os fiscais entram em greve de braços cruzados e o jogo acaba!<br><br>
+  <b>Fatos reais usados:</b> em Minas, o defeso da piracema vai de <b>1º de novembro a 28 de fevereiro</b>. Nele, só pode pescar espécie exótica ou híbrida (tilápia, por exemplo), até 3 kg + 1 exemplar, com vara, caniço, linha de mão ou molinete. Rede é proibida, e a pesca amadora exige licença. Pescar em período proibido é crime ambiental (Lei 9.605/1998, art. 34).</div>
+  <button class="btn g" id="how-ok">Entendi, uai!</button>
+</section>
+
+<div id="cover"></div>
+
+<script>
+(function(){'use strict';
+const $=s=>document.querySelector(s),S='stroke="#2a1d12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"';
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ============ PERSONAGENS (caricaturas em SVG) ============ */
+const mouths=(neu,hap,bad)=>`<g class="mn">${neu}</g><g class="mh">${hap}</g><g class="mb">${bad}</g>`;
+const CH={
+gustavao:{nome:'Gustavão',papel:'O gordo carismático',
+ svg:()=>`<svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 230Q-4 165 36 150Q100 126 164 150Q204 165 200 230Z" fill="#8d9b3c" ${S}/>
+<ellipse cx="100" cy="222" rx="86" ry="50" fill="#9aa944" opacity=".75"/>
+<path d="M36 150Q100 126 164 150L154 172Q100 150 46 172Z" fill="#6d7a3a" ${S}/>
+<path d="M76 138L100 170L124 138Z" fill="#5a6630" ${S}/><path d="M100 160V215" stroke="#222" stroke-width="3"/>
+<rect x="48" y="176" width="36" height="10" fill="#111"/><rect x="118" y="176" width="36" height="10" fill="#111"/>
+<ellipse cx="100" cy="140" rx="68" ry="30" fill="#cf936c" ${S}/><ellipse cx="100" cy="156" rx="52" ry="16" fill="#c4865f" ${S}/><path d="M60 150Q100 166 140 150" stroke="#8a5a3a" stroke-width="3" fill="none"/>
+<ellipse cx="26" cy="92" rx="10" ry="16" fill="#d49a72" ${S}/><ellipse cx="174" cy="92" rx="10" ry="16" fill="#d49a72" ${S}/>
+<ellipse cx="100" cy="86" rx="74" ry="62" fill="#dda57f" ${S}/>
+<ellipse cx="76" cy="40" rx="16" ry="7" fill="#fff" opacity=".45" transform="rotate(-25 76 40)"/>
+<circle cx="38" cy="112" r="17" fill="#f19a8e" opacity=".6"/><circle cx="162" cy="112" r="17" fill="#f19a8e" opacity=".6"/>
+<path d="M48 62Q68 54 88 62M112 62Q132 54 152 62" stroke="#bbb" stroke-width="6" fill="none" stroke-linecap="round"/>
+<rect x="44" y="70" width="46" height="30" rx="9" fill="#fff" fill-opacity=".3" stroke="#111" stroke-width="6"/><rect x="110" y="70" width="46" height="30" rx="9" fill="#fff" fill-opacity=".3" stroke="#111" stroke-width="6"/>
+<path d="M90 82H110M44 80L26 76M156 80L174 76" stroke="#111" stroke-width="5"/>
+<circle cx="68" cy="87" r="4" fill="#111"/><circle cx="132" cy="87" r="4" fill="#111"/>
+<path d="M50 104Q68 114 86 104M114 104Q132 114 150 104" stroke="#a8693f" stroke-width="3" fill="none"/>
+<ellipse cx="100" cy="106" rx="16" ry="14" fill="#cf8d66" ${S}/><circle cx="94" cy="110" r="2.5" fill="#6b3a22"/><circle cx="106" cy="110" r="2.5" fill="#6b3a22"/>
+${mouths('<path d="M82 142Q100 150 118 142" stroke="#5a1a1a" stroke-width="4" fill="none"/>','<path d="M76 136Q100 170 124 136Z" fill="#7a2a2a" '+S+'/><rect x="88" y="137" width="11" height="9" fill="#fff"/><rect x="101" y="137" width="11" height="9" fill="#fff"/>','<ellipse cx="100" cy="146" rx="12" ry="14" fill="#5a1a1a" '+S+'/><path d="M150 54Q156 70 150 76Q144 70 150 54Z" fill="#6fc5ee"/>')}
+<path d="M54 126Q100 104 146 126Q126 144 100 132Q74 144 54 126Z" fill="#dcdcdc" stroke="#777" stroke-width="3" stroke-linejoin="round"/>
+</svg>`},
+ralph:{nome:'Ralph (com PH)',papel:'O estrategista de pH neutro',
+ svg:()=>`<svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 230Q8 170 50 152Q100 138 150 152Q192 170 186 230Z" fill="#6b7a36" ${S}/>
+<path d="M50 152Q100 138 150 152L142 170Q100 156 58 170Z" fill="#59672d" ${S}/>
+<path d="M82 144L100 166L118 144Z" fill="#4e5b27" ${S}/><path d="M100 160V210" stroke="#222" stroke-width="3"/>
+<rect x="54" y="178" width="34" height="10" fill="#111"/><rect x="112" y="178" width="34" height="10" fill="#111"/>
+<circle cx="170" cy="176" r="11" fill="#eee" ${S}/><path d="M165 180Q170 168 176 172Q172 182 165 180Z" fill="#3b8a3a"/>
+<rect x="76" y="124" width="48" height="34" fill="#c4865f" ${S}/>
+<ellipse cx="46" cy="90" rx="9" ry="15" fill="#c48760" ${S}/><ellipse cx="154" cy="90" rx="9" ry="15" fill="#c48760" ${S}/>
+<ellipse cx="100" cy="84" rx="54" ry="58" fill="#c98f66" ${S}/>
+<path d="M48 76Q46 28 100 26Q154 28 152 76Q140 50 100 50Q60 50 48 76Z" fill="#b8b8b8" ${S}/>
+<path d="M50 86Q44 140 100 152Q156 140 150 86Q142 120 100 118Q58 120 50 86Z" fill="#d8d8d8" stroke="#6a6a6a" stroke-width="3" stroke-linejoin="round"/>
+<path d="M62 134Q70 142 80 138M120 138Q130 142 138 134" stroke="#9a9a9a" stroke-width="3" fill="none"/>
+<path d="M60 68L92 74M140 68L108 74" stroke="#222" stroke-width="10" stroke-linecap="round"/>
+<ellipse cx="78" cy="84" rx="9" ry="6" fill="#fff" ${S}/><ellipse cx="122" cy="84" rx="9" ry="6" fill="#fff" ${S}/>
+<circle cx="80" cy="85" r="3.5" fill="#111"/><circle cx="120" cy="85" r="3.5" fill="#111"/>
+<path d="M66 94Q78 102 90 94M110 94Q122 102 134 94" stroke="#8a5a3a" stroke-width="3" fill="none"/>
+<ellipse cx="100" cy="102" rx="15" ry="13" fill="#bd8460" ${S}/><circle cx="94" cy="106" r="2.5" fill="#6b3a22"/><circle cx="106" cy="106" r="2.5" fill="#6b3a22"/>
+<path d="M74 118Q100 108 126 118Q112 128 100 122Q88 128 74 118Z" fill="#e4e4e4" stroke="#777" stroke-width="3" stroke-linejoin="round"/>
+${mouths('<path d="M86 132Q102 138 116 128" stroke="#4a1a1a" stroke-width="4" fill="none"/>','<path d="M80 128Q100 156 122 128Z" fill="#7a2a2a" '+S+'/><rect x="90" y="129" width="20" height="7" fill="#fff"/>','<ellipse cx="100" cy="134" rx="10" ry="12" fill="#5a1a1a" '+S+'/><path d="M150 50Q156 66 150 72Q144 66 150 50Z" fill="#6fc5ee"/>')}
+</svg>`},
+caio:{nome:'Caio',papel:'O careca patrulheiro',
+ svg:()=>`<svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 230Q18 172 56 154Q100 142 144 154Q182 172 176 230Z" fill="#4f5e2c" ${S}/>
+<path d="M56 154L72 140H128L144 154L152 230H48Z" fill="#ff7a1a" ${S}/>
+<path d="M74 142L100 176L126 142" fill="#3a2a10" opacity=".35"/>
+<path d="M100 150V230M52 190H148M54 214H146" stroke="#1c1c1c" stroke-width="7"/>
+<rect x="118" y="176" width="14" height="24" rx="3" fill="#222" ${S}/>
+<rect x="76" y="124" width="48" height="32" fill="#a96f4c" ${S}/>
+<ellipse cx="48" cy="92" rx="9" ry="15" fill="#b57a55" ${S}/><ellipse cx="152" cy="92" rx="9" ry="15" fill="#b57a55" ${S}/>
+<ellipse cx="100" cy="84" rx="52" ry="58" fill="#bb805a" ${S}/>
+<ellipse cx="78" cy="38" rx="17" ry="7" fill="#fff" opacity=".55" transform="rotate(-25 78 38)"/>
+<path d="M50 84Q44 144 100 156Q156 144 150 84Q144 120 100 116Q56 120 50 84Z" fill="#1c1612" ${S}/>
+<path d="M82 148Q100 158 118 148" stroke="#bbb" stroke-width="7" fill="none" stroke-linecap="round"/>
+<path d="M56 66Q76 56 98 70Q100 66 102 70Q124 56 144 66L142 78Q124 68 100 80Q76 68 58 78Z" fill="#1a130d" ${S}/>
+<ellipse cx="78" cy="88" rx="9" ry="5" fill="#fff" ${S}/><ellipse cx="122" cy="88" rx="9" ry="5" fill="#fff" ${S}/>
+<circle cx="79" cy="88" r="3.5" fill="#111"/><circle cx="121" cy="88" r="3.5" fill="#111"/>
+<path d="M66 96Q78 104 90 96M110 96Q122 104 134 96" stroke="#7a4a30" stroke-width="3" fill="none"/>
+<ellipse cx="100" cy="104" rx="15" ry="13" fill="#b07650" ${S}/><circle cx="94" cy="108" r="2.5" fill="#5a2a14"/><circle cx="106" cy="108" r="2.5" fill="#5a2a14"/>
+<path d="M76 120Q100 110 124 120Q112 128 100 124Q88 128 76 120Z" fill="#14100c" ${S}/>
+${mouths('<path d="M88 134Q100 128 112 134" stroke="#2a0a0a" stroke-width="4" fill="none"/>','<path d="M82 130Q100 156 118 130Z" fill="#7a2a2a" '+S+'/><rect x="92" y="131" width="16" height="6" fill="#fff"/>','<ellipse cx="100" cy="138" rx="10" ry="11" fill="#5a1a1a" '+S+'/><path d="M148 50Q154 66 148 72Q142 66 148 50Z" fill="#6fc5ee"/>')}
+</svg>`}};
+const IDS=['gustavao','ralph','caio'];
+const FALAS={
+gustavao:{intro:'Se tem peixe, tem regra! Bora fiscalizar, uai!',ok:['Mais um fiscalizado! Isso merece um pastel.','Acertei! Tô de dieta... de multa.','Fiscal bom é igual pão de queijo: quentinho e certeiro.','Nó! Sou bom nisso. E no pastel também.'],bad:['Errei! A barriga atrapalhou a visão.','Foi mal, sô! O pastel me distraiu.','Nó! Essa eu perdi. Culpa do cafezinho.','Errei, mas pelo menos errei com estilo (e com molho).'],time:'Demorei! Tava no segundo pastel.',fim:'Vou ali comer um pastel e já volto pra greve... digo, pro trabalho!'},
+ralph:{intro:'Observa, analisa e decide. É assim que funciona.',ok:['Observei, analisei, decidi. Com pH neutro.','Cálculo perfeito. Nem precisei de calculadora.','Estratégia vence sorte. Mas sorte ajuda.','Tá no plano. Aliás, o plano B também.'],bad:['Hmm... meu pH azedou.','Erro de cálculo. Quem nunca?','Isso não estava no plano. Nem no plano B.','Revendo a estratégia: faltou olhar o pescador de novo.'],time:'Fui analisar demais. Análise-paralisia, sô.',fim:'Relatório final: perdemos a batalha, mas o peixe segue subindo o rio.'},
+caio:{intro:'Rio limpo, pesca legal. É nóis!',ok:['Careca esperta, fiscal esperto!','Acertei! O brilho da careca ofuscou o pescador.','Rio limpo, pesca legal. É nóis!','Mandei bem! Sem boné e sem medo.'],bad:['Errei! O sol na careca derreteu o raciocínio.','Opa! Essa passou direto, sô.','Foi mal! Olhei meu reflexo no rio e me distraí.','Errei! Mas a careca continua linda.'],time:'Fiquei admirando meu reflexo na água. Perdi o tempo.',fim:'Greve de braços cruzados? Eu só queria um protetor solar.'}};
+
+/* ============ FASES (Minas Gerais) ============ */
+const FASES=[
+{n:'Rio São Francisco',sub:'Três Marias · Velho Chico',fato:'O Velho Chico nasce na Serra da Canastra, em Minas Gerais, e atravessa o país até o mar. Aqui o defeso vale de 1º de novembro a 28 de fevereiro.',t:7.5,sky:['#8fd3f0','#d9f1f8'],rio:'#2f9cc0',hill:'#3f9a46'},
+{n:'Rio Doce',sub:'Vale do Aço · Governador Valadares',fato:'O Parque Estadual do Rio Doce guarda uma das maiores áreas de Mata Atlântica de Minas. Nem todo pescador aqui é fiscalizado... só os do seu turno!',t:6.5,sky:['#a6d9a0','#eaf6d4'],rio:'#7f9a62',hill:'#2f7d3c'},
+{n:'Lago de Furnas',sub:'Capitólio · o "Mar de Minas"',fato:'Furnas é chamado de "Mar de Minas". Tem lancha, caixa de som e muito turista. Fiscal aqui precisa de paciência e protetor solar.',t:5.8,sky:['#7cc8ff','#e3f5ff'],rio:'#1fb0d8',hill:'#4aa45a'},
+{n:'Fase Bônus: Dia de Greve',sub:'Os fiscais cruzaram os braços (menos você)',fato:'Os peixes não entram em greve: a piracema acontece mesmo assim! Hoje só sobrou você pra fiscalizar. Respira, toma um café e bora.',t:5,sky:['#ffb877','#ffe8c2'],rio:'#c97b4a',hill:'#6f8f3a'}];
+
+/* ============ SITUAÇÕES (base real + humor) ============ */
+const B_DEF='No defeso (1º/nov a 28/fev), a pesca de espécie nativa é proibida. Crime ambiental: Lei 9.605/1998, art. 34.';
+const B_EXO='No defeso só pode espécie exótica ou híbrida, até 3 kg + 1 exemplar, com vara, caniço, linha de mão ou molinete.';
+const B_LIC='A licença de pesca amadora é obrigatória em Minas. Sai online em poucos minutos!';
+const B_REDE='Rede é proibida no defeso (e na pesca amadora). Só vara, caniço, linha de mão, carretilha ou molinete.';
+const CASOS=[
+{d:'15/12',t:'Seu Tião pesca um dourado de vara no barranco. "É só um, sô!"',c:'M',b:B_DEF,j:'Um dourado no defeso é que nem pão de queijo: ninguém para em um.'},
+{d:'10/01',t:'Dona Neide pesca tilápia de caniço. 2 kg no balde, licença em dia.',c:'L',b:B_EXO,j:'Tilápia é exótica, dona Neide pode! Pode até contar a história.'},
+{d:'20/02',t:'Marquinho tem 6 kg de tilápia "pro churrasco da firma".',c:'M',b:'No defeso o limite é 3 kg + 1 exemplar. Passou disso, é multa.',j:'A firma vai ter churrasco... de auto de infração.'},
+{d:'12/06',t:'Zé da Balsa pesca lambari fora do defeso. 1 kg, licença válida.',c:'L',b:'Fora do defeso, com licença e petrecho permitido, está tudo certo.',j:'Lambari frito com cerveja gelada: a única coisa irregular é o colesterol.'},
+{d:'05/11',t:'Beto joga uma rede de emalhar "só pra testar".',c:'M',b:B_REDE,j:'"Só pra testar" é a frase mais usada antes de uma multa.'},
+{d:'20/08',t:'Pescador sem licença nenhuma, com 3 tilápias no balde.',c:'M',b:B_LIC,j:'Sem licença e sem vergonha: combo completo.'},
+{d:'15/12',t:'Uma capivara está sentada segurando uma vara que alguém esqueceu.',c:'L',b:'Capivara não precisa de licença. Precisa só de respeito (e de lírio-d\'água).',j:'Capivara é a única que pesca de braços cruzados sem ser multada.'},
+{d:'10/01',t:'Pescador de barco pegando curimba. "Barco é só pra passear!"',c:'M',b:'No defeso, a pesca embarcada de espécie nativa é proibida (Portarias IEF 154-156/2011).',j:'Passear com vara, isca e curimba no balde é passeio bem suspeito.'},
+{d:'20/02',t:'Rapaz mergulha com arpão atrás de traíra.',c:'M',b:'O defeso proíbe pesca subaquática. Também vale para traíra!',j:'Ele disse que era "mergulho de relaxamento". Com arpão.'},
+{d:'12/06',t:'Pescador deixou garrafas na margem, mas já está catando tudo. "Foi mal, sô!"',c:'O',b:'Lixo na margem prejudica o rio. Quem recolhe e se arrepende merece orientação.',j:'Orientar é mais barato que multar, e dá menos papelada.'},
+{d:'15/09',t:'Pescador no pesque-pague leva 15 kg de tilápia, pagos por quilo.',c:'L',b:'Pesque-pague é criação particular, com regras próprias. Não é pesca no rio.',j:'Aqui o único que fisga é o caixa do pesque-pague.'},
+{d:'05/11',t:'Vovô e neto pescam tilápia de caniço, 1 kg. Licença do vovô em dia.',c:'L',b:B_EXO,j:'Pescaria em família: a melhor fiscalização é o neto perguntando "vó, dá pra comer?"'},
+{d:'20/02',t:'Pescador jura que o dourado "já tava morto, boiando". Tem anzol na boca dele.',c:'M',b:B_DEF,j:'Peixe morto com anzol e vara molhada. Elementar, meu caro pastel.'},
+{d:'03/04',t:'Pescador com 3 peixes de tamanho legal, licença em dia, fora do defeso.',c:'L',b:'Fora do defeso, tudo dentro das regras: pode pescar em paz.',j:'Pescador exemplar! Só falta ensinar o cunhado.'},
+{d:'03/04',t:'Pescador sem licença e com um lambari. "É só pra isca!"',c:'M',b:B_LIC,j:'Isca sem licença é pegadinha que não cola.'},
+{d:'10/01',t:'Turistas em Capitólio pescam tilápia de barranco, licença ok, mas com som alto no talo.',c:'O',b:'Pesca regular! Mas barulho espanta peixe (e vizinho). Vale orientar.',j:'Sertanejo no último volume não é infração... é crime contra os ouvidos.'},
+{d:'20/08',t:'Pescador reclama que "com greve de fiscal ninguém multa". Está com uma rede.',c:'M',b:B_REDE,j:'Greve de fiscal não dá licença pra rede.'},
+{d:'15/12',t:'Dona Rosa pesca tambacu (híbrido) de vara. 2,5 kg, licença ok.',c:'L',b:'Híbridos são liberados no defeso, até 3 kg + 1 exemplar.',j:'Tambacu: nome de peixe e de pagodeiro.'},
+{d:'05/11',t:'Pescador joga linha a poucos metros da barragem.',c:'M',b:'No defeso há distância mínima de barragens, confluências, lagoas e corredeiras.',j:'Perto demais! Nem o peixe quer passar por ali.'},
+{d:'12/06',t:'Pescador pede dica de onde está mordendo. Zero peixe, licença ok.',c:'L',b:'Sem irregularidade. Peixe teimoso não é infração.',j:'Dica de pescador é igual receita de vó: nunca sai completa.'},
+{d:'20/02',t:'Barco de "turismo ecológico" com varas e um balde de curimbatá.',c:'M',b:B_DEF,j:'Ecológico é o balde ser reciclado. O curimbatá, nem tanto.'},
+{d:'03/04',t:'Pescador joga rede de arrasto no riacho.',c:'M',b:B_REDE,j:'Arrastou o riacho inteiro... e a paciência do fiscal.'},
+{d:'15/09',t:'Pescador solta o peixe vivo de volta, de licença em dia. Pesque e solte!',c:'L',b:'Pesque e solte com licença é exemplo de pesca consciente.',j:'O peixe saiu mais famoso: tirou foto, né?'},
+{d:'12/06',t:'Pescador com licença vencida ontem e nenhum peixe no balde.',c:'O',b:B_LIC+' Sem captura, vale orientar a renovar.',j:'Renovar online leva menos tempo que fisgar um dourado.'},
+{d:'10/01',t:'Pescador de vara pega 1 kg de tilápia, licença válida, de barranco.',c:'L',b:B_EXO,j:'No defeso, a tilápia é a única que perdeu a folga.'},
+{d:'05/11',t:'Primeiro dia do defeso. Pescador "esqueceu" e pega um piau de vara.',c:'M',b:B_DEF,j:'"Esqueci" não consta no manual do fiscal. Nem o dele.'}
+];
+const NOMES=['','','']; // reservado
+
+/* ============ SOM, ARMAZENAMENTO ============ */
+let snd=true,ac=null;
+function beep(a){if(!snd)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();let t=ac.currentTime;a.forEach(n=>{const o=ac.createOscillator(),g=ac.createGain();o.type=n[2]||'sine';o.frequency.value=n[0];g.gain.setValueAtTime(.1,t);g.gain.exponentialRampToValueAtTime(.0001,t+n[1]);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+n[1]);t+=n[1]*.8})}catch(e){}}
+const OK=()=>beep([[523,.09],[659,.09],[784,.16]]),NO=()=>beep([[200,.15,'square'],[150,.25,'square']]),TAP=()=>beep([[600,.05,'triangle']]);
+const KEY='piracemaHumor.v1';let mem=null;
+function load(){try{const o=JSON.parse(localStorage.getItem(KEY));if(o)return o}catch(e){}return mem||{best:0,top:[],chr:0}}
+let ST=load();const save=()=>{mem=ST;try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(e){}};
+
+/* ============ TELAS ============ */
+const show=id=>{document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id===id))};
+const svgOf=(id,cls)=>CH[id].svg().replace('<svg ','<svg class="'+(cls||'')+'" ');
+let sel=ST.chr||0;
+function menu(){
+ $('#pick').innerHTML=IDS.map((id,i)=>'<button class="pc'+(i===sel?' sel':'')+'" data-i="'+i+'">'+svgOf(id)+CH[id].nome.replace(' (com PH)','')+'<small>'+CH[id].papel+'</small></button>').join('');
+ $('#quote').textContent=CH[IDS[sel]].nome+': “'+FALAS[IDS[sel]].intro+'”';
+ $('#best').textContent=ST.best?'Seu recorde: '+ST.best+' pontos':'Ainda sem recorde. Bora fiscalizar!';
+ show('menu');
+}
+$('#pick').addEventListener('click',e=>{const b=e.target.closest('.pc');if(!b)return;sel=+b.dataset.i;ST.chr=sel;save();TAP();menu()});
+$('#how').onclick=()=>{TAP();show('howto')};$('#how-ok').onclick=()=>{TAP();menu()};
+$('#tomenu').onclick=()=>{TAP();menu()};
+const URL_=()=>location.href.split('#')[0];
+function share(msg){const txt=msg+'\n'+URL_();if(navigator.share){navigator.share({text:txt}).catch(()=>{})}else{window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}}
+$('#share1').onclick=()=>share('Bora fiscalizar? Joga a Operação Piracema: Edição Resenha 🐟');
+$('#share2').onclick=()=>share('Fiz '+G.score+' pontos na Operação Piracema: Edição Resenha 🐟 Duvido você me passar!');
+$('#snd').onclick=()=>{snd=!snd;$('#snd').textContent=snd?'🔊':'🔇'};
+
+/* ============ JOGO ============ */
+const G={};
+const bgSvg=f=>`<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${f.sky[0]}"/><stop offset="1" stop-color="${f.sky[1]}"/></linearGradient></defs><rect width="300" height="150" fill="url(#sk)"/><circle cx="238" cy="30" r="16" fill="#ffe27a"/><path d="M0 84Q40 54 90 78T190 70T300 82V100H0Z" fill="${f.hill}"/><path d="M0 92Q60 76 120 90T300 88V104H0Z" fill="#2c7a3c" opacity=".7"/><rect y="98" width="300" height="52" fill="${f.rio}"/><g stroke="#fff" stroke-width="2" opacity=".5" stroke-linecap="round"><path d="M20 112h24M110 124h30M200 110h26M250 132h30M60 138h28"><animateTransform attributeName="transform" type="translate" values="0 0;10 0;0 0" dur="3s" repeatCount="indefinite"/></path></g>`;
+function pescador(){const h=rnd(['#c2452d','#2f6fb0','#e0b422','#f4f4f0','#3b7d4f']),s=rnd(['#d7d2c3','#4f7fb5','#b94b3a','#e7c14a','#7c5aa6']),k=rnd(['#c68a5b','#e1b48a','#9a6a47']);
+ return `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg"><path d="M10 78H190L168 108H34Z" fill="#8a5a34" ${S}/><path d="M18 84H182" stroke="#5e3a1c" stroke-width="3"/><rect x="78" y="40" width="44" height="42" rx="10" fill="${s}" ${S}/><circle cx="100" cy="30" r="17" fill="${k}" ${S}/><path d="M82 28Q100 4 118 28Z" fill="${h}" ${S}/><rect x="104" y="24" width="30" height="6" fill="${h}" ${S}/><circle cx="106" cy="32" r="2.4" fill="#111"/><path d="M96 40Q104 46 112 40" stroke="#222" stroke-width="2.5" fill="none"/><path d="M122 54L184 6" stroke="#6b4a2a" stroke-width="4" stroke-linecap="round"/><path d="M184 6V70" stroke="#fff" stroke-width="1.6"/><circle cx="184" cy="72" r="4" fill="#e04a3a"/></svg>`}
+let tick=null;
+function startGame(){
+ Object.assign(G,{stage:0,idx:0,score:0,lives:3,streak:0,fila:shuffle(CASOS),locked:true,chr:IDS[sel],hit:0,total:0});
+ intro();
+}
+function intro(){
+ const f=FASES[G.stage];$('#in-n').textContent='FASE '+(G.stage<3?(G.stage+1):'BÔNUS')+' DE 4';$('#in-t').textContent=f.n;
+ $('#in-f').innerHTML='<b>'+f.sub+'</b><br><br>'+f.fato;show('intro');
+}
+$('#in-go').onclick=()=>{TAP();begin()};
+function begin(){
+ const f=FASES[G.stage];$('#bg').innerHTML=bgSvg(f);$('#flag').textContent=f.n;
+ $('#fiscal').innerHTML=svgOf(G.chr);G.idx=0;hud();show('game');next();
+}
+function hud(){$('#h-p').textContent=G.score;$('#h-l').textContent='🐟'.repeat(G.lives)+'·'.repeat(3-G.lives);$('#h-c').textContent='x'+mult()}
+const mult=()=>1+Math.min(3,Math.floor(G.streak/3));
+const NPERF=8;
+function next(){
+ if(G.idx>=NPERF){stageEnd();return}
+ G.cur=G.fila[(G.stage*NPERF+G.idx)%G.fila.length];const c=G.cur;
+ $('#c-d').textContent='Data: '+c.d+' · Pescador '+(G.idx+1)+'/'+NPERF;$('#c-t').textContent=c.t;
+ const fish=$('#fish');fish.innerHTML=pescador();fish.className='';void fish.offsetWidth;fish.className='in';
+ $('#fiscal svg').setAttribute('class','');
+ G.t0=performance.now();G.dur=FASES[G.stage].t*1000;G.locked=false;clearInterval(tick);
+ tick=setInterval(()=>{const l=1-(performance.now()-G.t0)/G.dur;$('#tm i').style.width=Math.max(0,l*100)+'%';$('#tm i').style.backgroundPosition=(100-Math.max(0,l*100))+'% 0';if(l<=0){clearInterval(tick);answer(null)}},50);
+}
+document.querySelectorAll('#btns [data-d]').forEach(b=>b.addEventListener('click',()=>{if(!G.locked)answer(b.dataset.d)}));
+const NOMED={L:'LIBERAR',O:'ORIENTAR',M:'MULTAR'};
+function answer(d){
+ if(G.locked)return;G.locked=true;clearInterval(tick);
+ const c=G.cur,left=Math.max(0,1-(performance.now()-G.t0)/G.dur),ok=d===c.c;let pts=0,fala;
+ const fi=$('#fiscal'),sv=fi.querySelector('svg');
+ if(ok){pts=Math.round((100+left*100)*mult());G.score+=pts;G.streak++;G.hit++;OK();fala=rnd(FALAS[G.chr].ok);sv.setAttribute('class','h');fi.className='up'}
+ else{G.lives--;G.streak=0;NO();fala=d===null?FALAS[G.chr].time:rnd(FALAS[G.chr].bad);sv.setAttribute('class','b');fi.className='no';if(navigator.vibrate)try{navigator.vibrate(80)}catch(e){}}
+ G.total++;$('#fish').className='out';hud();
+ $('#fb-b').innerHTML='<h3 class="'+(ok?'ok':'no')+'">'+(ok?'CERTO!':(d===null?'TEMPO ESGOTADO!':'ERROU!'))+'</h3>'+(ok?'<div class="pts">+'+pts+' pontos'+(mult()>1?' (combo x'+mult()+')':'')+'</div>':'<div class="pts">Era para '+NOMED[c.c]+'</div>')
+  +'<p><b>Base:</b> '+c.b+'</p><p>'+c.j+'</p><div class="say">'+svgOf(G.chr)+'<div>'+CH[G.chr].nome.replace(' (com PH)','')+': “'+fala+'”</div></div><div class="tap">toque para continuar</div>';
+ $('#fb').classList.add('on');G.fbT=setTimeout(cont,ok?3200:4200);
+}
+function cont(){
+ if(!$('#fb').classList.contains('on'))return;clearTimeout(G.fbT);$('#fb').classList.remove('on');
+ if(G.lives<=0){gameOver(false);return}
+ G.idx++;next();
+}
+$('#fb').addEventListener('click',()=>{TAP();cont()});
+function stageEnd(){
+ G.score+=200;
+ if(G.stage>=FASES.length-1){gameOver(true);return}
+ G.stage++;intro();
+}
+function gameOver(win){
+ clearInterval(tick);G.score=Math.max(0,G.score);
+ const s=G.score,rank=s>=6000?'Lenda do Velho Chico':s>=4000?'Fiscal de Respeito':s>=2000?'Fiscal Raiz':s>=800?'Fiscal Estagiário':'Fiscal de Primeira Viagem';
+ $('#o-why').textContent=win?'Você zerou a fiscalização de Minas!':'Os fiscais entraram em greve de paciência!';
+ $('#o-t').textContent=win?'MISSÃO CUMPRIDA!':'FIM DE JOGO';$('#o-s').textContent=s;$('#o-r').textContent=rank;
+ $('#quote2').textContent=CH[G.chr].nome.replace(' (com PH)','')+': “'+FALAS[G.chr].fim+'”';
+ const nb=s>ST.best;if(nb)ST.best=s;
+ if(s>0){ST.top.push({n:CH[G.chr].nome.replace(' (com PH)',''),p:s});ST.top.sort((a,b)=>b.p-a.p);ST.top=ST.top.slice(0,5)}save();
+ $('#top').innerHTML=(nb&&s>0?'<div style="color:var(--y);font-weight:900;margin-bottom:4px">Novo recorde!</div>':'')+ST.top.map((t,i)=>'<div class="rk"><span>'+(i+1)+'. '+t.n+'</span><span>'+t.p+'</span></div>').join('');
+ beep(win?[[523,.12],[659,.12],[784,.12],[1047,.3]]:[[392,.2],[330,.2],[262,.35]]);show('over');
+}
+$('#play').onclick=()=>{TAP();startGame()};$('#again').onclick=()=>{TAP();startGame()};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&!G.locked&&$('#game').classList.contains('on')){G.t0+=0}});
+document.addEventListener('contextmenu',e=>e.preventDefault());
+
+/* capa para compartilhamento: abra com #capa */
+if(location.hash==='#capa'){const c=$('#cover');c.style.display='block';
+ c.innerHTML=IDS.map((id,i)=>'<div class="c" style="left:'+(i*250)+'px;width:'+(i===1?270:260)+'px">'+CH[id].svg()+'</div>').join('')+'<div class="t"><h1>OPERAÇÃO</h1><b>PIRACEMA</b><em>EDIÇÃO RESENHA</em><p>Fiscalize os rios de Minas e ria junto!</p></div>';
+ document.body.style.overflow='auto';document.querySelectorAll('.scr').forEach(s=>s.style.display='none')}
+else menu();
+})();
+</script>
+</body>
+</html>
