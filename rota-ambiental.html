@@ -65,6 +65,41 @@
 .rv-faq details{border-bottom:1px solid var(--rule);padding:.9rem 0}
 .rv-faq summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .rv-faq details p{margin-top:.5rem;color:var(--text-soft)}
+
+/* animações (respeitam prefers-reduced-motion do style.css) */
+.rv-aviso{background:repeating-linear-gradient(-45deg,#A8452A 0 18px,#93391F 18px 36px);background-size:200% 100%;animation:rvFaixa 6s linear infinite}
+@keyframes rvFaixa{to{background-position:100% 0}}
+.rv-selo{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#0E1512;background:#E3C06A;border-radius:999px;padding:.3rem .8rem;width:max-content}
+.rv-selo i{width:.55rem;height:.55rem;border-radius:50%;background:#A8452A;animation:rvPulso 1.4s ease-in-out infinite}
+@keyframes rvPulso{50%{transform:scale(1.6);opacity:.4}}
+.rv-hero{position:relative;overflow:hidden}
+.rv-hero::before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 75% 45%,rgba(199,154,46,.18),transparent 45%),radial-gradient(circle at 15% 80%,rgba(46,107,62,.35),transparent 50%);animation:rvLuz 14s ease-in-out infinite alternate;pointer-events:none}
+@keyframes rvLuz{to{transform:translate(-4%,3%) scale(1.08)}}
+.rv-hero .wrap{position:relative}
+.rv-hero img.rv-capa{animation:rvFlutua 6s ease-in-out infinite}
+@keyframes rvFlutua{50%{transform:translateY(-10px) rotate(-.4deg)}}
+.rv-btn-ouro{box-shadow:0 0 0 0 rgba(199,154,46,.6);animation:rvBrilho 2.6s ease-out infinite}
+@keyframes rvBrilho{70%{box-shadow:0 0 0 14px rgba(199,154,46,0)}100%{box-shadow:0 0 0 0 rgba(199,154,46,0)}}
+.rv-card{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.rv-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(14,21,18,.12);border-color:var(--accent)}
+.rv-trilha img{transition:transform .4s ease}.rv-trilha:hover img{transform:rotate(-8deg) scale(1.08)}
+.rv-revela{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv-revela.on{opacity:1;transform:none}
+.rv-autor{display:grid;gap:1.6rem;align-items:center}
+@media(min-width:820px){.rv-autor{grid-template-columns:260px 1fr}}
+.rv-foto{position:relative;width:min(260px,70vw);aspect-ratio:1;margin:0 auto}
+.rv-foto img{width:100%;height:100%;border-radius:50%;object-fit:cover;position:relative;z-index:1}
+.rv-foto::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px dashed #C79A2E;animation:rvGira 22s linear infinite}
+@keyframes rvGira{to{transform:rotate(360deg)}}
+.rv-num{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin-top:1.2rem}
+.rv-num div{background:var(--bg-raised);border:1px solid var(--rule);border-radius:12px;padding:.9rem 1rem}
+.rv-num b{display:block;font-family:var(--f-display);font-size:1.9rem;color:var(--accent);line-height:1.1}
+.rv-num span{font-size:.92rem;color:var(--text-soft)}
+.rv-obra{margin-top:.6rem}
+.rv-obra .rv-barra{height:10px;border-radius:6px;background:var(--bg-sunken);overflow:hidden}
+.rv-obra .rv-barra i{display:block;height:100%;width:0;background:repeating-linear-gradient(-45deg,#C79A2E 0 10px,#E3C06A 10px 20px);transition:width 1.6s ease}
+.rv-obra small{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;color:var(--text-faint)}
+@media (prefers-reduced-motion:reduce){.rv-revela{opacity:1;transform:none}}
 </style>
 
 <div class="rv-aviso" role="note">PÁGINA EM CONSTRUÇÃO · A versão 2.0 está sendo gravada · As vendas reabrem em novembro de 2026</div>
@@ -72,6 +107,7 @@
 <section class="rv-hero">
   <div class="wrap">
     <div class="stack-sm">
+      <span class="rv-selo"><i></i> Em construção · aulas sendo gravadas</span>
       <p class="ref">Curso online · Minas Gerais</p>
       <h1>A Rota Ambiental <span>2.0</span></h1>
       <p class="rv-sub">Do sistema à portaria: o passo a passo para fazer o serviço ambiental em Minas Gerais, com a tela real dos sistemas e casos reais.</p>
@@ -80,12 +116,12 @@
         <a class="btn btn--ghost" href="#trilhas">Ver as trilhas</a>
       </div>
     </div>
-    <img src="assets/rota/capa.jpg" alt="Capa do curso A Rota Ambiental 2.0, com o selo Manual oficial conferido" width="1280" height="720">
+    <img class="rv-capa" src="assets/rota/capa.jpg" alt="Capa do curso A Rota Ambiental 2.0, com o selo Manual oficial conferido" width="1280" height="720">
   </div>
 </section>
 
 <main>
-  <section class="rv-sec" style="border-top:0">
+  <section class="rv-sec rv-revela" style="border-top:0">
     <div class="wrap stack">
       <p class="ref">Como é o curso</p>
       <h2>Menos teoria solta. Mais tela, caso real e fonte.</h2>
@@ -100,7 +136,7 @@
     </div>
   </section>
 
-  <section class="rv-sec">
+  <section class="rv-sec rv-revela">
     <div class="wrap stack">
       <p class="ref">O que você não vai encontrar aqui</p>
       <div class="rv-duas">
@@ -116,7 +152,7 @@
     </div>
   </section>
 
-  <section class="rv-sec" id="trilhas">
+  <section class="rv-sec rv-revela" id="trilhas">
     <div class="wrap stack">
       <p class="ref">As trilhas</p>
       <h2>Dez trilhas, do primeiro acesso ao serviço que gera renda.</h2>
@@ -136,7 +172,7 @@
     </div>
   </section>
 
-  <section class="rv-sec">
+  <section class="rv-sec rv-revela">
     <div class="wrap stack">
       <p class="ref">Para quem é</p>
       <div class="rv-duas">
@@ -153,7 +189,7 @@
     </div>
   </section>
 
-  <section class="rv-sec">
+  <section class="rv-sec rv-revela">
     <div class="wrap stack">
       <p class="ref">Bônus</p>
       <h2>Ferramentas para o dia a dia do consultor.</h2>
@@ -168,21 +204,37 @@
     </div>
   </section>
 
-  <section class="rv-sec">
+  <section class="rv-sec rv-revela">
     <div class="wrap stack">
       <p class="ref">Quem conduz</p>
-      <div class="prose">
-        <p><strong>Francisco de Assis</strong> — O Analista Ambiental. Engenheiro florestal, mestre pela UFVJM e doutorando na UFMG, com mais de dez anos no sistema estadual de meio ambiente de Minas Gerais. O curso é feito em equipe, com professores convidados, e todo conteúdo tem a revisão dele. <a href="index.html#sobre">Conheça a trajetória completa</a>.</p>
-        <p style="color:var(--text-soft);font-size:1rem">Transparência: as aulas usam avatar e voz gerados por inteligência artificial a partir do Francisco, com conteúdo revisado por ele.</p>
+      <div class="rv-autor">
+        <div class="rv-foto"><img src="assets/avatar.jpg" alt="Francisco de Assis, O Analista Ambiental" width="700" height="700" loading="lazy"></div>
+        <div class="stack-sm">
+          <h2>Francisco de Assis · O Analista Ambiental</h2>
+          <p>Engenheiro florestal (UESB), mestre em Tecnologia, Ambiente e Sociedade (UFVJM) e doutorando na UFMG, onde pesquisa modelagem preditiva de desmatamento com inteligência artificial.</p>
+          <p>Gestor ambiental de carreira do sistema estadual de meio ambiente de Minas Gerais desde 2014, com centenas de processos de licenciamento analisados linha a linha e mais de 1.500 perícias e vistorias. Preside a Comissão de Fiscalização Ambiental do IDAM (Instituto de Direito Ambiental).</p>
+          <p>O Analista Ambiental nasceu de uma percepção simples: a área ambiental é difícil não porque é complexa, mas porque quase ninguém se dá ao trabalho de explicar. A Rota Ambiental é esse trabalho, aula por aula. <a href="index.html#sobre">Trajetória completa</a>.</p>
+          <div class="rv-num">
+            <div><b data-conta="12" data-suf=" anos">12 anos</b><span>no sistema estadual de MG (desde 2014)</span></div>
+            <div><b data-conta="1500" data-mais="1">1.500+</b><span>perícias e vistorias</span></div>
+            <div><b data-conta="10">10</b><span>trilhas no curso</span></div>
+            <div><b data-conta="40" data-suf=" h">40 h</b><span>de certificado</span></div>
+          </div>
+          <p style="color:var(--text-soft);font-size:1rem">O curso é feito em equipe, com professores convidados, e todo conteúdo tem a revisão dele. Transparência: as aulas usam avatar e voz gerados por inteligência artificial a partir do Francisco.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="rv-sec" id="oferta">
+  <section class="rv-sec rv-revela" id="oferta">
     <div class="wrap">
       <div class="rv-oferta">
         <p class="ref" style="justify-content:center;color:#E3C06A">Condição de fundador</p>
         <div class="rv-preco">Em breve</div>
+        <div class="rv-obra" style="max-width:420px;margin:0 auto;width:100%">
+          <div class="rv-barra"><i data-largura="18%"></i></div>
+          <small style="color:#A6B7AB">OBRA EM ANDAMENTO · PRIMEIRAS AULAS GRAVADAS</small>
+        </div>
         <p>O preço de fundador e as condições de acesso serão anunciados aqui e no Instagram <a href="https://www.instagram.com/oanalistaambiental/" target="_blank" rel="noopener" style="color:#E3C06A">@oanalistaambiental</a> na reabertura das vendas.</p>
         <p>Garantia de 7 dias: se não for para você, o valor é devolvido.</p>
         <div class="rv-ctas" style="justify-content:center">
@@ -192,7 +244,7 @@
     </div>
   </section>
 
-  <section class="rv-sec">
+  <section class="rv-sec rv-revela">
     <div class="wrap stack rv-faq">
       <p class="ref">Perguntas frequentes</p>
       <details><summary>Já sou aluno da Rota Ambiental. Preciso pagar de novo?</summary><p>Não. Quem já é aluno recebe a versão 2.0 sem custo.</p></details>
@@ -219,5 +271,27 @@
 </footer>
 
 <script src="js/nav.js"></script>
+<script>
+(function(){
+  var reduz = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.rv-revela');
+  function conta(el){
+    var alvo=+el.dataset.conta, ini=0, suf=el.dataset.suf||'', mais=el.dataset.mais?'+':'';
+    if(reduz){return;}
+    var t0=null; function passo(t){ if(!t0)t0=t; var k=Math.min(1,(t-t0)/1400);
+      var v=Math.round(ini+(alvo-ini)*(1-Math.pow(1-k,3)));
+      el.textContent=(alvo>=1000?v.toLocaleString('pt-BR'):v)+(k===1?mais:'')+suf;
+      if(k<1)requestAnimationFrame(passo);} requestAnimationFrame(passo);
+  }
+  function liga(sec){ sec.classList.add('on');
+    sec.querySelectorAll('[data-conta]').forEach(conta);
+    sec.querySelectorAll('[data-largura]').forEach(function(b){b.style.width=b.dataset.largura;});
+  }
+  if(!('IntersectionObserver' in window)){ els.forEach(liga); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ liga(e.target); io.unobserve(e.target);} }); },{threshold:.12});
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+
 </body>
 </html>
