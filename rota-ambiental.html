@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Rota Ambiental 2.0 — O Analista Ambiental</title>
-<meta name="description" content="Curso online para fazer o serviço ambiental em Minas Gerais: tela real dos sistemas, casos reais e manual oficial conferido. Página em construção.">
+<meta name="description" content="Curso online para fazer o serviço ambiental em Minas Gerais: tela real dos sistemas, casos reais e manual oficial conferido.">
 <link rel="canonical" href="https://www.oanalistaambiental.com/rota-ambiental.html">
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/logo.png" type="image/png">
@@ -22,13 +22,11 @@
       <b>O Analista Ambiental<span class="slog">Da norma ao campo</span></b>
     </a>
     <nav class="nav__links">
-      <a href="index.html#sobre">Sobre</a>
-      <a href="index.html#series">Séries</a>
-      <a href="index.html#videos">Vídeos</a>
-      <a href="cursos.html">Cursos</a>
+      <a href="index.html">Início</a>
+      <a href="rota-ambiental.html" aria-current="page">A Rota 2.0</a>
       <a href="radar.html">Radar DOE</a>
       <a href="artigos.html">Artigos</a>
-      <a href="index.html#contato">Contato</a>
+      <a href="sobre.html">Sobre</a>
     </nav>
     <button class="nav__burger" type="button" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
   </div>
@@ -63,6 +61,12 @@
 .rv-oferta{background:#0E1512;color:#E7EDE6;border-radius:16px;padding:clamp(1.5rem,4vw,2.5rem);display:grid;gap:1rem;text-align:center}
 .rv-oferta .rv-preco{font-family:var(--f-display);font-size:clamp(1.6rem,3.4vw,2.4rem);color:#E3C06A}
 .rv-oferta p{color:#C9D4CB}
+.rv-ofertas{display:grid;gap:1rem;text-align:left}
+@media(min-width:700px){.rv-ofertas{grid-template-columns:1fr 1fr}}
+.rv-of{border:1px solid rgba(227,192,106,.35);border-radius:12px;padding:1.1rem 1.2rem}
+.rv-of--dest{border-color:#E3C06A;background:rgba(227,192,106,.08)}
+.rv-of h3{color:#F2F5EF}
+.rv-of .rv-preco{font-size:1.15rem;margin-top:.6rem}
 .rv-faq details{border-bottom:1px solid var(--rule);padding:.9rem 0}
 .rv-faq summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .rv-faq details p{margin-top:.5rem;color:var(--text-soft)}
@@ -108,12 +112,11 @@
 <section class="rv-hero">
   <div class="wrap">
     <div class="stack-sm">
-      <span class="rv-selo"><i></i> Em construção · aulas sendo gravadas</span>
       <p class="ref">Curso online · Minas Gerais</p>
       <h1>A Rota Ambiental <span>2.0</span></h1>
       <p class="rv-sub">Do sistema à portaria: o passo a passo para fazer o serviço ambiental em Minas Gerais, com a tela real dos sistemas e casos reais.</p>
       <div class="rv-ctas">
-        <a class="btn rv-btn-ouro" href="mailto:contato@oanalistaambiental.com?subject=Quero%20ser%20avisado%20da%20Rota%20Ambiental%202.0">Quero ser avisado</a>
+        <a class="btn rv-btn-ouro" href="#lista">Entrar na lista de espera</a>
         <a class="btn btn--ghost" href="#trilhas">Ver as trilhas</a>
       </div>
     </div>
@@ -214,7 +217,7 @@
           <h2>Francisco de Assis · O Analista Ambiental</h2>
           <p>Engenheiro florestal (UESB), mestre em Tecnologia, Ambiente e Sociedade (UFVJM) e doutorando na UFMG, onde pesquisa modelagem preditiva de desmatamento com inteligência artificial.</p>
           <p>Gestor ambiental de carreira do sistema estadual de meio ambiente de Minas Gerais desde 2014, com centenas de processos de licenciamento analisados linha a linha e mais de 1.500 perícias e vistorias. Preside a Comissão de Fiscalização Ambiental do IDAM (Instituto de Direito Ambiental).</p>
-          <p>O Analista Ambiental nasceu de uma percepção simples: a área ambiental é difícil não porque é complexa, mas porque quase ninguém se dá ao trabalho de explicar. A Rota Ambiental é esse trabalho, aula por aula. <a href="index.html#sobre">Trajetória completa</a>.</p>
+          <p>O Analista Ambiental nasceu de uma percepção simples: a área ambiental é difícil não porque é complexa, mas porque quase ninguém se dá ao trabalho de explicar. A Rota Ambiental é esse trabalho, aula por aula. <a href="sobre.html">Trajetória completa</a>.</p>
           <div class="rv-num">
             <div><b data-conta="12" data-suf=" anos">12 anos</b><span>no sistema estadual de MG (desde 2014)</span></div>
             <div><b data-conta="1500" data-mais="1">1.500+</b><span>perícias e vistorias</span></div>
@@ -230,18 +233,45 @@
   <section class="rv-sec rv-revela" id="oferta">
     <div class="wrap">
       <div class="rv-oferta">
-        <p class="ref" style="justify-content:center;color:#E3C06A">Condição de fundador</p>
-        <div class="rv-preco">Em breve</div>
+        <p class="ref" style="justify-content:center;color:#E3C06A">Duas formas de acesso</p>
+        <div class="rv-ofertas">
+          <div class="rv-of">
+            <h3>Anual</h3>
+            <p>12 meses de acesso às aulas e às atualizações.</p>
+            <div class="rv-preco">Valor de fundador em breve</div>
+          </div>
+          <div class="rv-of rv-of--dest">
+            <h3>Vitalício (fundador)</h3>
+            <p>Acesso sem prazo, na condição de fundador.</p>
+            <div class="rv-preco">Valor de fundador em breve</div>
+          </div>
+        </div>
         <div class="rv-obra" style="max-width:420px;margin:0 auto;width:100%">
           <div class="rv-barra"><i data-largura="18%"></i></div>
           <small style="color:#A6B7AB">OBRA EM ANDAMENTO · PRIMEIRAS AULAS GRAVADAS</small>
         </div>
-        <p>O preço de fundador e as condições de acesso serão anunciados aqui e no Instagram <a href="https://www.instagram.com/oanalistaambiental/" target="_blank" rel="noopener" style="color:#E3C06A">@oanalistaambiental</a> na reabertura das vendas.</p>
+        <p>Os valores e as condições serão anunciados aqui e no Instagram <a href="https://www.instagram.com/oanalistaambiental/" target="_blank" rel="noopener" style="color:#E3C06A">@oanalistaambiental</a> na reabertura das vendas.</p>
         <p>Garantia de 7 dias: se não for para você, o valor é devolvido.</p>
         <div class="rv-ctas" style="justify-content:center">
-          <a class="btn rv-btn-ouro" href="mailto:contato@oanalistaambiental.com?subject=Quero%20ser%20avisado%20da%20Rota%20Ambiental%202.0">Quero ser avisado</a>
+          <a class="btn rv-btn-ouro" href="#lista">Entrar na lista de espera</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="rv-sec rv-revela">
+    <div class="wrap stack-sm">
+      <p class="ref">Depoimentos</p>
+      <h2>Depoimentos: em breve</h2>
+      <p style="color:var(--text-soft);max-width:60ch">Os relatos de quem fizer a versão 2.0 aparecerão aqui.</p>
+    </div>
+  </section>
+
+  <section class="rv-sec rv-revela" id="lista">
+    <div class="wrap stack-sm">
+      <p class="ref">Lista de espera</p>
+      <h2>Receba a data de abertura e o valor de fundador.</h2>
+      <div class="lista" data-lista data-padrao="rota"></div>
     </div>
   </section>
 
@@ -253,7 +283,7 @@
       <details><summary>Serve para quem é de fora de Minas Gerais?</summary><p>A maior parte é de MG. A Trilha 9 (Ibama, ANA e SINIR) serve para todo o Brasil.</p></details>
       <details><summary>Tem certificado?</summary><p>Sim, de 40 horas, ao concluir as aulas e os quizzes. Quem tira nota alta na Prova Plus recebe o certificado "com distinção".</p></details>
       <details><summary>As aulas usam inteligência artificial?</summary><p>Sim: o avatar e a voz são gerados por IA a partir do Francisco. O conteúdo é pesquisado nas normas e nos manuais oficiais e revisado por ele.</p></details>
-      <details><summary>Quando abre?</summary><p>As vendas reabrem em novembro de 2026. Clique em "Quero ser avisado" para receber a data.</p></details>
+      <details><summary>Quando abre?</summary><p>As vendas reabrem em novembro de 2026. Entre na lista de espera abaixo para receber a data.</p></details>
     </div>
   </section>
 </main>
@@ -263,15 +293,29 @@
     <div class="stack-sm" style="gap:.5rem">
       <strong style="font-family:var(--f-display)">O Analista Ambiental</strong>
       <a href="mailto:contato@oanalistaambiental.com">contato@oanalistaambiental.com</a>
+      <span>Belo Horizonte &middot; Minas Gerais</span>
+    </div>
+    <div class="rodape-links">
+      <span class="rodape-t">Mais</span>
+      <a href="cursos.html">Palestras e capacitações</a>
+      <a href="chao-geo-mg.html">App Chão Geo MG</a>
+    </div>
+    <div class="stack-sm rodape-redes">
+      <span class="rodape-t">Redes</span>
+      <a href="https://www.youtube.com/@OAnalistaAmb" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.linkedin.com/in/oanalistaambiental" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/oanalistaambiental/" target="_blank" rel="noopener">Instagram</a>
     </div>
     <p class="disclaimer">
       Conteúdo de caráter educativo. As opiniões aqui expressas são pessoais do autor e não
-      representam posição institucional de qualquer órgão ou entidade.
+      representam posição institucional de qualquer órgão ou entidade. Nada neste site substitui
+      a consulta à legislação vigente nem a análise do caso concreto pelo órgão competente.
     </p>
   </div>
 </footer>
 
 <script src="js/nav.js"></script>
+<script src="js/lista.js"></script>
 <script>
 (function(){
   var reduz = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
