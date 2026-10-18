@@ -1,0 +1,322 @@
+{
+  "_leia": "Regras editáveis do radar do Diário Oficial (Jornal Minas Gerais). Todas as expressões são regex do Python, sem diferenciar maiúsculas/minúsculas, e espaços valem para quebra de linha. Mudou algo aqui? Rode de novo o diario_mg.py; não precisa mexer no código.",
+  "orgaos_ambientais": [
+    {
+      "sigla": "Semad",
+      "nome": "Secretaria de Estado de Meio Ambiente e Desenvolvimento Sustentável",
+      "cabecalho": "Secretaria de Estado de Meio Ambiente e Desenvolvimento Sustent[aá]vel"
+    },
+    {
+      "sigla": "Copam",
+      "nome": "Conselho Estadual de Política Ambiental (Copam, câmaras, URCs e URAs)",
+      "cabecalho": "Conselho Estadual de Pol[ií]tica Ambiental( - Copam)?"
+    },
+    {
+      "sigla": "Feam",
+      "nome": "Fundação Estadual do Meio Ambiente",
+      "cabecalho": "Funda[cç][aã]o Estadual do Meio Ambiente( - Feam)?"
+    },
+    {
+      "sigla": "IEF",
+      "nome": "Instituto Estadual de Florestas",
+      "cabecalho": "Instituto Estadual de Florestas( [-–] IEF)?"
+    },
+    {
+      "sigla": "Igam",
+      "nome": "Instituto Mineiro de Gestão das Águas",
+      "cabecalho": "Instituto Mineiro de Gest[aã]o das [AÁ]guas( - Igam)?"
+    },
+    {
+      "sigla": "CERH",
+      "nome": "Conselho Estadual de Recursos Hídricos",
+      "cabecalho": "Conselho Estadual de Recursos H[ií]dricos( - CERH(-MG)?)?"
+    },
+    {
+      "sigla": "Arsae",
+      "nome": "Agência Reguladora de Saneamento e Energia de Minas Gerais",
+      "cabecalho": "Ag[eê]ncia Reguladora de Saneamento e Energia de Minas Gerais( - Arsae-MG)?",
+      "_nota": "Saneamento: entra, mas só como notícia, salvo resolução normativa. Para tirar, apague este bloco."
+    }
+  ],
+  "_secoes": "Seções do caderno onde também se procura ato ambiental de outro órgão (decreto, lei, resolução conjunta). Exige palavras_ambientais.",
+  "secoes_com_busca_por_palavra": [
+    "Governo do Estado",
+    "Secretaria-Geral",
+    "Secretaria de Estado de Governo",
+    "Advocacia-Geral do Estado",
+    "Secretaria de Estado de Agricultura, Pecuária e Abastecimento",
+    "Secretaria de Estado de Desenvolvimento Econômico",
+    "Secretaria de Estado de Infraestrutura, Mobilidade e Parcerias",
+    "Editais e Avisos"
+  ],
+  "palavras_ambientais": [
+    "meio ambiente",
+    "ambienta(l|is)",
+    "licenciamento",
+    "florest",
+    "recursos h[ií]dricos",
+    "outorga",
+    "bacia hidrogr[aá]fica",
+    "Copam",
+    "CERH",
+    "Semad",
+    "Feam",
+    "\\bIEF\\b",
+    "Igam",
+    "Sisema",
+    "unidade(s)? de conserva[cç][aã]o",
+    "reserva legal",
+    "Cadastro Ambiental Rural",
+    "barragem",
+    "res[ií]duos s[oó]lidos",
+    "mudan[cç]a(s)? do clima",
+    "compensa[cç][aã]o ambiental",
+    "Mata Atl[aâ]ntica",
+    "\\bAPP\\b",
+    "minera[cç][aã]o",
+    "saneamento",
+    "fauna",
+    "flora"
+  ],
+  "minimo_palavras_ambientais": 2,
+  "_ignorar": "Atos que nunca entram (só são contados). Testados no título e no começo do texto.",
+  "ignorar_pessoal": [
+    "f[eé]rias",
+    "f[eé]rias-pr[eê]mio",
+    "exonera",
+    "\\bnomeia\\b",
+    "nomea[cç][aã]o",
+    "\\bdesigna(r|ção)?\\b",
+    "dispensa(r)? .{0,30}(servidor|fun[cç][aã]o|cargo)",
+    "aposentadoria",
+    "abono (de )?perman[eê]ncia",
+    "composi[cç][aã]o remunerat[oó]ria",
+    "progress[aã]o na carreira",
+    "promo[cç][aã]o por escolaridade",
+    "\\bMASP\\b",
+    "afastamento",
+    "licen[cç]a(s)? m[eé]dica",
+    "ajuda de custo",
+    "adicional de desempenho",
+    "\\bdi[aá]rias\\b",
+    "posse\\b",
+    "lota[cç][aã]o",
+    "torna sem efeito .{0,60}servidor",
+    "gratifica[cç][aã]o",
+    "substitui[cç][aã]o .{0,40}cargo",
+    "tempo de servi[cç]o",
+    "avalia[cç][aã]o de desempenho",
+    "est[aá]gio probat[oó]rio",
+    "processo administrativo disciplinar",
+    "sindic[aâ]ncia",
+    "cess[aã]o de servidor",
+    "concede .{0,40}(servidor|f[eé]rias|licen[cç]a)",
+    "\\bservidor(a|es)?\\b .{0,40}(cargo|MASP)",
+    "despesas? (de|com) pessoal",
+    "credencia servidor",
+    "\\bcredencia\\b"
+  ],
+  "ignorar_compras": [
+    "licita[cç][aã]o",
+    "preg[aã]o",
+    "cota[cç][aã]o eletr[oô]nica",
+    "extrato (de|do|da)",
+    "termo aditivo",
+    "homologa[cç][aã]o .{0,30}(licita|preg)",
+    "adjudica",
+    "ata de registro de pre[cç]os",
+    "dispensa de licita",
+    "inexigibilidade",
+    "contrato n",
+    "aviso de (revoga[cç][aã]o|anula[cç][aã]o)",
+    "presta[cç][aã]o de contas",
+    "tabela de ve[ií]culos",
+    "conv[eê]nio de sa[ií]da",
+    "ordem de servi[cç]o n",
+    "aquisi[cç][aã]o de",
+    "contrata[cç][aã]o de empresa",
+    "celebrado entre",
+    "\\bobjeto:",
+    "termo de (contrato|cess[aã]o de uso)"
+  ],
+  "_grupos": "Atos sobre empreendimentos/pessoas: entram só como CONTAGEM (sem nome, CPF, CNPJ ou processo). A ordem importa: vale o primeiro que casar.",
+  "grupos_contados": [
+    {
+      "grupo": "Reunião de colegiado (pauta/decisões)",
+      "regex": "reuni[aã]o (ordin[aá]ria|extraordin[aá]ria)|decis[oõ]es deliberadas|pauta da|\\bURC\\b|Unidade Regional Colegiada|C[aâ]mara (T[eé]cnica|de)"
+    },
+    {
+      "grupo": "Auto de infração / sanção",
+      "regex": "auto(s)? de infra[cç][aã]o|aplica[cç][aã]o de san[cç][aã]o|penalidade|notifica[cç][aã]o de (auto|termo)|edital de vista|PECMA|convers[aã]o de multas|local ignorado|incerto ou inacess[ií]vel|notifica"
+    },
+    {
+      "grupo": "Outorga de água (Igam)",
+      "regex": "outorga|uso (insignificante|de recursos h[ií]dricos)|\\bSOUT\\b|certid[aã]o de uso"
+    },
+    {
+      "grupo": "Licenciamento (URAs/Feam/Copam)",
+      "regex": "licen[cç]a (ambiental|pr[eé]via|de opera|de instala)|\\bLAS\\b|\\bLAC\\d?\\b|\\bLAT\\b|\\bLOC\\b|regulariza[cç][aã]o ambiental|EIA/? ?RIMA|licenciamento ambiental"
+    },
+    {
+      "grupo": "Intervenção ambiental / DAIA (IEF)",
+      "regex": "interven[cç][aã]o ambiental|\\bDAIA\\b|\\bAIA\\b|supress[aã]o de (cobertura )?vegeta[cç][aã]o|corte ou aproveitamento"
+    },
+    {
+      "grupo": "Reserva legal / CAR",
+      "regex": "reserva legal|cadastro ambiental rural|\\bCAR\\b"
+    }
+  ],
+  "verbos_decisao": {
+    "requerimentos": "solicit(ou|aram)|requer(eu|eram|imento)",
+    "deferimentos/concessões": "deferid|deferimento|concedid|concess[aã]o|homologad|aprovad",
+    "indeferimentos": "indeferid|indeferimento",
+    "arquivamentos": "arquivad|arquivamento",
+    "revogações/cancelamentos": "revoga[cç][aã]o|cancelamento|cancelad",
+    "transferências de titularidade": "transfer[eê]ncia"
+  },
+  "modalidades": {
+    "LAS Cadastro": "LAS[ /-]*Cadastro",
+    "LAS RAS": "LAS[ /-]*RAS",
+    "LAC": "\\bLAC ?\\d?\\b",
+    "LAT": "\\bLAT\\b",
+    "LOC/corretiva": "\\bLOC\\b|corretiva",
+    "Renovação": "renova[cç][aã]o|\\bRenLO\\b",
+    "EIA/RIMA": "EIA/? ?RIMA"
+  },
+  "_tipos": "Tipo do ato, pelo título. Vale o primeiro que casar.",
+  "tipos": [
+    {
+      "tipo": "Lei",
+      "regex": "^LEI (COMPLEMENTAR )?N"
+    },
+    {
+      "tipo": "Decreto",
+      "regex": "^DECRETO (NE )?N"
+    },
+    {
+      "tipo": "Deliberação Normativa",
+      "regex": "DELIBERA[CÇ][AÃ]O NORMATIVA"
+    },
+    {
+      "tipo": "Deliberação",
+      "regex": "^DELIBERA[CÇ][AÃ]O"
+    },
+    {
+      "tipo": "Resolução conjunta",
+      "regex": "RESOLU[CÇ][AÃ]O CONJUNTA"
+    },
+    {
+      "tipo": "Resolução",
+      "regex": "^RESOLU[CÇ][AÃ]O"
+    },
+    {
+      "tipo": "Instrução de serviço",
+      "regex": "INSTRU[CÇ][AÃ]O (DE SERVI[CÇ]O|NORMATIVA)"
+    },
+    {
+      "tipo": "Nota técnica",
+      "regex": "NOTA T[EÉ]CNICA"
+    },
+    {
+      "tipo": "Portaria",
+      "regex": "^PORTARIA"
+    },
+    {
+      "tipo": "Consulta pública",
+      "regex": "CONSULTA P[UÚ]BLICA"
+    },
+    {
+      "tipo": "Audiência pública",
+      "regex": "AUDI[EÊ]NCIA P[UÚ]BLICA"
+    },
+    {
+      "tipo": "Edital",
+      "regex": "^EDITAL"
+    },
+    {
+      "tipo": "Aviso / comunicado",
+      "regex": "^(AVISO|COMUNICADO|INFORMA)"
+    },
+    {
+      "tipo": "Retificação",
+      "regex": "RETIFICA"
+    },
+    {
+      "tipo": "Ato",
+      "regex": "^ATO "
+    }
+  ],
+  "_relevancia": "Classificação para o consultor. Vale a primeira que casar (no título + ementa).",
+  "relevancia": [
+    {
+      "classe": "prazo",
+      "regex": "consulta p[uú]blica|audi[eê]ncia p[uú]blica|prazo (de|para|at[eé])|inscri[cç](ão|ões)|convoca|chamamento|elei[cç][aã]o de representantes|contribui[cç](ão|ões)"
+    },
+    {
+      "classe": "mudança de procedimento",
+      "regex": "\\baltera\\b|revoga|prorroga|suspend|delega|procedimento|fluxo|sistema|formul[aá]rio|termo de refer[eê]ncia|\\bSLA\\b|\\bSEI\\b|compet[eê]ncia"
+    },
+    {
+      "classe": "nova regra",
+      "regex": "disp[oõ]e sobre|estabelece|institui|regulamenta|aprova|define|cria|normas? (para|de)|crit[eé]rios?|diretrizes?"
+    },
+    {
+      "classe": "notícia",
+      "regex": "."
+    }
+  ],
+  "_trilhas": "Liga o assunto à trilha do curso 2.0 (ESTRUTURA_CURSO.md) para sugerir a atualização de aula.",
+  "trilhas": [
+    {
+      "trilha": "Trilha 3 · CAR",
+      "regex": "cadastro ambiental rural|\\bCAR\\b|reserva legal|\\bPRA\\b"
+    },
+    {
+      "trilha": "Trilha 5 · Água",
+      "regex": "outorga|recursos h[ií]dricos|Igam|CERH|bacia|\\bDURH\\b|po[cç]o|barragem|enquadramento de corpos"
+    },
+    {
+      "trilha": "Trilha 6 · Flora",
+      "regex": "\\bIEF\\b|florest|interven[cç][aã]o ambiental|supress[aã]o|\\bDAIA\\b|Mata Atl[aâ]ntica|flora|unidade(s)? de conserva[cç][aã]o|esta[cç][aã]o ecol[oó]gica|parque estadual|compensa[cç][aã]o florestal"
+    },
+    {
+      "trilha": "Trilha 4 · Licenciamento",
+      "regex": "licenciamento|\\bLAS\\b|\\bLAC\\b|Copam|DN 217|Feam|condicionante|URA|EIA"
+    },
+    {
+      "trilha": "Trilha 7 · Direito ambiental aplicado",
+      "regex": "infra[cç][aã]o|penalidade|san[cç][aã]o|recurso|PECMA|multa|Decreto (n[º°] )?47\\.383|Decreto (n[º°] )?48\\.994"
+    },
+    {
+      "trilha": "Trilha 1 · Órgãos e sistemas",
+      "regex": "\\bSLA\\b|\\bSEI\\b|Ecossistemas|Sisema|sistema|atendimento|estrutura org[aâ]nica|compet[eê]ncia"
+    },
+    {
+      "trilha": "Trilha 2 · Geo",
+      "regex": "IDE-Sisema|geoprocessamento|shapefile|zoneamento|ZEE"
+    }
+  ],
+  "_orgao_pelo_conteudo": "O PDF às vezes sai com as colunas fora de ordem; dentro do bloco ambiental, o texto da matéria decide o órgão. Vale o primeiro que casar.",
+  "orgao_pelo_conteudo": [
+    {
+      "sigla": "Igam",
+      "regex": "outorga de direito de uso|\\bURGA\\b|Unidade Regional de Gest[aã]o das [AÁ]guas"
+    },
+    {
+      "sigla": "IEF",
+      "regex": "URFBio|Instituto Estadual de Florestas|Supervisor Regional .{0,40}IEF"
+    },
+    {
+      "sigla": "Copam",
+      "regex": "Unidade Regional Colegiada|\\bURC\\b|C[aâ]mara (Normativa|T[eé]cnica)|Conselho Estadual de Pol[ií]tica Ambiental"
+    },
+    {
+      "sigla": "Feam/URA",
+      "regex": "Unidade Regional de Regulariza[cç][aã]o Ambiental|Diretora? de Gest[aã]o Regional|Funda[cç][aã]o Estadual do Meio Ambiente"
+    }
+  ],
+  "_empresa_citada": "Se o ato fala de uma empresa específica, ele só é contado (não listado).",
+  "empresa_citada": "\\b(Ltda|S\\.\\s?A\\.?|S/A|EIRELI|\\bME\\b|Cons[oó]rcio)\\b|\\[CNPJ omitido\\]|CNPJ",
+  "_sinal_ambiental": "Trava de segurança: matéria sob cabeçalho ambiental só entra se o texto tiver uma destas palavras.",
+  "sinal_ambiental": "Semad|Feam|\\bIEF\\b|Igam|Copam|CERH|Arsae|Sisema|URFBio|ambient|florest|[aá]guas|h[ií]dric|saneamento|licen[cç]a|outorga|unidade de conserva|esta[cç][aã]o ecol[oó]gica|parque estadual|Unidade Regional"
+}
