@@ -1,0 +1,27 @@
+name: Radar de serviços (IDE-Sisema)
+
+# Conta, por município, as certidões de uso insignificante, outorgas, licenças, supressões e a Reserva Legal a recompor
+# nas camadas públicas da IDE-Sisema e atualiza radar-servicos/dados.json, que alimenta radar-servicos.html e a seção
+# "Radar de serviços" de rota-ambiental.html. Só números agregados: nada de nome, CPF, CNPJ ou processo (LGPD).
+on:
+  schedule:
+    - cron: "13 10 * * 1"   # segunda-feira, 7h13 de Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Contar os vencimentos
+        run: python3 -I radar-servicos/gerador/gerar.py radar-servicos/dados.json
+      - name: Publicar se mudou
+        run: |
+          git config user.name "radar-servicos"
+          git config user.email "radar-servicos@users.noreply.github.com"
+          git add radar-servicos/dados.json
+          git diff --cached --quiet || (git commit -m "Radar de serviços: atualização automática" && git push)

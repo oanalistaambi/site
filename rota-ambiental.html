@@ -36,6 +36,7 @@
         <button class="dd__btn" type="button" aria-expanded="false">Ferramentas</button>
         <div class="dd__menu">
           <a href="radar.html"><b>Radar do Diário Oficial</b><small>O que saiu hoje para a área ambiental de MG</small></a>
+          <a href="radar-servicos.html"><b>Radar de serviços</b><small>Quantos documentos vencem na sua cidade</small></a>
           <a href="artigos/calculadora-enquadramento-mg.html"><b>Calculadora de enquadramento</b><small>Classe e modalidade pela DN 217</small></a>
           <a href="artigos/checklist-documentos-licenciamento-mg.html"><b>Checklist de documentos</b><small>O que cada modalidade pede</small></a>
           <a href="chao-geo-mg.html"><b>App Chão Geo MG</b><small>Vistoria e camadas do IDE-Sisema no celular</small></a>
@@ -142,6 +143,7 @@
       <p class="ref">Curso online · Minas Gerais</p>
       <h1>A Rota Ambiental <span>2.0</span></h1>
       <p class="rv-sub">Do sistema à portaria: o passo a passo para fazer o serviço ambiental em Minas Gerais, com a tela real dos sistemas e casos reais.</p>
+      <p class="rv-sub" style="font-size:1.02rem">E um radar para achar, na sua cidade, os serviços que estão vencendo.</p>
       <div class="rv-ctas">
         <a class="btn rv-btn-ouro" href="#lista">Entrar na lista de espera</a>
         <a class="btn btn--ghost" href="#trilhas">Ver as trilhas</a>
@@ -183,6 +185,37 @@
     </div>
   </section>
 
+  <section class="rv-sec rv-revela" id="radar">
+    <div class="wrap stack">
+      <p class="ref">Novo · Radar de serviços</p>
+      <h2>Em Minas, mais de <span data-rs="soma">27 mil</span> documentos ambientais vencem nos próximos 24 meses. Você sabe quais estão perto de você?</h2>
+      <p style="color:var(--text-soft);max-width:68ch;font-size:1.08rem">Certidão de água, outorga, licença, Reserva Legal a recompor. O Estado publica tudo, mas espalhado em camadas técnicas. Na Rota Ambiental você aprende a encontrar, filtrar pela sua cidade e transformar isso em serviço, com ética.</p>
+      <div class="rv-num">
+        <div><b data-rs="insig_6m">23.624</b><span>certidões de uso insignificante de água vencem nos próximos 6 meses</span></div>
+        <div><b data-rs="outorga_12m">678</b><span>outorgas de água vencem em 12 meses</span></div>
+        <div><b data-rs="licenca_24m">2.289</b><span>licenças ambientais vencem nos próximos 24 meses</span></div>
+        <div><b data-rs="rl_imoveis">330.196</b><span>imóveis com Reserva Legal a recompor, declarado no CAR</span></div>
+      </div>
+      <p style="color:var(--text-faint);font-size:.9rem" data-rs="fonte">Dados públicos da IDE-Sisema (Semad, Igam, IEF e Feam), contados em 18/10/2026. Os números mudam toda semana.</p>
+      <div class="rv-grid">
+        <div class="rv-card"><h3>Ache na sua cidade</h3><p>Links prontos: troque o nome do município e a planilha abre filtrada, sem nome e sem CPF.</p></div>
+        <div class="rv-card"><h3>Veja quem vence e quem está perto</h3><p>A planilha-modelo calcula os dias para vencer e a distância até você. Exemplo real: Patos de Minas, raio de 30 km, 164 certidões vencendo em 6 meses.</p></div>
+        <div class="rv-card"><h3>Ofereça o serviço certo</h3><p>Por formação (agrônomo, florestal, civil, geólogo, gestor): renovação, condicionante, PTRF, CAR, DAURH e outorga. Com mensagem-modelo educativa e regras de LGPD.</p></div>
+      </div>
+      <ul class="rv-lista">
+        <li>6 aulas curtas na Trilha 8, "Fazer render".</li>
+        <li>Kit bônus: links por município, planilha-modelo, 5 prompts de IA e o mapa formação × serviço.</li>
+        <li>Atualização dos números todo mês na comunidade.</li>
+      </ul>
+      <p style="font-family:var(--f-display);font-size:1.15rem;max-width:62ch">O dado é público. Saber ler, chegar antes e entregar bem feito é o que separa o consultor que espera do que é procurado.</p>
+      <div class="rv-ctas">
+        <a class="btn rv-btn-ouro" href="#lista">Quero entrar na lista de espera</a>
+        <a class="btn btn--ghost" href="radar-servicos.html">Ver os números da minha cidade</a>
+      </div>
+      <p style="color:var(--text-faint);font-size:.85rem">Os números mostram oportunidades públicas, não clientes garantidos. A Rota ensina a encontrar e a oferecer o serviço com responsabilidade e respeito à LGPD.</p>
+    </div>
+  </section>
+
   <section class="rv-sec rv-revela" id="trilhas">
     <div class="wrap stack">
       <p class="ref">As trilhas</p>
@@ -196,7 +229,7 @@
         <div class="rv-card rv-trilha"><img src="assets/rota/medalha_5.png" alt="" width="64" height="64"><div><h3>5 · Água <span class="rv-tag rv-tag--pronta">1ª aula gravada</span></h3><ul><li>Pedido de outorga no SOUT, com casos reais</li><li>Uso insignificante, poço e barramento</li></ul></div></div>
         <div class="rv-card rv-trilha"><img src="assets/rota/medalha_6.png" alt="" width="64" height="64"><div><h3>6 · Flora</h3><ul><li>Árvores isoladas, taxa e reposição</li><li>CAP/DAP e volumetria, com planilha</li><li>Sinaflor, DOF e supressão</li></ul></div></div>
         <div class="rv-card rv-trilha"><img src="assets/rota/medalha_7.png" alt="" width="64" height="64"><div><h3>7 · Direito ambiental aplicado</h3><ul><li>Defesa administrativa e recurso</li><li>Responsabilidade penal, civil e administrativa</li></ul></div></div>
-        <div class="rv-card rv-trilha"><img src="assets/rota/medalha_8.png" alt="" width="64" height="64"><div><h3>8 · Fazer render</h3><ul><li>Quanto cobrar, proposta e contrato</li><li>Achar cliente e serviço recorrente</li></ul></div></div>
+        <div class="rv-card rv-trilha"><img src="assets/rota/medalha_8.png" alt="" width="64" height="64"><div><h3>8 · Fazer render</h3><ul><li>Quanto cobrar, proposta e contrato</li><li>Achar cliente e serviço recorrente</li><li>Radar de serviços: certidões, outorgas, licenças e Reserva Legal na sua região <span class="rv-tag rv-tag--pronta">novo</span></li></ul></div></div>
         <div class="rv-card rv-trilha"><img src="assets/rota/medalha_9.png" alt="" width="64" height="64"><div><h3>9 · Federal</h3><ul><li>CTF/AIDA, CTF/APP, RAPP e TCFA no Ibama</li><li>ANA e MTR no SINIR: serve para todo o Brasil</li></ul></div></div>
       </div>
       <p style="color:var(--text-faint);font-size:.95rem">Grade em produção: as aulas entram trilha por trilha, e a ordem pode mudar conforme as normas e os sistemas.</p>
@@ -230,6 +263,7 @@
         <div class="rv-card"><h3>Mapa dos manuais oficiais</h3><p>Link, versão e o que mudou em cada manual dos sistemas, atualizado todo mês.</p></div>
         <div class="rv-card"><h3>Planilhas-ferramenta</h3><p>CAP/DAP e volumetria, taxa florestal e reposição, vazão e uso insignificante, precificação.</p></div>
         <div class="rv-card"><h3>Jogos para aprender <span class="rv-tag">em breve</span></h3><p>Desafios, cartas e simulações para fixar normas, siglas e o funcionamento do órgão com pontos e ranking.</p></div>
+        <div class="rv-card"><h3>Radar de serviços</h3><p>Planilha que calcula os vencimentos e a distância, links prontos por município e prompts de IA para montar a sua lista de oportunidades.</p></div>
         <div class="rv-card"><h3>Comunidade</h3><p>Dúvidas pelo tema da aula, com respostas da equipe.</p></div>
       </div>
     </div>
@@ -310,6 +344,9 @@
       <details><summary>Serve para quem é de fora de Minas Gerais?</summary><p>A maior parte é de MG. A Trilha 9 (Ibama, ANA e SINIR) serve para todo o Brasil.</p></details>
       <details><summary>Tem certificado?</summary><p>Sim, de 40 horas, ao concluir as aulas e os quizzes. Quem tira nota alta na Prova Plus recebe o certificado "com distinção".</p></details>
       <details><summary>As aulas usam inteligência artificial?</summary><p>Sim: o avatar e a voz são gerados por IA a partir do Francisco. O conteúdo é pesquisado nas normas e nos manuais oficiais e revisado por ele.</p></details>
+      <details><summary>Os dados do Radar de serviços são legais de usar?</summary><p>São públicos, publicados pelo próprio Estado na IDE-Sisema. A aula ensina a usar com finalidade legítima: números por região, contato respeitoso, sem lista de CPF e sem spam (LGPD).</p></details>
+      <details><summary>Preciso saber programar para usar o Radar?</summary><p>Não. É Excel ou Google Planilhas e um link. Quem quiser vai além, com IA ou QGIS.</p></details>
+      <details><summary>O Radar funciona na minha cidade?</summary><p>Funciona em qualquer município de Minas Gerais. Veja os números da sua cidade em <a href="radar-servicos.html">radar-servicos.html</a>.</p></details>
       <details><summary>Quando abre?</summary><p>As vendas reabrem em novembro de 2026. Entre na lista de espera abaixo para receber a data.</p></details>
     </div>
   </section>
@@ -341,6 +378,18 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  fetch('radar-servicos/dados.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+    var t=d.total,N=function(x){return Math.round(x).toLocaleString('pt-BR')};
+    ['insig_6m','outorga_12m','licenca_24m','rl_imoveis'].forEach(function(k){var e=document.querySelector('[data-rs="'+k+'"]');if(e&&t[k])e.textContent=N(t[k])});
+    var s=(t.insig_6m||0)+(t.outorga_12m||0)+(t.licenca_24m||0),e=document.querySelector('[data-rs="soma"]');
+    if(e&&s)e.textContent=N(Math.floor(s/1000))+' mil';
+    var p=d.atualizado_em.split('-'),f=document.querySelector('[data-rs="fonte"]');
+    if(f)f.textContent='Dados públicos da IDE-Sisema (Semad, Igam, IEF e Feam), contados em '+p[2]+'/'+p[1]+'/'+p[0]+'. Os números mudam toda semana.';
+  }).catch(function(){});
+})();
+</script>
 <script src="js/nav.js"></script>
 <script src="js/lista.js"></script>
 <script>
