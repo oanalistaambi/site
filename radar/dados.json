@@ -1,0 +1,244 @@
+{
+ "atualizado_em": "2026-10-17",
+ "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
+ "edicoes": [
+  {
+   "data": "2026-10-17",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 7,
+     "processos": 22,
+     "decisoes": {
+      "arquivamentos": 2,
+      "requerimentos": 3,
+      "deferimentos/concessões": 6,
+      "revogações/cancelamentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Ato sobre empresa/empreendimento específico",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 2,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 2,
+     "processos": 7,
+     "decisoes": {
+      "deferimentos/concessões": 2
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-10-16",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 4,
+     "processos": 6,
+     "decisoes": {
+      "requerimentos": 2,
+      "deferimentos/concessões": 3,
+      "transferências de titularidade": 2,
+      "revogações/cancelamentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "requerimentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 1,
+     "processos": 2,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 5,
+     "processos": 27,
+     "decisoes": {
+      "deferimentos/concessões": 4
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-10-15",
+   "atos": [
+    {
+     "orgao": "IEF",
+     "tipo": "Edital",
+     "numero": "01/2026",
+     "titulo": "EDITAL DE CONVOCAÇÃO IEF/PEN Nº.: 01/2026",
+     "ementa": "O Instituto Estadual de Florestas – IEF, torna público o Edital de Convocação IEF/PEB Nº.: 01/2026, para eleição de órgãos/entidades públicas e representantes da sociedade civil organizada, visando compor as vagas para a formação do Conselho do Parque Estadual de Botumirim, com respaldo na Portaria IEF nº 19/2017, conforme calendário de atividades abaixo.",
+     "relevancia": "prazo",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 34,
+     "autenticidade": "3202610148043323134"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 2,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 9,
+     "processos": 15,
+     "decisoes": {
+      "requerimentos": 6,
+      "arquivamentos": 2,
+      "deferimentos/concessões": 4,
+      "revogações/cancelamentos": 1,
+      "transferências de titularidade": 2,
+      "indeferimentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 8,
+     "processos": 60,
+     "decisoes": {
+      "deferimentos/concessões": 7,
+      "indeferimentos": 3,
+      "arquivamentos": 4
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {}
+    }
+   ]
+  },
+  {
+   "data": "2026-10-14",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Arsae",
+     "grupo": "Ato sobre empresa/empreendimento específico",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 3,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "indeferimentos": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 5,
+     "processos": 7,
+     "decisoes": {
+      "deferimentos/concessões": 5,
+      "requerimentos": 2,
+      "indeferimentos": 1,
+      "transferências de titularidade": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 2,
+     "processos": 3,
+     "decisoes": {
+      "requerimentos": 2,
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 3,
+     "processos": 34,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 3,
+      "arquivamentos": 2,
+      "indeferimentos": 1
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    }
+   ]
+  }
+ ]
+}

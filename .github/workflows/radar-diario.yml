@@ -1,0 +1,31 @@
+name: Radar do Diário Oficial de MG
+
+# Lê o Diário do Executivo (Jornal Minas Gerais) e atualiza radar/dados.json, que alimenta radar.html.
+# Só contagens e atos gerais; nada de nome, CPF, CNPJ ou número de processo (LGPD).
+on:
+  schedule:
+    - cron: "47 11 * * 2-6"   # terça a sábado, 8h47 de Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar pdftotext
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Ler as últimas edições
+        run: |
+          mkdir -p /tmp/radar
+          python3 -I radar/gerador/diario_mg.py --data "$(date -u -d '14 days ago' +%F)" --ate "$(date -u +%F)" \
+            --saida /tmp/radar --cache /tmp/radar-cache || true
+          python3 -I radar/gerador/gerar_site.py /tmp/radar radar/dados.json 10
+      - name: Publicar se mudou
+        run: |
+          git config user.name "radar-diario"
+          git config user.email "radar-diario@users.noreply.github.com"
+          git add radar/dados.json
+          git diff --cached --quiet || (git commit -m "Radar do Diário Oficial: atualização automática" && git push)
