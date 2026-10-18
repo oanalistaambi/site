@@ -239,6 +239,344 @@
      "decisoes": {}
     }
    ]
+  },
+  {
+   "data": "2026-10-10",
+   "atos": [
+    {
+     "orgao": "Arsae",
+     "tipo": "Portaria",
+     "numero": "416",
+     "titulo": "PORTARIA ARSAE-MG Nº 416, DE 08 DE OUTUBRO DE 2026",
+     "ementa": "Institui o Comitê de Gestão de Riscos, Integridade e Compliance da Agência Reguladora de Saneamento e Energia de Minas Gerais (Arsae-MG) e dá outras providências.",
+     "relevancia": "notícia",
+     "trilha": "Trilha 1 · Órgãos e sistemas",
+     "pagina": 11,
+     "autenticidade": "3202610102941338911"
+    },
+    {
+     "orgao": "IEF",
+     "tipo": "Edital",
+     "numero": "01/2026",
+     "titulo": "EDITAL DE CONVOCAÇÃO IEF/ EEEMC Nº .: 01/2026",
+     "ementa": "Estabelece regras para a eleição de representantes de Órgãos/Entidades Públicas e representantes da sociedade civil organizada, visando compor o Conselho da Estação Ecológica Estadual Mata do Cedro.",
+     "relevancia": "prazo",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 51,
+     "autenticidade": "3202610102941338951"
+    },
+    {
+     "orgao": "IEF",
+     "tipo": "Edital",
+     "numero": "01/2026",
+     "titulo": "EDITAL DE CONVOCAÇÃO IEF/PEM Nº.: 01/2026",
+     "ementa": "O Instituto Estadual de Florestas – IEF, torna público o Edital de Convocação IEF/PEM Nº.: 01/2026, para eleição de órgãos/entidades públicas e representantes da sociedade civil organizada, visando compor as vagas para a formação do Conselho do Parque Estadual de Montezuma, com respaldo na Portaria IEF nº 19/2017, conforme calendário de atividades abaixo.",
+     "relevancia": "prazo",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 51,
+     "autenticidade": "3202610102941338951"
+    },
+    {
+     "orgao": "IEF",
+     "tipo": "Aviso / comunicado",
+     "numero": null,
+     "titulo": "AVISO DE PRORROGAÇÃO",
+     "ementa": "EDITAL IEF Nº 01/2026 A DIRETORA-GERAL DO INSTITUTO ESTADUAL DE FLORESTAS – IEF, no uso de suas atribuições legais, nos termos do item 9.3 do Edital IEF nº 01/2026, na Seção 9 – Dos Recursos, e considerando o disposto no art. 21, § 2º, do Decreto Estadual nº 47.553, de 07 de dezembro de 2018, RESOLVE:",
+     "relevancia": "mudança de procedimento",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 51,
+     "autenticidade": "3202610102941338951"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 2,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 5,
+     "processos": 17,
+     "decisoes": {
+      "deferimentos/concessões": 5,
+      "requerimentos": 2,
+      "revogações/cancelamentos": 1,
+      "transferências de titularidade": 2
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 2,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 5,
+     "processos": 14,
+     "decisoes": {
+      "requerimentos": 4,
+      "deferimentos/concessões": 2
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 3,
+     "processos": 13,
+     "decisoes": {
+      "deferimentos/concessões": 3,
+      "indeferimentos": 1
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-10-09",
+   "atos": [
+    {
+     "orgao": "Semad",
+     "tipo": "Resolução",
+     "numero": "3.428",
+     "titulo": "RESOLUÇÃO SEMAD Nº 3.428, 05 DE OUTUBRO DE 2026",
+     "ementa": "Aprova a Doutrina de Inteligência Ambiental da Secretaria de Estado de Meio Ambiente e Desenvolvimento Sustentável de Minas Gerais.",
+     "relevancia": "nova regra",
+     "trilha": "Trilha 1 · Órgãos e sistemas",
+     "pagina": 8,
+     "autenticidade": "320261009469572788"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 5,
+     "processos": 18,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 5,
+     "processos": 10,
+     "decisoes": {
+      "deferimentos/concessões": 4,
+      "requerimentos": 2,
+      "revogações/cancelamentos": 1,
+      "transferências de titularidade": 1,
+      "indeferimentos": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 3,
+     "processos": 3,
+     "decisoes": {
+      "requerimentos": 3
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 2,
+     "processos": 8,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 1,
+      "indeferimentos": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 2,
+     "processos": 7,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "arquivamentos": 2
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-10-08",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 2,
+     "processos": 8,
+     "decisoes": {
+      "deferimentos/concessões": 2,
+      "revogações/cancelamentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 7,
+     "processos": 62,
+     "decisoes": {
+      "deferimentos/concessões": 5,
+      "indeferimentos": 2,
+      "arquivamentos": 4
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 4,
+     "processos": 4,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "indeferimentos": 1
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-10-07",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 2,
+     "processos": 3,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 2,
+      "indeferimentos": 1,
+      "revogações/cancelamentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 7,
+     "processos": 14,
+     "decisoes": {
+      "requerimentos": 4,
+      "deferimentos/concessões": 3,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 16,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "indeferimentos": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 9,
+     "processos": 46,
+     "decisoes": {
+      "deferimentos/concessões": 8,
+      "indeferimentos": 4,
+      "arquivamentos": 5
+     }
+    }
+   ]
+  },
+  {
+   "data": "2026-10-06",
+   "atos": [
+    {
+     "orgao": "IEF",
+     "tipo": "Edital",
+     "numero": "01/2025",
+     "titulo": "EDITAL SEPLAG/SEE Nº 01/2025 - RETIFICAÇÃO DA HOMOLOGAÇÃO",
+     "ementa": "A Secretaria de Estado de Planejamento e Gestão – SEPLAG, a Secretaria de Estado de Educação – SEE e a CONSULPLAN, responsável pela organização e coordenação do certame, no uso de suas atribuições, tornam pública a retificação da Homologação do Concurso Público regido pelo Edital SEPLAG/SEE nº 01/2025, publicado em 10 de fevereiro de 2026 e 30 de abril de 2026, respectivamente, nos termos a seguir",
+     "relevancia": "notícia",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 44,
+     "autenticidade": "3202610066762960144"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 2,
+     "processos": 5,
+     "decisoes": {
+      "deferimentos/concessões": 2,
+      "requerimentos": 1,
+      "indeferimentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 3,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 1,
+     "processos": 40,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "indeferimentos": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 4,
+     "processos": 4,
+     "decisoes": {}
+    }
+   ]
   }
  ]
 }
