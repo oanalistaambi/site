@@ -2,9 +2,9 @@
    Componente único: qualquer página coloca <div data-lista></div> e carrega este arquivo.
    Opcional: data-padrao="rota", "radar" ou "rota,radar" (o que já vem marcado). */
 (function () {
-  // Colar aqui o endereço do Formspree ou do Google Forms criado pelo dono.
-  // Enquanto estiver vazio, o envio abre o e-mail do visitante (mailto) com a mensagem pronta.
-  const ENDPOINT = "";
+  // FormSubmit (grátis, sem cadastro): cada inscrição chega por e-mail ao dono. O primeiro envio manda um
+  // e-mail de ativação para o DESTINO; o dono clica uma vez em "Activate". Se o serviço falhar, cai no mailto.
+  const ENDPOINT = "https://formsubmit.co/ajax/contato@oanalistaambiental.com";
 
   const DESTINO = "contato@oanalistaambiental.com";
   const ASSUNTO = "Lista de espera";
@@ -41,7 +41,7 @@
 
     const botao = el("button", { type: "submit", "class": "btn btn--solid", texto: "Quero entrar na lista" });
     const msg = el("p", { "class": "lista__msg", role: "status", "aria-live": "polite" });
-    const nota = el("p", { "class": "lista__nota", texto: "Usamos seu e-mail só para avisar da Rota 2.0 e do Radar. Sem spam." });
+    const nota = el("p", { "class": "lista__nota", texto: "Usamos seu e-mail só para avisar da Rota 2.0 e do Radar. Sem spam. O envio passa pelo serviço FormSubmit." });
 
     form.appendChild(el("label", { "class": "lista__rot", "for": "lista-nome", texto: "Nome" }));
     form.appendChild(nome);
@@ -96,6 +96,8 @@
       corpo.append("email", d.email);
       corpo.append("interesse", d.interesse.join("; "));
       corpo.append("_subject", ASSUNTO);
+      corpo.append("_template", "table");
+      corpo.append("_captcha", "false");
       fetch(ENDPOINT, { method: "POST", body: corpo, headers: { Accept: "application/json" } })
         .then(function (r) {
           if (!r.ok) throw new Error("falha");
