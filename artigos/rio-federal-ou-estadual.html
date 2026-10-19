@@ -263,7 +263,16 @@
     SC: ["Secretaria de Estado do Meio Ambiente e da Economia Verde (Semae/SC)", "https://www.semae.sc.gov.br/", true],
     SP: ["Agência de Águas do Estado de São Paulo (SP Águas, antigo DAEE)", "https://www.spaguas.sp.gov.br/", "nome", "outorgas SP Águas de 2025 com base no Decreto 63.262/2018; o endereço sem www não existe"],
     SE: ["Secretaria do Meio Ambiente, Sustentabilidade e Ações Climáticas (Semac/SE)", "https://www.se.gov.br/semac", true],
-    TO: ["Instituto Natureza do Tocantins (Naturatins)", "https://naturatins.to.gov.br/", "nome", "Lei estadual 1.307/2002 e decreto de outorga (o 2.432/2005 foi substituído pelo 6.934/2025); a outorga é do Naturatins, não da Semarh"]
+    TO: ["Instituto Natureza do Tocantins (Naturatins)", "https://naturatins.to.gov.br/", "nome", "Lei estadual 1.307/2002; o CIGMA (governo do TO) informa que o Naturatins analisa e concede a outorga, não a Semarh. O Decreto 6.934/2025 só revogou o 2.432/2005"]
+  };
+  /* Página de outorga aberta e lida no navegador pelo Cowork em 19/10/2026 (ferramentas/OUTORGA_PAGINAS_ESTADUAIS_COWORK.md). */
+  var OUTORGA = {
+    AP: "https://sema.portal.ap.gov.br/conteudo/servicos-e-informacoes/outorga-do-uso-da-agua",
+    AM: "https://www.ipaam.am.gov.br/outorga-de-recursos-hidricos/",
+    CE: "https://www.cogerh.com.br/outorga-2/",
+    MT: "https://www.sema.mt.gov.br/site/index.php/outorga",
+    PE: "https://www.apac.pe.gov.br/outorga",
+    TO: "https://cigma.to.gov.br/recursos_hidricos/seirh/outorga/"
   };
   var NOME_UF = {AC:"Acre",AL:"Alagoas",AP:"Amapá",AM:"Amazonas",BA:"Bahia",CE:"Ceará",DF:"Distrito Federal",ES:"Espírito Santo",GO:"Goiás",MA:"Maranhão",MT:"Mato Grosso",MS:"Mato Grosso do Sul",MG:"Minas Gerais",PA:"Pará",PB:"Paraíba",PR:"Paraná",PE:"Pernambuco",PI:"Piauí",RJ:"Rio de Janeiro",RN:"Rio Grande do Norte",RS:"Rio Grande do Sul",RO:"Rondônia",RR:"Roraima",SC:"Santa Catarina",SP:"São Paulo",SE:"Sergipe",TO:"Tocantins"};
 
@@ -274,7 +283,7 @@
   $("rf-tabela").innerHTML = Object.keys(NOME_UF).map(function (k) {
     var o = UF[k];
     return "<tr><td><b>" + k + "</b></td><td>" + esc(o[0]) + "</td><td><a href=\"" + o[1] + "\" target=\"_blank\" rel=\"noopener\">" + esc(o[1].replace(/^https:\/\//, "").replace(/\/$/, "")) + "</a></td><td>" +
-      (o[2] === true ? "<span class=\"rf-ok\">site abriu em 19/10</span>" : o[2] === "nome" ? "<span class=\"rf-nome\" title=\"" + esc(o[3] || "") + "\">nome conferido em norma</span>" : "<span class=\"rf-conf\">[conferir]</span>") + (o[3] ? "<small class=\"rf-fonte\">" + esc(o[3]) + "</small>" : "") + "</td></tr>";
+      (o[2] === true ? "<span class=\"rf-ok\">site abriu em 19/10</span>" : o[2] === "nome" ? "<span class=\"rf-nome\" title=\"" + esc(o[3] || "") + "\">nome conferido em norma</span>" : "<span class=\"rf-conf\">[conferir]</span>") + (o[3] ? "<small class=\"rf-fonte\">" + esc(o[3]) + "</small>" : "") + (OUTORGA[k] ? "<small class=\"rf-fonte\"><a href=\"" + OUTORGA[k] + "\" target=\"_blank\" rel=\"noopener\">página de outorga</a> (aberta em 19/10)</small>" : "") + "</td></tr>";
   }).join("");
 
   /* estado dos botões */
@@ -375,7 +384,7 @@
   }
   function cardEstadual(titulo, motivo, uf, fonte) {
     var o = UF[uf];
-    var org = o ? "<b>A outorga é no órgão do estado: <a href=\"" + o[1] + "\" target=\"_blank\" rel=\"noopener\">" + esc(o[0]) + "</a></b>" + (o[2] === true ? "" : o[2] === "nome" ? " <span class=\"rf-nome\">(site não abriu na nossa conferência; nome conferido em norma)</span>" : " <span class=\"rf-conf\">[conferir o site]</span>") + "." :
+    var org = o ? "<b>A outorga é no órgão do estado: <a href=\"" + o[1] + "\" target=\"_blank\" rel=\"noopener\">" + esc(o[0]) + "</a></b>" + (o[2] === true ? "" : o[2] === "nome" ? " <span class=\"rf-nome\">(site não abriu na nossa conferência; nome conferido em norma)</span>" : " <span class=\"rf-conf\">[conferir o site]</span>") + "." + (OUTORGA[uf] ? " Comece pela <a href=\"" + OUTORGA[uf] + "\" target=\"_blank\" rel=\"noopener\">página de outorga</a> do órgão." : "") :
       "<b>A outorga é no órgão gestor do estado</b> (veja a tabela abaixo).";
     return "<div class=\"rf-card rf-card--est rf-fade\"><span class=\"rf-selo " + (tipo === "sub" ? "rf-selo--sub" : "rf-selo--est") + "\">Domínio do estado" + (uf ? " · " + uf : "") + "</span><h3>" + titulo + "</h3><p>" + motivo + "</p><p>" + org + "</p><p class=\"rf-aviso\">" + fonte + "</p></div>";
   }
