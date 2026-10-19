@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora do imóvel rural: módulo fiscal, Reserva Legal e APP</title>
+<meta name="description" content="Módulo fiscal oficial do Incra para os 5.571 municípios, número de módulos, tamanho do imóvel, Reserva Legal mínima e faixa de APP (inclusive em área consolidada), com o artigo do Código Florestal ao lado.">
+<link rel="canonical" href="https://www.oanalistaambiental.com/artigos/calculadora-imovel-rural-car.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Calculadora do imóvel rural: módulo fiscal, Reserva Legal e APP">
+<meta property="og:description" content="Módulo fiscal oficial do Incra para os 5.571 municípios, número de módulos, tamanho do imóvel, Reserva Legal mínima e faixa de APP (inclusive em área consolidada), com o artigo do Código Florestal ao lado.">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="../assets/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ---------- calculadora de enquadramento (CSS específico desta página) ---------- */
+  .calc{ border:1px solid var(--rule); background:var(--bg-raised); padding:1.6rem 1.5rem 1.8rem; margin-top:2em; border-radius:2px; }
+  .calc__step{ margin-top:1.8em; padding-top:1.6em; border-top:1px solid var(--rule); }
+  .calc__step:first-child{ margin-top:0; padding-top:0; border-top:0; }
+  .calc__step-label{ font-family:var(--f-mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--ochre); margin-bottom:.7rem; display:block; }
+  .calc__row{ display:flex; flex-wrap:wrap; gap:1rem; }
+  .calc__field{ display:flex; flex-direction:column; gap:.4rem; flex:1 1 220px; }
+  .calc__field label{ font-family:var(--f-mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); }
+  .calc select, .calc input[type="number"]{ padding:.7rem .85rem; border:1.5px solid var(--rule-strong); border-radius:2px; background:var(--bg); color:var(--text); font-family:var(--f-display); font-size:.95rem; width:100%; }
+  .calc select:focus, .calc input:focus{ outline:2.5px solid var(--focus); outline-offset:2px; }
+  .calc__hint{ font-size:.84rem; color:var(--text-faint); margin-top:.3rem; }
+  .calc__potencial{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.9rem; }
+  .calc__potencial span{ font-family:var(--f-mono); font-size:.72rem; border:1px solid var(--rule-strong); border-radius:2px; padding:.3rem .6rem; color:var(--text-soft); }
+  .calc__potencial b{ color:var(--text); }
+  .calc__checklist{ display:flex; flex-direction:column; gap:.55rem; margin-top:.4rem; }
+  .calc__checklist label{ display:flex; align-items:flex-start; gap:.6rem; font-size:.9rem; color:var(--text-soft); cursor:pointer; line-height:1.4; }
+  .calc__checklist input{ margin-top:.3rem; flex:none; }
+  .peso-tag{ font-family:var(--f-mono); font-size:.66rem; letter-spacing:.06em; flex:none; border:1px solid var(--rule-strong); border-radius:2px; padding:.1rem .45rem; color:var(--text-faint); white-space:nowrap; }
+  .calc__resultado{ display:grid; gap:1px; grid-template-columns:repeat(3,minmax(0,1fr)); background:var(--rule); border:1px solid var(--rule); margin-top:.6rem; }
+  @media (max-width:700px){ .calc__resultado{ grid-template-columns:1fr; } }
+  .calc__resultado div{ background:var(--bg); padding:1.1rem 1.2rem; }
+  .calc__resultado dt{ font-family:var(--f-mono); font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; color:var(--text-faint); margin-bottom:.4rem; }
+  .calc__resultado dd{ margin:0; font-family:var(--f-display); font-weight:700; font-size:1.5rem; color:var(--text); }
+  .calc__resultado dd small{ display:block; font-family:var(--f-body); font-weight:400; font-size:.8rem; color:var(--text-soft); margin-top:.3rem; }
+  .calc__placeholder{ color:var(--text-faint); font-size:.94rem; padding:.6rem 0 .2rem; }
+  .calc__dicas{ margin-top:.2rem; }
+  .calc__dicas ul{ margin:.6rem 0 0; padding-left:1.1rem; display:flex; flex-direction:column; gap:.5rem; }
+  .calc__dicas li{ font-size:.92rem; color:var(--text-soft); line-height:1.5; }
+  .calc__dicas a{ color:var(--accent); text-underline-offset:3px; }
+  .calc__aviso{ border-left:3px solid var(--ochre); padding:.7rem 0 .7rem 1rem; margin-top:1rem; font-size:.88rem; color:var(--text-soft); }
+  .calc__vedacao{ border-left:3px solid var(--rule-strong); padding:.7rem 0 .7rem 1rem; margin-top:1.4rem; font-size:.86rem; color:var(--text-soft); }
+  .calc__vedacao b{ color:var(--text); }
+  [hidden]{ display:none !important; }
+
+  .calc input.tx{ padding:.7rem .85rem; border:1.5px solid var(--rule-strong); border-radius:2px; background:var(--bg); color:var(--text); font-family:var(--f-display); font-size:.95rem; width:100%; }
+  .tabs{ display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1rem; }
+  .tabs button{ font:inherit; font-size:.88rem; padding:.45rem .8rem; border:1.5px solid var(--rule-strong); background:var(--bg); color:var(--text-soft); border-radius:999px; cursor:pointer; }
+  .tabs button[aria-selected="true"]{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .tabs button:focus-visible{ outline:2.5px solid var(--focus); outline-offset:2px; }
+  .faixas{ display:grid; gap:.8rem; margin-top:1rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); }
+  .faixa{ border:1px solid var(--rule); background:var(--bg); padding:1rem 1.1rem; }
+  .faixa span{ font-family:var(--f-mono); font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; color:var(--text-faint); display:block; }
+  .faixa b{ display:block; font-family:var(--f-display); font-size:1.5rem; margin:.35rem 0 .2rem; color:var(--accent); }
+  .faixa--c b{ color:var(--ochre); }
+  .faixa small{ color:var(--text-soft); font-size:.82rem; }
+  .barra{ height:8px; background:var(--bg-sunken); border-radius:4px; margin-top:.7rem; overflow:hidden; }
+  .barra i{ display:block; height:100%; width:0; background:var(--accent); transition:width .5s ease; }
+  .faixa--c .barra i{ background:var(--ochre); }
+  .resumo{ white-space:pre-wrap; font-family:var(--f-mono); font-size:.85rem; background:var(--bg); border:1px solid var(--rule); padding:1rem; margin:0; color:var(--text); overflow-x:auto; }
+  .acoes{ display:flex; gap:.8rem; align-items:center; margin-top:.8rem; flex-wrap:wrap; }
+  .fontes li{ margin:.45rem 0; color:var(--text-soft); font-size:.95rem; }
+  .rf-mini{ margin-top:2rem; border-top:1px solid var(--rule); padding-top:1rem; display:flex; gap:1rem; align-items:center; flex-wrap:wrap; justify-content:space-between; color:var(--text-soft); font-size:.95rem; }
+  .rf-mini a{ font-family:var(--f-display); font-weight:600; color:var(--accent); }
+  @media (prefers-reduced-motion:reduce){ .barra i{ transition:none; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="../index.html">
+      <svg class="logo" viewBox="-5 -5 108 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd"><path d="M49.52 0.65C47.85 1.23 47.54 1.54 44.22 5.92C43.94 6.29 43.2 7.27 42.57 8.09C41.36 9.67 39.2 12.52 36.46 16.14C34.87 18.23 32.93 20.79 31.13 23.13C30.71 23.68 29.79 24.87 29.11 25.78C28.43 26.68 27.26 28.2 26.51 29.17C25.78 30.13 24.8 31.4 24.35 32C23.91 32.59 23.03 33.75 22.41 34.56C21.79 35.36 20.71 36.77 20.01 37.69C19.32 38.61 18.7 39.41 18.63 39.5C18.48 39.66 17.35 41.14 15.54 43.51C14.81 44.48 13.91 45.64 13.55 46.11C13.2 46.56 12.32 47.72 11.61 48.65C10.89 49.59 10.18 50.53 10.01 50.75C7.1 54.52 3.1 59.78 2.71 60.33C1.69 61.79 1.83 62.5 3.47 64.13C5.27 65.92 6.43 66.47 8.28 66.48C8.9 66.48 9.4 66.53 9.4 66.59C9.4 66.65 9.13 67.08 8.78 67.55C6.98 70 6.46 70.71 5.31 72.28C0.39 78.92 0 79.53 0 80.65C0 82.89 3 85.17 5.93 85.17C6.52 85.17 6.99 85.22 6.99 85.27C6.99 85.4 5.98 86.86 5.27 87.76C4.47 88.75 1.12 93.6 0.84 94.15C0.12 95.58 0.4 96.68 1.81 98.12C3.17 99.51 4.3 99.98 6.33 99.99C8.27 100 9.45 99.54 10.68 98.28C11.12 97.84 13.82 94.42 14.13 93.92C14.36 93.55 14.5 93.6 15.23 94.36C18.06 97.32 22.37 97.12 25.02 93.9C25.71 93.07 31.2 86.15 31.71 85.47C31.88 85.25 32.81 84.06 33.8 82.83C36.35 79.6 36.42 79.52 37.57 78.06C38.74 76.56 38.78 76.51 40.21 74.68C40.78 73.95 41.45 73.11 41.7 72.81C41.96 72.51 42.26 72.12 42.37 71.94C42.49 71.75 42.63 71.61 42.69 71.61C42.75 71.61 43.57 72.38 44.53 73.33C49.8 78.64 55.46 80.91 62.15 80.42C63.02 80.35 64.07 80.21 64.5 80.11C65.95 79.76 66.25 79.67 66.49 79.58C66.63 79.52 67.08 79.35 67.52 79.2C69.03 78.68 72.35 76.79 73.37 75.86C73.5 75.74 73.91 75.39 74.27 75.09C77.13 72.65 79.97 68.92 81.99 64.91C82.49 63.91 83.13 62.54 83.42 61.84C83.71 61.14 83.99 60.47 84.05 60.33C84.11 60.2 84.31 59.63 84.51 59.08L84.86 58.05L83.95 57.09C83.45 56.55 82.98 56.1 82.9 56.08C82.82 56.05 82.59 56.57 82.35 57.34C81.6 59.73 79.94 63.59 78.9 65.34C72.93 75.46 64.38 79.78 55.38 77.21C54.83 77.06 54.18 76.84 53.93 76.73C49.01 74.58 45.41 71.29 41.93 65.82C41.31 64.82 39.76 61.86 39.43 61C39.28 60.63 39.04 60.06 38.87 59.69C38.71 59.34 38.58 59.02 38.58 58.97C38.58 58.92 38.43 58.48 38.22 57.97C37.33 55.68 36.24 51.35 35.92 48.82C35.87 48.38 35.76 47.58 35.69 47.01C35.29 43.88 35.24 38.26 35.59 35.98L35.74 35.01L37.2 33.08C38 32.02 39.39 30.18 40.28 28.98C44.8 22.97 51.34 14.32 53.89 11.02C56.25 7.97 58.23 5.26 58.3 5.02C58.37 4.76 58.48 4.7 58.98 4.64C60.71 4.41 64.83 5.06 66.1 5.78C66.22 5.85 66.36 5.9 66.43 5.9C66.95 5.9 71.08 8.28 71.62 8.91C71.65 8.95 71.84 9.09 72.02 9.24C74.85 11.42 78.15 15.78 80.26 20.12C81.03 21.73 81.08 21.82 81.69 23.32C82.41 25.13 83.77 29.77 83.57 29.77C83.53 29.77 83.23 29.36 82.92 28.86C79.27 23.27 71.88 21.46 65.88 24.69C62.78 26.37 60.48 29.3 59.55 32.78C57.27 41.26 63.52 49.54 72.18 49.54C74.48 49.54 75.68 49.25 78.44 48.02C78.57 47.96 79.3 48.7 80.66 50.27C81.09 50.76 81.9 51.68 82.47 52.31C83.04 52.94 84.21 54.24 85.06 55.21C85.92 56.17 86.65 56.98 86.69 57.02C86.73 57.05 87.1 57.49 87.53 57.98C87.97 58.48 88.34 58.91 88.38 58.95C88.41 58.98 88.79 59.42 89.22 59.91C89.66 60.41 90.03 60.84 90.07 60.88C90.1 60.91 91.08 62.02 92.24 63.35C93.39 64.67 94.55 65.95 94.79 66.2C95.73 67.16 97.13 66.87 97.6 65.64C97.95 64.73 97.77 64.38 95.85 62.29C95.17 61.54 94.44 60.74 94.24 60.51C92.13 58.14 88.44 54.03 87.41 52.92C86.71 52.16 85.22 50.53 84.1 49.3C82.98 48.07 81.85 46.85 81.6 46.59C81.05 46.01 81.03 46.11 81.7 45.38C82.9 44.06 83.87 42.46 84.4 40.95C84.56 40.5 84.72 40.14 84.78 40.14C84.92 40.14 84.9 43.2 84.76 45.13L84.64 46.7L85.28 47.36C85.63 47.73 86.09 48.24 86.29 48.48C86.93 49.23 86.89 49.3 87.2 46.53C87.39 44.66 87.39 37.62 87.18 35.74C86.32 27.74 84.4 21.71 80.78 15.66C76.15 7.91 69.53 3.07 62.27 2.15C60.85 1.97 57.81 2.07 56.82 2.34L56.06 2.54L55.26 1.93C53.24 0.41 51.39 0 49.52 0.65ZM52.39 3.24C52.99 3.5 54.98 4.99 54.98 5.2C54.98 5.32 54.76 5.61 51.72 9.57C50.22 11.53 47.37 15.28 45.03 18.37C44.43 19.17 43.32 20.63 42.56 21.63C41.8 22.62 40.84 23.9 40.43 24.46C40 25.03 39.06 26.27 38.34 27.24C37.62 28.2 36.03 30.31 34.81 31.94C32.36 35.22 30.43 37.76 29 39.63C28.47 40.31 27.66 41.38 27.19 41.99C26.73 42.61 25.51 44.2 24.49 45.51C23.46 46.83 22.29 48.35 21.88 48.88C21.49 49.41 20.47 50.71 19.64 51.77C18.82 52.83 17.75 54.22 17.28 54.85C15.66 56.99 11.42 62.39 10.89 63.01C10.16 63.83 8.61 64.24 7.51 63.89C6.97 63.71 5.78 62.89 5.2 62.29L4.8 61.86L5.46 60.97C5.82 60.49 6.44 59.68 6.82 59.18C7.22 58.68 7.69 58.05 7.9 57.79C8.09 57.54 8.28 57.29 8.32 57.26C8.36 57.22 8.71 56.76 9.12 56.23C9.51 55.7 10.49 54.42 11.29 53.4C12.08 52.38 13.52 50.49 14.47 49.24C15.42 47.97 16.52 46.54 16.9 46.05C17.29 45.55 18.06 44.54 18.62 43.81C19.17 43.08 20.22 41.72 20.94 40.79C21.65 39.85 22.38 38.91 22.55 38.68C22.72 38.46 22.96 38.15 23.1 37.98C23.23 37.81 23.95 36.88 24.67 35.92C25.99 34.16 27.74 31.85 29.12 30.07C30.43 28.35 31.77 26.6 32.57 25.55C32.99 24.98 33.36 24.5 33.4 24.46C33.43 24.43 33.87 23.86 34.37 23.2C35.28 21.99 36.27 20.69 37.68 18.86C38.4 17.9 40.99 14.49 41.89 13.31C42.13 12.97 42.42 12.6 42.52 12.48C42.63 12.35 43.63 11.02 44.77 9.52C48.7 4.33 49.01 3.93 49.4 3.62C50.22 2.97 51.4 2.82 52.39 3.24ZM73.29 25.79C77.15 26.28 80.12 28.49 81.67 32.02C82.87 34.71 82.83 38.32 81.59 40.8C78.35 47.35 70.36 48.95 65.07 44.12C60.9 40.31 60.6 33.29 64.42 29.15C65.06 28.47 66.13 27.55 66.67 27.25C68.81 26.02 71.09 25.52 73.29 25.79ZM32.84 42.45C32.88 44.07 32.96 45.84 33.02 46.41C33.08 46.97 33.17 47.84 33.22 48.34L33.31 49.25L32.55 50.27C31.78 51.3 30.61 52.87 30.02 53.64C29.84 53.87 29.3 54.59 28.8 55.24C28.31 55.91 27.28 57.26 26.53 58.26C25.75 59.27 24.34 61.12 23.39 62.38C14.42 74.2 9.24 80.94 8.61 81.56C7.82 82.32 7.11 82.61 5.97 82.63C4.79 82.63 4.18 82.37 3.28 81.47C2.41 80.6 2.4 80.66 3.86 78.66C4.1 78.32 4.81 77.35 5.43 76.49C6.05 75.62 6.86 74.51 7.22 74.02C7.6 73.52 8.5 72.29 9.22 71.29C9.96 70.28 11.33 68.37 12.29 67.06C13.25 65.75 14.67 63.78 15.47 62.68C18.63 58.34 20.4 55.94 25.15 49.54C26.42 47.85 27.88 45.88 28.39 45.15C30.75 41.95 32.59 39.53 32.67 39.53C32.72 39.53 32.79 40.85 32.84 42.45ZM34.24 53.41C34.24 53.64 34.53 54.79 34.98 56.35C35.22 57.17 35.81 58.92 36.24 60.04L36.45 60.59L35.16 62.27C33.14 64.91 31.67 66.83 31.32 67.28C31.14 67.51 30.43 68.42 29.76 69.34C29.07 70.24 28.04 71.59 27.47 72.35C26.89 73.1 25.58 74.81 24.57 76.14C21.08 80.73 20.46 81.55 19.58 82.7C18.69 83.86 16.93 86.15 16.54 86.64C16.43 86.79 15.95 87.41 15.47 88.03C14.99 88.64 13.42 90.67 11.98 92.52C10.55 94.38 9.15 96.13 8.87 96.42C7.44 97.91 5.37 97.93 3.83 96.44C2.97 95.6 2.97 95.47 3.77 94.3C4.52 93.2 7.4 89.16 7.74 88.73C7.87 88.56 8.45 87.76 9.02 86.97C10.14 85.41 13.71 80.47 14.82 78.96C16.36 76.85 16.76 76.31 17.6 75.16C18.09 74.5 18.95 73.33 19.52 72.57C20.09 71.81 20.91 70.69 21.35 70.1C21.79 69.5 22.69 68.28 23.35 67.39C24.02 66.49 25.11 65 25.8 64.07C28.03 61.04 28.64 60.24 29.86 58.58C30.53 57.69 31.65 56.17 32.36 55.21C33.06 54.24 33.72 53.36 33.82 53.24C34.04 52.99 34.24 53.07 34.24 53.41ZM38.21 64.4C38.69 65.41 39.67 67.12 40.44 68.29C41.13 69.34 41.13 69.33 40.35 70.29C40.02 70.73 39.59 71.26 39.43 71.49C39.26 71.7 38.64 72.49 38.06 73.22C37.47 73.96 36.93 74.64 36.85 74.74C36.77 74.84 36.24 75.51 35.66 76.25C34.6 77.59 33.06 79.54 30.6 82.67C29.85 83.63 28.78 84.99 28.21 85.7C27.65 86.41 27.06 87.18 26.89 87.4C25.32 89.46 22.49 92.84 22.04 93.19C20.35 94.45 17.76 93.91 16.66 92.05L16.42 91.66L17.47 90.28C18.74 88.62 20.8 85.88 21.77 84.57C22.16 84.04 22.55 83.52 22.63 83.42C22.7 83.33 24.66 80.72 26.97 77.63C29.27 74.55 31.19 72 31.23 71.97C31.26 71.93 31.7 71.36 32.2 70.7C33.08 69.53 34.37 67.83 36.57 64.94C37.16 64.17 37.68 63.53 37.73 63.53C37.76 63.53 37.98 63.93 38.21 64.4Z"/><path d="M68.98 34.93C67.86 35.53 67.86 37.1 68.95 37.91C69.38 38.21 69.39 38.21 71.91 38.21C74.74 38.21 74.98 38.15 75.48 37.34C75.95 36.57 75.61 35.28 74.85 34.88C74.31 34.6 69.52 34.64 68.98 34.93Z"/><path d="M46.36 27.71C46.17 27.77 45.7 27.88 45.33 27.96C44.97 28.04 44.59 28.15 44.49 28.2C44.39 28.25 43.96 28.44 43.53 28.64C41.79 29.41 41.27 30.44 42.19 31.35C42.77 31.94 43.19 31.96 44.07 31.46C45.5 30.64 46.21 30.46 47.99 30.44C49.81 30.43 50.19 30.52 51.58 31.24C52.05 31.49 52.57 31.7 52.72 31.7C53.44 31.7 54.21 30.76 54.06 30.06C53.88 29.15 52.3 28.21 50.24 27.78C49.34 27.59 47 27.55 46.36 27.71Z"/><path d="M45.35 34.93C44.25 35.52 44.2 37.22 45.25 37.93C45.64 38.2 45.74 38.21 48.4 38.21L51.13 38.21L51.63 37.75C52.47 36.95 52.38 35.51 51.43 34.94C50.88 34.6 45.97 34.59 45.35 34.93Z"/></g></svg>
+      <b>O Analista Ambiental<span class="slog">Da norma ao campo</span></b>
+    </a>
+    <nav class="nav__links" aria-label="Menu principal">
+      <a class="nav__item" href="../index.html">Início</a>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Cursos</button>
+        <div class="dd__menu">
+          <a href="../rota-ambiental.html"><b>A Rota Ambiental 2.0</b><small>Minas Gerais: licença, água, flora, CAR e autos</small></a>
+          <a href="../rota-federal.html"><b>Rota Federal <span class="dd__selo">Fundador</span></b><small>CAR, ANA, Ibama e SINIR · todo o Brasil</small></a>
+          <span class="dd__off"><b>Preparatório Concurso Sisema <span class="dd__selo">Em breve</span></b><small>Semad, Feam, IEF e Igam</small></span>
+          <a href="../cursos.html"><b>Palestras e capacitações</b><small>Para empresas, órgãos e eventos</small></a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Ferramentas</button>
+        <div class="dd__menu">
+          <a href="../radar.html"><b>Radar do Diário Oficial</b><small>O que saiu hoje para a área ambiental de MG</small></a>
+          <a href="../radar-servicos.html"><b>Radar de serviços</b><small>Quantos documentos vencem na sua cidade</small></a>
+          <a href="../artigos/calculadora-enquadramento-mg.html"><b>Calculadora de enquadramento</b><small>Classe e modalidade pela DN 217</small></a>
+          <a href="../artigos/checklist-documentos-licenciamento-mg.html"><b>Checklist de documentos</b><small>O que cada modalidade pede</small></a>
+          <a href="../chao-geo-mg.html"><b>App Chão Geo MG</b><small>Vistoria e camadas do IDE-Sisema no celular</small></a>
+          <span class="dd__off"><b>Mapa dos manuais oficiais <span class="dd__selo">Em breve</span></b><small>Link, versão e o que mudou</small></span>
+          <a href="../operacao-piracema/index.html"><b>Jogo Operação Piracema</b><small>Para aprender brincando</small></a>
+          <a class="dd__all" href="../ferramentas.html">Ver todas &rarr;</a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Aprenda grátis</button>
+        <div class="dd__menu">
+          <a href="../videos.html"><b>Vídeos tutoriais</b><small>Cadastros e consultas, passo a passo</small></a>
+          <a href="../artigos.html"><b>Artigos</b><small>Guias e fundamentos</small></a>
+          <a href="../artigos/sisema-quem-faz-o-que.html"><b>Sisema: quem faz o quê</b><small>O mapa dos órgãos de MG</small></a>
+        </div>
+      </div>
+      <a class="nav__item" href="../sobre.html">Sobre</a>
+      <a class="btn btn--solid nav__cta" href="../index.html#lista">Lista de espera</a>
+    </nav>
+    <button class="nav__burger" type="button" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<main class="wrap article">
+  <div class="article__head stack-sm">
+    <p class="ref">Ferramentas federais &middot; calculadora interativa &middot; todo o Brasil</p>
+    <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Calculadora do imóvel rural: módulo fiscal, Reserva Legal e APP</h1>
+    <p style="color:var(--text-soft);font-size:1.12rem;margin-top:.6rem">
+      Escolha o município e informe a área do imóvel. A calculadora mostra o módulo fiscal oficial do Incra, quantos
+      módulos o imóvel tem, se ele é pequeno, médio ou grande, a Reserva Legal mínima e a faixa de APP, inclusive a faixa
+      menor que vale para quem tem área rural consolidada. Tudo com o artigo da lei ao lado. Serve para o CAR, para o
+      PRA e para conversar com o cliente antes de abrir o sistema.
+    </p>
+  </div>
+
+  <div class="article__body">
+    <div class="nota">
+      <strong>Isto é orientação, não é a análise do seu CAR.</strong> Quem decide é o órgão estadual que analisa o
+      cadastro. Os números aqui saem da lei e das tabelas oficiais; a situação do imóvel (vegetação em 22/07/2008, área
+      consolidada, averbação, compensação) precisa ser conferida no caso concreto.
+    </div>
+
+    <div class="calc" id="calc">
+      <div class="calc__step">
+        <span class="calc__step-label">Passo 1 &middot; Município e área</span>
+        <div class="calc__row">
+          <div class="calc__field">
+            <label for="mun">Município (digite o nome)</label>
+            <input id="mun" type="text" list="lista-mun" autocomplete="off" placeholder="ex.: Paranaguá - PR" class="tx">
+            <datalist id="lista-mun"></datalist>
+            <span class="calc__hint" id="mun-info">Carregando a tabela do Incra…</span>
+          </div>
+          <div class="calc__field">
+            <label for="area">Área total do imóvel (hectares)</label>
+            <input id="area" type="number" min="0" step="0.0001" inputmode="decimal" placeholder="ex.: 4,1570">
+            <span class="calc__hint">A área total da matrícula ou do CAR. Use ponto ou vírgula.</span>
+          </div>
+        </div>
+        <dl class="calc__resultado" id="res-mf">
+          <div><dt>Módulo fiscal do município</dt><dd id="o-mf">—<small>Incra, IE 5/2022</small></dd></div>
+          <div><dt>Módulos fiscais do imóvel</dt><dd id="o-nmf">—<small>área ÷ módulo, em centésimos</small></dd></div>
+          <div><dt>Tamanho</dt><dd id="o-tam">—<small>IE Incra 5/2022, art. 12</small></dd></div>
+        </dl>
+        <p class="calc__aviso" id="o-tam-nota" hidden></p>
+      </div>
+
+      <div class="calc__step">
+        <span class="calc__step-label">Passo 2 &middot; Reserva Legal mínima</span>
+        <div class="calc__row" id="amz-box" hidden>
+          <div class="calc__field">
+            <label for="veg">O imóvel está na Amazônia Legal. Qual a vegetação da área?</label>
+            <select id="veg">
+              <option value="80">Floresta (80%)</option>
+              <option value="35">Cerrado (35%)</option>
+              <option value="20">Campos gerais (20%)</option>
+            </select>
+            <span class="calc__hint" id="amz-parcial" hidden>Este município está só em parte na Amazônia Legal (IBGE 2024). Confira de que lado da linha fica o imóvel.</span>
+          </div>
+        </div>
+        <div class="calc__checklist">
+          <label><input type="checkbox" id="art67"> Em 22/07/2008 o imóvel tinha até 4 módulos fiscais e menos vegetação nativa que o percentual da lei</label>
+        </div>
+        <div class="calc__row" id="art67-box" hidden>
+          <div class="calc__field">
+            <label for="veg2008">Vegetação nativa existente em 22/07/2008 (hectares)</label>
+            <input id="veg2008" type="number" min="0" step="0.0001" inputmode="decimal">
+          </div>
+        </div>
+        <dl class="calc__resultado">
+          <div><dt>Percentual da lei</dt><dd id="o-rlp">—<small>Lei 12.651, art. 12</small></dd></div>
+          <div><dt>Reserva Legal mínima</dt><dd id="o-rl">—<small>sobre a área total</small></dd></div>
+          <div><dt>Regra aplicada</dt><dd id="o-rlr" style="font-size:1.05rem">—</dd></div>
+        </dl>
+        <p class="calc__aviso">A APP pode entrar no cálculo da Reserva Legal nas condições do art. 15 (sem nova supressão, com a
+          área a recuperar e o imóvel no CAR). Na Amazônia Legal, o poder público pode reduzir a Reserva Legal de floresta para
+          até 50% nos casos dos §§ 4º e 5º do art. 12 (município ou estado com muita unidade de conservação e terra indígena):
+          isso depende de ato do ente e não é calculado aqui.</p>
+      </div>
+
+      <div class="calc__step">
+        <span class="calc__step-label">Passo 3 &middot; Faixa de APP</span>
+        <div class="tabs" role="tablist" aria-label="Tipo de APP">
+          <button type="button" role="tab" aria-selected="true" data-app="rio">Rio ou córrego</button>
+          <button type="button" role="tab" aria-selected="false" data-app="nascente">Nascente</button>
+          <button type="button" role="tab" aria-selected="false" data-app="lago">Lago ou lagoa natural</button>
+          <button type="button" role="tab" aria-selected="false" data-app="vereda">Vereda</button>
+        </div>
+        <div class="calc__row" id="app-rio">
+          <div class="calc__field">
+            <label for="larg">Largura do rio (metros, na borda da calha do leito regular)</label>
+            <input id="larg" type="number" min="0" step="0.1" inputmode="decimal" placeholder="ex.: 12">
+          </div>
+        </div>
+        <div class="calc__row" id="app-lago" hidden>
+          <div class="calc__field">
+            <label for="lagoha">Superfície do lago ou lagoa (hectares)</label>
+            <input id="lagoha" type="number" min="0" step="0.01" inputmode="decimal" placeholder="ex.: 15">
+            <span class="calc__hint">Zona rural. Em zona urbana a faixa é de 30 m (art. 4º, II, b).</span>
+          </div>
+        </div>
+        <div class="calc__checklist">
+          <label><input type="checkbox" id="consol"> A margem tem área rural consolidada (uso antes de 22/07/2008)</label>
+        </div>
+        <div class="faixas" aria-live="polite">
+          <div class="faixa"><span>Faixa da APP (regra geral)</span><b id="o-app">—</b><small id="o-app-f">Lei 12.651, art. 4º</small><div class="barra"><i id="b-app"></i></div></div>
+          <div class="faixa faixa--c" id="f-consol" hidden><span>Faixa a recompor na área consolidada</span><b id="o-appc">—</b><small id="o-appc-f">Lei 12.651, art. 61-A</small><div class="barra"><i id="b-appc"></i></div></div>
+        </div>
+        <p class="calc__aviso" id="o-teto" hidden></p>
+      </div>
+
+      <div class="calc__step">
+        <span class="calc__step-label">Resumo para o cliente</span>
+        <pre class="resumo" id="resumo">Escolha o município e informe a área.</pre>
+        <div class="acoes"><button type="button" class="btn btn--solid" id="copiar">Copiar o resumo</button><span id="copiado" class="calc__hint" role="status"></span></div>
+      </div>
+    </div>
+
+    <h2>De onde vem cada número</h2>
+    <ul class="fontes">
+      <li><b>Módulo fiscal e fração mínima:</b> Incra, <a href="https://www.in.gov.br/web/dou/-/instrucao-especial-n-5-de-29-de-julho-de-2022-418986404" target="_blank" rel="noopener">Instrução Especial nº 5/2022</a>, Anexo IV, na versão republicada no DOU nº 145, de 02/08/2022 (Seção 1, a partir da p. 6), com os 5.570 municípios, e a <a href="https://www.in.gov.br/web/dou/-/instrucao-especial-incra-n-6-de-4-de-julho-de-2025-640263739" target="_blank" rel="noopener">IE nº 6/2025</a> (Boa Esperança do Norte/MT, 90 ha). Conferimos: o módulo fiscal de todos os municípios é o mesmo da tabela de 2013; a IE de 2022 mudou a fração mínima de parcelamento em parte deles.</li>
+      <li><b>Número de módulos e tamanho:</b> IE Incra 5/2022, art. 12 (área ÷ módulo, em centésimos; pequena até 4, média acima de 4 até 15, grande acima de 15). Minifúndio é a área abaixo da fração mínima (<a href="https://www.gov.br/incra/pt-br/assuntos/governanca-fundiaria/modulo-fiscal" target="_blank" rel="noopener">Incra, Módulo Fiscal</a>; Lei 8.629/1993).</li>
+      <li><b>Amazônia Legal:</b> IBGE, <a href="https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/amazonia_legal/2024/" target="_blank" rel="noopener">Municípios da Amazônia Legal 2024</a> (773 municípios; 21 só em parte).</li>
+      <li><b>Reserva Legal:</b> <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651compilado.htm" target="_blank" rel="noopener">Lei 12.651/2012</a>, art. 12 (percentuais), art. 15 (cômputo da APP) e art. 67 (até 4 módulos em 22/07/2008).</li>
+      <li><b>APP:</b> mesma lei, art. 4º, I (rios), II (lagos), IV (nascentes) e XI (veredas); área consolidada: art. 61-A, §§ 1º a 7º; teto de recomposição: art. 61-B.</li>
+    </ul>
+
+    <div class="calc__vedacao">
+      <b>Limite desta ferramenta.</b> Ela não sabe a vegetação do imóvel em 22/07/2008, se a área é consolidada, se há
+      Reserva Legal averbada ou compensada, nem as regras estaduais e municipais mais restritivas. Nas fronteiras exatas da
+      lei (rio de exatamente 10, 50, 200 ou 600 m; imóvel de exatamente 1, 2, 4 ou 15 módulos), confira o texto do artigo:
+      usamos a leitura "de 10 a 50 m" = 50 m, e "até 4 módulos" incluindo os 4. Nas faixas consolidadas acima de 4 módulos, o
+      valor exato é o do PRA do estado. Conferido em 19/10/2026.
+    </div>
+
+    <aside class="rf-mini">
+      <p>Quer fazer o CAR do começo ao fim, com o caminho de volta pelo recibo e as pegadinhas do pré-preenchido?</p>
+      <a href="../rota-federal.html#modulos">Rota Federal &rarr;</a>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="stack-sm" style="gap:.5rem">
+      <strong style="font-family:var(--f-display)">O Analista Ambiental</strong>
+      <a href="mailto:contato@oanalistaambiental.com">contato@oanalistaambiental.com</a>
+    </div>
+    <p class="disclaimer">
+      Conteúdo de caráter educativo, construído a partir de fontes públicas. As opiniões aqui
+      expressas são pessoais do autor e não representam posição institucional de qualquer órgão
+      ou entidade. Nada neste site substitui a consulta ao Termo de Referência oficial da
+      atividade nem a análise do caso concreto pela Unidade Regional competente.
+    </p>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script>
+/* Regras puras (testadas em node). Fonte: Lei 12.651/2012 (Planalto, compilada) e IE Incra 5/2022. */
+var REGRAS = {
+  nModulos: function (area, mf) { return Math.round((area / mf) * 100) / 100; },          // IE 5/2022, art. 12 (centésimos)
+  tamanho: function (area, n, fmp) {                                                       // IE 5/2022, art. 12; Incra (minifúndio)
+    if (fmp && area < fmp) return 'Minifúndio';
+    if (n <= 4) return 'Pequena propriedade';
+    if (n <= 15) return 'Média propriedade';
+    return 'Grande propriedade';
+  },
+  rlPercentual: function (amz, veg) { return amz ? veg : 20; },                            // art. 12, I e II
+  appRio: function (l) {                                                                    // art. 4º, I, a–e
+    if (l < 10) return [30, 'a'];
+    if (l <= 50) return [50, 'b'];
+    if (l <= 200) return [100, 'c'];
+    if (l <= 600) return [200, 'd'];
+    return [500, 'e'];
+  },
+  appLago: function (ha) { return ha <= 20 ? [50, 'II, a (até 20 ha)'] : [100, 'II, a']; }, // art. 4º, II, a (zona rural)
+  consolRio: function (n) {                                                                 // art. 61-A, §§ 1º a 4º
+    if (n <= 1) return { m: 5, t: '5 m', p: '§ 1º' };
+    if (n <= 2) return { m: 8, t: '8 m', p: '§ 2º' };
+    if (n <= 4) return { m: 15, t: '15 m', p: '§ 3º' };
+    return { m: 20, t: '20 a 100 m, conforme o PRA do estado', p: '§ 4º, II' };
+  },
+  consolLago: function (n) {                                                                // art. 61-A, § 6º
+    if (n <= 1) return { m: 5, t: '5 m', p: '§ 6º, I' };
+    if (n <= 2) return { m: 8, t: '8 m', p: '§ 6º, II' };
+    if (n <= 4) return { m: 15, t: '15 m', p: '§ 6º, III' };
+    return { m: 30, t: '30 m', p: '§ 6º, IV' };
+  },
+  consolVereda: function (n) { return n <= 4 ? { m: 30, t: '30 m', p: '§ 7º, I' } : { m: 50, t: '50 m', p: '§ 7º, II' }; },
+  teto61B: function (n) { if (n <= 2) return 10; if (n <= 4) return 20; return null; }      // art. 61-B (até 10 MF em 2008)
+};
+if (typeof module !== 'undefined') module.exports = REGRAS;
+
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var M = null, idx = {}, mun = null, tipoApp = 'rio';
+  var num = function (v) { var x = parseFloat(String(v || '').replace(/\./g, function (m, i, s) { return s.indexOf(',') > -1 ? '' : m; }).replace(',', '.')); return isFinite(x) ? x : NaN; };
+  var fmt = function (x, c) { return x.toLocaleString('pt-BR', { minimumFractionDigits: c, maximumFractionDigits: c }); };
+  var sem = function (s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+
+  fetch('dados/municipios_mf.json').then(function (r) { return r.json(); }).then(function (d) {
+    M = d.m; var dl = $('lista-mun'), frag = document.createDocumentFragment();
+    Object.keys(M).sort(function (a, b) { return M[a][0].localeCompare(M[b][0], 'pt-BR'); }).forEach(function (c) {
+      var v = M[c], rot = v[0] + ' - ' + v[1]; idx[sem(rot)] = c;
+      var o = document.createElement('option'); o.value = rot; frag.appendChild(o);
+    });
+    dl.appendChild(frag);
+    $('mun-info').textContent = Object.keys(M).length.toLocaleString('pt-BR') + ' municípios na tabela oficial do Incra.';
+    tudo();
+  }).catch(function () { $('mun-info').textContent = 'Não consegui carregar a tabela. Recarregue a página.'; });
+
+  function acha() {
+    var t = sem($('mun').value.trim()); if (!t || !M) return null;
+    if (idx[t]) return idx[t];
+    var ks = Object.keys(idx).filter(function (k) { return k.indexOf(t) === 0; });
+    return ks.length === 1 ? idx[ks[0]] : null;
+  }
+
+  function tudo() {
+    var c = acha(); mun = c ? M[c] : null;
+    var area = num($('area').value), r = [];
+    if (mun) {
+      $('o-mf').innerHTML = fmt(mun[2], mun[2] % 1 ? 1 : 0) + ' ha<small>' + mun[0] + ' - ' + mun[1] + ' · fração mínima ' + fmt(mun[3], mun[3] % 1 ? 1 : 0) + ' ha</small>';
+      $('mun-info').textContent = mun[4] === 2 ? 'Município na Amazônia Legal (IBGE 2024).' : mun[4] === 1 ? 'Município em parte na Amazônia Legal (IBGE 2024).' : 'Fora da Amazônia Legal.';
+    } else { $('o-mf').innerHTML = '—<small>escolha o município na lista</small>'; }
+    $('amz-box').hidden = !(mun && mun[4]); $('amz-parcial').hidden = !(mun && mun[4] === 1);
+    var n = NaN;
+    if (mun && area > 0) {
+      n = REGRAS.nModulos(area, mun[2]);
+      var tam = REGRAS.tamanho(area, n, mun[3]);
+      $('o-nmf').innerHTML = fmt(n, 2) + '<small>' + fmt(area, 4) + ' ha ÷ ' + fmt(mun[2], mun[2] % 1 ? 1 : 0) + ' ha</small>';
+      $('o-tam').innerHTML = tam + '<small>' + (tam === 'Minifúndio' ? 'abaixo da fração mínima' : 'IE Incra 5/2022, art. 12') + '</small>';
+      var nota = $('o-tam-nota');
+      nota.hidden = !(n <= 4); nota.textContent = n <= 4 ? 'Até 4 módulos fiscais o imóvel tem regras próprias no Código Florestal: a Reserva Legal do art. 67, as faixas menores de APP consolidada (art. 61-A) e o teto de recomposição do art. 61-B. A condição de agricultura familiar (art. 3º, V) é um conceito à parte e não é definida só pela área.' : '';
+      r.push('Município: ' + mun[0] + ' - ' + mun[1] + ' (módulo fiscal ' + fmt(mun[2], mun[2] % 1 ? 1 : 0) + ' ha, Incra IE 5/2022)');
+      r.push('Área: ' + fmt(area, 4) + ' ha = ' + fmt(n, 2) + ' módulos fiscais · ' + tam);
+    } else { $('o-nmf').innerHTML = '—<small>informe a área</small>'; $('o-tam').innerHTML = '—<small>IE Incra 5/2022, art. 12</small>'; $('o-tam-nota').hidden = true; }
+
+    // Reserva Legal
+    var amz = mun && mun[4] > 0, p = REGRAS.rlPercentual(amz, +$('veg').value);
+    $('art67-box').hidden = !$('art67').checked;
+    if (mun && area > 0) {
+      var rl = area * p / 100, regra = 'Art. 12, ' + (amz ? 'I, ' + ({ 80: 'a', 35: 'b', 20: 'c' })[p] : 'II');
+      $('o-rlp').innerHTML = p + '%<small>' + (amz ? 'Amazônia Legal' : 'demais regiões') + '</small>';
+      if ($('art67').checked) {
+        var v8 = num($('veg2008').value);
+        if (!(n <= 4)) { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>o art. 67 só vale até 4 módulos</small>'; }
+        else if (v8 >= 0 && v8 < rl) { rl = v8; regra = 'Art. 67'; $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>a vegetação existente em 22/07/2008</small>'; }
+        else { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>' + (isNaN(v8) ? 'informe a vegetação de 2008' : 'a vegetação de 2008 já alcança o percentual') + '</small>'; }
+      } else { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>' + p + '% de ' + fmt(area, 4) + ' ha</small>'; }
+      $('o-rlr').innerHTML = regra + '<small>Lei 12.651/2012</small>';
+      r.push('Reserva Legal mínima: ' + fmt(rl, 4) + ' ha (' + regra + ', Lei 12.651/2012' + (amz ? '; Amazônia Legal' : '') + ')');
+    } else { $('o-rlp').innerHTML = '—<small>Lei 12.651, art. 12</small>'; $('o-rl').innerHTML = '—<small>sobre a área total</small>'; $('o-rlr').innerHTML = '—'; }
+
+    // APP
+    var cons = $('consol').checked, g = null, cc = null, rot = '';
+    $('app-rio').hidden = tipoApp !== 'rio'; $('app-lago').hidden = tipoApp !== 'lago';
+    if (tipoApp === 'rio') { var l = num($('larg').value); if (l > 0) { var a = REGRAS.appRio(l); g = { m: a[0], f: 'art. 4º, I, ' + a[1] }; rot = 'rio de ' + fmt(l, 1) + ' m'; } if (n > 0) cc = REGRAS.consolRio(n); }
+    if (tipoApp === 'nascente') { g = { m: 50, f: 'art. 4º, IV (raio)' }; rot = 'nascente'; cc = { m: 15, t: '15 m de raio', p: '§ 5º' }; }
+    if (tipoApp === 'lago') { var h = num($('lagoha').value); if (h > 0) { var b = REGRAS.appLago(h); g = { m: b[0], f: 'art. 4º, ' + b[1] }; rot = 'lago de ' + fmt(h, 2) + ' ha'; } if (n > 0) cc = REGRAS.consolLago(n); }
+    if (tipoApp === 'vereda') { g = { m: 50, f: 'art. 4º, XI' }; rot = 'vereda'; if (n > 0) cc = REGRAS.consolVereda(n); }
+    $('o-app').textContent = g ? g.m + ' m' + (tipoApp === 'nascente' ? ' de raio' : ' de cada margem') : '—';
+    $('o-app-f').textContent = g ? 'Lei 12.651, ' + g.f : 'Lei 12.651, art. 4º';
+    $('b-app').style.width = g ? Math.min(100, g.m / 5) + '%' : '0';
+    $('f-consol').hidden = !cons;
+    if (cons) {
+      $('o-appc').textContent = cc ? cc.t + (tipoApp === 'nascente' ? '' : ' de cada margem') : 'informe a área do imóvel';
+      $('o-appc-f').textContent = cc ? 'Lei 12.651, art. 61-A, ' + cc.p : 'depende dos módulos fiscais';
+      $('b-appc').style.width = cc ? Math.min(100, cc.m / 5) + '%' : '0';
+    }
+    var teto = n > 0 ? REGRAS.teto61B(n) : null;
+    $('o-teto').hidden = !(cons && teto);
+    if (cons && teto) $('o-teto').textContent = 'Teto: para imóvel que tinha até ' + (teto === 10 ? '2' : '4') + ' módulos fiscais em 22/07/2008 e área consolidada em APP, a recomposição somada de todas as APPs não passa de ' + teto + '% da área total (art. 61-B), ou seja, ' + fmt(area * teto / 100, 4) + ' ha.';
+    if (g) r.push('APP de ' + rot + ': ' + $('o-app').textContent + ' (Lei 12.651, ' + g.f + ')' + (cons && cc ? '; em área consolidada, recompor ' + cc.t + ' (art. 61-A, ' + cc.p + ')' : ''));
+    $('resumo').textContent = r.length ? r.join('\n') + '\n\nOrientação; a análise do CAR é do órgão estadual. Fonte e conferência: oanalistaambiental.com/artigos/calculadora-imovel-rural-car.html' : 'Escolha o município e informe a área.';
+  }
+
+  ['mun', 'area', 'veg', 'art67', 'veg2008', 'larg', 'lagoha', 'consol'].forEach(function (k) { $(k).addEventListener('input', tudo); $(k).addEventListener('change', tudo); });
+  document.querySelectorAll('[data-app]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      tipoApp = b.dataset.app;
+      document.querySelectorAll('[data-app]').forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      tudo();
+    });
+  });
+  $('copiar').addEventListener('click', function () {
+    var t = $('resumo').textContent;
+    var ok = function () { $('copiado').textContent = 'Copiado.'; setTimeout(function () { $('copiado').textContent = ''; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, function () { $('copiado').textContent = 'Selecione o texto e copie.'; });
+  });
+})();
+</script>
+</body>
+</html>
