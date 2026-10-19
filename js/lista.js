@@ -1,6 +1,7 @@
 /* Lista de espera da Rota 2.0 + resumo semanal do Radar.
    Componente único: qualquer página coloca <div data-lista></div> e carrega este arquivo.
-   Opcional: data-padrao="rota", "radar" ou "rota,radar" (o que já vem marcado). */
+   Opcional: data-padrao="rota", "radar" ou "rota,radar" (o que já vem marcado).
+   Opcional: data-opcoes="federal,rota" (quais opções aparecem; sem ele, só "rota" e "radar"). */
 (function () {
   // FormSubmit (grátis, sem cadastro): cada inscrição chega por e-mail ao dono. O primeiro envio manda um
   // e-mail de ativação para o DESTINO; o dono clica uma vez em "Activate". Se o serviço falhar, cai no mailto.
@@ -10,7 +11,8 @@
   const ASSUNTO = "Lista de espera";
   const OPCOES = [
     { id: "rota", rotulo: "Lista de espera da Rota 2.0" },
-    { id: "radar", rotulo: "Resumo semanal do Radar" }
+    { id: "radar", rotulo: "Resumo semanal do Radar" },
+    { id: "federal", rotulo: "Turma fundadora da Rota Federal" }
   ];
 
   function el(tag, attrs, filhos) {
@@ -33,7 +35,8 @@
     const mel = el("input", { type: "text", name: "_gotcha", tabindex: "-1", autocomplete: "off", "aria-hidden": "true", "class": "lista__mel" });
 
     const campos = el("fieldset", { "class": "lista__interesse" }, [el("legend", { texto: "Quero receber" })]);
-    OPCOES.forEach(function (o) {
+    const mostrar = (raiz.getAttribute("data-opcoes") || "rota,radar").split(",");
+    OPCOES.filter(function (o) { return mostrar.indexOf(o.id) !== -1; }).forEach(function (o) {
       const cx = el("input", { type: "checkbox", name: "interesse", value: o.rotulo });
       if (padrao.indexOf(o.id) !== -1) cx.checked = true;
       campos.appendChild(el("label", {}, [cx, el("span", { texto: o.rotulo })]));
@@ -41,7 +44,7 @@
 
     const botao = el("button", { type: "submit", "class": "btn btn--solid", texto: "Quero entrar na lista" });
     const msg = el("p", { "class": "lista__msg", role: "status", "aria-live": "polite" });
-    const nota = el("p", { "class": "lista__nota", texto: "Usamos seu e-mail só para avisar da Rota 2.0 e do Radar. Sem spam. O envio passa pelo serviço FormSubmit." });
+    const nota = el("p", { "class": "lista__nota", texto: "Usamos seu e-mail só para avisar dos cursos e do Radar. Sem spam. O envio passa pelo serviço FormSubmit." });
 
     form.appendChild(el("label", { "class": "lista__rot", "for": "lista-nome", texto: "Nome" }));
     form.appendChild(nome);
