@@ -383,6 +383,8 @@ if (typeof module !== "undefined") module.exports = TCFA;
     $("res-vazio").textContent = !cods.length ? "Marque ao menos uma atividade." : "Informe a receita ou escolha o porte.";
     U = { r: r, chave: chave, quem: quem, cods: cods };
     if (!r) return;
+    /* modo completo: resultado calculado (inclusive "isento") acende o selo do kit */
+    try { if (window.Guiado) window.Guiado.kit.noCompleto("tcfa", $("res")); } catch (e) { /* sem armazenamento */ }
     if (r.isento || r.trimestral === null) {
       var porque = r.isento ? "Isento pelo art. 17-F da Lei 6.938/1981." : T.NOME_PORTE[r.porte] + " com potencial " + T.NOME_PP[r.categoria.pp] + ": isento na tabela do Anexo IX.";
       $("r-tri").innerHTML = "Isento"; $("r-ano").innerHTML = "R$ 0,00"; $("r-cruz").textContent = r.isento ? "—" : T.NOME_PORTE[r.porte] + " × " + T.NOME_PP[r.categoria.pp];

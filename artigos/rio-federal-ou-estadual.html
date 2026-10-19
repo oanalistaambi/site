@@ -432,6 +432,8 @@
     $("rf-res").querySelectorAll(".rf-lista button").forEach(function (b) {
       b.addEventListener("click", function () { var i = +b.getAttribute("data-i"); render(ctx, i); desenha(ctx.lat, ctx.lon, ctx.rios, i); });
     });
+    /* modo completo: consulta com rio, massa d'água ou poço identificado acende o selo do kit (mesmo critério do guiado) */
+    if (v.k !== "nada") { try { if (window.Guiado) window.Guiado.kit.noCompleto("rio", $("rf-res")); } catch (e) { /* sem armazenamento */ } }
     if (API.aoRender) API.aoRender(ctx, sel, v);
   }
 

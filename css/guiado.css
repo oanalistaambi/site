@@ -157,6 +157,8 @@
 .g-selo.is-on .g-selo__ico{ border:2px solid var(--focus); background:var(--focus); color:#0E1512; box-shadow:0 0 0 4px color-mix(in srgb, var(--focus) 25%, transparent); }
 .g-selo.is-atual .g-selo__t{ font-weight:600; }
 .g-kit__fim{ margin:0; font-size:.9rem; color:var(--accent); }
+.g-kit-aviso{ margin:.6rem 0 0; font-family:var(--f-mono); font-size:.8rem; color:var(--accent); }
+.g-kit-aviso:empty{ display:none; }
 
 /* confete */
 .g-confete{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }

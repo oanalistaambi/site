@@ -52,6 +52,22 @@
     FERRAMENTAS: FERRAMENTAS
   };
 
+  /* Modo completo ("Ver tudo de uma vez"): o selo acende também, sem confete nem pop-up.
+     Só uma linha discreta perto do resultado (aria-live polite), e só na primeira vez. */
+  var modoAtual = null, avisados = {};
+  kit.noCompleto = function (id, ancora) {
+    if (modoAtual !== "completo") return false;
+    var novo = kit.marcar(id);
+    if (!novo || avisados[id] || !ancora || !ancora.parentNode) return novo;
+    avisados[id] = true;
+    var f = FERRAMENTAS.filter(function (x) { return x.id === id; })[0];
+    var p = el("p", "g-kit-aviso"); p.setAttribute("role", "status"); p.setAttribute("aria-live", "polite");
+    ancora.parentNode.insertBefore(p, ancora.nextSibling);
+    /* o texto entra depois da região viva existir, para o leitor de tela anunciar */
+    setTimeout(function () { p.textContent = "Selo do kit: " + f.selo + " ✓"; }, 60);
+    return true;
+  };
+
   /* ---------------- confete discreto (desligado com prefers-reduced-motion) ---------------- */
   function celebrar(alvo) {
     if (reduz() || !alvo) return;
@@ -152,6 +168,7 @@
     cfg.antes.parentNode.insertBefore(barra, cfg.antes);
     function aplica(m, doUsuario) {
       var g = m !== "completo";
+      modoAtual = g ? "guiado" : "completo";
       bG.setAttribute("aria-pressed", g ? "true" : "false"); bC.setAttribute("aria-pressed", g ? "false" : "true");
       cfg.guiado.hidden = !g;
       cfg.completo.forEach(function (x) { x.hidden = g; });

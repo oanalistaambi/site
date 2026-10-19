@@ -458,7 +458,12 @@
     });
   }
 
-  function atualiza() { if (exemplo) { exemplo = false; $("co-ex").hidden = true; } desenha(); }
+  function atualiza() {
+    if (exemplo) { exemplo = false; $("co-ex").hidden = true; }
+    desenha();
+    /* modo completo: só depois de a pessoa mudar um campo (abrir o exemplo pronto não conta), com ao menos uma data */
+    if (ultimos.length) { try { if (window.Guiado) window.Guiado.kit.noCompleto("agenda", $("co-res")); } catch (e) { /* sem armazenamento */ } }
+  }
 
   function listaSalvos(sel) {
     var o = ler(), s = $("co-salvos"); s.innerHTML = '<option value="">Clientes salvos…</option>';
