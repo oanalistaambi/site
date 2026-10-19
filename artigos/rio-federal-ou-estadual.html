@@ -110,6 +110,7 @@
 @keyframes rfg{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.rf-spin{animation:none}}
 .rf-fade{animation:rff .35s ease}@keyframes rff{from{opacity:0;transform:translateY(6px)}}
+.rf-nome{color:var(--accent);font-weight:600}.rf-fonte{display:block;color:var(--text-faint);font-size:.78rem;margin-top:.2rem;line-height:1.35}
 </style>
 
 <main class="wrap article">
@@ -190,7 +191,7 @@
       <ul class="rv-lista" style="margin:0">
         <li>É uma consulta indicativa. A base pública da ANA mistura versões e escalas, e um córrego pequeno pode não estar desenhado: nesse caso, ele costuma seguir o domínio do estado, mas confirme.</li>
         <li>A decisão vale na <a href="https://aguasbrasil.snirh.gov.br/indicar-ponto-interferencia" target="_blank" rel="noopener">Plataforma Águas Brasil</a> (ANA), que usa a base mais nova e mostra o órgão gestor. Confira lá antes de pedir a outorga.</li>
-        <li>Obra da União: há parecer jurídico de 2024 da Procuradoria Federal junto à ANA sobre obras federais em rio estadual. Em açude ou barragem, confirme o domínio com a ANA ou com o estado.</li>
+        <li>Obra da União: o <a href="https://www.gov.br/agu/pt-br/composicao/procuradoria-geral-federal-1/subprocuradoria-federal-de-consultoria-juridica/PARECERn.000252024PFEANAPFEANAPGFAGUNUP00765000094202451.pdf" target="_blank" rel="noopener">Parecer nº 00025/2024/PFE-ANA/PGF/AGU</a> (19/02/2024) diz que o simples fato de a União executar ou participar de uma obra em rio estadual não basta para mudar o domínio nem tirar do estado a gestão; o mesmo vale para usina hidrelétrica em rio estadual. A água acumulada em obra da União segue o art. 26, I, da Constituição. Em açude ou barragem, confirme o domínio com a ANA ou com o estado.</li>
         <li>A ferramenta não diz se o uso precisa de outorga (uso insignificante, nível de risco). Isso depende da norma de cada órgão.</li>
       </ul>
       <p class="rf-aviso">Conferido em 19/10/2026.</p>
@@ -198,7 +199,7 @@
 
     <section class="stack-sm" id="orgaos">
       <h2>Quem dá a outorga em cada estado</h2>
-      <p class="rf-aviso">Rio de domínio estadual, poço e lançamento em rio estadual: o pedido é no órgão gestor do estado. "Abriu em 19/10" quer dizer que o site oficial abriu na conferência; "[conferir]" quer dizer que o nome vem da lista oficial ou da busca, mas o site não abriu daqui.</p>
+      <p class="rf-aviso">Rio de domínio estadual, poço e lançamento em rio estadual: o pedido é no órgão gestor do estado. "Site abriu em 19/10" quer dizer que o site oficial abriu na nossa conferência. "Nome conferido em norma" quer dizer que o site não abriu daqui (bloqueio ou fora do ar), mas o nome e a competência foram conferidos na lei, no decreto ou em documento oficial, citado abaixo do selo.</p>
       <div class="rf-tab"><table>
         <thead><tr><th>UF</th><th>Órgão</th><th>Site</th><th>Conferência</th></tr></thead>
         <tbody id="rf-tabela"></tbody>
@@ -237,32 +238,32 @@
   /* Órgão gestor estadual de outorga. ok = o site abriu na conferência de 19/10/2026. */
   var UF = {
     AC: ["Instituto de Meio Ambiente do Acre (IMAC)", "https://imac.ac.gov.br/", true],
-    AL: ["Secretaria de Meio Ambiente e Recursos Hídricos (SEMARH/AL)", "https://www.semarh.al.gov.br/", false],
-    AP: ["Secretaria de Estado do Meio Ambiente (SEMA/AP)", "https://sema.portal.ap.gov.br/", false],
-    AM: ["Instituto de Proteção Ambiental do Amazonas (IPAAM)", "https://www.ipaam.am.gov.br/", false],
+    AL: ["Secretaria de Estado do Meio Ambiente e dos Recursos Hídricos (Semarh/AL)", "https://www.semarh.al.gov.br/", "nome", "Decreto 6/2001 alterado pelo Decreto 49.419/2016 (outorga por ato do Secretário); Portaria Semarh 197/2017"],
+    AP: ["Secretaria de Estado do Meio Ambiente (Sema/AP)", "https://sema.portal.ap.gov.br/", "nome", "Lei estadual 686/2002; relatório Progestão 2025 (ANA, mar/2026)"],
+    AM: ["Instituto de Proteção Ambiental do Amazonas (Ipaam), com a Sema/AM na política", "https://www.ipaam.am.gov.br/", "nome", "Portaria conjunta Sema/Ipaam 01/2016; apresentação AM no seminário FNOGA (ANA, 2018)"],
     BA: ["Instituto do Meio Ambiente e Recursos Hídricos (Inema)", "https://www.ba.gov.br/inema/", true],
-    CE: ["Secretaria dos Recursos Hídricos (SRH/CE)", "https://www.srh.ce.gov.br/", false],
+    CE: ["Secretaria dos Recursos Hídricos (SRH/CE), com análise técnica da Cogerh", "https://www.ce.gov.br/srh/", "nome", "outorga é ato do Secretário dos Recursos Hídricos; Cogerh analisa os pedidos (Lei 14.844/2010); srh.ce.gov.br redireciona para ce.gov.br/srh"],
     DF: ["Agência Reguladora de Águas, Energia e Saneamento do DF (Adasa)", "https://www.adasa.df.gov.br/", true],
     ES: ["Agência Estadual de Recursos Hídricos (Agerh)", "https://agerh.es.gov.br/", true],
     GO: ["Secretaria de Meio Ambiente e Desenvolvimento Sustentável (Semad/GO)", "https://goias.gov.br/meioambiente/", true],
     MA: ["Secretaria de Meio Ambiente e Recursos Naturais (SEMA/MA)", "https://www.sema.ma.gov.br/", true],
-    MT: ["Secretaria de Estado de Meio Ambiente (SEMA/MT)", "https://www.sema.mt.gov.br/", false],
-    MS: ["Instituto de Meio Ambiente de Mato Grosso do Sul (Imasul)", "https://www.imasul.ms.gov.br/", false],
+    MT: ["Secretaria de Estado de Meio Ambiente (Sema/MT)", "https://www.sema.mt.gov.br/", "nome", "IN Sema 05/2017 (outorga em águas de domínio do estado); portarias de outorga recentes no Iomat"],
+    MS: ["Instituto de Meio Ambiente de Mato Grosso do Sul (Imasul)", "https://www.ms.gov.br/meio-ambiente/outorga-de-direito-de-uso-de-recursos-hidricos-e-cadastro-estadual-de-usuario-de-recursos-hidricos-ceurh144/", true, "site do Imasul lido em 19/10 (serviço de outorga e CEURH)"],
     MG: ["Instituto Mineiro de Gestão das Águas (Igam), pelo SOUT", "https://igam.mg.gov.br/", true],
     PA: ["Secretaria de Meio Ambiente, Clima e Sustentabilidade (Semas/PA)", "https://www.semas.pa.gov.br/", true],
     PB: ["Agência Executiva de Gestão das Águas (AESA)", "https://www.aesa.pb.gov.br/", true],
     PR: ["Instituto Água e Terra (IAT)", "https://www.iat.pr.gov.br/", true],
-    PE: ["Agência Pernambucana de Águas e Clima (APAC)", "https://www.apac.pe.gov.br/", false],
+    PE: ["Agência Pernambucana de Águas e Clima (APAC)", "https://www.apac.pe.gov.br/", "nome", "Portaria conjunta APAC/CPRH 1/2017; Resolução CRH 5/2022"],
     PI: ["Secretaria de Meio Ambiente e Recursos Hídricos (Semarh/PI)", "https://www.semarh.pi.gov.br/", true],
-    RJ: ["Instituto Estadual do Ambiente (Inea)", "https://www.inea.rj.gov.br/", false],
-    RN: ["Instituto de Gestão das Águas do RN (Igarn)", "https://igarn.rn.gov.br/", false],
+    RJ: ["Instituto Estadual do Ambiente (Inea)", "https://www.inea.rj.gov.br/", "nome", "Resolução Inea 172/2019 (NOP-INEA-37 e 38); parecer da procuradoria do Inea de 2025 publicado no site"],
+    RN: ["Instituto de Gestão das Águas do RN (Igarn)", "https://igarn.rn.gov.br/", "nome", "LC estadual 483/2013, art. 3º (emissão das outorgas)"],
     RS: ["Secretaria do Meio Ambiente e Infraestrutura (Sema/RS)", "https://sema.rs.gov.br/", true],
     RO: ["Secretaria de Estado do Desenvolvimento Ambiental (Sedam)", "https://www.sedam.ro.gov.br/", true],
-    RR: ["Fundação Estadual do Meio Ambiente e Recursos Hídricos (Femarh)", "https://femarh.rr.gov.br/", false],
+    RR: ["Fundação Estadual do Meio Ambiente e Recursos Hídricos (Femarh)", "https://femarh.rr.gov.br/", "nome", "Lei estadual 547/2006; ofício Femarh à ANA (Progestão, out/2023)"],
     SC: ["Secretaria de Estado do Meio Ambiente e da Economia Verde (Semae/SC)", "https://www.semae.sc.gov.br/", true],
-    SP: ["SP Águas (antigo DAEE)", "https://spaguas.sp.gov.br/", false],
+    SP: ["Agência de Águas do Estado de São Paulo (SP Águas, antigo DAEE)", "https://www.spaguas.sp.gov.br/", "nome", "outorgas SP Águas de 2025 com base no Decreto 63.262/2018; o endereço sem www não existe"],
     SE: ["Secretaria do Meio Ambiente, Sustentabilidade e Ações Climáticas (Semac/SE)", "https://www.se.gov.br/semac", true],
-    TO: ["Secretaria do Meio Ambiente e Recursos Hídricos (Semarh/TO)", "https://www.semarh.to.gov.br/", false]
+    TO: ["Instituto Natureza do Tocantins (Naturatins)", "https://naturatins.to.gov.br/", "nome", "Lei estadual 1.307/2002 e decreto de outorga (o 2.432/2005 foi substituído pelo 6.934/2025); a outorga é do Naturatins, não da Semarh"]
   };
   var NOME_UF = {AC:"Acre",AL:"Alagoas",AP:"Amapá",AM:"Amazonas",BA:"Bahia",CE:"Ceará",DF:"Distrito Federal",ES:"Espírito Santo",GO:"Goiás",MA:"Maranhão",MT:"Mato Grosso",MS:"Mato Grosso do Sul",MG:"Minas Gerais",PA:"Pará",PB:"Paraíba",PR:"Paraná",PE:"Pernambuco",PI:"Piauí",RJ:"Rio de Janeiro",RN:"Rio Grande do Norte",RS:"Rio Grande do Sul",RO:"Rondônia",RR:"Roraima",SC:"Santa Catarina",SP:"São Paulo",SE:"Sergipe",TO:"Tocantins"};
 
@@ -273,7 +274,7 @@
   $("rf-tabela").innerHTML = Object.keys(NOME_UF).map(function (k) {
     var o = UF[k];
     return "<tr><td><b>" + k + "</b></td><td>" + esc(o[0]) + "</td><td><a href=\"" + o[1] + "\" target=\"_blank\" rel=\"noopener\">" + esc(o[1].replace(/^https:\/\//, "").replace(/\/$/, "")) + "</a></td><td>" +
-      (o[2] ? "<span class=\"rf-ok\">abriu em 19/10</span>" : "<span class=\"rf-conf\">[conferir]</span>") + "</td></tr>";
+      (o[2] === true ? "<span class=\"rf-ok\">site abriu em 19/10</span>" : o[2] === "nome" ? "<span class=\"rf-nome\" title=\"" + esc(o[3] || "") + "\">nome conferido em norma</span>" : "<span class=\"rf-conf\">[conferir]</span>") + (o[3] ? "<small class=\"rf-fonte\">" + esc(o[3]) + "</small>" : "") + "</td></tr>";
   }).join("");
 
   /* estado dos botões */
@@ -374,7 +375,7 @@
   }
   function cardEstadual(titulo, motivo, uf, fonte) {
     var o = UF[uf];
-    var org = o ? "<b>A outorga é no órgão do estado: <a href=\"" + o[1] + "\" target=\"_blank\" rel=\"noopener\">" + esc(o[0]) + "</a></b>" + (o[2] ? "" : " <span class=\"rf-conf\">[conferir o site]</span>") + "." :
+    var org = o ? "<b>A outorga é no órgão do estado: <a href=\"" + o[1] + "\" target=\"_blank\" rel=\"noopener\">" + esc(o[0]) + "</a></b>" + (o[2] === true ? "" : o[2] === "nome" ? " <span class=\"rf-nome\">(site não abriu na nossa conferência; nome conferido em norma)</span>" : " <span class=\"rf-conf\">[conferir o site]</span>") + "." :
       "<b>A outorga é no órgão gestor do estado</b> (veja a tabela abaixo).";
     return "<div class=\"rf-card rf-card--est rf-fade\"><span class=\"rf-selo " + (tipo === "sub" ? "rf-selo--sub" : "rf-selo--est") + "\">Domínio do estado" + (uf ? " · " + uf : "") + "</span><h3>" + titulo + "</h3><p>" + motivo + "</p><p>" + org + "</p><p class=\"rf-aviso\">" + fonte + "</p></div>";
   }

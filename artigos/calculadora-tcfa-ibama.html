@@ -160,6 +160,7 @@
           <div class="calc__field">
             <label for="ano">Ano-calendário da receita</label>
             <select id="ano"></select>
+            <span class="calc__hint">O Ibama usa a receita bruta do "ano-calendário de referência" declarado no CTF (página "Sobre a TCFA"). A lei e a IN Ibama 17/2011 não dizem qual ano de receita vale para cada exercício: confira no CTF qual receita está declarada.</span>
           </div>
           <div class="calc__field">
             <label for="porteManual">Ou escolha o porte</label>
@@ -183,6 +184,7 @@
           <label for="busca">Procure pela atividade (ex.: posto, mineração, frigorífico, madeira)</label>
           <input id="busca" type="search" placeholder="Digite uma palavra" autocomplete="off">
         </div>
+        <p class="calc__aviso" id="aviso-silv" hidden>Silvicultura (plantio de eucalipto, pinus e outras florestas plantadas) saiu da categoria 20 com a Lei 14.876/2024: deixou de ser atividade potencialmente poluidora do Anexo VIII e, por ela, não gera TCFA. A exploração de madeira ou lenha <b>nativa</b> continua na categoria 20.</p>
         <div class="tc-cats" id="cats"></div>
         <p class="calc__hint">Marque todas as que o estabelecimento exerce. A TCFA é uma só, pela de valor mais alto (art. 17-D, § 3º).</p>
       </div>
@@ -225,8 +227,8 @@
     <h2 style="margin-top:2.4rem">De onde vem cada número</h2>
     <ol class="tc-fontes">
       <li><b>Porte:</b> Lei 6.938/1981, art. 17-D, § 1º. Microempresa e pequena empresa seguem a lei de ME/EPP do ano da receita; médio porte vai até R$ 12 milhões e grande porte fica acima disso. As cinco tabelas (2001 a hoje) são as da <a href="https://www.gov.br/ibama/pt-br/servicos/taxas/tcfa/sobre-a-tcfa" target="_blank" rel="noopener">página do Ibama</a>. Sempre "igual ou inferior a" o teto.</li>
-      <li><b>Potencial de poluição:</b> Anexo VIII da Lei 6.938/1981 (categorias 1 a 20), incluído pela Lei 10.165/2000; a categoria 20 teve a redação mudada pela Lei 14.876/2024.</li>
-      <li><b>Valor:</b> Anexo IX da Lei 6.938/1981, atualizado pela Lei 13.196/2015 e pela Portaria Interministerial nº 812/2015, a partir do 4º trimestre de 2015 (página do Ibama). Os valores originais de 2000 aparecem no resultado só para comparar.</li>
+      <li><b>Potencial de poluição:</b> Anexo VIII da Lei 6.938/1981 (categorias 1 a 20), incluído pela Lei 10.165/2000; a categoria 20 teve a redação mudada pela <a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/L14876.htm" target="_blank" rel="noopener">Lei 14.876/2024</a>, que tirou a silvicultura da lista.</li>
+      <li><b>Valor:</b> Anexo IX da Lei 6.938/1981, atualizado pela Lei 13.196/2015 e pela Portaria Interministerial nº 812/2015, a partir do 4º trimestre de 2015 (página do Ibama, atualizada em 24/04/2026, ainda com esses valores: não houve correção posterior). Os valores originais de 2000 aparecem no resultado só para comparar.</li>
       <li><b>Uma taxa só, a mais alta:</b> art. 17-D, § 3º. <b>Isenções:</b> art. 17-F. <b>Prazo:</b> art. 17-G. <b>Atraso:</b> art. 17-H. <b>RAPP:</b> art. 17-C. <b>Compensação estadual:</b> art. 17-P.</li>
     </ol>
     <p class="calc__hint">Conferido em 19/10/2026 no <a href="https://www.planalto.gov.br/ccivil_03/leis/l6938compilada.htm" target="_blank" rel="noopener">texto compilado do Planalto</a> e na <a href="https://www.gov.br/ibama/pt-br/servicos/taxas/tcfa/sobre-a-tcfa" target="_blank" rel="noopener">página oficial da TCFA</a>.</p>
@@ -342,6 +344,7 @@ if (typeof module !== "undefined") module.exports = TCFA;
   $("busca").addEventListener("input", function () {
     var q = this.value.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
     caixa.querySelectorAll(".tc-cat").forEach(function (l) { l.hidden = q && l.dataset.busca.indexOf(q) === -1 && !l.querySelector("input").checked; });
+    $("aviso-silv").hidden = !/silvicult|eucalipt|pinus|reflorest|floresta plantada/.test(q);
   });
 
   function receita() {
