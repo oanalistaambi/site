@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/guiado.css">
 </head>
 <body>
 
@@ -110,6 +111,10 @@
 @keyframes rfg{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.rf-spin{animation:none}}
 .rf-fade{animation:rff .35s ease}@keyframes rff{from{opacity:0;transform:translateY(6px)}}
+.g-on #rf-res > .rf-card{display:none}
+.g-coord{display:grid;gap:.5rem;grid-template-columns:repeat(4,minmax(0,1fr))}
+.g-coord .g-campo input,.g-coord .g-campo select{font-size:1.05rem;padding:.7rem .5rem}
+.g-coord .g-campo__r{letter-spacing:.02em}
 .rf-nome{color:var(--accent);font-weight:600}.rf-fonte{display:block;color:var(--text-faint);font-size:.78rem;margin-top:.2rem;line-height:1.35}
 </style>
 
@@ -124,6 +129,7 @@
   </div>
 
   <div class="rf-ferr">
+    <div id="g-painel" hidden></div>
     <form class="rf-painel" id="rf-form" novalidate>
       <div class="rf-campo"><span class="rf-leg" id="leg-tipo">De onde vem a água?</span>
         <div class="rf-chips" role="group" aria-labelledby="leg-tipo" id="rf-tipo">
@@ -390,23 +396,29 @@
   }
 
   var ultimo = null;
-  function render(ctx, sel) {
-    var html = "", r = ctx.rios[sel];
-    var ufTxt = ctx.uf ? (NOME_UF[ctx.uf] || ctx.uf) : "estado não identificado";
-    html += "<p class=\"rf-aviso\">Ponto: " + ctx.lat.toFixed(6).replace(".", ",") + ", " + ctx.lon.toFixed(6).replace(".", ",") + " · " + esc(ufTxt) + "</p>";
-    if (tipo === "sub") {
-      html += cardEstadual("Poço: a água subterrânea é do estado", "Água subterrânea é bem do estado onde está o poço, mesmo perto de rio federal.", ctx.uf, "Fonte: Constituição Federal, art. 26, I.");
-    } else if (ctx.massa && (tipo === "res" || !r)) {
+  /* O veredito (mesmas regras de antes), separado do HTML para o modo guiado mostrar o mesmo resultado. Títulos já escapados. */
+  function veredito(ctx, sel) {
+    var r = ctx.rios[sel];
+    if (tipo === "sub") return { k: "est", titulo: "Poço: a água subterrânea é do estado", motivo: "Água subterrânea é bem do estado onde está o poço, mesmo perto de rio federal.", uf: ctx.uf, fonte: "Fonte: Constituição Federal, art. 26, I." };
+    if (ctx.massa && (tipo === "res" || !r)) {
       var m = ctx.massa, fed = /federal/i.test(m.ESP_DS_DOMINIO || "");
       var nome = (m.ESP_NM_RESERVATORIO || "").trim() || "Massa d'água sem nome";
       var porq = m.ESP_DS_DE_DOMINIO ? " A base da ANA indica: <b>" + esc(m.ESP_DS_DE_DOMINIO) + "</b>." : "";
-      html += fed ? cardFederal(esc(nome) + ": federal", "O ponto está dentro desta massa d'água." + porq, "Fonte: base de massas d'água da ANA (SNIRH); CF, art. 20, III e art. 26, I (obras da União).")
-                  : cardEstadual(esc(nome) + ": estadual", "O ponto está dentro desta massa d'água." + porq, ctx.uf, "Fonte: base de massas d'água da ANA (SNIRH); CF, art. 26, I.");
-    } else if (r) {
-      html += r.fed ? cardFederal(esc(r.nome) + ": rio federal", "Trecho a " + Math.round(r.d) + " m do ponto. Na base da ANA, este curso d'água é de domínio da União (cruza estado ou país, ou está em terra da União).", "Fonte: Base Hidrográfica Ottocodificada da ANA (SNIRH); CF, art. 20, III; Lei 9.984/2000, art. 4º, IV.")
-                    : cardEstadual(esc(r.nome) + ": rio estadual", "Trecho a " + Math.round(r.d) + " m do ponto. Na base da ANA, este curso d'água é de domínio do estado.", ctx.uf, "Fonte: Base Hidrográfica Ottocodificada da ANA (SNIRH); CF, art. 26, I.");
-    } else {
-      html += "<div class=\"rf-card rf-fade\"><h3>Nenhum rio da base da ANA a até " + ctx.raio + " m</h3><p>Aumente o raio ou confira a coordenada. Córrego pequeno pode não estar desenhado na base: em geral ele é do estado (" + esc(ufTxt) + "), mas confirme na <a href=\"" + PLATAFORMA + "\" target=\"_blank\" rel=\"noopener\">Plataforma Águas Brasil</a>.</p></div>";
+      return fed ? { k: "fed", titulo: esc(nome) + ": federal", motivo: "O ponto está dentro desta massa d'água." + porq, fonte: "Fonte: base de massas d'água da ANA (SNIRH); CF, art. 20, III e art. 26, I (obras da União)." }
+                 : { k: "est", titulo: esc(nome) + ": estadual", motivo: "O ponto está dentro desta massa d'água." + porq, uf: ctx.uf, fonte: "Fonte: base de massas d'água da ANA (SNIRH); CF, art. 26, I." };
+    }
+    if (r) return r.fed ? { k: "fed", d: r.d, titulo: esc(r.nome) + ": rio federal", motivo: "Trecho a " + Math.round(r.d) + " m do ponto. Na base da ANA, este curso d'água é de domínio da União (cruza estado ou país, ou está em terra da União).", fonte: "Fonte: Base Hidrográfica Ottocodificada da ANA (SNIRH); CF, art. 20, III; Lei 9.984/2000, art. 4º, IV." }
+                        : { k: "est", d: r.d, titulo: esc(r.nome) + ": rio estadual", motivo: "Trecho a " + Math.round(r.d) + " m do ponto. Na base da ANA, este curso d'água é de domínio do estado.", uf: ctx.uf, fonte: "Fonte: Base Hidrográfica Ottocodificada da ANA (SNIRH); CF, art. 26, I." };
+    return { k: "nada", titulo: "Nenhum rio da base da ANA a até " + ctx.raio + " m" };
+  }
+  function render(ctx, sel) {
+    var html = "", v = veredito(ctx, sel);
+    var ufTxt = ctx.uf ? (NOME_UF[ctx.uf] || ctx.uf) : "estado não identificado";
+    html += "<p class=\"rf-aviso\">Ponto: " + ctx.lat.toFixed(6).replace(".", ",") + ", " + ctx.lon.toFixed(6).replace(".", ",") + " · " + esc(ufTxt) + "</p>";
+    if (v.k === "fed") html += cardFederal(v.titulo, v.motivo, v.fonte);
+    else if (v.k === "est") html += cardEstadual(v.titulo, v.motivo, v.uf, v.fonte);
+    else {
+      html += "<div class=\"rf-card rf-fade\"><h3>" + v.titulo + "</h3><p>Aumente o raio ou confira a coordenada. Córrego pequeno pode não estar desenhado na base: em geral ele é do estado (" + esc(ufTxt) + "), mas confirme na <a href=\"" + PLATAFORMA + "\" target=\"_blank\" rel=\"noopener\">Plataforma Águas Brasil</a>.</p></div>";
     }
     if (tipo !== "sub" && ctx.rios.length > 1) {
       html += "<div class=\"stack-sm\"><p><b>O seu ponto é em qual destes?</b> Toque para trocar (ordenados pela distância).</p><ul class=\"rf-lista\">" +
@@ -420,6 +432,7 @@
     $("rf-res").querySelectorAll(".rf-lista button").forEach(function (b) {
       b.addEventListener("click", function () { var i = +b.getAttribute("data-i"); render(ctx, i); desenha(ctx.lat, ctx.lon, ctx.rios, i); });
     });
+    if (API.aoRender) API.aoRender(ctx, sel, v);
   }
 
   function erro(msg) { var e = $("rf-erro"); e.textContent = msg || ""; e.hidden = !msg; }
@@ -432,13 +445,13 @@
 
   function executa(lat, lon) {
     erro(""); var raio = +$("rf-raio").value, bt = $("rf-ir");
-    bt.disabled = true; bt.innerHTML = "<span class=\"rf-spin\" aria-hidden=\"true\"></span>Consultando a ANA…";
+    bt.disabled = true; bt.innerHTML = "<span class=\"rf-spin\" aria-hidden=\"true\"></span>Consultando a ANA…"; ultimo = null;
     var pUF = consulta(11, lat, lon, { outFields: "UFD_SG,UFD_NM", returnGeometry: "false" }).catch(function () { return []; });
     var pRios = tipo === "sub" ? Promise.resolve([]) :
       consulta(1, lat, lon, { distance: String(raio), units: "esriSRUnit_Meter", outFields: "TDR_NM_COMPLETO,TDR_DS_DOMINIALIDADE,TDR_NU_ORDEM", returnGeometry: "true", maxAllowableOffset: "0.00005" });
     var pMassa = tipo === "sub" ? Promise.resolve([]) :
       consulta(3, lat, lon, { outFields: "ESP_NM_RESERVATORIO,ESP_DS_DOMINIO,ESP_DS_DE_DOMINIO,ESP_SG_UF", returnGeometry: "false" }).catch(function () { return []; });
-    Promise.all([pUF, pRios, pMassa]).then(function (res) {
+    return Promise.all([pUF, pRios, pMassa]).then(function (res) {
       var uf = res[0][0] ? res[0][0].attributes.UFD_SG : null;
       var vistos = {}, rios = [];
       res[1].forEach(function (f) {
@@ -451,11 +464,17 @@
       rios.sort(function (a, b) { return a.d - b.d; });
       ultimo = { lat: lat, lon: lon, uf: uf, rios: rios, massa: res[2][0] ? res[2][0].attributes : null, raio: raio };
       render(ultimo, 0); desenha(lat, lon, rios, 0);
-      $("rf-res").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
+      if (!document.documentElement.classList.contains("g-on")) $("rf-res").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
+      return ultimo;
     }).catch(function () {
       erro("O serviço da ANA não respondeu agora. Tente de novo em instantes ou confira direto na Plataforma Águas Brasil.");
-    }).then(function () { bt.disabled = false; bt.textContent = "Consultar o rio"; });
+      return null;
+    }).then(function (u) { bt.disabled = false; bt.textContent = "Consultar o rio"; return u; });
   }
+
+  /* para o modo guiado: as mesmas funções (sem cópia das regras) */
+  var API = window.RioFed = { lerCoord: lerCoord, executa: executa, veredito: veredito, UF: UF, OUTORGA: OUTORGA, NOME_UF: NOME_UF, PLATAFORMA: PLATAFORMA,
+    tipo: function () { return tipo; }, fmt: function () { return fmt; }, ultimo: function () { return ultimo; }, erroAtual: function () { return $("rf-erro").hidden ? "" : $("rf-erro").textContent; } };
 
   $("rf-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -466,6 +485,125 @@
     erro(""); navigator.geolocation.getCurrentPosition(function (p) { usaPonto(p.coords.latitude, p.coords.longitude, true); },
       function () { erro("Não consegui a sua localização. Digite a coordenada."); }, { enableHighAccuracy: true, timeout: 15000 });
   });
+})();
+</script>
+<script src="../js/guiado.js"></script>
+<script>
+/* Modo guiado: um passo por tela. Usa o formulário completo e a mesma consulta à ANA (window.RioFed). */
+(function () {
+  "use strict";
+  var G = window.Guiado, R = window.RioFed, $ = function (id) { return document.getElementById(id); };
+  if (!G || !R) return;
+  var painel = $('g-painel'), assist = null, noRes = false;
+  G.modos({ antes: painel, guiado: painel, completo: [$('rf-form')] });
+  var ICO = { sup: '<svg viewBox="0 0 24 24"><path d="M3 8c3-2 6 2 9 0s6-2 9 0M3 13c3-2 6 2 9 0s6-2 9 0M3 18c3-2 6 2 9 0s6-2 9 0"/></svg>',
+    res: '<svg viewBox="0 0 24 24"><path d="M3 17h18M5 17V9l7-4 7 4v8M9 17v-4h6v4"/></svg>',
+    sub: '<svg viewBox="0 0 24 24"><path d="M12 3v12M8 11l4 4 4-4M5 20h14"/></svg>',
+    lan: '<svg viewBox="0 0 24 24"><path d="M4 6h9v5h5v7M15 15l3 3 3-3"/></svg>' };
+
+  function coordenadas(c, ctl) {
+    var gms = R.fmt() === 'gms';
+    G.cartoes(c, { rotulo: 'Formato da coordenada', compacto: true, valor: R.fmt(), opcoes: [{ v: 'gms', t: 'Graus, minutos e segundos' }, { v: 'dec', t: 'Decimal' }],
+      aoEscolher: function (v) { document.querySelector('#rf-fmt [data-fmt="' + v + '"]').click(); ctl.refazer(); } });
+    if (gms) {
+      [['lat', 'Latitude °', 'lat-h', 'N/S'], ['lon', 'Longitude °', 'lon-h', 'O']].forEach(function (x) {
+        var l = G.el('div', 'g-coord'); c.appendChild(l);
+        G.espelho(G.campo(l, { rotulo: x[1], inputmode: 'numeric' }), $(x[0] + '-g'));
+        G.espelho(G.campo(l, { rotulo: "'", inputmode: 'numeric' }), $(x[0] + '-m'));
+        G.espelho(G.campo(l, { rotulo: '"', inputmode: 'decimal' }), $(x[0] + '-s'));
+        var h = G.campo(l, { rotulo: x[3], select: true }); h.innerHTML = $(x[2]).innerHTML; G.espelho(h, $(x[2]));
+      });
+    } else {
+      var l = G.el('div', 'g-linha'); c.appendChild(l);
+      G.espelho(G.campo(l, { rotulo: 'Latitude (−)', placeholder: '-9,062639', inputmode: 'decimal' }), $('lat-d'));
+      G.espelho(G.campo(l, { rotulo: 'Longitude (−)', placeholder: '-39,993056', inputmode: 'decimal' }), $('lon-d'));
+    }
+    var gps = G.el('button', 'g-ex', 'Usar minha localização'); gps.type = 'button'; c.appendChild(gps);
+    gps.addEventListener('click', function () {
+      if (!navigator.geolocation) { ctl.erro('Este navegador não oferece a localização.'); return; }
+      navigator.geolocation.getCurrentPosition(function (p) {
+        document.querySelector('#rf-fmt [data-fmt="dec"]').click();
+        $('lat-d').value = p.coords.latitude.toFixed(6).replace('.', ','); $('lon-d').value = p.coords.longitude.toFixed(6).replace('.', ',');
+        ctl.refazer();
+      }, function () { ctl.erro('Não consegui a sua localização. Digite a coordenada.'); }, { enableHighAccuracy: true, timeout: 15000 });
+    });
+    c.appendChild(G.el('p', 'g-sub', 'Procurar rios a até'));
+    G.cartoes(c, { rotulo: 'Raio de busca', compacto: true, valor: $('rf-raio').value,
+      opcoes: Array.prototype.map.call($('rf-raio').options, function (o) { return { v: o.value, t: o.textContent }; }),
+      aoEscolher: function (v) { $('rf-raio').value = v; } });
+    var priv = G.el('p', 'g-campo__d'); priv.innerHTML = $('rf-form').querySelectorAll('.rf-aviso')[1].innerHTML; c.appendChild(priv);
+  }
+
+  function consultar(ctl) {
+    var c; try { c = R.lerCoord(); } catch (x) { ctl.erro(x.message); return false; }
+    ctl.ocupado(true, 'Consultando a ANA…');
+    R.executa(c[0], c[1]).then(function (u) {
+      ctl.ocupado(false);
+      if (u) ctl.resultado(); else ctl.erro(R.erroAtual() || 'O serviço da ANA não respondeu agora. Tente de novo em instantes ou confira direto na Plataforma Águas Brasil.');
+    });
+    return false;
+  }
+
+  var passos = [
+    { titulo: 'De onde vem a água?', ajuda: 'Toque numa opção.',
+      montar: function (c, ctl) {
+        G.cartoes(c, { rotulo: 'De onde vem a água', valor: R.tipo(),
+          opcoes: Array.prototype.map.call(document.querySelectorAll('#rf-tipo [data-tipo]'), function (b) { return { v: b.dataset.tipo, t: b.textContent, ico: ICO[b.dataset.tipo] }; }),
+          aoEscolher: function (v) { document.querySelector('#rf-tipo [data-tipo="' + v + '"]').click(); setTimeout(ctl.avancar, 220); } });
+      } },
+    { titulo: 'Onde fica o ponto?', ajuda: 'A coordenada da captação, do poço ou do lançamento (SIRGAS 2000). Vírgula ou ponto no decimal.', botao: 'Consultar o rio',
+      montar: coordenadas, aoSair: consultar }
+  ];
+
+  var sel = 0;
+  function resultado(sec) {
+    var ctx = R.ultimo(); if (!ctx) return false;
+    noRes = true;
+    var v = R.veredito(ctx, sel), uf = v.uf || ctx.uf, o = uf ? R.UF[uf] : null, ufTxt = ctx.uf ? (R.NOME_UF[ctx.uf] || ctx.uf) : 'estado não identificado';
+    var ver = G.el('div', 'g-veredito' + (v.k === 'fed' ? ' g-veredito--fed' : ''));
+    var quem = v.k === 'fed' ? 'ANA (Agência Nacional de Águas)' : v.k === 'est' ? (o ? o[0] : 'Órgão gestor do estado') : 'Confirme na Plataforma Águas Brasil';
+    ver.innerHTML = '<span class="g-veredito__s">' + (v.k === 'fed' ? 'Domínio da União' : v.k === 'est' ? 'Domínio do estado' + (uf ? ' · ' + uf : '') : 'Sem rio na base da ANA') + '</span>' +
+      '<b class="g-veredito__v">' + (v.k === 'fed' ? 'Federal' : v.k === 'est' ? 'Estadual' : 'Não achei') + '</b><p><b>' + v.titulo + '</b></p>' + (v.motivo ? '<p>' + v.motivo + '</p>' : '');
+    var nums = [];
+    if (v.k !== 'nada') {
+      var onde = G.el('p', 'g-num__s');
+      if (v.k === 'fed') onde.innerHTML = 'Pela <a href="' + R.PLATAFORMA + '" target="_blank" rel="noopener">Plataforma Águas Brasil</a> (login gov.br).';
+      else if (o) onde.innerHTML = '<a href="' + o[1] + '" target="_blank" rel="noopener">Site do órgão</a>' + (R.OUTORGA[uf] ? ' · <a href="' + R.OUTORGA[uf] + '" target="_blank" rel="noopener">página de outorga</a>' : '') + (o[2] === 'nome' ? ' (site não abriu na nossa conferência; nome conferido em norma)' : '');
+      else onde.textContent = 'Veja a tabela dos órgãos gestores mais abaixo.';
+      nums.push({ rotulo: 'Quem dá a outorga', valor: v.k === 'fed' ? 'ANA' : (o ? o[0].replace(/^.*\(([^)]+)\).*$/, '$1') : 'Órgão do estado'), sub: quem, extra: onde, tom: v.k === 'fed' ? 'ouro' : '', fonte: v.k === 'fed' ? 'Lei 9.984/2000, art. 4º, IV' : 'CF, art. 26, I · órgão gestor: tabela abaixo' });
+      if (v.d != null) nums.push({ rotulo: 'Distância até o trecho', valor: Math.round(v.d).toLocaleString('pt-BR') + ' m', sub: 'raio de busca: ' + (ctx.raio >= 1000 ? (ctx.raio / 1000) + ' km' : ctx.raio + ' m'), barra: Math.min(1, v.d / ctx.raio), tom: 'neutro', fonte: 'Base Hidrográfica Ottocodificada da ANA (SNIRH)' });
+    }
+    var antes = G.el('div', 'g-passo__c'); antes.appendChild(ver);
+    if (v.fonte) antes.appendChild(G.el('p', 'g-num__f', v.fonte));
+    var dep = G.el('div', 'g-passo__c');
+    var ponto = G.el('p', 'g-campo__d', 'Ponto: ' + ctx.lat.toFixed(6).replace('.', ',') + ', ' + ctx.lon.toFixed(6).replace('.', ',') + ' · ' + ufTxt + '. O mapa e os outros rios perto do ponto estão logo abaixo.');
+    dep.appendChild(ponto);
+    if (v.k === 'nada') { var n = G.el('p', 'g-nota'); n.innerHTML = 'Aumente o raio ou confira a coordenada. Córrego pequeno pode não estar desenhado na base: em geral ele é do estado (' + ufTxt + '), mas confirme na <a href="' + R.PLATAFORMA + '" target="_blank" rel="noopener">Plataforma Águas Brasil</a>.'; dep.appendChild(n); }
+    if (R.tipo() === 'lan') dep.appendChild(G.el('p', 'g-nota', 'Lançamento de efluente: a outorga segue o domínio do rio que recebe o lançamento. O licenciamento ambiental da atividade é outro pedido, no órgão ambiental.'));
+    var lim = document.querySelector('.rf-limite').cloneNode(true);
+    G.cartaoResultado(sec, { ferramenta: 'rio', semSelo: v.k === 'nada', titulo: 'De quem é a água', antes: antes, numeros: nums, depois: dep, limite: lim.innerHTML,
+      resumo: function () {
+        var t = G.el('div'); t.innerHTML = v.titulo + '. ' + (v.motivo || '');
+        return 'Ponto ' + ctx.lat.toFixed(6).replace('.', ',') + ', ' + ctx.lon.toFixed(6).replace('.', ',') + ' (' + ufTxt + '): ' + t.textContent.trim() +
+          (v.k === 'nada' ? '' : ' Outorga: ' + quem + '. ' + v.fonte) +
+          ' Consulta indicativa na base pública da ANA; a decisão é a da Plataforma Águas Brasil. Feito em oanalistaambiental.com/artigos/rio-federal-ou-estadual.html';
+      } });
+    return { voz: v.k === 'nada' ? 'Nenhum rio da base da ANA perto do ponto.' : 'Resultado: domínio ' + (v.k === 'fed' ? 'da União. A outorga é na ANA.' : 'do estado. A outorga é no órgão estadual.') };
+  }
+  R.aoRender = function (ctx, s) { sel = s; if (noRes && assist && document.documentElement.classList.contains('g-on')) assist.resultado(); };
+
+  function exemplo(f) { return function (ctl) { f(); ctl.ir(1); ctl.avancar(); }; }
+  assist = G.assistente(painel, { id: 'g-rio', passos: passos, resultado: function (sec) { var r = resultado(sec); return r; },
+    exemplos: [
+      { rotulo: 'Exemplo: Rio São Francisco em Juazeiro (BA), outorga 11063/2026 da ANA', aplicar: exemplo(function () {
+        document.querySelector('#rf-tipo [data-tipo="sup"]').click(); document.querySelector('#rf-fmt [data-fmt="gms"]').click();
+        [['lat-g', '9'], ['lat-m', '3'], ['lat-s', '45,5'], ['lat-h', 'S'], ['lon-g', '39'], ['lon-m', '59'], ['lon-s', '35,0']].forEach(function (x) { $(x[0]).value = x[1]; });
+      }) },
+      { rotulo: 'Exemplo de rio estadual: córrego em Paranaguá (PR)', aplicar: exemplo(function () {
+        document.querySelector('#rf-tipo [data-tipo="sup"]').click(); document.querySelector('#rf-fmt [data-fmt="dec"]').click();
+        $('lat-d').value = '-25,5205'; $('lon-d').value = '-48,5095';
+      }) }] });
+  painel.addEventListener('click', function (e) { if (e.target.closest('.g-btn')) { noRes = false; sel = 0; } }, true);
 })();
 </script>
 

@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/guiado.css">
 </head>
 <body>
 
@@ -144,6 +145,7 @@
         <span class="cartao__go">Montar o calendário &rarr;</span>
       </a>
     </div>
+    <div id="kit-federal" style="margin-top:1.4rem"></div>
   </div>
 </section>
 <section class="home-sec">
@@ -192,5 +194,10 @@
 </footer>
 
 <script src="js/nav.js"></script>
+<script src="js/guiado.js"></script>
+<script>
+  /* Kit do consultor federal: selos acesos das ferramentas já usadas neste aparelho. */
+  (function () { var k = document.getElementById("kit-federal"); if (k && window.Guiado) window.Guiado.kit.desenhar(k, "artigos/"); })();
+</script>
 </body>
 </html>

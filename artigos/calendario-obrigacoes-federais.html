@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/guiado.css">
 <style>
   /* ---------- calendário de obrigações federais (CSS desta página) ---------- */
   .co-grade{display:grid;gap:1.6rem;margin-top:1.8rem;grid-template-columns:minmax(0,1fr)}
@@ -133,6 +134,8 @@
     </p>
     <p><span class="co-selo">Conferido em 19/10/2026 · fonte em cada prazo</span></p>
   </div>
+
+  <div id="g-painel" hidden></div>
 
   <div class="co-grade">
     <form class="co-form" id="co-form" autocomplete="off" novalidate>
@@ -503,6 +506,98 @@
   if (nomes.length) { var pri = nomes.sort()[0]; aplica(salvos[pri]); listaSalvos(pri); }
   else { aplica(exemploPronto()); exemplo = true; $("co-ex").hidden = false; listaSalvos(""); }
   desenha();
+  /* para o modo guiado: as mesmas funções (sem cópia das regras) */
+  window.CalPagina = { estado: estado, aplica: aplica, exemploPronto: exemploPronto, desenha: desenha, ultimos: function () { return ultimos; },
+    texto: texto, hoje: hoje, ORGAO: ORGAO, TIPO: TIPO, classe: classe, falta: falta, exemplo: function () { return exemplo; },
+    limpa: function () { aplica({ ini: C.iso(hoje()) }); exemplo = false; $("co-ex").hidden = true; desenha(); },
+    mostraExemplo: function () { aplica(exemploPronto()); exemplo = true; $("co-ex").hidden = false; desenha(); } };
+})();
+</script>
+<script src="../js/guiado.js"></script>
+<script>
+/* Modo guiado: um passo por tela. Usa o formulário completo e o mesmo cálculo de datas (window.CalPagina / window.CalObr). */
+(function () {
+  "use strict";
+  var G = window.Guiado, P = window.CalPagina, C = window.CalObr, $ = function (id) { return document.getElementById(id); };
+  if (!G || !P) return;
+  var painel = $('g-painel');
+  var dispara = function (e) { e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true })); };
+  var marca = function (id, on) { if ($(id).checked !== on) { $(id).checked = on; dispara($(id)); } };
+  /* O modo completo abre com o exemplo pronto (como antes); o guiado começa em branco. Se a pessoa não mexer no guiado,
+     o exemplo volta ao abrir "Ver tudo de uma vez". */
+  var tinhaExemplo = P.exemplo(), mexeu = false;
+  if (tinhaExemplo) P.limpa();
+  painel.addEventListener('input', function () { mexeu = true; }); painel.addEventListener('click', function (e) { if (e.target.closest('.g-cartao,.g-ex')) mexeu = true; });
+  G.modos({ antes: painel, guiado: painel, completo: [document.querySelector('.co-grade')],
+    aoTrocar: function (m) { if (m === 'completo' && tinhaExemplo && !mexeu) { tinhaExemplo = false; P.mostraExemplo(); } } });
+  var I = G.ICONES;
+
+  function data(c, rot, alvo, dica) { var i = G.campo(c, { rotulo: rot, type: 'date', dica: dica }); G.espelho(i, alvo); return i; }
+  function primeiro(lista) { return $(lista).querySelector('input'); }
+  function maisDe(c, lista, nome) { var n = $(lista).querySelectorAll('input').length; if (n > 1) c.appendChild(G.el('p', 'g-campo__d', 'Este cliente tem ' + n + ' ' + nome + '. As outras ficam no modo "Ver tudo de uma vez".')); }
+
+  var passos = [
+    { titulo: 'Ibama: o que o cliente tem no Cadastro Técnico Federal?', ajuda: 'Toque em tudo o que vale. Nenhum? É só avançar.',
+      montar: function (c) {
+        G.cartoes(c, { rotulo: 'Obrigações do CTF', multi: true, valor: function (v) { return $(v).checked; },
+          opcoes: [{ v: 'co-tcfa', t: 'Paga a TCFA', d: 'atividade do CTF/APP sujeita à taxa', ico: I.tcfa }, { v: 'co-rapp', t: 'Entrega o RAPP todo ano', ico: I.agenda }],
+          aoEscolher: function (v, on) { marca(v, on); } });
+        var l = G.el('div', 'g-linha'); c.appendChild(l);
+        data(l, 'Último Certificado de Regularidade emitido em', $('co-cr'), 'Opcional. Vale 3 meses.');
+        data(l, 'Procuração do preposto vale até', $('co-proc'), 'Opcional.');
+      } },
+    { titulo: 'ANA: tem outorga em rio da União?', ajuda: 'Informe o vencimento da outorga e a frequência da DURH. Se não tem, é só avançar.',
+      montar: function (c) {
+        data(c, 'Vencimento da outorga', primeiro('co-outorgas'), 'Opcional.'); maisDe(c, 'co-outorgas', 'outorgas');
+        c.appendChild(G.el('p', 'g-sub', 'DURH (automonitoramento)'));
+        var r = document.querySelector('input[name="co-durh"]:checked');
+        G.cartoes(c, { rotulo: 'DURH', compacto: true, valor: r ? r.value : 'nao',
+          opcoes: Array.prototype.map.call(document.querySelectorAll('input[name="co-durh"]'), function (i) { return { v: i.value, t: i.parentNode.textContent.trim() }; }),
+          aoEscolher: function (v) { var i = document.querySelector('input[name="co-durh"][value="' + v + '"]'); i.checked = true; dispara(i); } });
+        c.appendChild(G.el('p', 'g-campo__d', document.querySelector('.co-form fieldset:nth-of-type(2) .co-ajuda').textContent));
+      } },
+    { titulo: 'Licença ambiental: quando vence?', ajuda: 'Licença do Ibama ou de outro órgão. Sem licença? É só avançar.',
+      montar: function (c) { data(c, 'Vencimento da licença', primeiro('co-licencas'), 'Opcional.'); maisDe(c, 'co-licencas', 'licenças'); } },
+    { titulo: 'Resíduos: gera resíduo com MTR no SINIR?', ajuda: 'Quem emite MTR entrega o inventário anual e declara a DMR.',
+      montar: function (c, ctl) {
+        G.cartoes(c, { rotulo: 'MTR no SINIR', valor: $('co-mtr').checked ? 's' : 'n', opcoes: [{ v: 's', t: 'Sim, emite MTR' }, { v: 'n', t: 'Não' }],
+          aoEscolher: function (v) { marca('co-mtr', v === 's'); setTimeout(ctl.avancar, 220); } });
+      },
+      valida: function () { P.desenha(); return P.ultimos().length ? '' : 'Marque ao menos uma obrigação para gerar o calendário (volte aos passos anteriores).'; } }
+  ];
+
+  function resultado(sec) {
+    P.desenha(); var ev = P.ultimos(), h = P.hoje();
+    if (!ev.length) return false;
+    var prazos = ev.filter(function (e) { return e.tipo === 'prazo'; });
+    var prox = prazos.filter(function (e) { return C.diasEntre(h, C.deIso(e.data)) >= 0; })[0];
+    var urg = prazos.filter(function (e) { var k = C.diasEntre(h, C.deIso(e.data)); return k >= 0 && k <= 30; }).length;
+    var ini = P.estado().ini || C.iso(h);
+    var nums = [
+      { rotulo: 'Datas nos próximos 12 meses', valor: String(ev.length), sub: 'a partir de ' + C.br(C.deIso(ini)), tom: 'neutro' },
+      { rotulo: 'Dias para o próximo prazo', valor: prox ? String(C.diasEntre(h, C.deIso(prox.data))) : '—', sub: prox ? C.br(C.deIso(prox.data)) + ' · ' + prox.titulo : 'nenhum prazo marcado', fonte: prox ? prox.fonte.t : '', tom: 'ouro' },
+      { rotulo: 'Prazos em até 30 dias', valor: String(urg), sub: urg ? 'atenção a estes primeiro' : 'nada urgente agora', tom: urg ? 'alerta' : '' }
+    ];
+    var COR = { 'co-urg': '#B23A1E', 'co-perto': '#B7791F', 'co-longe': '#2E6B3E', 'co-passou': '#7A887F' };
+    var dep = G.el('div', 'g-passo__c'), ul = G.el('ul', 'g-lista');
+    dep.appendChild(G.el('p', 'g-sub', 'Os próximos ' + Math.min(6, ev.length) + ' de ' + ev.length));
+    ev.slice(0, 6).forEach(function (e) {
+      var dt = C.deIso(e.data), dias = C.diasEntre(h, dt), li = G.el('li'); li.style.setProperty('--g-cor', COR[P.classe(dias)]);
+      var d = G.el('span', 'g-dia', C.br(dt).slice(0, 5)); d.appendChild(G.el('small', '', P.TIPO[e.tipo] + ' · ' + P.ORGAO[e.chave])); li.appendChild(d);
+      var t = G.el('div'); t.appendChild(G.el('b', '', e.titulo)); t.appendChild(G.el('span', 'g-falta', P.falta(dias)));
+      var f = G.el('span', 'g-num__f', 'Fonte: '); var a = G.el('a', '', e.fonte.t); a.href = e.fonte.u; a.target = '_blank'; a.rel = 'noopener'; f.appendChild(a); t.appendChild(f);
+      li.appendChild(t); ul.appendChild(li);
+    });
+    dep.appendChild(ul);
+    if (ev.length > 6) dep.appendChild(G.el('p', 'g-campo__d', 'A lista completa, com filtro por órgão e a opção de salvar o cliente, está em "Ver tudo de uma vez".'));
+    G.cartaoResultado(sec, { ferramenta: 'agenda', titulo: 'A agenda do cliente', numeros: nums, depois: dep,
+      limite: document.querySelector('.co-limite').innerHTML, resumo: function () { return P.texto(); },
+      botoes: [{ rotulo: 'Baixar para o calendário (.ics)', acao: function (st) { $('co-ics').click(); st.textContent = $('co-msg').textContent; } }] });
+    return { voz: 'Agenda montada: ' + ev.length + ' datas nos próximos 12 meses.' + (prox ? ' Próximo prazo em ' + C.diasEntre(h, C.deIso(prox.data)) + ' dias.' : '') };
+  }
+
+  G.assistente(painel, { id: 'g-agenda', passos: passos, resultado: resultado,
+    exemplos: [{ rotulo: 'Usar o exemplo: indústria com outorga', aplicar: function (ctl) { P.aplica(P.exemploPronto()); P.desenha(); ctl.resultado(); } }] });
 })();
 </script>
 </body>
