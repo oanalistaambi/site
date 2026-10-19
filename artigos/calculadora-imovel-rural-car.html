@@ -176,6 +176,13 @@
             <span class="calc__hint" id="amz-parcial" hidden>Este município está só em parte na Amazônia Legal (IBGE 2024). Confira de que lado da linha fica o imóvel.</span>
           </div>
         </div>
+        <div class="calc__row">
+          <div class="calc__field">
+            <label for="serv">Área de servidão administrativa (hectares, se houver)</label>
+            <input id="serv" type="number" min="0" step="0.0001" inputmode="decimal" placeholder="ex.: 0,5216">
+            <span class="calc__hint">Estrada, linha de transmissão, duto, reservatório público. Sai da conta da Reserva Legal (IN MMA 2/2014, art. 43, XI).</span>
+          </div>
+        </div>
         <div class="calc__checklist">
           <label><input type="checkbox" id="art67"> Em 22/07/2008 o imóvel tinha até 4 módulos fiscais e menos vegetação nativa que o percentual da lei</label>
         </div>
@@ -239,7 +246,7 @@
       <li><b>Módulo fiscal e fração mínima:</b> Incra, <a href="https://www.in.gov.br/web/dou/-/instrucao-especial-n-5-de-29-de-julho-de-2022-418986404" target="_blank" rel="noopener">Instrução Especial nº 5/2022</a>, Anexo IV, na versão republicada no DOU nº 145, de 02/08/2022 (Seção 1, a partir da p. 6), com os 5.570 municípios, e a <a href="https://www.in.gov.br/web/dou/-/instrucao-especial-incra-n-6-de-4-de-julho-de-2025-640263739" target="_blank" rel="noopener">IE nº 6/2025</a> (Boa Esperança do Norte/MT, 90 ha). Conferimos: o módulo fiscal de todos os municípios é o mesmo da tabela de 2013; a IE de 2022 mudou a fração mínima de parcelamento em parte deles.</li>
       <li><b>Número de módulos e tamanho:</b> IE Incra 5/2022, art. 12 (área ÷ módulo, em centésimos; pequena até 4, média acima de 4 até 15, grande acima de 15). Minifúndio é a área abaixo da fração mínima (<a href="https://www.gov.br/incra/pt-br/assuntos/governanca-fundiaria/modulo-fiscal" target="_blank" rel="noopener">Incra, Módulo Fiscal</a>; Lei 8.629/1993).</li>
       <li><b>Amazônia Legal:</b> IBGE, <a href="https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/amazonia_legal/2024/" target="_blank" rel="noopener">Municípios da Amazônia Legal 2024</a> (773 municípios; 21 só em parte).</li>
-      <li><b>Reserva Legal:</b> <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651compilado.htm" target="_blank" rel="noopener">Lei 12.651/2012</a>, art. 12 (percentuais), art. 15 (cômputo da APP) e art. 67 (até 4 módulos em 22/07/2008).</li>
+      <li><b>Reserva Legal:</b> <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651compilado.htm" target="_blank" rel="noopener">Lei 12.651/2012</a>, art. 12 (percentuais), art. 15 (cômputo da APP) e art. 67 (até 4 módulos em 22/07/2008); a servidão administrativa sai da área total para o cálculo (<a href="https://www.legisweb.com.br/legislacao/?id=488674" target="_blank" rel="noopener">IN MMA nº 2/2014</a>, art. 43, XI).</li>
       <li><b>APP:</b> mesma lei, art. 4º, I (rios), II (lagos), IV (nascentes) e XI (veredas); área consolidada: art. 61-A, §§ 1º a 7º; teto de recomposição: art. 61-B.</li>
     </ul>
 
@@ -360,14 +367,15 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
     var amz = mun && mun[4] > 0, p = REGRAS.rlPercentual(amz, +$('veg').value);
     $('art67-box').hidden = !$('art67').checked;
     if (mun && area > 0) {
-      var rl = area * p / 100, regra = 'Art. 12, ' + (amz ? 'I, ' + ({ 80: 'a', 35: 'b', 20: 'c' })[p] : 'II');
+      var sv = num($('serv').value); sv = sv > 0 && sv < area ? sv : 0; var base = area - sv;
+      var rl = base * p / 100, regra = 'Art. 12, ' + (amz ? 'I, ' + ({ 80: 'a', 35: 'b', 20: 'c' })[p] : 'II') + (sv ? ' + IN MMA 2/2014' : '');
       $('o-rlp').innerHTML = p + '%<small>' + (amz ? 'Amazônia Legal' : 'demais regiões') + '</small>';
       if ($('art67').checked) {
         var v8 = num($('veg2008').value);
         if (!(n <= 4)) { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>o art. 67 só vale até 4 módulos</small>'; }
         else if (v8 >= 0 && v8 < rl) { rl = v8; regra = 'Art. 67'; $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>a vegetação existente em 22/07/2008</small>'; }
         else { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>' + (isNaN(v8) ? 'informe a vegetação de 2008' : 'a vegetação de 2008 já alcança o percentual') + '</small>'; }
-      } else { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>' + p + '% de ' + fmt(area, 4) + ' ha</small>'; }
+      } else { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>' + p + '% de ' + fmt(base, 4) + ' ha' + (sv ? ' (área total menos ' + fmt(sv, 4) + ' ha de servidão)' : '') + '</small>'; }
       $('o-rlr').innerHTML = regra + '<small>Lei 12.651/2012</small>';
       r.push('Reserva Legal mínima: ' + fmt(rl, 4) + ' ha (' + regra + ', Lei 12.651/2012' + (amz ? '; Amazônia Legal' : '') + ')');
     } else { $('o-rlp').innerHTML = '—<small>Lei 12.651, art. 12</small>'; $('o-rl').innerHTML = '—<small>sobre a área total</small>'; $('o-rlr').innerHTML = '—'; }
@@ -395,7 +403,7 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
     $('resumo').textContent = r.length ? r.join('\n') + '\n\nOrientação; a análise do CAR é do órgão estadual. Fonte e conferência: oanalistaambiental.com/artigos/calculadora-imovel-rural-car.html' : 'Escolha o município e informe a área.';
   }
 
-  ['mun', 'area', 'veg', 'art67', 'veg2008', 'larg', 'lagoha', 'consol'].forEach(function (k) { $(k).addEventListener('input', tudo); $(k).addEventListener('change', tudo); });
+  ['mun', 'area', 'serv', 'veg', 'art67', 'veg2008', 'larg', 'lagoha', 'consol'].forEach(function (k) { $(k).addEventListener('input', tudo); $(k).addEventListener('change', tudo); });
   document.querySelectorAll('[data-app]').forEach(function (b) {
     b.addEventListener('click', function () {
       tipoApp = b.dataset.app;
