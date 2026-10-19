@@ -35,7 +35,7 @@
 .g-cartao__ico{ flex:none; width:2.3rem; height:2.3rem; border-radius:10px; display:grid; place-items:center; background:var(--bg-sunken); color:var(--accent); font-family:var(--f-display); font-weight:700; }
 .g-cartao__ico svg{ width:1.3rem; height:1.3rem; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 .g-cartao__t{ display:grid; gap:.15rem; min-width:0; flex:1; }
-.g-cartao__t b{ font-family:var(--f-display); font-size:1.02rem; font-weight:600; overflow-wrap:anywhere; }
+.g-cartao__t b{ font-family:var(--f-display); font-size:1.02rem; font-weight:600; overflow-wrap:break-word; hyphens:auto; }
 .g-cartao__t small{ font-size:.86rem; color:var(--text-soft); line-height:1.35; }
 .g-cartao__ok{ flex:none; width:1.5rem; height:1.5rem; border-radius:50%; border:1.5px solid var(--rule-strong); display:grid; place-items:center; color:transparent; }
 .g-cartao__ok svg{ width:1rem; height:1rem; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
