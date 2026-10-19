@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/guiado.css">
 <style>
   /* ---------- calculadora de enquadramento (CSS específico desta página) ---------- */
   .calc{ border:1px solid var(--rule); background:var(--bg-raised); padding:1.6rem 1.5rem 1.8rem; margin-top:2em; border-radius:2px; }
@@ -137,6 +138,8 @@
   </div>
 
   <div class="article__body">
+    <div id="g-painel" hidden></div>
+
     <div class="calc" id="tcfa">
       <div class="calc__step">
         <span class="calc__step-label">Passo 1 &middot; Quem exerce a atividade</span>
@@ -357,8 +360,9 @@ if (typeof module !== "undefined") module.exports = TCFA;
     var faixas = [["ME", "Micro", "até " + brl(t.me)], ["EPP", "Pequena", "até " + brl(t.epp)], ["MEDIA", "Média", "até " + brl(T.GRANDE_ACIMA)], ["GRANDE", "Grande", "acima de " + brl(T.GRANDE_ACIMA)]];
     $("regua").innerHTML = faixas.map(function (f) { return '<span class="' + (f[0] === chave ? "on" : "") + '"><b>' + f[1] + '</b><small>' + f[2] + '</small></span>'; }).join("");
   }
-  var ultimo = "";
+  var ultimo = "", U = {};
   function atualiza() {
+    U = {};
     var quem = document.querySelector('input[name="quem"]:checked').value;
     var isento = quem !== "PJ" && quem !== "PF" ? true : false;
     $("passo-porte").hidden = quem !== "PJ";
@@ -377,7 +381,10 @@ if (typeof module !== "undefined") module.exports = TCFA;
     else if (chave && cods.length) r = T.calcular(cods, chave);
     $("res").hidden = !r; $("res-vazio").hidden = !!r;
     $("res-vazio").textContent = !cods.length ? "Marque ao menos uma atividade." : "Informe a receita ou escolha o porte.";
+    U = { r: r, chave: chave, quem: quem, cods: cods };
     if (!r) return;
+    /* modo completo: resultado calculado (inclusive "isento") acende o selo do kit */
+    try { if (window.Guiado) window.Guiado.kit.noCompleto("tcfa", $("res")); } catch (e) { /* sem armazenamento */ }
     if (r.isento || r.trimestral === null) {
       var porque = r.isento ? "Isento pelo art. 17-F da Lei 6.938/1981." : T.NOME_PORTE[r.porte] + " com potencial " + T.NOME_PP[r.categoria.pp] + ": isento na tabela do Anexo IX.";
       $("r-tri").innerHTML = "Isento"; $("r-ano").innerHTML = "R$ 0,00"; $("r-cruz").textContent = r.isento ? "—" : T.NOME_PORTE[r.porte] + " × " + T.NOME_PP[r.categoria.pp];
@@ -408,6 +415,121 @@ if (typeof module !== "undefined") module.exports = TCFA;
     else $("copiado").textContent = ultimo;
   });
   atualiza();
+  /* para o modo guiado: o mesmo cálculo, lido daqui */
+  window.TcfaPagina = { atualiza: atualiza, ultimo: function () { return U; }, texto: function () { return ultimo; } };
+})();
+</script>
+<script src="../js/guiado.js"></script>
+<script>
+/* Modo guiado: um passo por tela. Preenche o formulário completo e lê o resultado dele (window.TcfaPagina). */
+(function () {
+  "use strict";
+  var G = window.Guiado, P = window.TcfaPagina, T = window.TCFA, $ = function (id) { return document.getElementById(id); };
+  if (!G || !P) return;
+  var painel = $('g-painel'), U = function () { return P.ultimo(); };
+  var brl = function (v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); };
+  var dispara = function (e) { e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true })); };
+  var quem = function () { return document.querySelector('input[name="quem"]:checked').value; };
+  var poeQuem = function (v) { var i = document.querySelector('input[name="quem"][value="' + v + '"]'); i.checked = true; dispara(i); };
+  var cat = function (c) { return document.querySelector('#cats input[value="' + c + '"]'); };
+  var marcaCat = function (c, on) { var i = cat(c); if (i.checked !== on) { i.checked = on; dispara(i); } };
+  G.modos({ antes: painel, guiado: painel, completo: [$('tcfa')] });
+  var ICO = { PJ: 'PJ', PF: 'PF', PUB: '⚑', FIL: '♥', SUB: '☘' };
+
+  var passos = [
+    { titulo: 'Quem exerce a atividade?', ajuda: 'Toque numa opção. Entidade pública, filantrópica e agricultura de subsistência ou população tradicional são isentas (art. 17-F).',
+      montar: function (c, ctl) {
+        G.cartoes(c, { rotulo: 'Quem exerce a atividade', valor: quem(),
+          opcoes: Array.prototype.map.call(document.querySelectorAll('input[name="quem"]'), function (i) { return { v: i.value, t: i.parentNode.textContent.trim(), ico: ICO[i.value] }; }),
+          aoEscolher: function (v) { poeQuem(v); setTimeout(ctl.avancar, 220); } });
+      } },
+
+    { titulo: 'Qual o porte da empresa?', ajuda: 'Informe a receita bruta anual e o ano dela. Se já souber o porte, toque nele embaixo.',
+      pular: function () { return quem() !== 'PJ'; },
+      montar: function (c) {
+        var l = G.el('div', 'g-linha'); c.appendChild(l);
+        G.espelho(G.campo(l, { rotulo: 'Receita bruta anual (R$)', placeholder: 'ex.: 2.500.000,00', inputmode: 'decimal' }), $('receita')).addEventListener('input', r);
+        var ano = G.campo(l, { rotulo: 'Ano da receita', select: true, dica: 'O Ibama usa o ano-calendário declarado no CTF.' });
+        ano.innerHTML = $('ano').innerHTML; G.espelho(ano, $('ano')).addEventListener('change', r);
+        c.appendChild(G.el('p', 'g-sub', 'Ou escolha o porte'));
+        var porte = function () { return $('porteManual').value; };
+        G.cartoes(c, { rotulo: 'Porte', compacto: true, valor: porte(),
+          opcoes: Array.prototype.filter.call($('porteManual').options, function (o) { return o.value; }).map(function (o) { return { v: o.value, t: o.textContent }; }).concat([{ v: '', t: 'Calcular pela receita' }]),
+          aoEscolher: function (v) { $('porteManual').value = v; dispara($('porteManual')); r(); } });
+        var regua = G.el('div', 'tc-regua'); regua.setAttribute('aria-hidden', 'true'); c.appendChild(regua);
+        var v = G.el('p', 'g-ao-vivo'); v.setAttribute('aria-live', 'polite'); c.appendChild(v);
+        function r() { regua.innerHTML = $('regua').innerHTML; v.textContent = $('porte-txt').textContent; }
+        r();
+      },
+      valida: function () { var t = $('porte-txt').textContent; return /^Informe/.test(t) || !t ? 'Informe a receita bruta (ou escolha o porte).' : ''; } },
+
+    { titulo: 'Quais atividades o estabelecimento exerce?', ajuda: 'Marque todas. Paga-se uma TCFA só, pela de valor mais alto (art. 17-D, § 3º).',
+      montar: function (c) {
+        var b = G.campo(c, { rotulo: 'Procurar (ex.: posto, mineração, frigorífico, madeira)', type: 'search' });
+        var silv = $('aviso-silv').cloneNode(true); silv.removeAttribute('id'); silv.hidden = true; c.appendChild(silv);
+        var g = G.cartoes(c, { rotulo: 'Atividades do Anexo VIII', multi: true, valor: function (v) { return cat(v).checked; },
+          opcoes: T.CATEGORIAS.map(function (x) { return { v: String(x.c), t: x.nome, d: 'Potencial ' + T.NOME_PP[x.pp] + ' · ' + x.desc.slice(0, 90) + (x.desc.length > 90 ? '…' : ''), ico: String(x.c) }; }),
+          aoEscolher: function (v, on) { marcaCat(v, on); conta(); } });
+        var n = G.el('p', 'g-ao-vivo'); n.setAttribute('aria-live', 'polite'); c.appendChild(n);
+        function conta() { var k = U().cods ? U().cods.length : 0; n.textContent = k ? k + (k === 1 ? ' atividade marcada.' : ' atividades marcadas.') : ''; }
+        conta();
+        b.addEventListener('input', function () {
+          var q = b.value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+          var cards = $('cats').querySelectorAll('.tc-cat');
+          Array.prototype.forEach.call(g.children, function (btn, i) { btn.hidden = q && cards[i].dataset.busca.indexOf(q) === -1 && btn.getAttribute('aria-pressed') !== 'true'; });
+          silv.hidden = !/silvicult|eucalipt|pinus|reflorest|floresta plantada/.test(q);
+        });
+      },
+      valida: function () { return U().cods && U().cods.length ? '' : 'Marque ao menos uma atividade.'; } }
+  ];
+
+  function matriz(u) {
+    var w = G.el('div', 'g-matriz'), portes = ['ME', 'EPP', 'MEDIA', 'GRANDE'], nomes = { ME: 'Micro', EPP: 'Pequena', MEDIA: 'Média', GRANDE: 'Grande' };
+    var h = '<table><caption class="g-sr">Valor por trimestre: porte × potencial (Ibama, desde o 4º tri/2015)</caption><tr><th>pot. ↓</th>' + portes.map(function (p) { return '<th scope="col">' + nomes[p] + '</th>'; }).join('') + '</tr>';
+    ['PEQUENO', 'MEDIO', 'ALTO'].forEach(function (pp) {
+      h += '<tr><th scope="row">' + T.NOME_PP[pp] + '</th>' + portes.map(function (p) { var v = T.VALORES[pp][p]; var on = u.r.categoria && u.r.categoria.pp === pp && u.r.porte === p; return '<td' + (on ? ' class="on"' : '') + '>' + (v === null ? 'isento' : brl(v).replace('R$ ', '')) + '</td>'; }).join('') + '</tr>';
+    });
+    w.innerHTML = h + '</table>';
+    return w;
+  }
+
+  function resultado(sec) {
+    P.atualiza(); var u = U(), r = u.r;
+    if (!r) return false;
+    var isento = r.isento || r.trimestral === null, nums, depois = G.el('div', 'g-passo__c');
+    var aviso = G.el('p', 'g-nota'); aviso.innerHTML = $('r-cat').innerHTML; depois.appendChild(aviso);
+    if (isento) {
+      nums = [{ rotulo: 'TCFA por trimestre', valor: 'Isento', sub: 'R$ 0,00 por ano', tom: 'ouro', fonte: r.isento ? 'Lei 6.938/1981, art. 17-F' : 'Lei 6.938/1981, Anexo IX (tabela do Ibama)' }];
+      if (!r.isento) nums.push({ rotulo: 'Porte × potencial', valor: $('r-cruz').textContent, tom: 'neutro', fonte: 'art. 17-D, § 1º (porte) e Anexo VIII (potencial)' });
+    } else {
+      nums = [
+        { rotulo: 'Por trimestre', valor: brl(r.trimestral), sub: r.original ? 'na lei de 2000 era ' + brl(r.original) : '', fonte: 'Lei 6.938/1981, Anexo IX; valores do Ibama desde o 4º tri/2015 (Lei 13.196/2015)' },
+        { rotulo: 'Por ano (4 trimestres)', valor: brl(r.anual), sub: 'se a atividade durar o ano todo', tom: 'ouro', fonte: 'Lei 6.938/1981, art. 17-G (pago a cada trimestre)' },
+        { rotulo: 'Porte × potencial', valor: T.NOME_PORTE[r.porte] + ' × ' + T.NOME_PP[r.categoria.pp], tom: 'neutro', extra: matriz(u), largo: true,
+          fonte: 'Porte: art. 17-D, § 1º · Potencial: Anexo VIII, categoria ' + r.categoria.c }
+      ];
+      var mini = G.el('div', 'g-nums');
+      [['Atraso: multa de mora', brl(r.trimestral * 0.2) + ' (20%)', 'cai a ' + brl(r.trimestral * 0.1) + ' (10%) se pagar até o último dia útil do mês seguinte ao vencimento, mais juros de 1% ao mês', 'art. 17-H, I e II'],
+       ['Sem o RAPP até 31/03', brl(r.anual * 0.2), 'multa de 20% da TCFA devida, além da própria taxa. Confira se houve prorrogação no ano.', 'art. 17-C, §§ 1º e 2º'],
+       ['Crédito da taxa estadual', 'até ' + brl(r.anual * 0.6), 'por ano: até 60% da TCFA do mesmo ano', 'art. 17-P']].forEach(function (x) {
+        var d = G.el('div', 'g-num g-num--alerta'); d.appendChild(G.el('span', 'g-num__r', x[0])); var b = G.el('b', 'g-num__v', x[1]); b.style.fontSize = '1.35rem'; d.appendChild(b);
+        d.appendChild(G.el('span', 'g-num__s', x[2])); d.appendChild(G.el('span', 'g-num__f', 'Fonte: Lei 6.938/1981, ' + x[3])); mini.appendChild(d);
+      });
+      depois.appendChild(mini);
+      var q = G.el('details', 'g-mais'); q.appendChild(G.el('summary', '', 'Quando pagar'));
+      var qp = G.el('p'); qp.innerHTML = document.querySelector('.tc-extra details p').innerHTML; q.appendChild(qp); depois.appendChild(q);
+    }
+    G.cartaoResultado(sec, { ferramenta: 'tcfa', titulo: isento ? 'TCFA: isento' : 'TCFA estimada', numeros: nums, depois: depois,
+      limite: document.querySelector('.calc__vedacao').innerHTML, resumo: function () { return P.texto(); } });
+    return { voz: isento ? 'Resultado: isento da TCFA.' : 'Resultado: TCFA de ' + brl(r.trimestral) + ' por trimestre, ' + brl(r.anual) + ' por ano.' };
+  }
+
+  G.assistente(painel, { id: 'g-tcfa', passos: passos, resultado: resultado,
+    exemplos: [{ rotulo: 'Exemplo: posto de combustível, receita de R$ 2,5 milhões em 2025', aplicar: function (ctl) {
+      poeQuem('PJ'); $('porteManual').value = ''; dispara($('porteManual'));
+      $('receita').value = '2.500.000,00'; dispara($('receita')); $('ano').value = '2025'; dispara($('ano'));
+      T.CATEGORIAS.forEach(function (x) { marcaCat(x.c, x.c === 18); }); ctl.resultado();
+    } }] });
 })();
 </script>
 </body>

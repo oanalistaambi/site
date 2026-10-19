@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
 <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/guiado.css">
 <style>
   /* ---------- calculadora de enquadramento (CSS específico desta página) ---------- */
   .calc{ border:1px solid var(--rule); background:var(--bg-raised); padding:1.6rem 1.5rem 1.8rem; margin-top:2em; border-radius:2px; }
@@ -138,6 +139,8 @@
       cadastro. Os números aqui saem da lei e das tabelas oficiais; a situação do imóvel (vegetação em 22/07/2008, área
       consolidada, averbação, compensação) precisa ser conferida no caso concreto.
     </div>
+
+    <div id="g-painel" hidden></div>
 
     <div class="calc" id="calc">
       <div class="calc__step">
@@ -343,9 +346,12 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
     return ks.length === 1 ? idx[ks[0]] : null;
   }
 
+  /* U: o último cálculo, em campos, para o modo guiado mostrar os mesmos números (nada é recalculado lá). */
+  var U = {};
   function tudo() {
     var c = acha(); mun = c ? M[c] : null;
     var area = num($('area').value), r = [];
+    U = { mun: mun, area: area, tipoApp: tipoApp };
     if (mun) {
       $('o-mf').innerHTML = fmt(mun[2], mun[2] % 1 ? 1 : 0) + ' ha<small>' + mun[0] + ' - ' + mun[1] + ' · fração mínima ' + fmt(mun[3], mun[3] % 1 ? 1 : 0) + ' ha</small>';
       $('mun-info').textContent = mun[4] === 2 ? 'Município na Amazônia Legal (IBGE 2024).' : mun[4] === 1 ? 'Município em parte na Amazônia Legal (IBGE 2024).' : 'Fora da Amazônia Legal.';
@@ -357,8 +363,9 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
       var tam = REGRAS.tamanho(area, n, mun[3]);
       $('o-nmf').innerHTML = fmt(n, 2) + '<small>' + fmt(area, 4) + ' ha ÷ ' + fmt(mun[2], mun[2] % 1 ? 1 : 0) + ' ha</small>';
       $('o-tam').innerHTML = tam + '<small>' + (tam === 'Minifúndio' ? 'abaixo da fração mínima' : 'IE Incra 5/2022, art. 12') + '</small>';
+      U.n = n; U.tam = tam; U.nTxt = fmt(n, 2); U.contaTxt = fmt(area, 4) + ' ha ÷ ' + fmt(mun[2], mun[2] % 1 ? 1 : 0) + ' ha'; U.mfTxt = fmt(mun[2], mun[2] % 1 ? 1 : 0);
       var nota = $('o-tam-nota');
-      nota.hidden = !(n <= 4); nota.textContent = n <= 4 ? 'Até 4 módulos fiscais o imóvel tem regras próprias no Código Florestal: a Reserva Legal do art. 67, as faixas menores de APP consolidada (art. 61-A) e o teto de recomposição do art. 61-B. A condição de agricultura familiar (art. 3º, V) é um conceito à parte e não é definida só pela área.' : '';
+      nota.hidden = !(n <= 4); U.tamNota = n <= 4 ? 'Até 4 módulos fiscais o imóvel tem regras próprias no Código Florestal: a Reserva Legal do art. 67, as faixas menores de APP consolidada (art. 61-A) e o teto de recomposição do art. 61-B. A condição de agricultura familiar (art. 3º, V) é um conceito à parte e não é definida só pela área.' : ''; nota.textContent = U.tamNota;
       r.push('Município: ' + mun[0] + ' - ' + mun[1] + ' (módulo fiscal ' + fmt(mun[2], mun[2] % 1 ? 1 : 0) + ' ha, Incra IE 5/2022)');
       r.push('Área: ' + fmt(area, 4) + ' ha = ' + fmt(n, 2) + ' módulos fiscais · ' + tam);
     } else { $('o-nmf').innerHTML = '—<small>informe a área</small>'; $('o-tam').innerHTML = '—<small>IE Incra 5/2022, art. 12</small>'; $('o-tam-nota').hidden = true; }
@@ -377,6 +384,7 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
         else { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>' + (isNaN(v8) ? 'informe a vegetação de 2008' : 'a vegetação de 2008 já alcança o percentual') + '</small>'; }
       } else { $('o-rl').innerHTML = fmt(rl, 4) + ' ha<small>' + p + '% de ' + fmt(base, 4) + ' ha' + (sv ? ' (área total menos ' + fmt(sv, 4) + ' ha de servidão)' : '') + '</small>'; }
       $('o-rlr').innerHTML = regra + '<small>Lei 12.651/2012</small>';
+      U.rl = rl; U.rlTxt = fmt(rl, 4) + ' ha'; U.rlSub = $('o-rl').querySelector('small').textContent; U.rlp = p; U.amz = amz; U.regra = regra;
       r.push('Reserva Legal mínima: ' + fmt(rl, 4) + ' ha (' + regra + ', Lei 12.651/2012' + (amz ? '; Amazônia Legal' : '') + ')');
     } else { $('o-rlp').innerHTML = '—<small>Lei 12.651, art. 12</small>'; $('o-rl').innerHTML = '—<small>sobre a área total</small>'; $('o-rlr').innerHTML = '—'; }
 
@@ -396,12 +404,20 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
       $('o-appc-f').textContent = cc ? 'Lei 12.651, art. 61-A, ' + cc.p : 'depende dos módulos fiscais';
       $('b-appc').style.width = cc ? Math.min(100, cc.m / 5) + '%' : '0';
     }
+    U.cons = cons; U.app = g ? { txt: $('o-app').textContent, fonte: $('o-app-f').textContent, m: g.m, rot: rot } : null;
+    U.consol = cons ? { txt: $('o-appc').textContent, fonte: $('o-appc-f').textContent, m: cc ? cc.m : 0, ok: !!cc } : null;
     var teto = n > 0 ? REGRAS.teto61B(n) : null;
     $('o-teto').hidden = !(cons && teto);
     if (cons && teto) $('o-teto').textContent = 'Teto: para imóvel que tinha até ' + (teto === 10 ? '2' : '4') + ' módulos fiscais em 22/07/2008 e área consolidada em APP, a recomposição somada de todas as APPs não passa de ' + teto + '% da área total (art. 61-B), ou seja, ' + fmt(area * teto / 100, 4) + ' ha.';
     if (g) r.push('APP de ' + rot + ': ' + $('o-app').textContent + ' (Lei 12.651, ' + g.f + ')' + (cons && cc ? '; em área consolidada, recompor ' + cc.t + ' (art. 61-A, ' + cc.p + ')' : ''));
+    U.teto = !$('o-teto').hidden ? $('o-teto').textContent : '';
+    /* modo completo: resultado válido (município reconhecido + área > 0) acende o selo do kit */
+    if (mun && area > 0) { try { if (window.Guiado) window.Guiado.kit.noCompleto('imovel', $('res-mf')); } catch (e) { /* sem armazenamento */ } }
     $('resumo').textContent = r.length ? r.join('\n') + '\n\nOrientação; a análise do CAR é do órgão estadual. Fonte e conferência: oanalistaambiental.com/artigos/calculadora-imovel-rural-car.html' : 'Escolha o município e informe a área.';
   }
+
+  /* para o modo guiado: as mesmas funções, sem cópia da regra */
+  window.ImovelRural = { tudo: tudo, acha: acha, ultimo: function () { return U; }, pronto: function () { return !!M; }, M: function () { return M; } };
 
   ['mun', 'area', 'serv', 'veg', 'art67', 'veg2008', 'larg', 'lagoha', 'consol'].forEach(function (k) { $(k).addEventListener('input', tudo); $(k).addEventListener('change', tudo); });
   document.querySelectorAll('[data-app]').forEach(function (b) {
@@ -416,6 +432,143 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
     var ok = function () { $('copiado').textContent = 'Copiado.'; setTimeout(function () { $('copiado').textContent = ''; }, 1800); };
     if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, function () { $('copiado').textContent = 'Selecione o texto e copie.'; });
   });
+})();
+</script>
+<script src="../js/guiado.js"></script>
+<script>
+/* Modo guiado: um passo por tela. Preenche o formulário completo acima e lê o resultado dele (window.ImovelRural). */
+(function () {
+  "use strict";
+  var G = window.Guiado, IR = window.ImovelRural, $ = function (id) { return document.getElementById(id); };
+  if (!G || !IR) return;
+  var painel = $('g-painel'), U = function () { return IR.ultimo(); };
+  var dispara = function (id) { var e = $(id); e.dispatchEvent(new Event('input', { bubbles: true })); e.dispatchEvent(new Event('change', { bubbles: true })); };
+  var poe = function (id, v) { $(id).value = v; dispara(id); };
+  var marca = function (id, on) { if ($(id).checked !== on) { $(id).checked = on; dispara(id); } };
+  var tipoAtual = function () { var b = document.querySelector('[data-app][aria-selected="true"]'); return b ? b.dataset.app : 'rio'; };
+  var semApp = false;
+  G.modos({ antes: painel, guiado: painel, completo: [$('calc')] });
+
+  function aoVivo(caixa, f) { var r = function () { caixa.innerHTML = f() || ''; }; r(); return r; }
+  function simNao(c, rotulo, ligado, ao) {
+    c.appendChild(G.el('p', 'g-sub', rotulo));
+    return G.cartoes(c, { rotulo: rotulo, compacto: true, valor: ligado ? 's' : 'n', opcoes: [{ v: 'n', t: 'Não' }, { v: 's', t: 'Sim' }], aoEscolher: function (v) { ao(v === 's'); } });
+  }
+
+  var passos = [
+    { titulo: 'Onde fica o imóvel?', ajuda: 'Digite o nome do município e escolha na lista. São os 5.571 municípios da tabela oficial do Incra.',
+      montar: function (c) {
+        var i = G.espelho(G.campo(c, { rotulo: 'Município', placeholder: 'ex.: Paranaguá - PR', list: 'lista-mun' }), $('mun'));
+        var v = G.el('p', 'g-ao-vivo'); v.setAttribute('aria-live', 'polite'); c.appendChild(v);
+        var r = aoVivo(v, function () { var m = U().mun; return m ? '<b>' + m[0] + ' - ' + m[1] + '</b>: módulo fiscal de ' + U().mun[2].toLocaleString('pt-BR') + ' ha. ' + $('mun-info').textContent : ''; });
+        i.addEventListener('input', r);
+      },
+      valida: function () { if (!IR.pronto()) return 'A tabela do Incra ainda está carregando. Aguarde um instante.'; return U().mun ? '' : 'Escolha o município na lista (ex.: Paranaguá - PR).'; } },
+
+    { titulo: 'Qual a área total do imóvel?', ajuda: 'Em hectares, como está na matrícula ou no CAR. Pode usar vírgula.',
+      montar: function (c) {
+        var i = G.espelho(G.campo(c, { rotulo: 'Área total (ha)', placeholder: 'ex.: 4,1570', inputmode: 'decimal' }), $('area'), G.paraNumero, G.deNumero);
+        var v = G.el('p', 'g-ao-vivo'); v.setAttribute('aria-live', 'polite'); c.appendChild(v);
+        var r = aoVivo(v, function () { return U().n > 0 ? '= <b>' + U().nTxt + ' módulo' + (U().n === 1 ? '' : 's') + ' fiscal' + (U().n === 1 ? '' : 'is') + '</b> · ' + U().tam : ''; });
+        i.addEventListener('input', r);
+      },
+      valida: function () { return U().n > 0 ? '' : 'Informe a área em hectares (ex.: 4,1570).'; } },
+
+    { titulo: 'Qual a vegetação da área?', ajuda: 'O município está na Amazônia Legal: o percentual da Reserva Legal depende da vegetação.',
+      pular: function () { var m = U().mun; return !(m && m[4]); },
+      montar: function (c, ctl) {
+        G.cartoes(c, { rotulo: 'Vegetação', valor: $('veg').value, opcoes: Array.prototype.map.call($('veg').options, function (o) { return { v: o.value, t: o.textContent }; }),
+          aoEscolher: function (v) { poe('veg', v); setTimeout(ctl.avancar, 220); } });
+        if (U().mun && U().mun[4] === 1) c.appendChild(G.el('p', 'g-nota', $('amz-parcial').textContent));
+      } },
+
+    { titulo: 'Reserva Legal: tem desconto ou exceção?', ajuda: 'Se não tiver nenhum dos dois, é só avançar.',
+      montar: function (c) {
+        var bS = G.el('div', 'g-passo__c'), bV = G.el('div', 'g-passo__c');
+        var temS = parseFloat($('serv').value) > 0;
+        simNao(c, 'Tem servidão administrativa? (estrada, linha de transmissão, duto, reservatório público)', temS, function (on) { bS.hidden = !on; if (!on) poe('serv', ''); r(); });
+        G.espelho(G.campo(bS, { rotulo: 'Área de servidão (ha)', placeholder: 'ex.: 0,5216', inputmode: 'decimal', dica: 'Sai da conta da Reserva Legal (IN MMA 2/2014, art. 43, XI).' }), $('serv'), G.paraNumero, G.deNumero).addEventListener('input', function () { r(); });
+        bS.hidden = !temS; c.appendChild(bS);
+        simNao(c, 'Em 22/07/2008 tinha até 4 módulos fiscais e menos vegetação nativa que o percentual da lei?', $('art67').checked, function (on) { marca('art67', on); bV.hidden = !on; r(); });
+        G.espelho(G.campo(bV, { rotulo: 'Vegetação nativa em 22/07/2008 (ha)', inputmode: 'decimal' }), $('veg2008'), G.paraNumero, G.deNumero).addEventListener('input', function () { r(); });
+        bV.hidden = !$('art67').checked; c.appendChild(bV);
+        var v = G.el('p', 'g-ao-vivo'); v.setAttribute('aria-live', 'polite'); c.appendChild(v);
+        var r = aoVivo(v, function () { return U().rlTxt ? 'Reserva Legal mínima: <b>' + U().rlTxt + '</b> · ' + U().rlSub : ''; });
+      } },
+
+    { titulo: 'Qual água tem no imóvel?', ajuda: 'Para a faixa de APP. Escolha a principal; no modo completo dá para trocar e comparar.',
+      montar: function (c, ctl) {
+        var extra = G.el('div', 'g-passo__c'), atual = semApp ? 'nada' : tipoAtual();
+        G.cartoes(c, { rotulo: 'Tipo de APP', valor: atual, opcoes: [
+            { v: 'rio', t: 'Rio ou córrego', d: 'pede a largura' }, { v: 'nascente', t: 'Nascente' },
+            { v: 'lago', t: 'Lago ou lagoa natural', d: 'pede a superfície' }, { v: 'vereda', t: 'Vereda' }, { v: 'nada', t: 'Nenhuma / pular a APP' }],
+          aoEscolher: function (v) {
+            semApp = v === 'nada';
+            document.querySelector('[data-app="' + (semApp ? 'rio' : v) + '"]').click();
+            if (semApp) poe('larg', '');
+            mostra(v);
+            if (v === 'nascente' || v === 'vereda' || v === 'nada') setTimeout(ctl.avancar, 220);
+          } });
+        c.appendChild(extra);
+        function mostra(v) {
+          extra.innerHTML = '';
+          if (v === 'rio') { var i = G.espelho(G.campo(extra, { rotulo: 'Largura do rio (m)', placeholder: 'ex.: 12', inputmode: 'decimal', dica: 'Medida na borda da calha do leito regular.' }), $('larg'), G.paraNumero, G.deNumero); }
+          if (v === 'lago') { G.espelho(G.campo(extra, { rotulo: 'Superfície do lago ou lagoa (ha)', placeholder: 'ex.: 15', inputmode: 'decimal', dica: 'Zona rural. Em zona urbana a faixa é de 30 m (art. 4º, II, b).' }), $('lagoha'), G.paraNumero, G.deNumero); }
+        }
+        mostra(atual);
+      },
+      valida: function () {
+        if (semApp) return '';
+        var t = tipoAtual();
+        if (t === 'rio' && !(parseFloat($('larg').value) > 0)) return 'Informe a largura do rio em metros (ou escolha "Nenhuma").';
+        if (t === 'lago' && !(parseFloat($('lagoha').value) > 0)) return 'Informe a superfície do lago em hectares.';
+        return '';
+      } },
+
+    { titulo: 'A margem tem área rural consolidada?', ajuda: 'Uso (lavoura, pasto, construção) que já existia antes de 22/07/2008. Muda a faixa a recompor.',
+      pular: function () { return semApp; },
+      montar: function (c, ctl) {
+        G.cartoes(c, { rotulo: 'Área consolidada', valor: $('consol').checked ? 's' : 'n', opcoes: [{ v: 's', t: 'Sim, tem uso antes de 22/07/2008' }, { v: 'n', t: 'Não' }],
+          aoEscolher: function (v) { marca('consol', v === 's'); setTimeout(ctl.avancar, 220); } });
+      } }
+  ];
+
+  function resultado(sec) {
+    IR.tudo(); var u = U();
+    if (!(u.mun && u.n > 0)) return false;
+    var esc = G.el('div', 'g-escala');
+    ['Minifúndio', 'Pequena', 'Média', 'Grande'].forEach(function (t) { var s = G.el('span', u.tam.indexOf(t) === 0 ? 'on' : '', t); esc.appendChild(s); });
+    var nums = [
+      { rotulo: 'Módulos fiscais do imóvel', valor: u.nTxt + ' MF', sub: u.tam + ' · ' + u.contaTxt + ' (módulo de ' + u.mun[0] + ' - ' + u.mun[1] + ')', extra: esc, fonte: 'Incra, IE 5/2022, art. 12' },
+      { rotulo: 'Reserva Legal mínima', valor: u.rlTxt, sub: u.rlSub + (u.amz ? ' · Amazônia Legal' : ''), barra: u.area > 0 ? u.rl / u.area : 0, tom: 'ouro', fonte: 'Lei 12.651/2012, ' + u.regra.replace(/^Art\./, 'art.') }
+    ];
+    if (u.app) nums.push({ rotulo: 'Faixa da APP (regra geral)', valor: u.app.txt, sub: u.app.rot ? 'APP de ' + u.app.rot : '', barra: u.app.m / 500, fonte: u.app.fonte });
+    if (u.consol) nums.push({ rotulo: 'A recompor na área consolidada', valor: u.consol.txt, tom: 'alerta', barra: u.consol.ok ? u.consol.m / 500 : 0, fonte: u.consol.fonte });
+    var depois = G.el('div', 'g-passo__c');
+    if (u.teto) depois.appendChild(G.el('p', 'g-nota', u.teto));
+    var mais = G.el('details', 'g-mais'); mais.appendChild(G.el('summary', '', 'Notas da lei para este caso'));
+    if (u.tamNota) mais.appendChild(G.el('p', '', u.tamNota));
+    if (u.mun[4] === 1) mais.appendChild(G.el('p', '', $('amz-parcial').textContent));
+    mais.appendChild(G.el('p', '', document.querySelector('#calc .calc__step:nth-child(2) > .calc__aviso').textContent.replace(/\s+/g, ' ').trim()));
+    depois.appendChild(mais);
+    G.cartaoResultado(sec, {
+      ferramenta: 'imovel', titulo: u.mun[0] + ' - ' + u.mun[1] + ' · ' + u.area.toLocaleString('pt-BR', { maximumFractionDigits: 4 }) + ' ha',
+      numeros: nums, depois: depois,
+      limite: document.querySelector('.calc__vedacao').innerHTML,
+      resumo: function () { return $('resumo').textContent; }
+    });
+    return { voz: 'Resultado: ' + u.nTxt + ' módulos fiscais, ' + u.tam + '. Reserva Legal mínima de ' + u.rlTxt + '.' + (u.app ? ' APP de ' + u.app.txt + '.' : '') };
+  }
+
+  function exemplo(mun, area) {
+    return function (ctl) {
+      if (!IR.pronto()) { ctl.erro('A tabela do Incra ainda está carregando. Tente de novo em um instante.'); return; }
+      poe('mun', mun); poe('area', area); ctl.ir(2);
+    };
+  }
+  G.assistente(painel, { id: 'g-imovel', passos: passos, resultado: resultado,
+    exemplos: [{ rotulo: 'Usar o exemplo de Paranaguá (PR), 4,1570 ha', aplicar: exemplo('Paranaguá - PR', '4.1570') },
+               { rotulo: 'Exemplo na Amazônia Legal: Altamira (PA), 300 ha', aplicar: exemplo('Altamira - PA', '300') }] });
 })();
 </script>
 </body>
