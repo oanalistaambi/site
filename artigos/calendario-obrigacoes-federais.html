@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendário de obrigações ambientais federais</title>
+<meta name="description" content="Calendário gratuito das obrigações ambientais federais do cliente: TCFA, RAPP, Certificado de Regularidade do Ibama, DURH e renovação de outorga da ANA, renovação de licença e inventário de resíduos, com a norma de cada prazo e download para o celular.">
+<link rel="canonical" href="https://www.oanalistaambiental.com/artigos/calendario-obrigacoes-federais.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calendário de obrigações ambientais federais">
+<meta property="og:description" content="Marque o que o cliente tem e veja tudo o que vence nos próximos 12 meses, com a fonte de cada prazo.">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="../assets/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ---------- calendário de obrigações federais (CSS desta página) ---------- */
+  .co-grade{display:grid;gap:1.6rem;margin-top:1.8rem;grid-template-columns:minmax(0,1fr)}
+  .co-form{min-width:0}.co-form input,.co-form select{max-width:100%;box-sizing:border-box}
+  @media(min-width:980px){.co-grade{grid-template-columns:minmax(0,380px) minmax(0,1fr);align-items:start}}
+  .co-form{border:1px solid var(--rule);background:var(--bg-raised);border-radius:12px;padding:1.2rem 1.2rem 1.4rem;display:grid;gap:1.1rem}
+  @media(min-width:980px){.co-form{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}}
+  .co-form fieldset{border:0;margin:0;padding:0;display:grid;gap:.55rem;min-width:0}
+  .co-form label.co-campo{display:grid}
+  .co-form legend{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+  .co-form label{display:flex;gap:.55rem;align-items:flex-start;font-size:.98rem;line-height:1.35}
+  .co-form input[type=checkbox],.co-form input[type=radio]{margin-top:.2rem;accent-color:var(--accent);width:1.05rem;height:1.05rem;flex:none}
+  .co-campo{display:grid;gap:.25rem;font-size:.92rem;color:var(--text-soft)}
+  .co-campo input,.co-campo select,.co-nome input,.co-nome select{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--rule-strong);border-radius:8px;padding:.45rem .6rem;min-width:0;width:100%}
+  .co-lista{display:grid;gap:.4rem}
+  .co-linha{display:flex;gap:.4rem;align-items:center}
+  .co-linha input{flex:1}
+  .co-mini{font:inherit;font-size:.85rem;border:1px solid var(--rule-strong);background:transparent;color:var(--text-soft);border-radius:999px;padding:.25rem .7rem;cursor:pointer}
+  .co-mini:hover,.co-mini:focus-visible{border-color:var(--accent);color:var(--accent)}
+  .co-x{border:0;background:transparent;color:var(--text-faint);font-size:1.15rem;cursor:pointer;padding:0 .3rem}
+  .co-nome{display:grid;gap:.5rem}
+  .co-nome .co-linha select{flex:1}
+  .co-ajuda{font-size:.82rem;color:var(--text-faint);line-height:1.4}
+  .co-topo{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between}
+  .co-res{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .co-res div{border:1px solid var(--rule);border-radius:12px;padding:.75rem .9rem;background:var(--bg-raised)}
+  .co-res b{display:block;font-family:var(--f-display);font-size:1.7rem;line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  .co-res span{font-size:.88rem;color:var(--text-soft)}
+  .co-acoes{display:flex;flex-wrap:wrap;gap:.6rem}
+  .co-filtros{display:flex;flex-wrap:wrap;gap:.4rem}
+  .co-filtros button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .co-mes{margin-top:1.4rem}
+  .co-mes h3{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);border-bottom:1px solid var(--rule);padding-bottom:.35rem;margin-bottom:.7rem}
+  .co-ev{display:grid;grid-template-columns:4.2rem minmax(0,1fr);gap:.9rem;border:1px solid var(--rule);border-left:5px solid var(--co-cor,var(--accent));border-radius:10px;background:var(--bg-raised);padding:.75rem .9rem;margin-bottom:.6rem;transition:transform .2s ease,box-shadow .2s ease}
+  .co-ev:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(14,21,18,.08)}
+  .co-dia{text-align:center;font-family:var(--f-display);line-height:1}
+  .co-dia b{display:block;font-size:1.8rem;font-variant-numeric:tabular-nums}
+  .co-dia small{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;color:var(--text-faint);text-transform:uppercase}
+  .co-ev h4{font-family:var(--f-display);font-size:1.02rem;font-weight:600;margin:0 0 .25rem}
+  .co-meta{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.25rem}
+  .co-tag{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:.08rem .5rem}
+  .co-falta{font-family:var(--f-mono);font-size:.78rem;font-weight:500;color:var(--co-cor,var(--accent))}
+  .co-ev p{margin:.15rem 0 0;font-size:.92rem;color:var(--text-soft)}
+  .co-ev .co-fonte{font-size:.8rem;color:var(--text-faint)}
+  .co-ev .co-fonte a{color:inherit}
+  .co-urg{--co-cor:#B23A1E}.co-perto{--co-cor:#B7791F}.co-longe{--co-cor:#2E6B3E}.co-passou{--co-cor:#7A887F;opacity:.7}
+  .co-vazio{border:1px dashed var(--rule-strong);border-radius:12px;padding:1.6rem;text-align:center;color:var(--text-soft);margin-top:1.4rem}
+  .co-limite{border-left:4px solid var(--ochre);background:var(--bg-sunken);padding:1rem 1.1rem;border-radius:0 10px 10px 0;margin-top:2rem;font-size:.96rem}
+  .co-fontes{font-size:.9rem;color:var(--text-soft)}
+  .co-fontes li{margin:.3rem 0}
+  .co-selo{display:inline-flex;gap:.45rem;align-items:center;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:.25rem .7rem}
+  .co-cta{margin-top:2.2rem;border-top:1px solid var(--rule);padding-top:1.2rem;font-size:.98rem;color:var(--text-soft)}
+  .co-msg{font-size:.88rem;color:var(--accent);min-height:1.2em}
+  .co-exemplo{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:var(--focus);color:#0E1512;border-radius:999px;padding:.15rem .6rem}
+  @media(max-width:520px){.co-ev{grid-template-columns:3.4rem minmax(0,1fr);gap:.7rem}.co-dia b{font-size:1.5rem}}
+  @media (prefers-reduced-motion:reduce){.co-ev{transition:none}.co-ev:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="../index.html">
+      <svg class="logo" viewBox="-5 -5 108 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd"><path d="M49.52 0.65C47.85 1.23 47.54 1.54 44.22 5.92C43.94 6.29 43.2 7.27 42.57 8.09C41.36 9.67 39.2 12.52 36.46 16.14C34.87 18.23 32.93 20.79 31.13 23.13C30.71 23.68 29.79 24.87 29.11 25.78C28.43 26.68 27.26 28.2 26.51 29.17C25.78 30.13 24.8 31.4 24.35 32C23.91 32.59 23.03 33.75 22.41 34.56C21.79 35.36 20.71 36.77 20.01 37.69C19.32 38.61 18.7 39.41 18.63 39.5C18.48 39.66 17.35 41.14 15.54 43.51C14.81 44.48 13.91 45.64 13.55 46.11C13.2 46.56 12.32 47.72 11.61 48.65C10.89 49.59 10.18 50.53 10.01 50.75C7.1 54.52 3.1 59.78 2.71 60.33C1.69 61.79 1.83 62.5 3.47 64.13C5.27 65.92 6.43 66.47 8.28 66.48C8.9 66.48 9.4 66.53 9.4 66.59C9.4 66.65 9.13 67.08 8.78 67.55C6.98 70 6.46 70.71 5.31 72.28C0.39 78.92 0 79.53 0 80.65C0 82.89 3 85.17 5.93 85.17C6.52 85.17 6.99 85.22 6.99 85.27C6.99 85.4 5.98 86.86 5.27 87.76C4.47 88.75 1.12 93.6 0.84 94.15C0.12 95.58 0.4 96.68 1.81 98.12C3.17 99.51 4.3 99.98 6.33 99.99C8.27 100 9.45 99.54 10.68 98.28C11.12 97.84 13.82 94.42 14.13 93.92C14.36 93.55 14.5 93.6 15.23 94.36C18.06 97.32 22.37 97.12 25.02 93.9C25.71 93.07 31.2 86.15 31.71 85.47C31.88 85.25 32.81 84.06 33.8 82.83C36.35 79.6 36.42 79.52 37.57 78.06C38.74 76.56 38.78 76.51 40.21 74.68C40.78 73.95 41.45 73.11 41.7 72.81C41.96 72.51 42.26 72.12 42.37 71.94C42.49 71.75 42.63 71.61 42.69 71.61C42.75 71.61 43.57 72.38 44.53 73.33C49.8 78.64 55.46 80.91 62.15 80.42C63.02 80.35 64.07 80.21 64.5 80.11C65.95 79.76 66.25 79.67 66.49 79.58C66.63 79.52 67.08 79.35 67.52 79.2C69.03 78.68 72.35 76.79 73.37 75.86C73.5 75.74 73.91 75.39 74.27 75.09C77.13 72.65 79.97 68.92 81.99 64.91C82.49 63.91 83.13 62.54 83.42 61.84C83.71 61.14 83.99 60.47 84.05 60.33C84.11 60.2 84.31 59.63 84.51 59.08L84.86 58.05L83.95 57.09C83.45 56.55 82.98 56.1 82.9 56.08C82.82 56.05 82.59 56.57 82.35 57.34C81.6 59.73 79.94 63.59 78.9 65.34C72.93 75.46 64.38 79.78 55.38 77.21C54.83 77.06 54.18 76.84 53.93 76.73C49.01 74.58 45.41 71.29 41.93 65.82C41.31 64.82 39.76 61.86 39.43 61C39.28 60.63 39.04 60.06 38.87 59.69C38.71 59.34 38.58 59.02 38.58 58.97C38.58 58.92 38.43 58.48 38.22 57.97C37.33 55.68 36.24 51.35 35.92 48.82C35.87 48.38 35.76 47.58 35.69 47.01C35.29 43.88 35.24 38.26 35.59 35.98L35.74 35.01L37.2 33.08C38 32.02 39.39 30.18 40.28 28.98C44.8 22.97 51.34 14.32 53.89 11.02C56.25 7.97 58.23 5.26 58.3 5.02C58.37 4.76 58.48 4.7 58.98 4.64C60.71 4.41 64.83 5.06 66.1 5.78C66.22 5.85 66.36 5.9 66.43 5.9C66.95 5.9 71.08 8.28 71.62 8.91C71.65 8.95 71.84 9.09 72.02 9.24C74.85 11.42 78.15 15.78 80.26 20.12C81.03 21.73 81.08 21.82 81.69 23.32C82.41 25.13 83.77 29.77 83.57 29.77C83.53 29.77 83.23 29.36 82.92 28.86C79.27 23.27 71.88 21.46 65.88 24.69C62.78 26.37 60.48 29.3 59.55 32.78C57.27 41.26 63.52 49.54 72.18 49.54C74.48 49.54 75.68 49.25 78.44 48.02C78.57 47.96 79.3 48.7 80.66 50.27C81.09 50.76 81.9 51.68 82.47 52.31C83.04 52.94 84.21 54.24 85.06 55.21C85.92 56.17 86.65 56.98 86.69 57.02C86.73 57.05 87.1 57.49 87.53 57.98C87.97 58.48 88.34 58.91 88.38 58.95C88.41 58.98 88.79 59.42 89.22 59.91C89.66 60.41 90.03 60.84 90.07 60.88C90.1 60.91 91.08 62.02 92.24 63.35C93.39 64.67 94.55 65.95 94.79 66.2C95.73 67.16 97.13 66.87 97.6 65.64C97.95 64.73 97.77 64.38 95.85 62.29C95.17 61.54 94.44 60.74 94.24 60.51C92.13 58.14 88.44 54.03 87.41 52.92C86.71 52.16 85.22 50.53 84.1 49.3C82.98 48.07 81.85 46.85 81.6 46.59C81.05 46.01 81.03 46.11 81.7 45.38C82.9 44.06 83.87 42.46 84.4 40.95C84.56 40.5 84.72 40.14 84.78 40.14C84.92 40.14 84.9 43.2 84.76 45.13L84.64 46.7L85.28 47.36C85.63 47.73 86.09 48.24 86.29 48.48C86.93 49.23 86.89 49.3 87.2 46.53C87.39 44.66 87.39 37.62 87.18 35.74C86.32 27.74 84.4 21.71 80.78 15.66C76.15 7.91 69.53 3.07 62.27 2.15C60.85 1.97 57.81 2.07 56.82 2.34L56.06 2.54L55.26 1.93C53.24 0.41 51.39 0 49.52 0.65ZM52.39 3.24C52.99 3.5 54.98 4.99 54.98 5.2C54.98 5.32 54.76 5.61 51.72 9.57C50.22 11.53 47.37 15.28 45.03 18.37C44.43 19.17 43.32 20.63 42.56 21.63C41.8 22.62 40.84 23.9 40.43 24.46C40 25.03 39.06 26.27 38.34 27.24C37.62 28.2 36.03 30.31 34.81 31.94C32.36 35.22 30.43 37.76 29 39.63C28.47 40.31 27.66 41.38 27.19 41.99C26.73 42.61 25.51 44.2 24.49 45.51C23.46 46.83 22.29 48.35 21.88 48.88C21.49 49.41 20.47 50.71 19.64 51.77C18.82 52.83 17.75 54.22 17.28 54.85C15.66 56.99 11.42 62.39 10.89 63.01C10.16 63.83 8.61 64.24 7.51 63.89C6.97 63.71 5.78 62.89 5.2 62.29L4.8 61.86L5.46 60.97C5.82 60.49 6.44 59.68 6.82 59.18C7.22 58.68 7.69 58.05 7.9 57.79C8.09 57.54 8.28 57.29 8.32 57.26C8.36 57.22 8.71 56.76 9.12 56.23C9.51 55.7 10.49 54.42 11.29 53.4C12.08 52.38 13.52 50.49 14.47 49.24C15.42 47.97 16.52 46.54 16.9 46.05C17.29 45.55 18.06 44.54 18.62 43.81C19.17 43.08 20.22 41.72 20.94 40.79C21.65 39.85 22.38 38.91 22.55 38.68C22.72 38.46 22.96 38.15 23.1 37.98C23.23 37.81 23.95 36.88 24.67 35.92C25.99 34.16 27.74 31.85 29.12 30.07C30.43 28.35 31.77 26.6 32.57 25.55C32.99 24.98 33.36 24.5 33.4 24.46C33.43 24.43 33.87 23.86 34.37 23.2C35.28 21.99 36.27 20.69 37.68 18.86C38.4 17.9 40.99 14.49 41.89 13.31C42.13 12.97 42.42 12.6 42.52 12.48C42.63 12.35 43.63 11.02 44.77 9.52C48.7 4.33 49.01 3.93 49.4 3.62C50.22 2.97 51.4 2.82 52.39 3.24ZM73.29 25.79C77.15 26.28 80.12 28.49 81.67 32.02C82.87 34.71 82.83 38.32 81.59 40.8C78.35 47.35 70.36 48.95 65.07 44.12C60.9 40.31 60.6 33.29 64.42 29.15C65.06 28.47 66.13 27.55 66.67 27.25C68.81 26.02 71.09 25.52 73.29 25.79ZM32.84 42.45C32.88 44.07 32.96 45.84 33.02 46.41C33.08 46.97 33.17 47.84 33.22 48.34L33.31 49.25L32.55 50.27C31.78 51.3 30.61 52.87 30.02 53.64C29.84 53.87 29.3 54.59 28.8 55.24C28.31 55.91 27.28 57.26 26.53 58.26C25.75 59.27 24.34 61.12 23.39 62.38C14.42 74.2 9.24 80.94 8.61 81.56C7.82 82.32 7.11 82.61 5.97 82.63C4.79 82.63 4.18 82.37 3.28 81.47C2.41 80.6 2.4 80.66 3.86 78.66C4.1 78.32 4.81 77.35 5.43 76.49C6.05 75.62 6.86 74.51 7.22 74.02C7.6 73.52 8.5 72.29 9.22 71.29C9.96 70.28 11.33 68.37 12.29 67.06C13.25 65.75 14.67 63.78 15.47 62.68C18.63 58.34 20.4 55.94 25.15 49.54C26.42 47.85 27.88 45.88 28.39 45.15C30.75 41.95 32.59 39.53 32.67 39.53C32.72 39.53 32.79 40.85 32.84 42.45ZM34.24 53.41C34.24 53.64 34.53 54.79 34.98 56.35C35.22 57.17 35.81 58.92 36.24 60.04L36.45 60.59L35.16 62.27C33.14 64.91 31.67 66.83 31.32 67.28C31.14 67.51 30.43 68.42 29.76 69.34C29.07 70.24 28.04 71.59 27.47 72.35C26.89 73.1 25.58 74.81 24.57 76.14C21.08 80.73 20.46 81.55 19.58 82.7C18.69 83.86 16.93 86.15 16.54 86.64C16.43 86.79 15.95 87.41 15.47 88.03C14.99 88.64 13.42 90.67 11.98 92.52C10.55 94.38 9.15 96.13 8.87 96.42C7.44 97.91 5.37 97.93 3.83 96.44C2.97 95.6 2.97 95.47 3.77 94.3C4.52 93.2 7.4 89.16 7.74 88.73C7.87 88.56 8.45 87.76 9.02 86.97C10.14 85.41 13.71 80.47 14.82 78.96C16.36 76.85 16.76 76.31 17.6 75.16C18.09 74.5 18.95 73.33 19.52 72.57C20.09 71.81 20.91 70.69 21.35 70.1C21.79 69.5 22.69 68.28 23.35 67.39C24.02 66.49 25.11 65 25.8 64.07C28.03 61.04 28.64 60.24 29.86 58.58C30.53 57.69 31.65 56.17 32.36 55.21C33.06 54.24 33.72 53.36 33.82 53.24C34.04 52.99 34.24 53.07 34.24 53.41ZM38.21 64.4C38.69 65.41 39.67 67.12 40.44 68.29C41.13 69.34 41.13 69.33 40.35 70.29C40.02 70.73 39.59 71.26 39.43 71.49C39.26 71.7 38.64 72.49 38.06 73.22C37.47 73.96 36.93 74.64 36.85 74.74C36.77 74.84 36.24 75.51 35.66 76.25C34.6 77.59 33.06 79.54 30.6 82.67C29.85 83.63 28.78 84.99 28.21 85.7C27.65 86.41 27.06 87.18 26.89 87.4C25.32 89.46 22.49 92.84 22.04 93.19C20.35 94.45 17.76 93.91 16.66 92.05L16.42 91.66L17.47 90.28C18.74 88.62 20.8 85.88 21.77 84.57C22.16 84.04 22.55 83.52 22.63 83.42C22.7 83.33 24.66 80.72 26.97 77.63C29.27 74.55 31.19 72 31.23 71.97C31.26 71.93 31.7 71.36 32.2 70.7C33.08 69.53 34.37 67.83 36.57 64.94C37.16 64.17 37.68 63.53 37.73 63.53C37.76 63.53 37.98 63.93 38.21 64.4Z"/><path d="M68.98 34.93C67.86 35.53 67.86 37.1 68.95 37.91C69.38 38.21 69.39 38.21 71.91 38.21C74.74 38.21 74.98 38.15 75.48 37.34C75.95 36.57 75.61 35.28 74.85 34.88C74.31 34.6 69.52 34.64 68.98 34.93Z"/><path d="M46.36 27.71C46.17 27.77 45.7 27.88 45.33 27.96C44.97 28.04 44.59 28.15 44.49 28.2C44.39 28.25 43.96 28.44 43.53 28.64C41.79 29.41 41.27 30.44 42.19 31.35C42.77 31.94 43.19 31.96 44.07 31.46C45.5 30.64 46.21 30.46 47.99 30.44C49.81 30.43 50.19 30.52 51.58 31.24C52.05 31.49 52.57 31.7 52.72 31.7C53.44 31.7 54.21 30.76 54.06 30.06C53.88 29.15 52.3 28.21 50.24 27.78C49.34 27.59 47 27.55 46.36 27.71Z"/><path d="M45.35 34.93C44.25 35.52 44.2 37.22 45.25 37.93C45.64 38.2 45.74 38.21 48.4 38.21L51.13 38.21L51.63 37.75C52.47 36.95 52.38 35.51 51.43 34.94C50.88 34.6 45.97 34.59 45.35 34.93Z"/></g></svg>
+      <b>O Analista Ambiental<span class="slog">Da norma ao campo</span></b>
+    </a>
+    <nav class="nav__links" aria-label="Menu principal">
+      <a class="nav__item" href="../index.html">Início</a>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Cursos</button>
+        <div class="dd__menu">
+          <a href="../rota-ambiental.html"><b>A Rota Ambiental 2.0</b><small>Minas Gerais: licença, água, flora, CAR e autos</small></a>
+          <a href="../rota-federal.html"><b>Rota Federal <span class="dd__selo">Fundador</span></b><small>CAR, ANA, Ibama e SINIR · todo o Brasil</small></a>
+          <span class="dd__off"><b>Preparatório Concurso Sisema <span class="dd__selo">Em breve</span></b><small>Semad, Feam, IEF e Igam</small></span>
+          <a href="../cursos.html"><b>Palestras e capacitações</b><small>Para empresas, órgãos e eventos</small></a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Ferramentas</button>
+        <div class="dd__menu">
+          <a href="../radar.html"><b>Radar do Diário Oficial</b><small>O que saiu hoje para a área ambiental de MG</small></a>
+          <a href="../radar-servicos.html"><b>Radar de serviços</b><small>Quantos documentos vencem na sua cidade</small></a>
+          <a href="../artigos/calculadora-enquadramento-mg.html" aria-current="page"><b>Calculadora de enquadramento</b><small>Classe e modalidade pela DN 217</small></a>
+          <a href="../artigos/checklist-documentos-licenciamento-mg.html"><b>Checklist de documentos</b><small>O que cada modalidade pede</small></a>
+          <a href="../chao-geo-mg.html"><b>App Chão Geo MG</b><small>Vistoria e camadas do IDE-Sisema no celular</small></a>
+          <span class="dd__off"><b>Mapa dos manuais oficiais <span class="dd__selo">Em breve</span></b><small>Link, versão e o que mudou</small></span>
+          <a href="../operacao-piracema/index.html"><b>Jogo Operação Piracema</b><small>Para aprender brincando</small></a>
+          <a href="../ferramentas.html#federal"><b>Ferramentas federais</b><small>Imóvel rural, TCFA, rio federal e calendário</small></a>
+          <a class="dd__all" href="../ferramentas.html">Ver todas &rarr;</a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Aprenda grátis</button>
+        <div class="dd__menu">
+          <a href="../videos.html"><b>Vídeos tutoriais</b><small>Cadastros e consultas, passo a passo</small></a>
+          <a href="../artigos.html"><b>Artigos</b><small>Guias e fundamentos</small></a>
+          <a href="../artigos/sisema-quem-faz-o-que.html"><b>Sisema: quem faz o quê</b><small>O mapa dos órgãos de MG</small></a>
+        </div>
+      </div>
+      <a class="nav__item" href="../sobre.html">Sobre</a>
+      <a class="btn btn--solid nav__cta" href="../index.html#lista">Lista de espera</a>
+    </nav>
+    <button class="nav__burger" type="button" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+
+<main class="wrap article">
+  <div class="article__head stack-sm">
+    <p class="ref">Ferramentas &middot; federal &middot; todo o Brasil</p>
+    <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Calendário de obrigações ambientais federais</h1>
+    <p style="color:var(--text-soft);font-size:1.12rem;margin-top:.6rem">
+      Marque o que o seu cliente tem (Cadastro Técnico Federal, outorga na ANA, licença, resíduos) e veja tudo o que vence
+      nos próximos 12 meses: TCFA, RAPP, Certificado de Regularidade, DURH, renovações e o inventário de resíduos. Cada
+      prazo traz a norma e o link oficial. Dá para baixar no calendário do celular e mandar a lista para o cliente.
+    </p>
+    <p><span class="co-selo">Conferido em 19/10/2026 · fonte em cada prazo</span></p>
+  </div>
+
+  <div class="co-grade">
+    <form class="co-form" id="co-form" autocomplete="off" novalidate>
+      <div class="co-nome">
+        <div class="co-topo"><b style="font-family:var(--f-display)">O cliente</b><span class="co-exemplo" id="co-ex" hidden>exemplo</span></div>
+        <div class="co-linha">
+          <select id="co-salvos" aria-label="Clientes salvos neste aparelho"><option value="">Clientes salvos…</option></select>
+          <button type="button" class="co-mini" id="co-novo">Novo</button>
+        </div>
+        <label class="co-campo" for="co-cliente">Nome ou apelido (fica só neste aparelho)
+          <input id="co-cliente" type="text" maxlength="60" placeholder="ex.: Fazenda Boa Vista"></label>
+      </div>
+
+      <fieldset>
+        <legend>Ibama · Cadastro Técnico Federal</legend>
+        <label><input type="checkbox" id="co-tcfa"> <span>Paga a <b>TCFA</b> (atividade do CTF/APP sujeita à taxa)</span></label>
+        <label><input type="checkbox" id="co-rapp"> <span>Entrega o <b>RAPP</b> todo ano</span></label>
+        <label class="co-campo" for="co-cr"><span>Último <b>Certificado de Regularidade</b> emitido em</span>
+          <input id="co-cr" type="date"></label>
+        <label class="co-campo" for="co-proc">Procuração do preposto no CTF vale até (opcional)
+          <input id="co-proc" type="date"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>ANA · água em rio da União</legend>
+        <div class="co-campo">Vencimento da outorga
+          <div class="co-lista" id="co-outorgas"></div>
+          <button type="button" class="co-mini" data-mais="co-outorgas" style="justify-self:start">+ outra outorga</button>
+        </div>
+        <div class="co-campo">DURH (automonitoramento)
+          <label><input type="radio" name="co-durh" value="nao" checked> <span>Não é obrigado</span></label>
+          <label><input type="radio" name="co-durh" value="anual"> <span>Anual (até 31 de janeiro)</span></label>
+          <label><input type="radio" name="co-durh" value="mensal"> <span>Mensal (até o dia 7) + anual</span></label>
+          <span class="co-ajuda">A obrigação depende da vazão e da carga lançada (Res. ANA 188/2024, arts. 3º e 5º e Anexo I). A própria outorga ou a ANA informam a frequência.</span>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Licença ambiental</legend>
+        <div class="co-campo">Vencimento da licença (Ibama ou outro órgão)
+          <div class="co-lista" id="co-licencas"></div>
+          <button type="button" class="co-mini" data-mais="co-licencas" style="justify-self:start">+ outra licença</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Resíduos · SINIR</legend>
+        <label><input type="checkbox" id="co-mtr"> <span>Gera resíduo com <b>MTR</b> no SINIR (inventário anual e DMR)</span></label>
+      </fieldset>
+
+      <label class="co-campo" for="co-ini">Contar 12 meses a partir de
+        <input id="co-ini" type="date"></label>
+
+      <div class="co-acoes">
+        <button type="button" class="btn btn--solid" id="co-salvar">Salvar este cliente</button>
+        <button type="button" class="co-mini" id="co-limpar">Começar do zero</button>
+        <button type="button" class="co-mini" id="co-apagar" hidden>Apagar cliente</button>
+      </div>
+      <p class="co-msg" id="co-msg" role="status" aria-live="polite"></p>
+      <p class="co-ajuda">Nada sai do seu aparelho: os clientes ficam salvos só neste navegador.</p>
+    </form>
+
+    <div role="region" aria-labelledby="co-t" style="min-width:0">
+      <div class="co-topo">
+        <h2 id="co-t" style="font-size:1.5rem;margin:0">Os próximos 12 meses</h2>
+        <div class="co-acoes">
+          <button type="button" class="btn btn--solid" id="co-ics">Baixar para o calendário (.ics)</button>
+          <button type="button" class="btn btn--ghost" id="co-copiar">Copiar lista para o cliente</button>
+        </div>
+      </div>
+      <div class="co-res" id="co-res" style="margin-top:1rem"></div>
+      <div class="co-filtros" id="co-filtros" style="margin-top:1rem" aria-label="Filtrar por órgão"></div>
+      <div id="co-linha"></div>
+    </div>
+  </div>
+
+  <div class="co-limite">
+    <strong>Limite.</strong> O calendário cobre só obrigações <b>federais</b> com prazo fixo em norma. Estado e município têm
+    obrigações próprias (licença estadual, cadastro, taxa e outorga em rio estadual), que não estão aqui. O "dia útil" da TCFA
+    é calculado só com os feriados nacionais: um feriado local ou bancário pode empurrar o prazo, e a data exata vem no boleto
+    do Ibama. Prazo que cai em fim de semana: faça antes. Normas mudam e há prorrogações (o RAPP de 2026, por exemplo, foi
+    até 31/05/2026 pela IN Ibama 06/2026): confira no órgão antes de cada entrega. A ferramenta não substitui a análise do
+    caso nem a leitura da norma.
+  </div>
+
+  <h2 style="margin-top:2.4rem">De onde vem cada prazo</h2>
+  <ul class="co-fontes">
+    <li><b>TCFA:</b> devida no último dia útil de cada trimestre e paga até o 5º dia útil do mês seguinte. <a href="https://www.planalto.gov.br/ccivil_03/leis/l6938.htm" target="_blank" rel="noopener">Lei 6.938/1981, art. 17-G</a>.</li>
+    <li><b>RAPP:</b> entrega até 31 de março, sobre o ano anterior; atraso gera multa de 20% da TCFA devida. <a href="https://www.planalto.gov.br/ccivil_03/leis/l6938.htm" target="_blank" rel="noopener">Lei 6.938/1981, art. 17-C, §§ 1º e 2º</a>. Período de 1º de fevereiro a 31 de março: <a href="https://www.gov.br/ibama/pt-br/servicos/arquivos/relatorios/atividades_poluidoras/2026/2026-01-29_guia_rapp_2026.pdf" target="_blank" rel="noopener">Guia do RAPP 2026 (Ibama)</a>.</li>
+    <li><b>Certificado de Regularidade:</b> validade de três meses a partir da emissão. <a href="https://www.gov.br/ibama/pt-br/servicos/cadastros/ctf/ctf-app/ctf-app/20210916IN_13_23082021.pdf" target="_blank" rel="noopener">IN Ibama 13/2021, art. 46, § 2º</a> (texto com as alterações da IN 23/2025).</li>
+    <li><b>Procuração do preposto no CTF:</b> prazo de validade não superior a dois anos. IN Ibama 13/2021, art. 31, § 2º.</li>
+    <li><b>Outorga da ANA:</b> renovação pedida entre 365 e 90 dias antes do fim da validade; pedido no prazo prorroga a outorga até a decisão. <a href="https://www.gov.br/ana/pt-br/legislacao/resolucoes/resolucoes-regulatorias/2024/236" target="_blank" rel="noopener">Resolução ANA 236/2024, art. 48</a>.</li>
+    <li><b>DURH:</b> anual até 31 de janeiro (dados do ano anterior); mensal até o dia 7 do mês seguinte. <a href="https://cbhsaofrancisco.org.br/wp-content/uploads/2025/09/Resolucao-ANA-no-188-de-20-de-marco-de-2024.pdf" target="_blank" rel="noopener">Resolução ANA 188/2024, art. 6º</a>.</li>
+    <li><b>Renovação de licença:</b> pedido com antecedência mínima de 120 dias do vencimento, que fica prorrogado até a decisão. <a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp140.htm" target="_blank" rel="noopener">LC 140/2011, art. 14, § 4º</a> e <a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15190.htm" target="_blank" rel="noopener">Lei 15.190/2025, art. 7º</a>.</li>
+    <li><b>Inventário Nacional de Resíduos Sólidos:</b> até 31 de março de cada ano, sobre o ano anterior. Portaria MMA 280/2020, art. 20.</li>
+    <li><b>DMR:</b> declarada por trimestre no SINIR (Portaria MMA 280/2020, art. 15; <a href="https://portal-api.sinir.gov.br/wp-content/uploads/2026/07/COMUNICADO-006_2024_DGR-26.12.2024-Defeso.pdf" target="_blank" rel="noopener">Comunicado DGR/MMA 006/2024</a>). A portaria não fixa o dia final: o calendário avisa no 1º dia do mês seguinte ao trimestre.</li>
+    <li><b>CAR:</b> não tem renovação periódica. A inscrição é por prazo indeterminado (Lei 12.651/2012, art. 29, § 3º). O que tem prazo é a resposta a uma notificação da análise, e ele vem na própria notificação.</li>
+  </ul>
+
+  <p class="co-cta">Quer aprender a fazer cada um desses serviços, na tela real dos sistemas? <a href="../rota-federal.html">Rota Federal &rarr;</a></p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="stack-sm" style="gap:.5rem">
+      <strong style="font-family:var(--f-display)">O Analista Ambiental</strong>
+      <a href="mailto:contato@oanalistaambiental.com">contato@oanalistaambiental.com</a>
+    </div>
+    <p class="disclaimer">
+      Conteúdo de caráter educativo, construído a partir de fontes públicas. As opiniões aqui
+      expressas são pessoais do autor e não representam posição institucional de qualquer órgão
+      ou entidade. Nada neste site substitui a leitura da norma vigente nem a análise do caso concreto pelo órgão competente.
+    </p>
+  </div>
+</footer>
+
+<script src="../js/nav.js"></script>
+<script>
+/* Calendário de obrigações ambientais federais: lógica pura (sem DOM). Conferida em 19/10/2026.
+   Roda no navegador (window.CalObr) e no node (module.exports) para teste. */
+(function (raiz) {
+  "use strict";
+  var DIA = 86400000;
+
+  // Feriados nacionais civis: Lei 662/1949 (1/1, 21/4, 1/5, 7/9, 2/11, 15/11, 25/12), Lei 6.802/1980 (12/10),
+  // Lei 14.759/2023 (20/11). Feriado local e bancário fica de fora de propósito: assim o "dia útil" calculado
+  // é o mais cedo possível, e o lembrete nunca chega depois do prazo.
+  var FERIADOS = ["01-01", "04-21", "05-01", "09-07", "10-12", "11-02", "11-15", "11-20", "12-25"];
+
+  function d(a, m, dd) { return new Date(Date.UTC(a, m, dd)); }
+  function iso(x) { return x.toISOString().slice(0, 10); }
+  function deIso(s) { var p = String(s).split("-"); return d(+p[0], +p[1] - 1, +p[2]); }
+  function soma(x, dias) { return new Date(x.getTime() + dias * DIA); }
+  function ultimoDia(a, m) { return d(a, m + 1, 0).getUTCDate(); }
+  function somaMeses(x, n) {
+    var a = x.getUTCFullYear(), m = x.getUTCMonth() + n, dd = x.getUTCDate();
+    var aa = a + Math.floor(m / 12), mm = ((m % 12) + 12) % 12;
+    return d(aa, mm, Math.min(dd, ultimoDia(aa, mm)));
+  }
+  function eUtil(x) {
+    var s = x.getUTCDay(); if (s === 0 || s === 6) return false;
+    return FERIADOS.indexOf(iso(x).slice(5)) === -1;
+  }
+  function nDiaUtil(a, m, n) { var x = d(a, m, 1), k = 0; for (;;) { if (eUtil(x) && ++k === n) return x; x = soma(x, 1); } }
+  function br(x) { var s = iso(x); return s.slice(8, 10) + "/" + s.slice(5, 7) + "/" + s.slice(0, 4); }
+  function diasEntre(a, b) { return Math.round((b.getTime() - a.getTime()) / DIA); }
+
+  var FONTES = {
+    tcfa: { t: "Lei 6.938/1981, art. 17-G (redação da Lei 10.165/2000)", u: "https://www.planalto.gov.br/ccivil_03/leis/l6938.htm" },
+    rapp: { t: "Lei 6.938/1981, art. 17-C, § 1º; Guia do RAPP 2026 (Ibama)", u: "https://www.gov.br/ibama/pt-br/servicos/arquivos/relatorios/atividades_poluidoras/2026/2026-01-29_guia_rapp_2026.pdf" },
+    cr: { t: "IN Ibama 13/2021, art. 46, § 2º", u: "https://www.gov.br/ibama/pt-br/servicos/cadastros/ctf/ctf-app/ctf-app/20210916IN_13_23082021.pdf" },
+    proc: { t: "IN Ibama 13/2021, art. 31, § 2º", u: "https://www.gov.br/ibama/pt-br/servicos/cadastros/ctf/ctf-app/ctf-app/20210916IN_13_23082021.pdf" },
+    outorga: { t: "Resolução ANA 236/2024, art. 48", u: "https://www.gov.br/ana/pt-br/legislacao/resolucoes/resolucoes-regulatorias/2024/236" },
+    durh: { t: "Resolução ANA 188/2024, art. 6º, §§ 1º e 2º", u: "https://cbhsaofrancisco.org.br/wp-content/uploads/2025/09/Resolucao-ANA-no-188-de-20-de-marco-de-2024.pdf" },
+    licenca: { t: "LC 140/2011, art. 14, § 4º; Lei 15.190/2025, art. 7º", u: "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp140.htm" },
+    inventario: { t: "Portaria MMA 280/2020, art. 20", u: "https://www.normasbrasil.com.br/norma/portaria-280-2020_397699.html" },
+    dmr: { t: "Portaria MMA 280/2020, art. 15; Comunicado DGR/MMA 006/2024 (DMR por trimestre)", u: "https://portal-api.sinir.gov.br/wp-content/uploads/2026/07/COMUNICADO-006_2024_DGR-26.12.2024-Defeso.pdf" }
+  };
+
+  /* c = { tcfa, rapp, crEmitido(iso), procFim(iso), outorgas:[iso], durh:"nao|anual|mensal", licencas:[iso], mtr }
+     ini = data de início (Date); devolve eventos dos próximos 12 meses, em ordem. */
+  function eventos(c, ini) {
+    var fim = somaMeses(ini, 12), out = [];
+    function add(data, chave, titulo, tipo, nota) {
+      if (data >= ini && data <= fim) out.push({ data: iso(data), chave: chave, titulo: titulo, tipo: tipo, nota: nota || "", fonte: FONTES[chave] });
+    }
+    var a0 = ini.getUTCFullYear();
+    for (var a = a0; a <= a0 + 1; a++) {
+      if (c.tcfa) [0, 3, 6, 9].forEach(function (m) {
+        var tri = { 0: "4º trimestre de " + (a - 1), 3: "1º trimestre", 6: "2º trimestre", 9: "3º trimestre" }[m];
+        add(nDiaUtil(a, m, 5), "tcfa", "TCFA do " + tri + ": pagar até o 5º dia útil", "prazo",
+          "Conte feriados locais e bancários: o boleto do Ibama traz a data exata.");
+      });
+      if (c.rapp) {
+        add(d(a, 1, 1), "rapp", "RAPP: abre a entrega (ano-base " + (a - 1) + ")", "janela");
+        add(d(a, 2, 31), "rapp", "RAPP: último dia de entrega", "prazo", "Atraso: multa de 20% da TCFA devida (art. 17-C, § 2º).");
+      }
+      if (c.durh === "anual" || c.durh === "mensal") add(d(a, 0, 31), "durh", "DURH anual da ANA (dados de " + (a - 1) + ")", "prazo",
+        c.durh === "mensal" ? "Quem declara por mês também preenche a anual (art. 6º, § 4º)." : "");
+      if (c.mtr) add(d(a, 2, 31), "inventario", "Inventário Nacional de Resíduos (ano " + (a - 1) + ")", "prazo",
+        "Em 2025 o prazo foi prorrogado só naquele ano: confira se há prorrogação no ano.");
+      if (c.mtr) [0, 3, 6, 9].forEach(function (m) {
+        var tri = { 0: "4º trimestre de " + (a - 1), 3: "1º trimestre", 6: "2º trimestre", 9: "3º trimestre" }[m];
+        add(d(a, m, 1), "dmr", "DMR do " + tri + ": hora de declarar", "lembrete", "Prazo final: confira no SINIR. A portaria não fixa a data.");
+      });
+      if (c.durh === "mensal") for (var m = 0; m < 12; m++) add(d(a, m, 7), "durh", "DURH mensal (dados do mês anterior)", "prazo");
+    }
+    if (c.crEmitido) {
+      var v = somaMeses(deIso(c.crEmitido), 3);
+      while (v < ini) v = somaMeses(v, 3);
+      for (var k = 0; k < 4; k++) { add(v, "cr", "Certificado de Regularidade vence: emitir outro", "prazo", "Validade de 3 meses a partir da emissão."); v = somaMeses(v, 3); }
+    }
+    if (c.procFim) { var p = deIso(c.procFim); add(soma(p, -30), "proc", "Procuração do preposto no CTF vence em 30 dias", "lembrete", "Validade máxima de 2 anos."); add(p, "proc", "Procuração do preposto no CTF vence hoje", "prazo"); }
+    (c.outorgas || []).forEach(function (s, i) {
+      if (!s) return; var vv = deIso(s), n = (c.outorgas.length > 1 ? " " + (i + 1) : "");
+      if (soma(vv, -365) < ini && soma(vv, -90) >= ini) add(ini, "outorga", "Outorga ANA" + n + ": a janela de renovação já está aberta (até " + br(soma(vv, -90)) + ")", "janela");
+      add(soma(vv, -365), "outorga", "Outorga ANA" + n + ": abre o pedido de renovação", "janela", "Janela: de 365 a 90 dias antes do vencimento.");
+      add(soma(vv, -90), "outorga", "Outorga ANA" + n + ": último dia para pedir a renovação", "prazo", "Pedido no prazo prorroga a outorga até a ANA decidir, mantidas as condições (art. 48, § 1º).");
+      add(vv, "outorga", "Outorga ANA" + n + ": vencimento", "marco");
+    });
+    (c.licencas || []).forEach(function (s, i) {
+      if (!s) return; var vv = deIso(s), n = (c.licencas.length > 1 ? " " + (i + 1) : "");
+      if (soma(vv, -150) < ini && soma(vv, -120) >= ini) add(ini, "licenca", "Licença" + n + ": o prazo de renovação está chegando (até " + br(soma(vv, -120)) + ")", "lembrete");
+      add(soma(vv, -150), "licenca", "Licença" + n + ": preparar a renovação (faltam 30 dias para o limite)", "lembrete");
+      add(soma(vv, -120), "licenca", "Licença" + n + ": último dia para pedir a renovação (120 dias antes)", "prazo", "Pedido no prazo prorroga a licença até a decisão do órgão.");
+      add(vv, "licenca", "Licença" + n + ": vencimento", "marco");
+    });
+    out.sort(function (x, y) { return x.data < y.data ? -1 : x.data > y.data ? 1 : 0; });
+    return out;
+  }
+
+  function ics(evs, cliente) {
+    var L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//O Analista Ambiental//Calendario federal//PT", "CALSCALE:GREGORIAN", "METHOD:PUBLISH"];
+    var agora = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
+    function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
+    evs.forEach(function (e, i) {
+      var di = e.data.replace(/-/g, ""), df = iso(soma(deIso(e.data), 1)).replace(/-/g, "");
+      L.push("BEGIN:VEVENT", "UID:" + di + "-" + e.chave + "-" + i + "@oanalistaambiental.com", "DTSTAMP:" + agora,
+        "DTSTART;VALUE=DATE:" + di, "DTEND;VALUE=DATE:" + df,
+        "SUMMARY:" + esc((cliente ? cliente + " · " : "") + e.titulo),
+        "DESCRIPTION:" + esc((e.nota ? e.nota + "\n" : "") + "Fonte: " + e.fonte.t + " " + e.fonte.u),
+        "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:" + esc(e.titulo), "TRIGGER:-P7D", "END:VALARM", "END:VEVENT");
+    });
+    L.push("END:VCALENDAR");
+    return L.join("\r\n") + "\r\n";
+  }
+
+  var API = { eventos: eventos, ics: ics, nDiaUtil: nDiaUtil, somaMeses: somaMeses, eUtil: eUtil, iso: iso, deIso: deIso, diasEntre: diasEntre, d: d, br: br, FONTES: FONTES };
+  if (typeof module !== "undefined" && module.exports) module.exports = API; else raiz.CalObr = API;
+})(typeof window !== "undefined" ? window : this);
+</script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CalObr, $ = function (id) { return document.getElementById(id); };
+  var CHAVE = "co-clientes-v1", ORGAO = { tcfa: "Ibama", rapp: "Ibama", cr: "Ibama", proc: "Ibama", outorga: "ANA", durh: "ANA", licenca: "Licença", inventario: "Resíduos", dmr: "Resíduos" };
+  var TIPO = { prazo: "Prazo", janela: "Abre", lembrete: "Lembrete", marco: "Vencimento" };
+  var MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+  var SEM = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+  var filtro = "Todos", ultimos = [], exemplo = false;
+
+  function hoje() { var n = new Date(); return C.d(n.getFullYear(), n.getMonth(), n.getDate()); }
+  function ler() { try { return JSON.parse(localStorage.getItem(CHAVE) || "{}") || {}; } catch (e) { return {}; } }
+  function gravar(o) { try { localStorage.setItem(CHAVE, JSON.stringify(o)); return true; } catch (e) { return false; } }
+  function msg(t) { $("co-msg").textContent = t; if (t) setTimeout(function () { if ($("co-msg").textContent === t) $("co-msg").textContent = ""; }, 4000); }
+
+  function linhaData(lista, valor) {
+    var box = $(lista), lin = document.createElement("div"); lin.className = "co-linha";
+    var inp = document.createElement("input"); inp.type = "date"; inp.value = valor || "";
+    inp.setAttribute("aria-label", lista === "co-outorgas" ? "Vencimento da outorga" : "Vencimento da licença");
+    var x = document.createElement("button"); x.type = "button"; x.className = "co-x"; x.textContent = "×"; x.setAttribute("aria-label", "Remover");
+    x.addEventListener("click", function () { lin.remove(); if (!box.children.length) linhaData(lista, ""); atualiza(); });
+    inp.addEventListener("input", atualiza);
+    lin.appendChild(inp); lin.appendChild(x); box.appendChild(lin);
+  }
+  function datas(lista) { return Array.prototype.map.call($(lista).querySelectorAll("input"), function (i) { return i.value; }).filter(Boolean); }
+
+  function estado() {
+    var durh = document.querySelector('input[name="co-durh"]:checked');
+    return { nome: $("co-cliente").value.trim(), tcfa: $("co-tcfa").checked, rapp: $("co-rapp").checked, crEmitido: $("co-cr").value,
+      procFim: $("co-proc").value, outorgas: datas("co-outorgas"), durh: durh ? durh.value : "nao", licencas: datas("co-licencas"),
+      mtr: $("co-mtr").checked, ini: $("co-ini").value };
+  }
+  function aplica(c) {
+    $("co-cliente").value = c.nome || ""; $("co-tcfa").checked = !!c.tcfa; $("co-rapp").checked = !!c.rapp;
+    $("co-cr").value = c.crEmitido || ""; $("co-proc").value = c.procFim || ""; $("co-mtr").checked = !!c.mtr;
+    document.querySelectorAll('input[name="co-durh"]').forEach(function (r) { r.checked = r.value === (c.durh || "nao"); });
+    ["co-outorgas", "co-licencas"].forEach(function (l) { $(l).textContent = ""; var v = l === "co-outorgas" ? c.outorgas : c.licencas; (v && v.length ? v : [""]).forEach(function (s) { linhaData(l, s); }); });
+    $("co-ini").value = c.ini || C.iso(hoje());
+  }
+  function exemploPronto() {
+    var h = hoje();
+    return { nome: "Exemplo: indústria com outorga", tcfa: true, rapp: true, crEmitido: C.iso(C.somaMeses(h, -2)), procFim: "",
+      outorgas: [C.iso(C.somaMeses(h, 8))], durh: "anual", licencas: [C.iso(C.somaMeses(h, 6))], mtr: true, ini: C.iso(h) };
+  }
+
+  function classe(dias) { return dias < 0 ? "co-passou" : dias <= 30 ? "co-urg" : dias <= 90 ? "co-perto" : "co-longe"; }
+  function falta(dias) { return dias === 0 ? "é hoje" : dias === 1 ? "amanhã" : dias < 0 ? "passou" : "faltam " + dias + " dias"; }
+
+  function desenha() {
+    var c = estado(), h = hoje(), ini = c.ini ? C.deIso(c.ini) : h;
+    ultimos = C.eventos(c, ini);
+    var vis = ultimos.filter(function (e) { return filtro === "Todos" || ORGAO[e.chave] === filtro; });
+    var prazos = ultimos.filter(function (e) { return e.tipo === "prazo"; });
+    var prox = prazos.filter(function (e) { return C.diasEntre(h, C.deIso(e.data)) >= 0; })[0];
+    var urg = prazos.filter(function (e) { var k = C.diasEntre(h, C.deIso(e.data)); return k >= 0 && k <= 30; }).length;
+    $("co-res").innerHTML = "";
+    [[ultimos.length, "datas nos próximos 12 meses"], [prox ? C.diasEntre(h, C.deIso(prox.data)) : "—", prox ? "dias para o próximo prazo" : "nenhum prazo marcado"], [urg, "prazos em até 30 dias"]]
+      .forEach(function (r) { var d = document.createElement("div"); var b = document.createElement("b"); b.textContent = r[0]; var s = document.createElement("span"); s.textContent = r[1]; d.appendChild(b); d.appendChild(s); $("co-res").appendChild(d); });
+
+    var orgs = ["Todos"].concat(["Ibama", "ANA", "Licença", "Resíduos"].filter(function (o) { return ultimos.some(function (e) { return ORGAO[e.chave] === o; }); }));
+    if (orgs.indexOf(filtro) === -1) filtro = "Todos";
+    $("co-filtros").innerHTML = "";
+    if (orgs.length > 2) orgs.forEach(function (o) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "co-mini"; b.textContent = o; b.setAttribute("aria-pressed", String(o === filtro));
+      b.addEventListener("click", function () { filtro = o; desenha(); }); $("co-filtros").appendChild(b);
+    });
+
+    var raiz = $("co-linha"); raiz.innerHTML = "";
+    if (!vis.length) {
+      var v = document.createElement("div"); v.className = "co-vazio";
+      v.innerHTML = "<b>Nenhuma data ainda.</b><br>Marque ao lado o que o cliente tem (por exemplo, \"Paga a TCFA\") ou informe o vencimento de uma outorga ou licença.";
+      raiz.appendChild(v); return;
+    }
+    var mesAt = "", bloco;
+    vis.forEach(function (e) {
+      var dt = C.deIso(e.data), m = e.data.slice(0, 7);
+      if (m !== mesAt) { mesAt = m; bloco = document.createElement("div"); bloco.className = "co-mes";
+        var h3 = document.createElement("h3"); h3.textContent = MESES[dt.getUTCMonth()] + " de " + dt.getUTCFullYear(); bloco.appendChild(h3); raiz.appendChild(bloco); }
+      var dias = C.diasEntre(h, dt), fds = dt.getUTCDay() === 0 || dt.getUTCDay() === 6;
+      var art = document.createElement("article"); art.className = "co-ev " + classe(dias);
+      art.innerHTML = '<div class="co-dia"><b>' + String(dt.getUTCDate()).padStart(2, "0") + '</b><small>' + SEM[dt.getUTCDay()] + '</small></div>' +
+        '<div><div class="co-meta"><span class="co-tag">' + TIPO[e.tipo] + '</span><span class="co-tag">' + ORGAO[e.chave] + '</span><span class="co-falta">' + falta(dias) + '</span></div>' +
+        '<h4></h4><p class="co-nota"></p><p class="co-fonte">Fonte: <a target="_blank" rel="noopener"></a></p></div>';
+      art.querySelector("h4").textContent = e.titulo;
+      var nota = e.nota + (fds && e.tipo === "prazo" ? (e.nota ? " " : "") + "Cai em fim de semana: faça antes." : "");
+      if (nota) art.querySelector(".co-nota").textContent = nota; else art.querySelector(".co-nota").remove();
+      var a = art.querySelector(".co-fonte a"); a.href = e.fonte.u; a.textContent = e.fonte.t;
+      bloco.appendChild(art);
+    });
+  }
+
+  function atualiza() { if (exemplo) { exemplo = false; $("co-ex").hidden = true; } desenha(); }
+
+  function listaSalvos(sel) {
+    var o = ler(), s = $("co-salvos"); s.innerHTML = '<option value="">Clientes salvos…</option>';
+    Object.keys(o).sort().forEach(function (k) { var op = document.createElement("option"); op.value = k; op.textContent = k; s.appendChild(op); });
+    s.value = sel || ""; $("co-apagar").hidden = !s.value;
+  }
+
+  function texto() {
+    var c = estado(), nome = c.nome && !/^Exemplo/.test(c.nome) ? c.nome : "";
+    var L = ["Olá" + (nome ? ", " + nome : "") + "! Segue o calendário das obrigações ambientais federais do seu empreendimento para os próximos 12 meses:", ""];
+    ultimos.filter(function (e) { return e.tipo !== "marco"; }).forEach(function (e) { L.push("• " + C.br(C.deIso(e.data)) + " · " + e.titulo); });
+    L.push("", "As datas seguem as normas federais vigentes e podem mudar por prorrogação do órgão. Se quiser, eu cuido de cada uma delas e te aviso com antecedência.");
+    return L.join("\n");
+  }
+
+  // ---- eventos da página ----
+  ["co-tcfa", "co-rapp", "co-cr", "co-proc", "co-mtr", "co-ini", "co-cliente"].forEach(function (id) { $(id).addEventListener("input", atualiza); $(id).addEventListener("change", atualiza); });
+  document.querySelectorAll('input[name="co-durh"]').forEach(function (r) { r.addEventListener("change", atualiza); });
+  document.querySelectorAll("[data-mais]").forEach(function (b) { b.addEventListener("click", function () { linhaData(b.getAttribute("data-mais"), ""); }); });
+  $("co-salvar").addEventListener("click", function () {
+    var c = estado(); if (!c.nome || /^Exemplo/.test(c.nome)) { msg("Dê um nome ou apelido ao cliente para salvar."); $("co-cliente").focus(); return; }
+    var o = ler(); o[c.nome] = c; msg(gravar(o) ? "Salvo neste aparelho." : "Este navegador não deixou salvar (modo privado?)."); listaSalvos(c.nome);
+  });
+  $("co-salvos").addEventListener("change", function () { var o = ler(), k = this.value; $("co-apagar").hidden = !k; if (k && o[k]) { aplica(o[k]); exemplo = false; $("co-ex").hidden = true; desenha(); } });
+  $("co-novo").addEventListener("click", function () { aplica({ ini: C.iso(hoje()) }); listaSalvos(""); exemplo = false; $("co-ex").hidden = true; desenha(); $("co-cliente").focus(); });
+  $("co-limpar").addEventListener("click", function () { $("co-novo").click(); });
+  $("co-apagar").addEventListener("click", function () { var k = $("co-salvos").value, o = ler(); if (!k) return; delete o[k]; gravar(o); listaSalvos(""); msg("Cliente apagado deste aparelho."); });
+  $("co-ics").addEventListener("click", function () {
+    if (!ultimos.length) { msg("Marque ao menos uma obrigação para gerar o calendário."); return; }
+    var c = estado(), nome = c.nome && !/^Exemplo/.test(c.nome) ? c.nome : "";
+    var blob = new Blob([C.ics(ultimos, nome)], { type: "text/calendar;charset=utf-8" }), a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "obrigacoes-federais" + (nome ? "-" + nome.toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "") + ".ics";
+    document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    msg("Arquivo .ics baixado: abra no celular ou importe no Google Agenda ou no Outlook.");
+  });
+  $("co-copiar").addEventListener("click", function () {
+    if (!ultimos.length) { msg("Marque ao menos uma obrigação primeiro."); return; }
+    var t = texto();
+    function fallback() { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); msg("Lista copiada. Cole no WhatsApp ou no e-mail."); } catch (e) { msg("Selecione e copie o texto."); } ta.remove(); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { msg("Lista copiada. Cole no WhatsApp ou no e-mail."); }, fallback); else fallback();
+  });
+
+  // ---- início: último cliente salvo ou um exemplo marcado como exemplo ----
+  var salvos = ler(), nomes = Object.keys(salvos);
+  if (nomes.length) { var pri = nomes.sort()[0]; aplica(salvos[pri]); listaSalvos(pri); }
+  else { aplica(exemploPronto()); exemplo = true; $("co-ex").hidden = false; listaSalvos(""); }
+  desenha();
+})();
+</script>
+</body>
+</html>
