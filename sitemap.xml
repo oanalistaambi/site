@@ -23,4 +23,10 @@
   <url><loc>https://www.oanalistaambiental.com/chaogeo/suporte</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://www.oanalistaambiental.com/chaogeo/privacidade</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://www.oanalistaambiental.com/chaogeo/termos</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/guia</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/fontes</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/suporte</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/privacidade</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.oanalistaambiental.com/geofield/privacy</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
 </urlset>
