@@ -1,7 +1,65 @@
 {
- "atualizado_em": "2026-10-17",
+ "atualizado_em": "2026-10-20",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-10-20",
+   "atos": [
+    {
+     "orgao": "Outro órgão (Secretaria de Estado de Infraestrutura, Mobilidade e Parcerias)",
+     "tipo": "Resolução",
+     "numero": "57/2026",
+     "titulo": "RESOLUÇÃO SEINFRA N° 57/2026, DE 19 DE OUTUBRO DE 2026",
+     "ementa": "19 DE OUTUBRO DE 2026 Declara de utilidade pública as áreas necessárias às intervenções em vegetação secundária em estágio médio de regeneração do Bioma Mata Atlântica, vinculadas à implantação do Projeto de Melhoramento e Pavimentação da Rodovia MG-040, trecho: Brumadinho-Bonfim, incluindo Obras de Arte Especiais (OAEs), iniciativa OBR-00000043, advinda do Acordo Judicial para Reparação Integral",
+     "relevancia": "notícia",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 5,
+     "autenticidade": "320261020422637505"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 11,
+     "processos": 12,
+     "decisoes": {
+      "requerimentos": 5,
+      "deferimentos/concessões": 7,
+      "revogações/cancelamentos": 1,
+      "transferências de titularidade": 4,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 3,
+     "processos": 4,
+     "decisoes": {
+      "requerimentos": 3,
+      "deferimentos/concessões": 2
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 5,
+     "processos": 21,
+     "decisoes": {
+      "deferimentos/concessões": 5,
+      "arquivamentos": 3
+     }
+    }
+   ]
+  },
   {
    "data": "2026-10-17",
    "atos": [],
