@@ -491,6 +491,20 @@
     erro(""); navigator.geolocation.getCurrentPosition(function (p) { usaPonto(p.coords.latitude, p.coords.longitude, true); },
       function () { erro("Não consegui a sua localização. Digite a coordenada."); }, { enableHighAccuracy: true, timeout: 15000 });
   });
+
+  /* Coordenada no link (?lat=-25.5205&lon=-48.5095, decimal, SIRGAS 2000), como o app Chão Geo manda:
+     só preenche o formulário. Nada vai à ANA até a pessoa tocar em Consultar. Fora do Brasil, ignora. */
+  (function () {
+    var q; try { q = new URLSearchParams(location.search); } catch (e) { return; }
+    var la = num(q.get("lat")), lo = num(q.get("lon"));
+    if (isNaN(la) || isNaN(lo) || la > 6 || la < -34.5 || lo > -28 || lo < -74.5) return;
+    $("rf-fmt").querySelector('[data-fmt="dec"]').click();
+    var t = function (x) { return x.toFixed(6).replace(".", ","); };
+    $("lat-d").value = t(la); $("lon-d").value = t(lo);
+    var n = document.createElement("p"); n.className = "rf-aviso"; n.id = "rf-do-link";
+    n.textContent = "Coordenada recebida pelo link: " + t(la) + ", " + t(lo) + ". Confira e toque em Consultar o rio.";
+    $("rf-form").insertBefore(n, $("rf-erro"));
+  })();
 })();
 </script>
 <script src="../js/guiado.js"></script>
