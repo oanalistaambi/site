@@ -16,8 +16,8 @@
 .g-trilho{ height:8px; border-radius:999px; background:var(--bg-sunken); overflow:hidden; }
 .g-trilho i{ display:block; height:100%; width:0; border-radius:inherit; background:linear-gradient(90deg,var(--accent),var(--accent-bright)); transition:width .35s ease; }
 
-.g-passo{ display:grid; gap:.9rem; min-width:0; }
-.g-passo__t{ font-family:var(--f-display); font-size:clamp(1.35rem,4.4vw,1.85rem); line-height:1.15; margin:0; }
+.g-passo, .article__body .g-passo{ display:grid; gap:.9rem; min-width:0; padding-block:0; }
+.g-passo__t, .article__body .g-passo__t{ font-family:var(--f-display); font-size:clamp(1.35rem,4.4vw,1.85rem); line-height:1.15; margin:0; scroll-margin-top:84px; }
 .g-passo__t:focus{ outline:none; }
 .g-passo__t:focus-visible{ outline:3px solid var(--focus); outline-offset:4px; }
 .g-passo__a{ margin:0; color:var(--text-soft); font-size:1.02rem; max-width:60ch; }
@@ -172,3 +172,4 @@
   .g-confete{ display:none; }
   .g-spin{ animation:none; }
 }
+.g-palco, .g-topo{ scroll-margin-top:84px; }
