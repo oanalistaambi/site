@@ -257,7 +257,7 @@ if (typeof module !== "undefined") module.exports = CTF;
   var S = { quem: "PJ", q: "", sel: {}, cods: {}, licenca: "sim" };
   var limpa = function () { S.q = ""; S.sel = {}; S.cods = {}; };
   function perfisSel() { return D.perfis.filter(function (x) { return S.sel["p:" + x.id]; }); }
-  function codsSel() { var o = []; Object.keys(S.sel).forEach(function (k) { if (k.indexOf("a:") === 0 && o.indexOf(k.slice(2)) < 0) o.push(k.slice(2)); }); perfisSel().forEach(function (x) { x.codigos.forEach(function (c) { if (o.indexOf(c) < 0) o.push(c); }); }); return o; }
+  function codsSel() { var o = []; Object.keys(S.sel).forEach(function (k) { if (S.sel[k] && k.indexOf("a:") === 0 && o.indexOf(k.slice(2)) < 0) o.push(k.slice(2)); }); perfisSel().forEach(function (x) { x.codigos.forEach(function (c) { if (o.indexOf(c) < 0) o.push(c); }); }); return o; }
   function codsFinais() { return codsSel().filter(function (c) { return S.cods[c] !== false; }); }
   var temAida = function () { return perfisSel().some(function (x) { return x.tipo === "aida"; }); };
   var temNao = function () { return perfisSel().some(function (x) { return x.tipo === "nao"; }); };
@@ -280,7 +280,28 @@ if (typeof module !== "undefined") module.exports = CTF;
         b.value = S.q;
         var out = el("div", "ct-res"); c.appendChild(out);
         var conta = el("p", "g-ao-vivo"); conta.setAttribute("aria-live", "polite"); c.appendChild(conta);
-        function nSel() { var n = Object.keys(S.sel).filter(function (k) { return S.sel[k]; }).length; conta.textContent = n ? n + (n === 1 ? " item marcado." : " itens marcados.") : ""; }
+        function nSel() { var n = codsSel().length + perfisSel().filter(function (x) { return !x.codigos.length; }).length; conta.textContent = n ? n + (n === 1 ? " atividade marcada." : " atividades marcadas.") : ""; }
+        /* o perfil do dia a dia e o código da tabela andam juntos: marcar um marca o outro (e desmarcar também) */
+        var visiveis = [];
+        function escolhe(v, on) {
+          S.sel[v] = on;
+          if (v.indexOf("p:") === 0) {
+            var pf = D.perfis.filter(function (x) { return "p:" + x.id === v; })[0];
+            (pf ? pf.codigos : []).forEach(function (c) {
+              var outro = on || perfisSel().some(function (x) { return x.codigos.indexOf(c) > -1; });
+              S.sel["a:" + c] = outro;
+            });
+          } else {
+            var cod = v.slice(2);
+            D.perfis.forEach(function (x) {
+              if (x.codigos.indexOf(cod) < 0) return;
+              if (!on) S.sel["p:" + x.id] = false;
+              else if (visiveis.indexOf(x) > -1 && x.codigos.every(function (c) { return S.sel["a:" + c]; })) S.sel["p:" + x.id] = true;
+            });
+          }
+          out.querySelectorAll(".g-cartao").forEach(function (b) { b.setAttribute("aria-pressed", S.sel[b.dataset.v] ? "true" : "false"); });
+          nSel();
+        }
         function desenha() {
           out.innerHTML = "";
           var q = b.value.trim(); S.q = q;
@@ -295,17 +316,18 @@ if (typeof module !== "undefined") module.exports = CTF;
             out.appendChild(el("p", "g-sub", "Atividades mais procuradas"));
             ps = ["posto", "areia", "frigorifico", "laticinio", "perigosos", "silvicultura", "agrotoxico_comercio", "consultor"].map(function (id) { return D.perfis.filter(function (x) { return x.id === id; })[0]; });
           }
+          visiveis = ps;
           if (ps.length) {
             if (q || marcados.length) out.appendChild(el("p", "g-sub", "Atividades do dia a dia"));
             G.cartoes(out, { rotulo: "Atividades do dia a dia", multi: true, valor: function (v) { return !!S.sel[v]; },
               opcoes: ps.map(function (x) { return { v: "p:" + x.id, t: x.t, d: x.tipo === "aida" ? "CTF/AIDA" : x.tipo === "nao" ? "Em regra, sem código próprio" : "Código " + x.codigos.map(fmtCod).join(" e ") }; }),
-              aoEscolher: function (v, on) { S.sel[v] = on; nSel(); } });
+              aoEscolher: escolhe });
           }
           if (as.length) {
             out.appendChild(el("p", "g-sub", "Na tabela do Ibama"));
             G.cartoes(out, { rotulo: "Descrições da tabela do Ibama", multi: true, valor: function (v) { return !!S.sel[v]; },
               opcoes: as.map(function (x) { return { v: "a:" + x.a.cod, t: fmtCod(x.a.cod) + " · " + x.a.desc, d: x.trecho ? "A ficha cita: " + x.trecho : "", ico: String(x.a.cat) }; }),
-              aoEscolher: function (v, on) { S.sel[v] = on; nSel(); } });
+              aoEscolher: escolhe });
           }
           if (q && !ps.length && !as.length) { var lt = a("#completo", "tabela inteira"); lt.addEventListener("click", function (e) { e.preventDefault(); if (M) M.ir("completo"); }); out.appendChild(p("g-nota", ["Não achei \"" + q + "\". Tente outra palavra (o produto, o serviço ou o equipamento) ou veja a ", lt, "."])); }
           nSel();
@@ -387,7 +409,8 @@ if (typeof module !== "undefined") module.exports = CTF;
 
   function resultado(sec) {
     var cods = codsFinais(), ver = veredito(), atv = cods.map(function (c) { return D.mapa[c]; });
-    var cab = el("div", "g-res__cab"); cab.appendChild(el("h2", "g-passo__t", "Resultado do enquadramento")); sec.appendChild(cab);
+    var md = G.medalha("ctf");
+    var cab = el("div", "g-res__cab"); cab.appendChild(md.el); cab.appendChild(el("h2", "g-passo__t", "Resultado do enquadramento")); sec.appendChild(cab);
     var vd = el("div", "g-veredito" + (ver.k !== "sim" ? " g-veredito--fed" : ""));
     vd.appendChild(el("span", "g-veredito__s", ver.s)); vd.appendChild(el("b", "g-veredito__v", ver.v)); vd.appendChild(el("p", "", ver.m));
     sec.appendChild(vd);
@@ -434,7 +457,7 @@ if (typeof module !== "undefined") module.exports = CTF;
     }
 
     /* notas dos perfis */
-    var notas = perfisSel();
+    var notas = perfisSel().filter(function (x) { return x.tipo !== "aida"; }); /* o veredito e a caixa do CTF/AIDA já dizem o que a nota do consultor dizia */
     if (notas.length) {
       var nb = el("div", "g-passo__c");
       notas.forEach(function (x) { var n = el("p", "g-nota"); n.appendChild(el("b", "", x.t + ": ")); n.appendChild(document.createTextNode(x.nota)); if (x.conferir) { n.appendChild(document.createTextNode(" ")); n.appendChild(el("b", "ct-conferir", "[conferir] " + x.conferir)); } nb.appendChild(n); });
@@ -466,6 +489,8 @@ if (typeof module !== "undefined") module.exports = CTF;
     bc.addEventListener("click", function () { G.copiar(resumo(), st); }); ac.appendChild(bc);
     if (navigator.share) { var bs = el("button", "btn btn--ghost", "Compartilhar"); bs.type = "button"; bs.addEventListener("click", function () { navigator.share({ title: "CTF/APP · O Analista Ambiental", text: resumo() }).catch(function () {}); }); ac.appendChild(bs); }
     ac.appendChild(st); sec.appendChild(ac);
+    var k = el("div"); G.kit.desenhar(k, "", "ctf"); sec.appendChild(k);
+    if (md.novo) setTimeout(function () { G.celebrar(sec); }, 80);
     return { voz: "Resultado: " + ver.v + (cods.length ? ". Código " + cods.map(fmtCod).join(", ") : "") };
   }
 
@@ -518,7 +543,8 @@ if (typeof module !== "undefined") module.exports = CTF;
   }
 
   /* ---------------- início ---------------- */
-  function exemplo(id, quem) { return function (ctl) { limpa(); S.quem = quem || "PJ"; S.licenca = "sim"; S.sel["p:" + id] = true; ctl.resultado(); }; }
+  function exemplo(id, quem) { return function (ctl) { limpa(); S.quem = quem || "PJ"; S.licenca = "sim"; S.sel["p:" + id] = true;
+    D.perfis.forEach(function (x) { if (x.id === id) x.codigos.forEach(function (c) { S.sel["a:" + c] = true; }); }); ctl.resultado(); }; }
   fetch("dados/ctf_app.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (dados) {
     D = CTF.carregar(dados);
     painel.innerHTML = "";

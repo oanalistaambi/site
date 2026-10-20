@@ -54,7 +54,7 @@
   .calc input.tx{ padding:.7rem .85rem; border:1.5px solid var(--rule-strong); border-radius:2px; background:var(--bg); color:var(--text); font-family:var(--f-display); font-size:.95rem; width:100%; }
   .tabs{ display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1rem; }
   .tabs button{ font:inherit; font-size:.88rem; padding:.45rem .8rem; border:1.5px solid var(--rule-strong); background:var(--bg); color:var(--text-soft); border-radius:999px; cursor:pointer; }
-  .tabs button[aria-selected="true"]{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .tabs button[aria-selected="true"]{ background:var(--accent); border-color:var(--accent); color:var(--on-accent); }
   .tabs button:focus-visible{ outline:2.5px solid var(--focus); outline-offset:2px; }
   .faixas{ display:grid; gap:.8rem; margin-top:1rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); }
   .faixa{ border:1px solid var(--rule); background:var(--bg); padding:1rem 1.1rem; }
@@ -552,7 +552,7 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
     mais.appendChild(G.el('p', '', document.querySelector('#calc .calc__step:nth-child(2) > .calc__aviso').textContent.replace(/\s+/g, ' ').trim()));
     depois.appendChild(mais);
     G.cartaoResultado(sec, {
-      ferramenta: 'imovel', titulo: u.mun[0] + ' - ' + u.mun[1] + ' · ' + u.area.toLocaleString('pt-BR', { maximumFractionDigits: 4 }) + ' ha',
+      ferramenta: 'imovel', titulo: u.mun[0] + ' - ' + u.mun[1] + ' · ' + u.area.toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 }) + ' ha',
       numeros: nums, depois: depois,
       limite: document.querySelector('.calc__vedacao').innerHTML,
       resumo: function () { return $('resumo').textContent; }

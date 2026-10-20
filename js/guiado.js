@@ -15,14 +15,17 @@
     tcfa: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M14.8 9.2c-.5-.9-1.6-1.4-2.8-1.4-1.6 0-2.8.8-2.8 2s1.1 1.7 2.8 2.1 2.9.9 2.9 2.1-1.3 2.1-2.9 2.1c-1.3 0-2.4-.5-2.9-1.5M12 6.2v1.6M12 16.2v1.6"/></svg>',
     rio: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s6 6.4 6 10.6A6 6 0 0 1 6 13.6C6 9.4 12 3 12 3z"/></svg>',
     agenda: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h3"/></svg>',
+    ctf: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16.5" rx="2"/><path d="M9 3h6v3H9zM8.5 12.5l2.3 2.3 4.7-4.7"/></svg>',
     ok: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>'
   };
   var FERRAMENTAS = [
     { id: "imovel", selo: "Imóvel diagnosticado", nome: "Imóvel rural", href: "calculadora-imovel-rural-car.html" },
     { id: "tcfa", selo: "TCFA calculada", nome: "TCFA do Ibama", href: "calculadora-tcfa-ibama.html" },
     { id: "rio", selo: "Rio identificado", nome: "Rio federal ou estadual", href: "rio-federal-ou-estadual.html" },
-    { id: "agenda", selo: "Agenda do cliente montada", nome: "Calendário de obrigações", href: "calendario-obrigacoes-federais.html" }
+    { id: "agenda", selo: "Agenda do cliente montada", nome: "Calendário de obrigações", href: "calendario-obrigacoes-federais.html" },
+    { id: "ctf", selo: "Atividade enquadrada", nome: "Enquadramento no CTF/APP", href: "enquadramento-ctf-app-ibama.html" }
   ];
+  /* A chave do armazenamento continua a v1: o selo novo ("ctf") só se soma aos que a pessoa já tinha. */
   var kit = {
     ler: function () { try { var o = JSON.parse(raiz.localStorage.getItem(CHAVE_KIT) || "{}"); return o && typeof o === "object" ? o : {}; } catch (e) { return {}; } },
     marcar: function (id) {
@@ -32,11 +35,11 @@
     },
     /* desenha o kit; prefixo = caminho até a pasta artigos/ ("" dentro dela, "artigos/" no hub) */
     desenhar: function (alvo, prefixo, atual) {
-      var o = kit.ler(), n = FERRAMENTAS.filter(function (f) { return o[f.id]; }).length;
+      var o = kit.ler(), n = FERRAMENTAS.filter(function (f) { return o[f.id]; }).length, total = FERRAMENTAS.length;
       alvo.innerHTML = "";
       alvo.classList.add("g-kit");
-      var t = el("p", "g-kit__t"); t.innerHTML = "<b>Kit do consultor federal</b> <span>" + n + " de 4 ferramentas usadas</span>";
-      var barra = el("div", "g-kit__barra"); barra.setAttribute("aria-hidden", "true"); var i = el("i"); i.style.width = (n * 25) + "%"; barra.appendChild(i);
+      var t = el("p", "g-kit__t"); t.innerHTML = "<b>Kit do consultor federal</b> <span>" + n + " de " + total + " ferramentas usadas</span>";
+      var barra = el("div", "g-kit__barra"); barra.setAttribute("aria-hidden", "true"); var i = el("i"); i.style.width = (n / total * 100) + "%"; barra.appendChild(i);
       var lista = el("ul", "g-kit__selos");
       FERRAMENTAS.forEach(function (f) {
         var li = el("li"), a = el("a", "g-selo" + (o[f.id] ? " is-on" : "") + (f.id === atual ? " is-atual" : ""));
@@ -46,7 +49,7 @@
         li.appendChild(a); lista.appendChild(li);
       });
       alvo.appendChild(t); alvo.appendChild(barra); alvo.appendChild(lista);
-      if (n === 4) alvo.appendChild(el("p", "g-kit__fim", "Kit completo: as quatro ferramentas federais já passaram pela sua mão."));
+      if (n === total) alvo.appendChild(el("p", "g-kit__fim", "Kit completo: as cinco ferramentas federais já passaram pela sua mão."));
       return n;
     },
     FERRAMENTAS: FERRAMENTAS
@@ -101,7 +104,8 @@
   /* ---------------- cartões de toque ---------------- */
   /* opcoes: [{v, t, d, ico}]; multi: vários ao mesmo tempo; aoEscolher(v, ligado) */
   function cartoes(alvo, cfg) {
-    var grupo = el("div", "g-cartoes" + (cfg.compacto ? " g-cartoes--compacto" : ""));
+    var longo = cfg.compacto && cfg.opcoes.some(function (o) { return String(o.t).length > 12; });
+    var grupo = el("div", "g-cartoes" + (cfg.compacto ? " g-cartoes--compacto" : "") + (longo ? " g-cartoes--longo" : ""));
     grupo.setAttribute("role", "group");
     if (cfg.rotulo) grupo.setAttribute("aria-label", cfg.rotulo);
     var botoes = [];
@@ -295,15 +299,20 @@
   /* ---------------- cartão-resultado ---------------- */
   /* cfg: { ferramenta, titulo, numeros:[{rotulo, valor, sub, fonte, tom, barra(0..1), extra(Node)}], antes(Node), depois(Node),
             limite(HTML), resumo(fn->texto), botoes:[{rotulo, acao}] } */
-  function cartaoResultado(alvo, cfg) {
-    var f = FERRAMENTAS.filter(function (x) { return x.id === cfg.ferramenta; })[0];
-    var novo = cfg.semSelo ? false : kit.marcar(cfg.ferramenta);
-    var cab = el("div", "g-res__cab");
+  /* medalha do kit no alto do resultado; marca o selo (a não ser com semSelo) */
+  function medalha(id, semSelo) {
+    var f = FERRAMENTAS.filter(function (x) { return x.id === id; })[0];
+    var novo = semSelo ? false : kit.marcar(id);
     var selo = el("div", "g-medalha" + (novo && !reduz() ? " is-nova" : ""));
-    selo.hidden = !!cfg.semSelo;
-    selo.innerHTML = '<span class="g-medalha__ico" aria-hidden="true">' + ICONES[cfg.ferramenta] + '</span><span><small>' + (novo ? "Selo conquistado" : "Selo do kit") + "</small><b></b></span>";
+    selo.hidden = !!semSelo;
+    selo.innerHTML = '<span class="g-medalha__ico" aria-hidden="true">' + ICONES[id] + '</span><span><small>' + (novo ? "Selo conquistado" : "Selo do kit") + "</small><b></b></span>";
     selo.querySelector("b").textContent = f.selo;
-    cab.appendChild(selo);
+    return { el: selo, novo: novo, f: f };
+  }
+  function cartaoResultado(alvo, cfg) {
+    var md = medalha(cfg.ferramenta, cfg.semSelo), f = md.f, novo = md.novo;
+    var cab = el("div", "g-res__cab");
+    cab.appendChild(md.el);
     var h = el("h2", "g-passo__t", cfg.titulo); cab.appendChild(h);
     alvo.appendChild(cab);
     if (cfg.antes) alvo.appendChild(cfg.antes);
@@ -342,5 +351,5 @@
   }
 
   raiz.Guiado = { assistente: assistente, modos: modos, cartoes: cartoes, campo: campo, espelho: espelho, paraNumero: paraNumero, deNumero: deNumero,
-                  cartaoResultado: cartaoResultado, kit: kit, celebrar: celebrar, copiar: copiar, el: el, ICONES: ICONES };
+                  cartaoResultado: cartaoResultado, medalha: medalha, kit: kit, celebrar: celebrar, copiar: copiar, el: el, ICONES: ICONES };
 })(window);
