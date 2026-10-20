@@ -336,6 +336,13 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
     });
     dl.appendChild(frag);
     $('mun-info').textContent = Object.keys(M).length.toLocaleString('pt-BR') + ' municípios na tabela oficial do Incra.';
+    /* Município no link (?ibge=4118204, código IBGE de 7 dígitos, como o app Chão Geo manda; ou ?mun=Paranaguá - PR):
+       só preenche o campo. A conta é feita aqui, no aparelho. */
+    try {
+      var q = new URLSearchParams(location.search), cod = (q.get('ibge') || '').replace(/\D/g, ''), nome = q.get('mun');
+      if (cod.length === 7 && M[cod]) $('mun').value = M[cod][0] + ' - ' + M[cod][1];
+      else if (nome && idx[sem(nome.trim())]) $('mun').value = nome.trim();
+    } catch (e) { /* navegador sem URLSearchParams: segue sem preencher */ }
     tudo();
   }).catch(function () { $('mun-info').textContent = 'Não consegui carregar a tabela. Recarregue a página.'; });
 
