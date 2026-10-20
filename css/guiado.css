@@ -148,7 +148,9 @@
 .g-kit__barra{ height:6px; border-radius:999px; background:var(--bg-sunken); overflow:hidden; }
 .g-kit__barra i{ display:block; height:100%; background:var(--focus); border-radius:inherit; transition:width .6s ease; }
 .g-kit__selos{ list-style:none; margin:0; padding:0; display:grid; gap:.5rem; grid-template-columns:repeat(5,minmax(0,1fr)); }
-@media (max-width:560px){ .g-kit__selos{ grid-template-columns:repeat(6,minmax(0,1fr)); } .g-kit__selos li{ grid-column:span 2; } .g-kit__selos li:nth-child(4){ grid-column:2 / span 2; } }
+/* celular: 2 + 2 + 1, o quinto selo centralizado */
+@media (max-width:560px){ .g-kit__selos{ grid-template-columns:repeat(4,minmax(0,1fr)); } .g-kit__selos li{ grid-column:span 2; } .g-kit__selos li:nth-child(5){ grid-column:2 / span 2; } }
+.g-selo__t{ overflow-wrap:normal; word-break:normal; hyphens:manual; }
 .g-selo{ display:flex; flex-direction:column; align-items:center; gap:.35rem; text-align:center; text-decoration:none; color:var(--text-faint); padding:.5rem .3rem; border-radius:10px; min-height:44px; }
 .g-selo:hover{ background:var(--bg-sunken); }
 .g-selo:focus-visible{ outline:3px solid var(--focus); outline-offset:2px; }
