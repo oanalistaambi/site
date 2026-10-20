@@ -78,11 +78,12 @@
 .rf-chip{white-space:normal;text-align:left}
 .rf-chips{display:flex;flex-wrap:wrap;gap:.45rem}
 .rf-chip{font:inherit;font-size:.95rem;border:1.5px solid var(--rule-strong);background:var(--bg);color:var(--text);border-radius:999px;padding:.4rem .9rem;cursor:pointer}
-.rf-chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
-.rf-btn{font:inherit;font-weight:600;border:0;border-radius:10px;padding:.75rem 1.3rem;cursor:pointer;background:var(--accent);color:#fff}
+.rf-chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+.rf-btn{font:inherit;font-weight:600;border:0;border-radius:10px;padding:.75rem 1.3rem;cursor:pointer;background:var(--accent);color:var(--on-accent)}
 .rf-btn--ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
 .rf-btn[disabled]{opacity:.55;cursor:wait}
 .rf-aviso{font-size:.9rem;color:var(--text-soft)}
+.rf-aviso--falha{border-left:3px solid var(--ochre);padding:.4rem .7rem;background:var(--bg-sunken);border-radius:0 8px 8px 0}
 .rf-erro{color:var(--ochre);font-weight:600}
 #rf-mapa{height:min(52vh,420px);border-radius:12px;border:1px solid var(--rule);display:none}
 #rf-mapa.on{display:block}
@@ -92,7 +93,7 @@
 .rf-card--est{border-color:var(--accent)}
 .rf-card h3{margin:0;font-size:1.35rem}
 .rf-selo{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:.15rem .6rem;width:max-content}
-.rf-selo--fed{background:#C79A2E;color:#0E1512}.rf-selo--est{background:var(--accent);color:#fff}.rf-selo--sub{background:var(--text-soft);color:#fff}
+.rf-selo--fed{background:#C79A2E;color:#0E1512}.rf-selo--est{background:var(--accent);color:var(--on-accent)}.rf-selo--sub{background:var(--text-soft);color:var(--bg)}
 .rf-lista{display:grid;gap:.4rem;margin:0;padding:0;list-style:none}
 .rf-lista button{all:unset;cursor:pointer;display:flex;gap:.6rem;align-items:center;justify-content:space-between;border:1px solid var(--rule);border-radius:10px;padding:.55rem .8rem;background:var(--bg)}
 .rf-lista button[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
@@ -112,9 +113,10 @@
 @media (prefers-reduced-motion:reduce){.rf-spin{animation:none}}
 .rf-fade{animation:rff .35s ease}@keyframes rff{from{opacity:0;transform:translateY(6px)}}
 .g-on #rf-res > .rf-card{display:none}
-.g-coord{display:grid;gap:.5rem;grid-template-columns:repeat(4,minmax(0,1fr))}
+.g-coord{display:grid;gap:.5rem;grid-template-columns:repeat(4,minmax(0,1fr));align-items:end}
+.g-coord__eixo{margin-bottom:-.3rem}
 .g-coord .g-campo input,.g-coord .g-campo select{font-size:1.05rem;padding:.7rem .5rem}
-.g-coord .g-campo__r{letter-spacing:.02em}
+.g-coord .g-campo__r{letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rf-nome{color:var(--accent);font-weight:600}.rf-fonte{display:block;color:var(--text-faint);font-size:.78rem;margin-top:.2rem;line-height:1.35}
 </style>
 
@@ -396,6 +398,7 @@
   }
 
   var ultimo = null;
+  var AVISO_MASSA = "Massas d'água (açude, lago, represa) não consultadas agora: o serviço da ANA não respondeu a essa parte. O resultado vem só dos rios; tente de novo em instantes.";
   /* O veredito (mesmas regras de antes), separado do HTML para o modo guiado mostrar o mesmo resultado. Títulos já escapados. */
   function veredito(ctx, sel) {
     var r = ctx.rios[sel];
@@ -426,6 +429,7 @@
           return "<li><button type=\"button\" data-i=\"" + i + "\" aria-pressed=\"" + (i === sel) + "\"><span>" + esc(x.nome) + "</span><span class=\"rf-selo " + (x.fed ? "rf-selo--fed\">Federal" : "rf-selo--est\">Estadual") + "</span><small>" + Math.round(x.d) + " m</small></button></li>";
         }).join("") + "</ul></div>";
     }
+    if (ctx.massaFalhou) html += "<p class=\"rf-aviso rf-aviso--falha\" role=\"status\">" + AVISO_MASSA + "</p>";
     if (tipo === "lan") html += "<p class=\"rf-aviso\">Lançamento de efluente: a outorga segue o domínio do rio que recebe o lançamento. O licenciamento ambiental da atividade é outro pedido, no órgão ambiental.</p>";
     html += "<p class=\"rf-aviso\">Confirme na <a href=\"" + PLATAFORMA + "\" target=\"_blank\" rel=\"noopener\">Plataforma Águas Brasil</a> (Primeiro acesso → indicar o ponto), que é a decisão da ANA.</p>";
     $("rf-res").innerHTML = html;
@@ -452,7 +456,7 @@
     var pRios = tipo === "sub" ? Promise.resolve([]) :
       consulta(1, lat, lon, { distance: String(raio), units: "esriSRUnit_Meter", outFields: "TDR_NM_COMPLETO,TDR_DS_DOMINIALIDADE,TDR_NU_ORDEM", returnGeometry: "true", maxAllowableOffset: "0.00005" });
     var pMassa = tipo === "sub" ? Promise.resolve([]) :
-      consulta(3, lat, lon, { outFields: "ESP_NM_RESERVATORIO,ESP_DS_DOMINIO,ESP_DS_DE_DOMINIO,ESP_SG_UF", returnGeometry: "false" }).catch(function () { return []; });
+      consulta(3, lat, lon, { outFields: "ESP_NM_RESERVATORIO,ESP_DS_DOMINIO,ESP_DS_DE_DOMINIO,ESP_SG_UF", returnGeometry: "false" }).catch(function () { return null; }); /* null = não consultado (≠ nada no ponto) */
     return Promise.all([pUF, pRios, pMassa]).then(function (res) {
       var uf = res[0][0] ? res[0][0].attributes.UFD_SG : null;
       var vistos = {}, rios = [];
@@ -464,7 +468,7 @@
         vistos[k] = { nome: nome, fed: /federal/i.test(dom), d: d, paths: (f.geometry && f.geometry.paths) || [] }; rios.push(vistos[k]);
       });
       rios.sort(function (a, b) { return a.d - b.d; });
-      ultimo = { lat: lat, lon: lon, uf: uf, rios: rios, massa: res[2][0] ? res[2][0].attributes : null, raio: raio };
+      ultimo = { lat: lat, lon: lon, uf: uf, rios: rios, massa: res[2] && res[2][0] ? res[2][0].attributes : null, massaFalhou: res[2] === null, raio: raio };
       render(ultimo, 0); desenha(lat, lon, rios, 0);
       if (!document.documentElement.classList.contains("g-on")) $("rf-res").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
       return ultimo;
@@ -476,7 +480,7 @@
 
   /* para o modo guiado: as mesmas funções (sem cópia das regras) */
   var API = window.RioFed = { lerCoord: lerCoord, executa: executa, veredito: veredito, UF: UF, OUTORGA: OUTORGA, NOME_UF: NOME_UF, PLATAFORMA: PLATAFORMA,
-    tipo: function () { return tipo; }, fmt: function () { return fmt; }, ultimo: function () { return ultimo; }, erroAtual: function () { return $("rf-erro").hidden ? "" : $("rf-erro").textContent; } };
+    AVISO_MASSA: AVISO_MASSA, tipo: function () { return tipo; }, fmt: function () { return fmt; }, ultimo: function () { return ultimo; }, erroAtual: function () { return $("rf-erro").hidden ? "" : $("rf-erro").textContent; } };
 
   $("rf-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -508,12 +512,16 @@
     G.cartoes(c, { rotulo: 'Formato da coordenada', compacto: true, valor: R.fmt(), opcoes: [{ v: 'gms', t: 'Graus, minutos e segundos' }, { v: 'dec', t: 'Decimal' }],
       aoEscolher: function (v) { document.querySelector('#rf-fmt [data-fmt="' + v + '"]').click(); ctl.refazer(); } });
     if (gms) {
-      [['lat', 'Latitude °', 'lat-h', 'N/S'], ['lon', 'Longitude °', 'lon-h', 'O']].forEach(function (x) {
+      /* o nome do eixo vai numa linha própria: assim os quatro rótulos cabem numa linha e os campos ficam alinhados */
+      [['lat', 'Latitude', 'lat-h', 'N/S'], ['lon', 'Longitude', 'lon-h', 'O']].forEach(function (x) {
+        c.appendChild(G.el('p', 'g-sub g-coord__eixo', x[1]));
         var l = G.el('div', 'g-coord'); c.appendChild(l);
-        G.espelho(G.campo(l, { rotulo: x[1], inputmode: 'numeric' }), $(x[0] + '-g'));
-        G.espelho(G.campo(l, { rotulo: "'", inputmode: 'numeric' }), $(x[0] + '-m'));
-        G.espelho(G.campo(l, { rotulo: '"', inputmode: 'decimal' }), $(x[0] + '-s'));
-        var h = G.campo(l, { rotulo: x[3], select: true }); h.innerHTML = $(x[2]).innerHTML; G.espelho(h, $(x[2]));
+        G.espelho(G.campo(l, { rotulo: 'Graus °', inputmode: 'numeric' }), $(x[0] + '-g'));
+        G.espelho(G.campo(l, { rotulo: "Min '", inputmode: 'numeric' }), $(x[0] + '-m'));
+        G.espelho(G.campo(l, { rotulo: 'Seg "', inputmode: 'decimal' }), $(x[0] + '-s'));
+        var h = G.campo(l, { rotulo: x[3], select: true }); h.innerHTML = $(x[2]).innerHTML;
+        Array.prototype.forEach.call(h.options, function (o) { o.textContent = o.value; }); /* "O" em vez de "O (W)": cabe no campo estreito */
+        G.espelho(h, $(x[2]));
       });
     } else {
       var l = G.el('div', 'g-linha'); c.appendChild(l);
@@ -581,6 +589,7 @@
     var ponto = G.el('p', 'g-campo__d', 'Ponto: ' + ctx.lat.toFixed(6).replace('.', ',') + ', ' + ctx.lon.toFixed(6).replace('.', ',') + ' · ' + ufTxt + '. O mapa e os outros rios perto do ponto estão logo abaixo.');
     dep.appendChild(ponto);
     if (v.k === 'nada') { var n = G.el('p', 'g-nota'); n.innerHTML = 'Aumente o raio ou confira a coordenada. Córrego pequeno pode não estar desenhado na base: em geral ele é do estado (' + ufTxt + '), mas confirme na <a href="' + R.PLATAFORMA + '" target="_blank" rel="noopener">Plataforma Águas Brasil</a>.'; dep.appendChild(n); }
+    if (ctx.massaFalhou) dep.appendChild(G.el('p', 'g-nota', R.AVISO_MASSA));
     if (R.tipo() === 'lan') dep.appendChild(G.el('p', 'g-nota', 'Lançamento de efluente: a outorga segue o domínio do rio que recebe o lançamento. O licenciamento ambiental da atividade é outro pedido, no órgão ambiental.'));
     var lim = document.querySelector('.rf-limite').cloneNode(true);
     G.cartaoResultado(sec, { ferramenta: 'rio', semSelo: v.k === 'nada', titulo: 'De quem é a água', antes: antes, numeros: nums, depois: dep, limite: lim.innerHTML,
