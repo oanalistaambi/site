@@ -1,7 +1,70 @@
 {
- "atualizado_em": "2026-10-20",
+ "atualizado_em": "2026-10-21",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-10-21",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 6,
+     "processos": 12,
+     "decisoes": {
+      "requerimentos": 3,
+      "deferimentos/concessões": 4,
+      "revogações/cancelamentos": 1,
+      "transferências de titularidade": 2
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 3,
+     "processos": 5,
+     "decisoes": {
+      "requerimentos": 3
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 2,
+     "processos": 4,
+     "decisoes": {
+      "deferimentos/concessões": 2,
+      "indeferimentos": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 5,
+     "processos": 32,
+     "decisoes": {
+      "deferimentos/concessões": 4,
+      "arquivamentos": 3,
+      "indeferimentos": 2
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    }
+   ]
+  },
   {
    "data": "2026-10-20",
    "atos": [
@@ -558,81 +621,6 @@
       "indeferimentos": 4,
       "arquivamentos": 5
      }
-    }
-   ]
-  },
-  {
-   "data": "2026-10-06",
-   "atos": [
-    {
-     "orgao": "IEF",
-     "tipo": "Edital",
-     "numero": "01/2025",
-     "titulo": "EDITAL SEPLAG/SEE Nº 01/2025 - RETIFICAÇÃO DA HOMOLOGAÇÃO",
-     "ementa": "A Secretaria de Estado de Planejamento e Gestão – SEPLAG, a Secretaria de Estado de Educação – SEE e a CONSULPLAN, responsável pela organização e coordenação do certame, no uso de suas atribuições, tornam pública a retificação da Homologação do Concurso Público regido pelo Edital SEPLAG/SEE nº 01/2025, publicado em 10 de fevereiro de 2026 e 30 de abril de 2026, respectivamente, nos termos a seguir",
-     "relevancia": "notícia",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 44,
-     "autenticidade": "3202610066762960144"
-    }
-   ],
-   "movimento": [
-    {
-     "orgao": "Copam",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 2,
-     "processos": 5,
-     "decisoes": {
-      "deferimentos/concessões": 2,
-      "requerimentos": 1,
-      "indeferimentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 1,
-     "processos": 3,
-     "decisoes": {
-      "requerimentos": 1,
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 1,
-     "processos": 40,
-     "decisoes": {
-      "deferimentos/concessões": 1,
-      "indeferimentos": 1,
-      "arquivamentos": 1
-     }
-    },
-    {
-     "orgao": "Semad",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 4,
-     "processos": 4,
-     "decisoes": {}
     }
    ]
   }
