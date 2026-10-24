@@ -44,6 +44,10 @@ def main(pasta, saida, dias=10):
                         "movimento": [{"orgao": o, "grupo": g, "publicacoes": m["publicacoes"],
                                        "processos": m["processos"], "decisoes": dict(m["decisoes"])}
                                       for (o, g), m in sorted(mov.items())]})
+    if not edicoes and Path(saida).exists():
+        # Nenhuma edição lida (portal fora do ar, erro de certificado...): mantém o que já está publicado.
+        print(f"{saida}: nenhuma edição lida; arquivo mantido como estava")
+        return
     Path(saida).write_text(json.dumps({"atualizado_em": edicoes[0]["data"] if edicoes else None,
                                        "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
                                        "edicoes": edicoes}, ensure_ascii=False, indent=1))
