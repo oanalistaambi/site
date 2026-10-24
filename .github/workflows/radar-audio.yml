@@ -1,0 +1,87 @@
+name: Radar em áudio (MG e DOU)
+
+# Lê o Jornal Minas Gerais (Diário do Executivo) e o Diário Oficial da União (Seção 1), separa os atos gerais da área
+# ambiental dos 2 últimos dias de jornal, monta um áudio curto por tema e atualiza radar/audio.json (página radar-audio.html).
+# Os MP3 ficam como arquivos da release fixa "radar-audios" (não entram no histórico do git) e os antigos são apagados.
+# LGPD: nada de nome, CPF, CNPJ ou número de processo.
+#
+# PARA DESLIGAR: mude RADAR_AUDIO_LIGADO para "nao", ou deixe a data-limite passar (RADAR_AUDIO_ATE).
+# A voz só é gerada se existir o segredo ELEVENLABS_API_KEY; sem ele, a página lê o texto com a voz do navegador.
+on:
+  schedule:
+    - cron: "23 12 * * 1-6"   # segunda a sábado, 9h23 de Brasília (DOU sai de segunda a sexta; Jornal MG, de terça a sábado)
+  workflow_dispatch:
+
+env:
+  RADAR_AUDIO_LIGADO: "sim"
+  RADAR_AUDIO_ATE: "2026-11-07"   # último dia em que roda sozinho
+  RELEASE: radar-audios
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-publica
+  cancel-in-progress: false
+
+jobs:
+  audio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Conferir se está ligado
+        id: ligado
+        run: |
+          hoje=$(TZ=America/Sao_Paulo date +%F)
+          if [ "$RADAR_AUDIO_LIGADO" != "sim" ] || [[ "$hoje" > "$RADAR_AUDIO_ATE" ]]; then
+            echo "Radar em áudio desligado (ligado=$RADAR_AUDIO_LIGADO, até=$RADAR_AUDIO_ATE, hoje=$hoje)."
+            echo "roda=nao" >> "$GITHUB_OUTPUT"
+          else
+            echo "roda=sim" >> "$GITHUB_OUTPUT"
+            echo "hoje=$hoje" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.ligado.outputs.roda == 'sim'
+      - name: Instalar pdftotext
+        if: steps.ligado.outputs.roda == 'sim'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Ler os jornais
+        if: steps.ligado.outputs.roda == 'sim'
+        run: |
+          ini=$(date -u -d '6 days ago' +%F); fim=${{ steps.ligado.outputs.hoje }}
+          python3 -I radar/gerador/diario_mg.py --data "$ini" --ate "$fim" --saida /tmp/mg --cache /tmp/mg-cache || true
+          python3 -I radar/gerador/diario_uniao.py --data "$ini" --ate "$fim" --saida /tmp/dou || true
+      - name: Montar roteiros e gerar os áudios novos
+        if: steps.ligado.outputs.roda == 'sim'
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$RELEASE" >/dev/null 2>&1 || gh release create "$RELEASE" --prerelease --latest=false \
+            --title "Radar em áudio (arquivos temporários)" \
+            --notes "Áudios do radar-audio.html. Trocados todo dia útil pelo workflow radar-audio.yml; os antigos são apagados."
+          gh release view "$RELEASE" --json assets -q '.assets[].name' > /tmp/existentes.txt
+          mkdir -p /tmp/mg /tmp/dou /tmp/mp3
+          python3 -I radar/gerador/radar_audio.py --mg /tmp/mg --dou /tmp/dou --saida radar/audio.json --audios /tmp/mp3 \
+            --existentes /tmp/existentes.txt --hoje ${{ steps.ligado.outputs.hoje }} \
+            --base-url "https://github.com/${{ github.repository }}/releases/download/$RELEASE/"
+          if ls /tmp/mp3/*.mp3 >/dev/null 2>&1; then gh release upload "$RELEASE" /tmp/mp3/*.mp3 --clobber; fi
+      - name: Publicar se mudou
+        if: steps.ligado.outputs.roda == 'sim'
+        run: |
+          git config user.name "radar-audio"
+          git config user.email "radar-audio@users.noreply.github.com"
+          git add radar/audio.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Radar em áudio: atualização automática"
+            for i in 1 2 3; do git pull --rebase -q origin main && git push && break; sleep 5; done
+          fi
+      - name: Apagar os áudios que saíram da página
+        if: steps.ligado.outputs.roda == 'sim'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -I -c "import json,re;print('\n'.join(re.sub(r'.*/','',t['audio']) for f in json.load(open('radar/audio.json'))['fontes'] for t in f['temas'] if t.get('audio')))" > /tmp/em-uso.txt
+          gh release view "$RELEASE" --json assets -q '.assets[].name' | while read -r nome; do
+            grep -qxF "$nome" /tmp/em-uso.txt || gh release delete-asset "$RELEASE" "$nome" -y
+          done

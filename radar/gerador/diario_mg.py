@@ -40,7 +40,12 @@ def _ctx():
     caf = os.environ.get("SSL_CERT_FILE") or os.environ.get("REQUESTS_CA_BUNDLE")
     if not caf and os.path.exists("/root/.ccr/ca-bundle.crt"):
         caf = "/root/.ccr/ca-bundle.crt"
-    return ssl.create_default_context(cafile=caf) if caf else ssl.create_default_context()
+    ctx = ssl.create_default_context(cafile=caf) if caf else ssl.create_default_context()
+    # Desde 22/10/2026 o portal envia o intermediário errado na cadeia (Valid em vez de Sectigo DV R36).
+    # Carregamos o intermediário certo, que é verificado contra a raiz Sectigo R46 do sistema.
+    for pem in sorted(os.listdir(os.path.join(AQUI, "certs"))) if os.path.isdir(os.path.join(AQUI, "certs")) else []:
+        ctx.load_verify_locations(os.path.join(AQUI, "certs", pem))
+    return ctx
 
 
 def http(url, metodo="GET", corpo=None, token=None, tentativas=3):
@@ -351,7 +356,29 @@ def classificar(m, regras, data, caderno, aut):
         relev = "notícia"
     trilha = primeiro(regras["trilhas"], "trilha", alvo + " " + texto[:1500]) or "Trilha 1 · Órgãos e sistemas"
     return dict(base, categoria="listado", tipo=tipo or "Publicação", numero=numero, titulo=limpar(titulo_cmp),
-                ementa=ementa, relevancia=relev, trilha=trilha, sugestao=sugerir(relev, tipo, numero, sigla or nome_org, trilha, ementa))
+                ementa=ementa, relevancia=relev, trilha=trilha, trechos=trechos_do_texto(corpo), sugestao=sugerir(relev, tipo, numero, sigla or nome_org, trilha, ementa))
+
+
+RE_VIGOR = re.compile(r"(?:Esta|Este|A presente|O presente)\s+[^.;]{0,60}?\bentra(?:rá)?\s+em\s+vigor\b"
+                      r"(?:[^.;]|\.(?=\d)|(?<=n[º°o])\.|(?<=\bart)\.){0,200}", re.I)
+RE_REVOGA = re.compile(r"(?:Fica(?:m)?\s+revogad[oa]s?|Revoga(?:m)?-se)\b(?:[^.]|\.(?=\d)|(?<=n[º°o])\.|(?<=\bart)\.){0,400}?(?:\.(?!\d)|$)", re.I)
+
+
+def _frase(m, limite):
+    t = re.sub(r"\s+", " ", m.group(0)).strip().rstrip(".;, ")
+    t = re.sub(r",\s*(aplicando|ressalvad|exceto|salvo|observad|produzindo)[^.]*$", "", t)  # só a regra principal
+    if len(t.split()) > limite:
+        return None  # longo demais para dizer em poucos segundos: o áudio manda conferir o texto
+    return t
+
+
+def trechos_do_texto(texto):
+    """Vigência e revogação copiadas do texto publicado (nunca deduzidas). None quando não achou."""
+    t = re.sub(r"\s+", " ", texto)
+    mv = RE_VIGOR.search(t)
+    mr = RE_REVOGA.search(t)
+    return {"vigencia": _frase(mv, 30) if mv else None,
+            "revoga": limpar(_frase(mr, 28)) if mr and _frase(mr, 28) else None}
 
 
 def sugerir(relev, tipo, numero, org, trilha, ementa):
