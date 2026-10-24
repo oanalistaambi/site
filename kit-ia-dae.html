@@ -40,6 +40,7 @@ header{display:flex;flex-direction:column;gap:12px}
 .estrutura dd{margin:0}
 .dica{font-size:15px;color:var(--suave)}
 .dica a,.indice a{color:var(--musgo)}
+.caixa-material{display:flex;flex-direction:column;gap:12px}
 .filtros{display:flex;flex-wrap:wrap;gap:8px}
 @media (min-width:700px){.filtros{position:sticky;top:0;z-index:2;background:var(--papel);padding-block:10px;margin-block:-10px}}
 .filtro{background:var(--folha);color:var(--tinta);border:1px solid var(--linha)}
@@ -62,6 +63,10 @@ pre{font-family:var(--f-mono);font-size:14px;line-height:1.6;background:var(--co
 .barra{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 button{font:inherit;font-size:14px;font-weight:600;color:var(--papel);background:var(--musgo);border:none;border-radius:8px;padding:8px 14px;cursor:pointer;min-height:36px}
 button:focus-visible,a:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+.material{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.material a{display:flex;flex-direction:column;gap:2px;min-height:56px;justify-content:center;background:var(--folha);border:1px solid var(--linha);border-left:6px solid var(--ouro);border-radius:12px;padding:14px 16px;color:var(--tinta);text-decoration:none;font-weight:800;font-size:17px}
+.material a span{font-weight:400;font-size:14px;color:var(--suave)}
+.material a:hover{border-color:var(--ouro)}
 .rodape{font-size:14px;color:var(--suave)}
 .rodape a{color:var(--musgo)}
 @media (max-width:480px){.ficha{padding:16px}.caixa{padding:16px}pre{padding:12px;font-size:13px}.estrutura dl{grid-template-columns:1fr}.estrutura dd{margin-bottom:6px}}
@@ -75,6 +80,15 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ouro);outline-offse
 <p>21 pedidos prontos para copiar e adaptar, organizados por público. Funcionam em qualquer IA de conversa (ChatGPT, Gemini, Copilot, Claude e outras) e em qualquer estado. A IA prepara; quem decide e assina é você.</p>
 <p class="dica">Nenhum serve exatamente para o seu caso? Comece por <a href="#sec-ajuste">Ajuste o pedido à sua realidade</a>: a IA faz perguntas sobre você, seu estado, seu setor e sua demanda, e monta o pedido sob medida.</p>
 </header>
+
+<nav aria-label="Material da palestra" class="caixa-material">
+<h2>Material da palestra</h2>
+<div class="material">
+<a href="palestra-ia-dae-2026.html">Slides em PDF<span>com as fontes de cada dado</span></a>
+<a href="memorial-geo.html">Memorial descritivo → mapa<span>KML ou Shapefile, funciona offline</span></a>
+<a href="ferramentas.html">Ferramentas grátis<span>todas as ferramentas do site</span></a>
+</div>
+</nav>
 
 <div class="caixa regras">
 <h2>Regras de ouro</h2>
@@ -381,7 +395,7 @@ SAÍDA
 Para cada ato: tipo (portaria, deliberação, decisão), número, órgão, resumo em uma linha, se traz determinação ou prazo, e o link oficial ou a página. Se não houver nada do tema, escreva &quot;nada hoje&quot;.</pre>
 <p class="cuidado"><b>Cuidado:</b> Confira o ato no Diário antes de agir; o resumo da IA não substitui a publicação.</p></section>
 <section class="ficha" id="audio" data-publico="servidor"><div class="barra"><h3>11. Parecer em áudio para estudar</h3><button type="button" data-copia="p11">Copiar</button></div>
-<p class="quando">Na véspera de relatar ou defender um processo num conselho ambiental. Ferramentas como o Gemini Notebook (antigo NotebookLM) geram resumo em áudio em português a partir dos arquivos que você sobe.</p>
+<p class="quando">Na véspera de relatar ou defender um processo num conselho ambiental. Ferramentas como o NotebookLM (Google) geram resumo em áudio em português a partir dos arquivos que você sobe.</p>
 <p class="nivel verde">Material público: qualquer ferramenta</p>
 <pre id="p11">PAPEL
 Você é professor que prepara um resumo em áudio para estudo.
