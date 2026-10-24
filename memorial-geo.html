@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memorial descritivo em polígono: KML, GeoJSON e shapefile — O Analista Ambiental</title>
+<meta name="description" content="Cole o memorial descritivo da matrícula (azimute ou rumo e distância) e veja o polígono no mapa, com área, perímetro e erro de fechamento. Baixe em KML, GeoJSON e shapefile. Grátis, no navegador, também sem internet.">
+<meta name="author" content="Francisco de Assis da Silva Júnior">
+<link rel="canonical" href="https://www.oanalistaambiental.com/memorial-geo.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Memorial descritivo em polígono no mapa">
+<meta property="og:description" content="Azimute ou rumo e distância da matrícula viram polígono, com área, perímetro, erro de fechamento e arquivos KML, GeoJSON e shapefile. Tudo no navegador.">
+<meta property="og:url" content="https://www.oanalistaambiental.com/memorial-geo.html">
+<meta property="og:image" content="https://www.oanalistaambiental.com/assets/hero-banner.jpg">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ---------- memorial → polígono (CSS específico desta página) ---------- */
+  .calc{ border:1px solid var(--rule); background:var(--bg-raised); padding:1.6rem 1.5rem 1.8rem; margin-top:2em; border-radius:2px; }
+  @media (max-width:520px){ .calc{ padding:1.2rem 1rem 1.4rem; } }
+  .calc__step{ margin-top:1.8em; padding-top:1.6em; border-top:1px solid var(--rule); }
+  .calc__step:first-child{ margin-top:0; padding-top:0; border-top:0; }
+  .calc__step-label{ font-family:var(--f-mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--ochre); margin-bottom:.7rem; display:block; }
+  .calc__row{ display:flex; flex-wrap:wrap; gap:1rem; }
+  .calc__field{ display:flex; flex-direction:column; gap:.4rem; flex:1 1 200px; min-width:0; }
+  .calc__field--curto{ flex:1 1 150px; }
+  .calc__field label, .calc__lbl{ font-family:var(--f-mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); display:block; }
+  .calc__lbl{ margin-bottom:.5rem; line-height:1.5; }
+  .calc select, .calc input.tx, .calc textarea{ padding:.7rem .85rem; border:1.5px solid var(--rule-strong); border-radius:2px; background:var(--bg); color:var(--text); font-family:var(--f-display); font-size:.95rem; width:100%; box-sizing:border-box; }
+  .calc textarea{ font-family:var(--f-mono); font-size:.82rem; line-height:1.5; resize:vertical; min-height:10rem; }
+  .calc select:focus, .calc input:focus, .calc textarea:focus{ outline:2.5px solid var(--focus); outline-offset:2px; }
+  .calc__hint{ font-size:.84rem; color:var(--text-faint); margin-top:.6rem; }
+  .calc__placeholder{ color:var(--text-faint); font-size:.94rem; padding:.6rem 0 .2rem; }
+  .acoes{ display:flex; gap:.7rem; align-items:center; margin-top:.9rem; flex-wrap:wrap; }
+  .acoes .btn{ cursor:pointer; font:inherit; font-family:var(--f-display); }
+  .calc__resultado{ display:grid; gap:1px; grid-template-columns:repeat(3,minmax(0,1fr)); background:var(--rule); border:1px solid var(--rule); margin:.6rem 0 0; }
+  @media (max-width:700px){ .calc__resultado{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  .calc__resultado div{ background:var(--bg); padding:1rem 1.1rem; min-width:0; }
+  .calc__resultado dt{ font-family:var(--f-mono); font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; color:var(--text-faint); margin-bottom:.4rem; }
+  .calc__resultado dd{ margin:0; font-family:var(--f-display); font-weight:700; font-size:1.35rem; color:var(--text); overflow-wrap:anywhere; }
+  .calc__resultado dd small{ display:block; font-family:var(--f-body); font-weight:400; font-size:.8rem; color:var(--text-soft); margin-top:.3rem; }
+  .fecho{ margin-top:1rem; padding:.8rem 1rem; border-left:4px solid var(--accent); background:var(--bg); font-size:.95rem; }
+  .fecho--atencao{ border-left-color:var(--focus); }
+  .fecho--ruim{ border-left-color:var(--ochre); background:var(--bg-sunken); color:var(--text); font-weight:600; }
+  .confere{ list-style:none; padding:0; margin:.8rem 0 0; display:flex; flex-direction:column; gap:.45rem; }
+  .confere li{ font-size:.9rem; color:var(--text-soft); line-height:1.45; display:flex; gap:.6rem; align-items:baseline; }
+  .confere li span{ flex:none; font-family:var(--f-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; padding:.15rem .4rem; border:1px solid var(--rule-strong); border-radius:2px; }
+  .confere--ok span{ color:var(--accent); border-color:var(--accent); }
+  .confere--atencao span{ color:var(--ochre); border-color:var(--ochre); }
+  .erro{ margin-top:.8rem; border-left:4px solid var(--ochre); background:var(--bg-sunken); padding:.85rem 1rem; font-size:.93rem; color:var(--text-soft); }
+  .erro b{ color:var(--text); }
+  .mapa{ margin-top:1.2rem; }
+  .mapa__barra{ display:flex; flex-wrap:wrap; gap:.3rem 1rem; align-items:center; justify-content:space-between; font-size:.88rem; color:var(--text-soft); margin-bottom:.5rem; }
+  .mapa__barra label{ display:flex; gap:.5rem; align-items:center; cursor:pointer; }
+  .mapa__barra .calc__hint{ margin:0; }
+  #mapa{ display:block; width:100%; height:auto; border:1px solid var(--rule); background:var(--bg); }
+  .m-fundo{ fill:var(--bg); }
+  .m-grade line{ stroke:var(--text-faint); stroke-width:.7; stroke-dasharray:3 4; opacity:.75; }
+  .m-rot{ font-family:var(--f-mono); font-size:10px; fill:var(--text-soft); paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
+  .m-pol{ fill:rgba(168,69,42,.16); stroke:var(--ochre); stroke-width:2.4; stroke-linejoin:round; }
+  .m-v{ fill:var(--bg-raised); stroke:var(--ochre); stroke-width:1.6; }
+  .m-v0{ fill:var(--ochre); }
+  .m-nome{ font-family:var(--f-mono); font-size:10px; fill:var(--text); paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
+  .m-gap{ stroke:var(--focus); stroke-width:2; stroke-dasharray:5 4; }
+  .m-chegada{ fill:none; stroke:var(--focus); stroke-width:2; }
+  .m-rot--gap{ fill:var(--text); }
+  .m-norte path{ fill:var(--text); }
+  .m-norte text, .m-escala text{ font-family:var(--f-display); font-weight:700; font-size:12px; fill:var(--text); }
+  .m-escala rect{ fill:var(--bg); opacity:.85; }
+  .m-escala path{ fill:none; stroke:var(--text); stroke-width:2; }
+  .mapa__attr{ font-size:.75rem; color:var(--text-faint); text-align:right; margin-top:.3rem; }
+  .mapa__attr a{ color:inherit; }
+  .baixar{ margin-top:1.4rem; padding-top:1.2rem; border-top:1px solid var(--rule); }
+  .sub{ font-size:1.15rem; margin-top:1.8rem; }
+  .tabela{ overflow-x:auto; margin-top:.6rem; border:1px solid var(--rule); max-height:28rem; overflow-y:auto; }
+  .tabela table{ border-collapse:collapse; width:100%; min-width:760px; font-size:.8rem; }
+  .tabela th, .tabela td{ padding:.45rem .6rem; border-bottom:1px solid var(--rule); text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .tabela th{ font-family:var(--f-mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); background:var(--bg-raised); position:sticky; top:0; }
+  .tabela td:first-child, .tabela th:first-child, .tabela td.trecho, .tabela th:last-child{ text-align:left; }
+  .tabela td.trecho{ white-space:normal; min-width:16rem; color:var(--text-soft); font-family:var(--f-mono); font-size:.72rem; }
+  .limite{ margin-top:2rem; border-left:4px solid var(--ochre); background:var(--bg-sunken); padding:.9rem 1.1rem 1rem; border-radius:0 10px 10px 0; font-size:.93rem; color:var(--text-soft); }
+  .limite__t{ font-family:var(--f-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ochre); margin:0; }
+  .limite ul{ margin:.5rem 0 0; padding-left:1.1rem; }
+  .limite li{ margin-top:.45em; }
+  .limite b{ color:var(--text); }
+  .resumo{ white-space:pre-wrap; overflow-wrap:anywhere; font-family:var(--f-mono); font-size:.8rem; background:var(--bg); border:1px solid var(--rule); padding:1rem; margin:1rem 0 0; color:var(--text); }
+  .fontes li{ margin:.45rem 0; color:var(--text-soft); font-size:.95rem; }
+  .article__body{ overflow-wrap:break-word; max-width:880px; }
+  .article__body > p, .article__body > ol, .article__body > ul, .article__body > .nota, .article__body > h2{ max-width:var(--measure); }
+  [hidden]{ display:none !important; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="index.html">
+      <svg class="logo" viewBox="-5 -5 108 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd"><path d="M49.52 0.65C47.85 1.23 47.54 1.54 44.22 5.92C43.94 6.29 43.2 7.27 42.57 8.09C41.36 9.67 39.2 12.52 36.46 16.14C34.87 18.23 32.93 20.79 31.13 23.13C30.71 23.68 29.79 24.87 29.11 25.78C28.43 26.68 27.26 28.2 26.51 29.17C25.78 30.13 24.8 31.4 24.35 32C23.91 32.59 23.03 33.75 22.41 34.56C21.79 35.36 20.71 36.77 20.01 37.69C19.32 38.61 18.7 39.41 18.63 39.5C18.48 39.66 17.35 41.14 15.54 43.51C14.81 44.48 13.91 45.64 13.55 46.11C13.2 46.56 12.32 47.72 11.61 48.65C10.89 49.59 10.18 50.53 10.01 50.75C7.1 54.52 3.1 59.78 2.71 60.33C1.69 61.79 1.83 62.5 3.47 64.13C5.27 65.92 6.43 66.47 8.28 66.48C8.9 66.48 9.4 66.53 9.4 66.59C9.4 66.65 9.13 67.08 8.78 67.55C6.98 70 6.46 70.71 5.31 72.28C0.39 78.92 0 79.53 0 80.65C0 82.89 3 85.17 5.93 85.17C6.52 85.17 6.99 85.22 6.99 85.27C6.99 85.4 5.98 86.86 5.27 87.76C4.47 88.75 1.12 93.6 0.84 94.15C0.12 95.58 0.4 96.68 1.81 98.12C3.17 99.51 4.3 99.98 6.33 99.99C8.27 100 9.45 99.54 10.68 98.28C11.12 97.84 13.82 94.42 14.13 93.92C14.36 93.55 14.5 93.6 15.23 94.36C18.06 97.32 22.37 97.12 25.02 93.9C25.71 93.07 31.2 86.15 31.71 85.47C31.88 85.25 32.81 84.06 33.8 82.83C36.35 79.6 36.42 79.52 37.57 78.06C38.74 76.56 38.78 76.51 40.21 74.68C40.78 73.95 41.45 73.11 41.7 72.81C41.96 72.51 42.26 72.12 42.37 71.94C42.49 71.75 42.63 71.61 42.69 71.61C42.75 71.61 43.57 72.38 44.53 73.33C49.8 78.64 55.46 80.91 62.15 80.42C63.02 80.35 64.07 80.21 64.5 80.11C65.95 79.76 66.25 79.67 66.49 79.58C66.63 79.52 67.08 79.35 67.52 79.2C69.03 78.68 72.35 76.79 73.37 75.86C73.5 75.74 73.91 75.39 74.27 75.09C77.13 72.65 79.97 68.92 81.99 64.91C82.49 63.91 83.13 62.54 83.42 61.84C83.71 61.14 83.99 60.47 84.05 60.33C84.11 60.2 84.31 59.63 84.51 59.08L84.86 58.05L83.95 57.09C83.45 56.55 82.98 56.1 82.9 56.08C82.82 56.05 82.59 56.57 82.35 57.34C81.6 59.73 79.94 63.59 78.9 65.34C72.93 75.46 64.38 79.78 55.38 77.21C54.83 77.06 54.18 76.84 53.93 76.73C49.01 74.58 45.41 71.29 41.93 65.82C41.31 64.82 39.76 61.86 39.43 61C39.28 60.63 39.04 60.06 38.87 59.69C38.71 59.34 38.58 59.02 38.58 58.97C38.58 58.92 38.43 58.48 38.22 57.97C37.33 55.68 36.24 51.35 35.92 48.82C35.87 48.38 35.76 47.58 35.69 47.01C35.29 43.88 35.24 38.26 35.59 35.98L35.74 35.01L37.2 33.08C38 32.02 39.39 30.18 40.28 28.98C44.8 22.97 51.34 14.32 53.89 11.02C56.25 7.97 58.23 5.26 58.3 5.02C58.37 4.76 58.48 4.7 58.98 4.64C60.71 4.41 64.83 5.06 66.1 5.78C66.22 5.85 66.36 5.9 66.43 5.9C66.95 5.9 71.08 8.28 71.62 8.91C71.65 8.95 71.84 9.09 72.02 9.24C74.85 11.42 78.15 15.78 80.26 20.12C81.03 21.73 81.08 21.82 81.69 23.32C82.41 25.13 83.77 29.77 83.57 29.77C83.53 29.77 83.23 29.36 82.92 28.86C79.27 23.27 71.88 21.46 65.88 24.69C62.78 26.37 60.48 29.3 59.55 32.78C57.27 41.26 63.52 49.54 72.18 49.54C74.48 49.54 75.68 49.25 78.44 48.02C78.57 47.96 79.3 48.7 80.66 50.27C81.09 50.76 81.9 51.68 82.47 52.31C83.04 52.94 84.21 54.24 85.06 55.21C85.92 56.17 86.65 56.98 86.69 57.02C86.73 57.05 87.1 57.49 87.53 57.98C87.97 58.48 88.34 58.91 88.38 58.95C88.41 58.98 88.79 59.42 89.22 59.91C89.66 60.41 90.03 60.84 90.07 60.88C90.1 60.91 91.08 62.02 92.24 63.35C93.39 64.67 94.55 65.95 94.79 66.2C95.73 67.16 97.13 66.87 97.6 65.64C97.95 64.73 97.77 64.38 95.85 62.29C95.17 61.54 94.44 60.74 94.24 60.51C92.13 58.14 88.44 54.03 87.41 52.92C86.71 52.16 85.22 50.53 84.1 49.3C82.98 48.07 81.85 46.85 81.6 46.59C81.05 46.01 81.03 46.11 81.7 45.38C82.9 44.06 83.87 42.46 84.4 40.95C84.56 40.5 84.72 40.14 84.78 40.14C84.92 40.14 84.9 43.2 84.76 45.13L84.64 46.7L85.28 47.36C85.63 47.73 86.09 48.24 86.29 48.48C86.93 49.23 86.89 49.3 87.2 46.53C87.39 44.66 87.39 37.62 87.18 35.74C86.32 27.74 84.4 21.71 80.78 15.66C76.15 7.91 69.53 3.07 62.27 2.15C60.85 1.97 57.81 2.07 56.82 2.34L56.06 2.54L55.26 1.93C53.24 0.41 51.39 0 49.52 0.65ZM52.39 3.24C52.99 3.5 54.98 4.99 54.98 5.2C54.98 5.32 54.76 5.61 51.72 9.57C50.22 11.53 47.37 15.28 45.03 18.37C44.43 19.17 43.32 20.63 42.56 21.63C41.8 22.62 40.84 23.9 40.43 24.46C40 25.03 39.06 26.27 38.34 27.24C37.62 28.2 36.03 30.31 34.81 31.94C32.36 35.22 30.43 37.76 29 39.63C28.47 40.31 27.66 41.38 27.19 41.99C26.73 42.61 25.51 44.2 24.49 45.51C23.46 46.83 22.29 48.35 21.88 48.88C21.49 49.41 20.47 50.71 19.64 51.77C18.82 52.83 17.75 54.22 17.28 54.85C15.66 56.99 11.42 62.39 10.89 63.01C10.16 63.83 8.61 64.24 7.51 63.89C6.97 63.71 5.78 62.89 5.2 62.29L4.8 61.86L5.46 60.97C5.82 60.49 6.44 59.68 6.82 59.18C7.22 58.68 7.69 58.05 7.9 57.79C8.09 57.54 8.28 57.29 8.32 57.26C8.36 57.22 8.71 56.76 9.12 56.23C9.51 55.7 10.49 54.42 11.29 53.4C12.08 52.38 13.52 50.49 14.47 49.24C15.42 47.97 16.52 46.54 16.9 46.05C17.29 45.55 18.06 44.54 18.62 43.81C19.17 43.08 20.22 41.72 20.94 40.79C21.65 39.85 22.38 38.91 22.55 38.68C22.72 38.46 22.96 38.15 23.1 37.98C23.23 37.81 23.95 36.88 24.67 35.92C25.99 34.16 27.74 31.85 29.12 30.07C30.43 28.35 31.77 26.6 32.57 25.55C32.99 24.98 33.36 24.5 33.4 24.46C33.43 24.43 33.87 23.86 34.37 23.2C35.28 21.99 36.27 20.69 37.68 18.86C38.4 17.9 40.99 14.49 41.89 13.31C42.13 12.97 42.42 12.6 42.52 12.48C42.63 12.35 43.63 11.02 44.77 9.52C48.7 4.33 49.01 3.93 49.4 3.62C50.22 2.97 51.4 2.82 52.39 3.24ZM73.29 25.79C77.15 26.28 80.12 28.49 81.67 32.02C82.87 34.71 82.83 38.32 81.59 40.8C78.35 47.35 70.36 48.95 65.07 44.12C60.9 40.31 60.6 33.29 64.42 29.15C65.06 28.47 66.13 27.55 66.67 27.25C68.81 26.02 71.09 25.52 73.29 25.79ZM32.84 42.45C32.88 44.07 32.96 45.84 33.02 46.41C33.08 46.97 33.17 47.84 33.22 48.34L33.31 49.25L32.55 50.27C31.78 51.3 30.61 52.87 30.02 53.64C29.84 53.87 29.3 54.59 28.8 55.24C28.31 55.91 27.28 57.26 26.53 58.26C25.75 59.27 24.34 61.12 23.39 62.38C14.42 74.2 9.24 80.94 8.61 81.56C7.82 82.32 7.11 82.61 5.97 82.63C4.79 82.63 4.18 82.37 3.28 81.47C2.41 80.6 2.4 80.66 3.86 78.66C4.1 78.32 4.81 77.35 5.43 76.49C6.05 75.62 6.86 74.51 7.22 74.02C7.6 73.52 8.5 72.29 9.22 71.29C9.96 70.28 11.33 68.37 12.29 67.06C13.25 65.75 14.67 63.78 15.47 62.68C18.63 58.34 20.4 55.94 25.15 49.54C26.42 47.85 27.88 45.88 28.39 45.15C30.75 41.95 32.59 39.53 32.67 39.53C32.72 39.53 32.79 40.85 32.84 42.45ZM34.24 53.41C34.24 53.64 34.53 54.79 34.98 56.35C35.22 57.17 35.81 58.92 36.24 60.04L36.45 60.59L35.16 62.27C33.14 64.91 31.67 66.83 31.32 67.28C31.14 67.51 30.43 68.42 29.76 69.34C29.07 70.24 28.04 71.59 27.47 72.35C26.89 73.1 25.58 74.81 24.57 76.14C21.08 80.73 20.46 81.55 19.58 82.7C18.69 83.86 16.93 86.15 16.54 86.64C16.43 86.79 15.95 87.41 15.47 88.03C14.99 88.64 13.42 90.67 11.98 92.52C10.55 94.38 9.15 96.13 8.87 96.42C7.44 97.91 5.37 97.93 3.83 96.44C2.97 95.6 2.97 95.47 3.77 94.3C4.52 93.2 7.4 89.16 7.74 88.73C7.87 88.56 8.45 87.76 9.02 86.97C10.14 85.41 13.71 80.47 14.82 78.96C16.36 76.85 16.76 76.31 17.6 75.16C18.09 74.5 18.95 73.33 19.52 72.57C20.09 71.81 20.91 70.69 21.35 70.1C21.79 69.5 22.69 68.28 23.35 67.39C24.02 66.49 25.11 65 25.8 64.07C28.03 61.04 28.64 60.24 29.86 58.58C30.53 57.69 31.65 56.17 32.36 55.21C33.06 54.24 33.72 53.36 33.82 53.24C34.04 52.99 34.24 53.07 34.24 53.41ZM38.21 64.4C38.69 65.41 39.67 67.12 40.44 68.29C41.13 69.34 41.13 69.33 40.35 70.29C40.02 70.73 39.59 71.26 39.43 71.49C39.26 71.7 38.64 72.49 38.06 73.22C37.47 73.96 36.93 74.64 36.85 74.74C36.77 74.84 36.24 75.51 35.66 76.25C34.6 77.59 33.06 79.54 30.6 82.67C29.85 83.63 28.78 84.99 28.21 85.7C27.65 86.41 27.06 87.18 26.89 87.4C25.32 89.46 22.49 92.84 22.04 93.19C20.35 94.45 17.76 93.91 16.66 92.05L16.42 91.66L17.47 90.28C18.74 88.62 20.8 85.88 21.77 84.57C22.16 84.04 22.55 83.52 22.63 83.42C22.7 83.33 24.66 80.72 26.97 77.63C29.27 74.55 31.19 72 31.23 71.97C31.26 71.93 31.7 71.36 32.2 70.7C33.08 69.53 34.37 67.83 36.57 64.94C37.16 64.17 37.68 63.53 37.73 63.53C37.76 63.53 37.98 63.93 38.21 64.4Z"/><path d="M68.98 34.93C67.86 35.53 67.86 37.1 68.95 37.91C69.38 38.21 69.39 38.21 71.91 38.21C74.74 38.21 74.98 38.15 75.48 37.34C75.95 36.57 75.61 35.28 74.85 34.88C74.31 34.6 69.52 34.64 68.98 34.93Z"/><path d="M46.36 27.71C46.17 27.77 45.7 27.88 45.33 27.96C44.97 28.04 44.59 28.15 44.49 28.2C44.39 28.25 43.96 28.44 43.53 28.64C41.79 29.41 41.27 30.44 42.19 31.35C42.77 31.94 43.19 31.96 44.07 31.46C45.5 30.64 46.21 30.46 47.99 30.44C49.81 30.43 50.19 30.52 51.58 31.24C52.05 31.49 52.57 31.7 52.72 31.7C53.44 31.7 54.21 30.76 54.06 30.06C53.88 29.15 52.3 28.21 50.24 27.78C49.34 27.59 47 27.55 46.36 27.71Z"/><path d="M45.35 34.93C44.25 35.52 44.2 37.22 45.25 37.93C45.64 38.2 45.74 38.21 48.4 38.21L51.13 38.21L51.63 37.75C52.47 36.95 52.38 35.51 51.43 34.94C50.88 34.6 45.97 34.59 45.35 34.93Z"/></g></svg>
+      <b>O Analista Ambiental<span class="slog">Da norma ao campo</span></b>
+    </a>
+    <nav class="nav__links" aria-label="Menu principal">
+      <a class="nav__item" href="index.html">Início</a>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Cursos</button>
+        <div class="dd__menu">
+          <a href="rota-ambiental.html"><b>A Rota Ambiental 2.0</b><small>Minas Gerais: licença, água, flora, CAR e autos</small></a>
+          <a href="rota-federal.html"><b>Rota Federal <span class="dd__selo">Fundador</span></b><small>CAR, ANA, Ibama e SINIR · todo o Brasil</small></a>
+          <span class="dd__off"><b>Preparatório Concurso Sisema <span class="dd__selo">Em breve</span></b><small>Semad, Feam, IEF e Igam</small></span>
+          <a href="cursos.html"><b>Palestras e capacitações</b><small>Para empresas, órgãos e eventos</small></a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Ferramentas</button>
+        <div class="dd__menu">
+          <a href="radar.html"><b>Radar do Diário Oficial</b><small>O que saiu hoje para a área ambiental de MG</small></a>
+          <a href="radar-servicos.html"><b>Radar de serviços</b><small>Quantos documentos vencem na sua cidade</small></a>
+          <a href="artigos/calculadora-enquadramento-mg.html"><b>Calculadora de enquadramento</b><small>Classe e modalidade pela DN 217</small></a>
+          <a href="artigos/checklist-documentos-licenciamento-mg.html"><b>Checklist de documentos</b><small>O que cada modalidade pede</small></a>
+          <a href="chao-geo-mg.html"><b>App Chão Geo MG</b><small>Vistoria e camadas do IDE-Sisema no celular</small></a>
+          <span class="dd__off"><b>Mapa dos manuais oficiais <span class="dd__selo">Em breve</span></b><small>Link, versão e o que mudou</small></span>
+          <a href="operacao-piracema/index.html"><b>Jogo Operação Piracema</b><small>Para aprender brincando</small></a>
+          <a class="dd__all" href="ferramentas.html">Ver todas &rarr;</a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false">Aprenda grátis</button>
+        <div class="dd__menu">
+          <a href="videos.html"><b>Vídeos tutoriais</b><small>Cadastros e consultas, passo a passo</small></a>
+          <a href="artigos.html"><b>Artigos</b><small>Guias e fundamentos</small></a>
+          <a href="artigos/sisema-quem-faz-o-que.html"><b>Sisema: quem faz o quê</b><small>O mapa dos órgãos de MG</small></a>
+        </div>
+      </div>
+      <a class="nav__item" href="sobre.html" >Sobre</a>
+      <a class="btn btn--solid nav__cta" href="index.html#lista">Lista de espera</a>
+    </nav>
+    <button class="nav__burger" type="button" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<main class="wrap article">
+  <div class="article__head stack-sm">
+    <p class="ref">Ferramentas &middot; memorial descritivo &middot; roda no seu navegador, também sem internet</p>
+    <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Memorial descritivo em polígono no mapa</h1>
+    <p style="color:var(--text-soft);font-size:1.12rem;margin-top:.6rem">
+      Cole o memorial da matrícula, com o ponto de partida e cada lado em azimute ou rumo e distância. A página monta
+      a poligonal no plano UTM (SIRGAS 2000), mostra o desenho, a área, o perímetro e o erro de fechamento, e entrega o
+      polígono em KML, GeoJSON e shapefile para abrir no SIG.
+    </p>
+  </div>
+
+  <div class="article__body">
+    <div class="nota">
+      <strong>Nada sai do seu aparelho.</strong> O texto que você cola é lido e calculado aqui mesmo, no navegador: não
+      há envio para servidor nem cadastro (Lei 13.709/2018, LGPD). Só o mapa de fundo, se ligado, busca os blocos do
+      OpenStreetMap, e esse pedido não leva o seu texto.
+    </div>
+
+    <div class="calc" id="calc">
+      <div class="calc__step">
+        <span class="calc__step-label">Passo 1 &middot; O memorial</span>
+        <label class="calc__lbl" for="texto">Texto do memorial (trecho da matrícula) ou tabela vértice; azimute ou rumo; distância</label>
+        <textarea id="texto" rows="9" spellcheck="false" placeholder="Inicia-se no vértice V1, de coordenadas E 612.000,00 m e N 7.795.000,00 m, fuso 23 S, SIRGAS 2000; deste segue com azimute de 120°15'30&quot; e distância de 85,40 m até o vértice V2; deste segue com rumo S 12°00' W e distância de 230,50 m...
+
+ou a tabela:
+V1; 120°15'30&quot;; 85,40
+V2; S 12° W; 230,50"></textarea>
+        <div class="acoes">
+          <button type="button" class="btn btn--solid" id="ler">Ler o memorial</button>
+          <button type="button" class="btn btn--ghost" id="exemplo">Exemplo</button>
+          <button type="button" class="btn btn--ghost" id="limpar">Limpar</button>
+        </div>
+        <p class="calc__hint">Aceita azimute em graus, minutos e segundos (120°15'30") ou em grau decimal (120,2583°), rumo
+          por quadrante (N 45°30' E, S 12° W, NO, SE), distância com vírgula ou ponto, e a tabela que uma IA extrai do PDF.</p>
+      </div>
+
+      <div class="calc__step">
+        <span class="calc__step-label">Passo 2 &middot; Ponto de partida</span>
+        <div class="calc__row">
+          <div class="calc__field"><label for="pe">E (m)</label><input id="pe" class="tx" inputmode="decimal" autocomplete="off" placeholder="ex.: 612.000,00"></div>
+          <div class="calc__field"><label for="pn">N (m)</label><input id="pn" class="tx" inputmode="decimal" autocomplete="off" placeholder="ex.: 7.795.000,00"></div>
+          <div class="calc__field calc__field--curto"><label for="fuso">Fuso UTM</label>
+            <select id="fuso">
+              <option value="18">18 S (MC 75° W)</option><option value="19">19 S (MC 69° W)</option><option value="20">20 S (MC 63° W)</option>
+              <option value="21">21 S (MC 57° W)</option><option value="22">22 S (MC 51° W)</option><option value="23" selected>23 S (MC 45° W)</option>
+              <option value="24">24 S (MC 39° W)</option><option value="25">25 S (MC 33° W)</option>
+            </select>
+          </div>
+        </div>
+        <p class="calc__hint" id="partida-info" role="status">A coordenada de partida e o fuso vêm do texto. Se não vierem, ou vierem errados, corrija aqui e toque em "Recalcular".</p>
+        <div class="acoes"><button type="button" class="btn btn--ghost" id="recalcular">Recalcular</button></div>
+      </div>
+
+      <div class="calc__step" id="resultado" aria-live="polite">
+        <span class="calc__step-label">Passo 3 &middot; Poligonal</span>
+        <p class="calc__placeholder" id="vazio">Cole o memorial e toque em "Ler o memorial", ou veja o Exemplo.</p>
+        <div id="saida" hidden>
+          <dl class="calc__resultado">
+            <div><dt>Vértices</dt><dd id="o-n">—</dd></div>
+            <div><dt>Perímetro</dt><dd id="o-per">—</dd></div>
+            <div><dt>Área</dt><dd id="o-area">—<small>no plano UTM</small></dd></div>
+            <div><dt>Erro de fechamento</dt><dd id="o-erro">—</dd></div>
+            <div><dt>Precisão relativa</dt><dd id="o-prec">—</dd></div>
+            <div><dt>Datum e fuso</dt><dd id="o-sis" style="font-size:1.05rem">—</dd></div>
+          </dl>
+          <p class="fecho" id="o-fecho"></p>
+          <ul class="confere" id="o-conf"></ul>
+
+          <div class="mapa">
+            <div class="mapa__barra">
+              <label><input type="checkbox" id="fundo" checked> Mapa de fundo (OpenStreetMap, precisa de internet)</label>
+              <span class="calc__hint" id="mapa-info"></span>
+            </div>
+            <svg id="mapa" viewBox="0 0 800 520" role="img" aria-label="Desenho do polígono, com grade UTM e norte"></svg>
+            <p class="mapa__attr" id="attr" hidden>Mapa de fundo &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a></p>
+          </div>
+
+          <div class="baixar">
+            <div class="calc__field"><label for="nome">Nome do polígono nos arquivos</label><input id="nome" class="tx" value="Imóvel do memorial" maxlength="60"></div>
+            <div class="acoes">
+              <button type="button" class="btn btn--solid" data-baixar="kml">Baixar KML</button>
+              <button type="button" class="btn btn--solid" data-baixar="geojson">Baixar GeoJSON</button>
+              <button type="button" class="btn btn--solid" data-baixar="shp">Baixar Shapefile (zip)</button>
+            </div>
+            <p class="calc__hint" id="o-arqs">KML e GeoJSON em latitude e longitude (SIRGAS 2000). Shapefile em metros, SIRGAS 2000 / UTM, com o .prj.</p>
+          </div>
+
+          <h3 class="sub">Vértices e lados lidos</h3>
+          <p class="calc__hint">Confira cada lado com o original: o trecho lido está na última coluna.</p>
+          <div class="tabela"><table id="o-tab">
+            <thead><tr><th>Vértice</th><th>E (m)</th><th>N (m)</th><th>Latitude</th><th>Longitude</th><th>Azimute do lado</th><th>Distância (m)</th><th>Lido do texto</th></tr></thead>
+            <tbody></tbody>
+          </table></div>
+        </div>
+        <div class="erro" id="o-erro-msg" hidden></div>
+      </div>
+    </div>
+
+    <aside class="limite" id="limite">
+      <p class="limite__t">ⓘ limite</p>
+      <ul>
+        <li><b>Azimute plano.</b> Cada lado é somado no plano UTM (azimute de quadrícula). Memorial calculado com azimute
+          geodésico ou no Sistema Geodésico Local, como o do SIGEF, pode diferir um pouco, e a área aqui é a do plano UTM,
+          não a do SGL que o SIGEF usa.</li>
+        <li><b>Rumo magnético antigo não é corrigido.</b> A declinação magnética em MG passa hoje de 20° e muda a cada
+          ano; sem a data do levantamento não há como saber quanto girar. O fechamento mostra se a descrição é coerente,
+          não se o rumo é verdadeiro ou magnético.</li>
+        <li><b>SAD 69 e Córrego Alegre recebem aviso, sem conversão.</b> A coordenada é tratada como SIRGAS 2000. Em MG a
+          diferença chega a dezenas de metros: converta a partida no ProGriD, do IBGE, antes.</li>
+        <li><b>Confira o desenho no SIG e no original.</b> A leitura do texto pode errar um lado, e o próprio memorial pode
+          ter erro de digitação. A tabela de lados mostra o trecho lido de cada um.</li>
+        <li><b>Não substitui levantamento topográfico nem georreferenciamento certificado no SIGEF</b> (Lei 10.267/2001).
+          É uma reconstrução do que o texto descreve.</li>
+        <li><b>Nada é enviado a servidor.</b> Tudo roda no navegador (LGPD).</li>
+        <li><b>Critério do fechamento.</b> As faixas "bom" (1:5.000 ou melhor), "fraco" (1:1.000 a 1:5.000) e "ruim"
+          (pior que 1:1.000) são critério desta página para chamar a atenção, não tolerância de norma. A tolerância de
+          uma poligonal depende da classe do levantamento (ABNT NBR 13133).</li>
+      </ul>
+    </aside>
+
+    <h2 id="ia">Como usar com IA</h2>
+    <p>Certidão de matrícula costuma vir como imagem, em várias páginas, com o memorial no meio do texto. Uma IA de
+      conversa (com leitura de PDF ou de foto) transcreve bem esse trecho para uma tabela, e a tabela entra aqui. O
+      cálculo continua sendo feito por esta página, não pela IA.</p>
+    <ol>
+      <li>Anexe as páginas da certidão na IA e cole o pedido abaixo.</li>
+      <li>Confira página por página: a IA diz quantos lados leu em cada página; compare com o original.</li>
+      <li>Copie a resposta inteira (a linha da partida e a tabela) e cole no Passo 1.</li>
+      <li>Se o fechamento sair ruim, procure o lado com "ilegível" ou o número que a IA pode ter trocado.</li>
+    </ol>
+    <pre class="resumo" id="pedido-ia">PAPEL
+Você é um conferente que transcreve memoriais descritivos de certidões de matrícula de imóvel, sem interpretar.
+
+TAREFA
+Transcreva o memorial descritivo do imóvel das páginas anexadas para uma tabela, um lado por linha, na ordem do texto.
+
+MATERIAL
+As páginas da certidão que eu anexei (PDF ou fotos).
+
+REGRAS
+1. Comece pela coordenada de partida exatamente como está escrita (E e N com o fuso ou o meridiano central, ou latitude e longitude) e pelo datum citado (SIRGAS 2000, SAD 69, Córrego Alegre ou nenhum).
+2. Uma linha por lado: o vértice de onde o lado sai, o azimute ou o rumo exatamente como escrito (graus, minutos, segundos e quadrante), a distância em metros e a página.
+3. Não calcule, não arredonde, não converta rumo em azimute e não corrija nada.
+4. Confira página por página: ao fim, diga quantos lados leu em cada página.
+5. Número ilegível ou cortado: escreva "ilegível" na célula. Não adivinhe.
+6. Se não houver memorial com azimute ou rumo e distância, responda só "não encontrado".
+
+SAÍDA
+Primeira linha: Partida: E ... m, N ... m, fuso ..., datum ...
+Depois a tabela:
+| Vértice | Azimute ou rumo | Distância (m) | Página |</pre>
+    <div class="acoes"><button type="button" class="btn btn--ghost" id="copiar-ia">Copiar o pedido</button><span class="calc__hint" id="copiado" role="status"></span></div>
+
+    <h2>Direto do PDF, no celular</h2>
+    <p>O app <a href="chao-geo-mg.html">Chão Geo MG</a> faz o mesmo cálculo direto do PDF da matrícula, no botão
+      "Ler documento (PDF)", sem precisar da IA nem de copiar e colar, e confere a poligonal com as coordenadas
+      quando o memorial também as traz.</p>
+
+    <h2>Sem internet</h2>
+    <p>Depois da primeira visita, esta página abre sem internet neste navegador. Para levar a campo ou guardar no
+      computador, baixe a ferramenta num arquivo só: abre com dois cliques, no navegador, sem instalar nada. Sem
+      internet o mapa de fundo some e fica o desenho com a grade UTM e o norte.</p>
+    <div class="acoes"><button type="button" class="btn btn--solid" id="baixar-html">Baixar a ferramenta (HTML único)</button><span class="calc__hint" id="offline-info" role="status"></span></div>
+
+    <h2>De onde vem cada regra</h2>
+    <ul class="fontes">
+      <li><b>Lado por azimute e distância:</b> E = E<sub>0</sub> + d &middot; sen(Az) e N = N<sub>0</sub> + d &middot; cos(Az),
+        somados lado a lado; erro de fechamento é a distância entre onde o último lado chega e o ponto de partida, e a
+        precisão relativa é perímetro &divide; erro (cálculo de poligonal, ABNT NBR 13133, Execução de levantamento topográfico).</li>
+      <li><b>Rumo em azimute:</b> NE = rumo; SE = 180° &minus; rumo; SW = 180° + rumo; NW = 360° &minus; rumo (mesma regra do app Chão Geo MG).</li>
+      <li><b>Área:</b> fórmula de Gauss sobre as coordenadas UTM. O SIGEF calcula a área no Sistema Geodésico Local
+        (<a href="https://sigef.incra.gov.br/static/documentos/manual_tecnico_posicionamento_1ed.pdf" target="_blank" rel="noopener">Manual Técnico de Posicionamento</a>, INCRA, 2013).</li>
+      <li><b>Georreferenciamento certificado:</b> <a href="https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10267.htm" target="_blank" rel="noopener">Lei 10.267/2001</a> e
+        <a href="https://sigef.incra.gov.br/static/documentos/norma_tecnica_georreferenciamento_imoveis_rurais_3ed.pdf" target="_blank" rel="noopener">Norma Técnica para Georreferenciamento de Imóveis Rurais</a>, 3ª ed. (INCRA, 2013).</li>
+      <li><b>UTM e SIRGAS 2000:</b> elipsoide GRS80, fator de escala 0,9996, falso norte 10.000.000 m; série de
+        <a href="https://pubs.usgs.gov/publication/pp1395" target="_blank" rel="noopener">Snyder, Map Projections (USGS, 1987)</a>.
+        SIRGAS 2000 é o referencial oficial desde a Resolução do Presidente do IBGE nº 1/2005; códigos EPSG 31978 a 31985
+        (<a href="https://epsg.io/31983" target="_blank" rel="noopener">31983 = UTM 23S</a>).</li>
+      <li><b>SAD 69 e Córrego Alegre:</b> conversão para SIRGAS 2000 no
+        <a href="https://www.ibge.gov.br/geociencias/informacoes-sobre-posicionamento-geodesico/servicos-para-posicionamento-geodesico/16312-progrid.html" target="_blank" rel="noopener">ProGriD</a> (IBGE).</li>
+      <li><b>Declinação magnética:</b> <a href="https://www.ngdc.noaa.gov/geomag/calculators/magcalc.shtml" target="_blank" rel="noopener">calculadora do World Magnetic Model</a> (NOAA).</li>
+      <li><b>Arquivos:</b> <a href="https://www.ogc.org/standard/kml/" target="_blank" rel="noopener">KML 2.2</a> (OGC),
+        <a href="https://www.rfc-editor.org/rfc/rfc7946" target="_blank" rel="noopener">GeoJSON, RFC 7946</a> e
+        <a href="https://www.esri.com/content/dam/esrisites/sitecore-archive/Files/Pdfs/library/whitepapers/pdfs/shapefile.pdf" target="_blank" rel="noopener">ESRI Shapefile Technical Description</a> (1998).</li>
+      <li><b>Mapa de fundo:</b> blocos do OpenStreetMap, com a atribuição pedida na
+        <a href="https://operations.osmfoundation.org/policies/tiles/" target="_blank" rel="noopener">política de uso</a>; só os blocos da área desenhada, sem baixar em massa.</li>
+      <li><b>Exemplo:</b> a Fazenda Vereda do Exemplo é inventada; nome, coordenadas e medidas são fictícios.</li>
+    </ul>
+    <p class="calc__hint">Conferido em 24/10/2026.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="stack-sm" style="gap:.5rem">
+      <strong style="font-family:var(--f-display)">O Analista Ambiental</strong>
+      <a href="mailto:contato@oanalistaambiental.com">contato@oanalistaambiental.com</a>
+      <span>Belo Horizonte &middot; Minas Gerais</span>
+    </div>
+    <div class="rodape-links">
+      <span class="rodape-t">Mais</span>
+      <a href="cursos.html">Palestras e capacitações</a>
+      <a href="chao-geo-mg.html">App Chão Geo MG</a>
+    </div>
+    <div class="stack-sm rodape-redes">
+      <span class="rodape-t">Redes</span>
+      <a href="https://www.youtube.com/@OAnalistaAmb" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.linkedin.com/in/oanalistaambiental" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/oanalistaambiental/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <p class="disclaimer">
+      Conteúdo de caráter educativo. As opiniões aqui expressas são pessoais do autor e não
+      representam posição institucional de qualquer órgão ou entidade. Nada neste site substitui
+      a consulta à legislação vigente nem a análise do caso concreto pelo órgão competente.
+    </p>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/memorial-geo.js"></script>
+<script>
+/* Interface da página: lê o texto, desenha, lista e baixa. O cálculo está em js/memorial-geo.js. */
+(function () {
+  "use strict";
+  var M = window.MemorialGeo;
+  var $ = function (id) { return document.getElementById(id); };
+  var ARQUIVO = location.protocol === "file:";
+  var EXEMPLO = "MEMORIAL DESCRITIVO — EXEMPLO FICTÍCIO, SÓ PARA DEMONSTRAÇÃO (nomes, valores e coordenadas inventados)\nImóvel: Fazenda Vereda do Exemplo, zona rural de município de Minas Gerais. Matrícula: fictícia.\nÁrea: 2.324,0104 ha. Perímetro: 18.961,69 m.\nInicia-se a descrição deste perímetro no vértice V-01, de coordenadas N 7.912.640,25 m e E 452.318,40 m, referidas ao Meridiano Central 45° WGr, fuso 23 S, Datum SIRGAS 2000; deste, segue com azimute de 354°52'30\" e distância de 700,65 m, até o vértice V-02; deste, segue com azimute de 10°21'53\" e distância de 742,69 m, até o vértice V-03; deste, segue com azimute de 67°58'10\" e distância de 767,93 m, até o vértice V-04; deste, segue com azimute de 101°54'58\" e distância de 875,47 m, até o vértice V-05; deste, segue com rumo S 79°30'52\" E e distância de 586,65 m, até o vértice V-06; deste, segue com azimute de 72°05'22\" e distância de 456,00 m, até o vértice V-07; deste, segue com azimute de 66°11'50\" e distância de 525,51 m, até o vértice V-08; deste, segue com azimute de 69°58'36\" e distância de 635,15 m, até o vértice V-09; deste, segue com azimute de 115°15'28\" e distância de 572,71 m, até o vértice V-10; deste, segue com azimute de 103°54'43\" e distância de 643,97 m, até o vértice V-11; deste, segue com azimute de 133°07'39\" e distância de 630,06 m, até o vértice V-12; deste, segue com rumo S 30°42'06\" E e distância de 634,27 m, até o vértice V-13; deste, segue com azimute de 152°27'09\" e distância de 655,55 m, até o vértice V-14; deste, segue com azimute de 193°56'19\" e distância de 674,14 m, até o vértice V-15; deste, segue com azimute de 224°42'57\" e distância de 720,53 m, até o vértice V-16; deste, segue com azimute de 239°59'32\" e distância de 632,82 m, até o vértice V-17; deste, segue com azimute de 204°23'00\" e distância de 432,36 m, até o vértice V-18; deste, segue com rumo S 14°52'15\" W e distância de 516,28 m, até o vértice V-19; deste, segue com azimute de 194°22'57\" e distância de 688,50 m, até o vértice V-20; deste, segue com azimute de 205°32'40\" e distância de 832,25 m, até o vértice V-21; deste, segue com azimute de 262°41'28\" e distância de 686,42 m, até o vértice V-22; deste, segue com azimute de 288°59'13\" e distância de 692,21 m, até o vértice V-23; deste, segue com azimute de 311°23'17\" e distância de 683,59 m, até o vértice V-24; deste, segue com rumo N 68°24'56\" W e distância de 563,36 m, até o vértice V-25; deste, segue com azimute de 315°47'58\" e distância de 563,50 m, até o vértice V-26; deste, segue com azimute de 344°45'02\" e distância de 579,82 m, até o vértice V-27; deste, segue com azimute de 326°40'34\" e distância de 494,18 m, até o vértice V-28; deste, segue com azimute de 341°08'14\" e distância de 497,20 m, até o vértice V-29; deste, segue com azimute de 351°58'57\" e distância de 500,09 m, até o vértice V-30; deste, segue com azimute de 321°53'41\" e distância de 777,83 m, até o vértice V-01, ponto inicial desta descrição.";
+  var atual = null;
+
+  function numero(s) { s = String(s || "").trim(); return s ? M.numeroMetrico(s) : null; }
+  function fmt(v, c) { return M.decimal(v, c); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  function ler(usarCampos) {
+    var texto = $("texto").value;
+    var op = {};
+    if (usarCampos) {
+      var e = numero($("pe").value), n = numero($("pn").value);
+      if (e != null && n != null) { op.e = e; op.n = n; }
+      op.fuso = Number($("fuso").value);
+    }
+    var r = M.analisar(texto, op);
+    if (!usarCampos) preencherPartida(r);
+    else $("partida-info").textContent = "Partida e fuso informados por você: E " + fmt(op.e != null ? op.e : 0, 2) + ", N " + fmt(op.n != null ? op.n : 0, 2) + ", fuso " + op.fuso + " S.";
+    mostrar(r);
+  }
+
+  function preencherPartida(r) {
+    var p = r.partidaLida, info = $("partida-info");
+    if (p) {
+      $("pe").value = fmt(p.e, 2); $("pn").value = fmt(p.n, 2); $("fuso").value = String(p.fuso);
+      info.textContent = (p.origem === "geo"
+        ? "Partida lida em latitude e longitude (" + p.lat.toFixed(6) + ", " + p.lon.toFixed(6) + ") e convertida para UTM fuso " + p.fuso + " S."
+        : "Partida lida do texto: “" + p.txt.replace(/\s+/g, " ").trim() + "”, fuso " + p.fuso + " S" + (p.fusoDeduzido ? " (deduzido)" : " (escrito no texto)") + ".") +
+        " Corrija aqui se precisar.";
+    } else if (r.fusoTexto) {
+      $("fuso").value = String(r.fusoTexto);
+      info.textContent = "Fuso " + r.fusoTexto + " S lido do texto, mas sem coordenada de partida: preencha E e N.";
+    } else {
+      info.textContent = "Coordenada de partida não encontrada no texto: preencha E, N e o fuso e toque em “Recalcular”.";
+    }
+  }
+
+  function mostrar(r) {
+    atual = r.poligonal ? r : null;
+    var msg = $("o-erro-msg");
+    $("vazio").hidden = true;
+    if (!r.poligonal) {
+      $("saida").hidden = true;
+      msg.hidden = false;
+      msg.innerHTML = "<b>Não deu para montar a poligonal.</b> " + esc(r.erro) +
+        (r.lados.length ? " Lados reconhecidos até aqui: " + r.lados.length + "." : "") +
+        r.avisos.map(function (a) { return "<br>" + esc(a); }).join("");
+      return;
+    }
+    msg.hidden = true;
+    $("saida").hidden = false;
+    var p = r.poligonal;
+    $("o-n").innerHTML = p.vertices.length + "<small>" + r.lados.length + " lados lidos" + (r.lados.some(function (l) { return l.deRumo; }) ? ", com rumos" : "") + "</small>";
+    $("o-per").innerHTML = fmt(p.perimetroM, 2) + " m<small>soma dos lados</small>";
+    $("o-area").innerHTML = fmt(p.areaM2 / 10000, 4) + " ha<small>" + fmt(p.areaM2, 2) + " m² no plano UTM</small>";
+    $("o-erro").innerHTML = fmt(p.erroFechamentoM, 3) + " m<small>entre a chegada do último lado e a partida</small>";
+    $("o-prec").innerHTML = (p.precisaoRelativa ? "1:" + M.inteiro(Math.floor(p.precisaoRelativa + 1e-6)) : "exato") + "<small>perímetro &divide; erro</small>";
+    $("o-sis").innerHTML = esc((r.datum || "SIRGAS 2000 (não citado)") + " · UTM " + p.fuso + " S") + "<small>EPSG " + M.epsg(p.fuso) + " no shapefile</small>";
+    var f = $("o-fecho");
+    f.className = "fecho fecho--" + p.qualidade.nivel;
+    f.textContent = p.qualidade.texto;
+    var itens = r.avisos.map(function (a) { return { nivel: "atencao", texto: a }; }).concat(r.conferencias.slice(1));
+    $("o-conf").innerHTML = itens.map(function (c) {
+      return '<li class="confere--' + c.nivel + '"><span>' + (c.nivel === "ok" ? "OK" : c.nivel === "info" ? "Nota" : "Atenção") + "</span>" + esc(c.texto) + "</li>";
+    }).join("");
+    tabela(r);
+    desenhar(r);
+  }
+
+  function tabela(r) {
+    var p = r.poligonal;
+    $("o-tab").querySelector("tbody").innerHTML = p.vertices.map(function (v, i) {
+      var l = r.lados[i];
+      return "<tr><td>" + esc(p.nomes[i]) + "</td><td>" + fmt(v[0], 2) + "</td><td>" + fmt(v[1], 2) + "</td><td>" + p.geo[i][0].toFixed(7) +
+        "</td><td>" + p.geo[i][1].toFixed(7) + "</td><td>" + M.dms(l.azimuteGraus) + (l.deRumo ? ' <small>(rumo)</small>' : "") + "</td><td>" + fmt(l.distanciaM, 2) +
+        '</td><td class="trecho">' + esc(l.trecho.length > 140 ? l.trecho.slice(0, 140) + "…" : l.trecho) + "</td></tr>";
+    }).join("");
+  }
+
+  // ------------------------------------------------------------ mapa (Web Mercator, blocos OSM opcionais)
+
+  var W = 800, H = 520, TILE = 256;
+  function px(lat, lon, z) {
+    var s = TILE * Math.pow(2, z), la = lat * Math.PI / 180;
+    return [(lon + 180) / 360 * s, (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * s];
+  }
+  function desenhar(r) {
+    var p = r.poligonal, svg = $("mapa");
+    var pts = p.geo.slice(), chegada = M.inverter(p.chegada[0], p.chegada[1], p.fuso, true);
+    var z = 18, xy, x0, y0;
+    for (; z > 1; z--) {
+      xy = pts.map(function (g) { return px(g[0], g[1], z); });
+      var xs = xy.map(function (a) { return a[0]; }), ys = xy.map(function (a) { return a[1]; });
+      var bw = Math.max.apply(null, xs) - Math.min.apply(null, xs), bh = Math.max.apply(null, ys) - Math.min.apply(null, ys);
+      if (bw <= W - 120 && bh <= H - 110) break;
+    }
+    xy = pts.map(function (g) { return px(g[0], g[1], z); });
+    var cx = (Math.max.apply(null, xy.map(function (a) { return a[0]; })) + Math.min.apply(null, xy.map(function (a) { return a[0]; }))) / 2;
+    var cy = (Math.max.apply(null, xy.map(function (a) { return a[1]; })) + Math.min.apply(null, xy.map(function (a) { return a[1]; }))) / 2;
+    x0 = cx - W / 2; y0 = cy - H / 2;
+    function tela(lat, lon) { var a = px(lat, lon, z); return [a[0] - x0, a[1] - y0]; }
+    var h = [];
+
+    // Fundo: blocos do OSM (só com internet e com a caixa marcada).
+    var querFundo = $("fundo").checked && navigator.onLine !== false;
+    h.push('<rect class="m-fundo" x="0" y="0" width="' + W + '" height="' + H + '"/>');
+    if (querFundo) {
+      var n = Math.pow(2, z), tiles = [];
+      for (var tx = Math.floor(x0 / TILE); tx <= Math.floor((x0 + W) / TILE); tx++) {
+        for (var ty = Math.floor(y0 / TILE); ty <= Math.floor((y0 + H) / TILE); ty++) {
+          if (ty < 0 || ty >= n) continue;
+          tiles.push('<image class="m-tile" href="https://tile.openstreetmap.org/' + z + "/" + (((tx % n) + n) % n) + "/" + ty + '.png" x="' + (tx * TILE - x0).toFixed(1) +
+            '" y="' + (ty * TILE - y0).toFixed(1) + '" width="' + TILE + '" height="' + TILE + '"/>');
+        }
+      }
+      h.push('<g id="tiles">' + tiles.join("") + "</g>");
+    }
+
+    // Grade UTM do fuso, em linhas projetadas (não é paralela à borda: o norte da quadrícula gira um pouco).
+    var cantos = [[0, 0], [W, 0], [0, H], [W, H]].map(function (c) {
+      var s = TILE * Math.pow(2, z), X = (c[0] + x0) / s * 360 - 180, Y = Math.PI * (1 - 2 * (c[1] + y0) / s);
+      var la = Math.atan(Math.sinh(Y)) * 180 / Math.PI;
+      return M.projetar(la, X, p.fuso, true);
+    });
+    var Emin = Math.min.apply(null, cantos.map(function (c) { return c.e; })), Emax = Math.max.apply(null, cantos.map(function (c) { return c.e; }));
+    var Nmin = Math.min.apply(null, cantos.map(function (c) { return c.n; })), Nmax = Math.max.apply(null, cantos.map(function (c) { return c.n; }));
+    var passo = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000].filter(function (s) { return (Emax - Emin) / s <= 7; })[0] || 100000;
+    var g = [];
+    for (var E = Math.ceil(Emin / passo) * passo; E <= Emax; E += passo) {
+      var a = M.inverter(E, Nmin, p.fuso, true), b = M.inverter(E, Nmax, p.fuso, true), ta = tela(a[0], a[1]), tb = tela(b[0], b[1]);
+      g.push('<line x1="' + ta[0].toFixed(1) + '" y1="' + ta[1].toFixed(1) + '" x2="' + tb[0].toFixed(1) + '" y2="' + tb[1].toFixed(1) + '"/>');
+      var xr = ta[0] + (tb[0] - ta[0]) * (ta[1] - (H - 6)) / (ta[1] - tb[1] || 1);
+      if (xr > 30 && xr < W - 60) g.push('<text class="m-rot" x="' + xr.toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle">E ' + M.inteiro(E) + "</text>");
+    }
+    for (var N = Math.ceil(Nmin / passo) * passo; N <= Nmax; N += passo) {
+      var c = M.inverter(Emin, N, p.fuso, true), d = M.inverter(Emax, N, p.fuso, true), tc = tela(c[0], c[1]), td = tela(d[0], d[1]);
+      g.push('<line x1="' + tc[0].toFixed(1) + '" y1="' + tc[1].toFixed(1) + '" x2="' + td[0].toFixed(1) + '" y2="' + td[1].toFixed(1) + '"/>');
+      var yr = tc[1] + (td[1] - tc[1]) * (6 - tc[0]) / (td[0] - tc[0] || 1);
+      if (yr > 50 && yr < H - 30) g.push('<text class="m-rot" x="6" y="' + (yr - 3).toFixed(1) + '">N ' + M.inteiro(N) + "</text>");
+    }
+    h.push('<g class="m-grade">' + g.join("") + "</g>");
+
+    // Polígono, vértices e, se não fecha, a chegada do último lado.
+    var tp = pts.map(function (q) { return tela(q[0], q[1]); });
+    h.push('<polygon class="m-pol" points="' + tp.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" ") + '"/>');
+    var tc2 = tela(chegada[0], chegada[1]), tl = tp[tp.length - 1], t0 = tp[0];
+    if (Math.hypot(tc2[0] - t0[0], tc2[1] - t0[1]) > 3) {
+      h.push('<line class="m-gap" x1="' + tl[0].toFixed(1) + '" y1="' + tl[1].toFixed(1) + '" x2="' + tc2[0].toFixed(1) + '" y2="' + tc2[1].toFixed(1) + '"/>' +
+        '<circle class="m-chegada" cx="' + tc2[0].toFixed(1) + '" cy="' + tc2[1].toFixed(1) + '" r="5"/><text class="m-rot m-rot--gap" x="' + (tc2[0] + 8).toFixed(1) + '" y="' + (tc2[1] - 8).toFixed(1) + '">chegada do último lado</text>');
+    }
+    var rotular = tp.length <= 45;
+    tp.forEach(function (q, i) {
+      h.push('<circle class="m-v' + (i === 0 ? " m-v0" : "") + '" cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="' + (i === 0 ? 5 : 3) + '"/>');
+      if (rotular || i === 0) h.push('<text class="m-nome" x="' + (q[0] + 6).toFixed(1) + '" y="' + (q[1] - 5).toFixed(1) + '">' + esc(p.nomes[i]) + "</text>");
+    });
+
+    // Norte e escala.
+    h.push('<g class="m-norte" transform="translate(' + (W - 34) + ',18)"><path d="M0 0 L9 26 L0 20 L-9 26 Z"/><text x="0" y="40" text-anchor="middle">N</text></g>');
+    var latc = pts.reduce(function (s, q) { return s + q[0]; }, 0) / pts.length;
+    var mpp = Math.cos(latc * Math.PI / 180) * 2 * Math.PI * 6378137 / (TILE * Math.pow(2, z));
+    var esc_m = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000].filter(function (s) { return s / mpp <= 180; }).pop() || 10;
+    var len = esc_m / mpp;
+    h.push('<g class="m-escala" transform="translate(' + (W - 30 - len).toFixed(1) + "," + (H - 36) + ')"><rect x="-6" y="-16" width="' + (len + 12).toFixed(1) + '" height="26" rx="2"/>' +
+      '<path d="M0 0 v6 h' + len.toFixed(1) + ' v-6"/><text x="' + (len / 2).toFixed(1) + '" y="-4" text-anchor="middle">' + (esc_m >= 1000 ? esc_m / 1000 + " km" : esc_m + " m") + "</text></g>");
+    svg.innerHTML = h.join("");
+
+    $("attr").hidden = !querFundo;
+    $("mapa-info").textContent = querFundo ? "" : (navigator.onLine === false ? "Sem internet: desenho com a grade UTM (" + passo + " m) e o norte." : "Grade UTM de " + passo + " m e norte verdadeiro para cima.");
+    if (querFundo) {
+      var imgs = svg.querySelectorAll(".m-tile"), falhas = 0;
+      Array.prototype.forEach.call(imgs, function (im) {
+        im.addEventListener("error", function () {
+          im.remove();
+          if (++falhas === imgs.length) { $("attr").hidden = true; $("mapa-info").textContent = "Mapa de fundo indisponível: desenho com a grade UTM (" + passo + " m) e o norte."; }
+        });
+      });
+    }
+  }
+
+  // ------------------------------------------------------------ arquivos
+
+  function nomeArquivo() {
+    var s = M.normalizar($("nome").value || "memorial").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    return s || "memorial";
+  }
+  function baixar(nome, dados, tipo) {
+    var url = URL.createObjectURL(new Blob([dados], { type: tipo }));
+    var a = document.createElement("a");
+    a.href = url; a.download = nome;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+  document.querySelectorAll("[data-baixar]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!atual) return;
+      var p = atual.poligonal, nome = ($("nome").value || "Imóvel do memorial").trim(), base = nomeArquivo();
+      if (b.dataset.baixar === "kml") baixar(base + ".kml", M.kml(p, nome), "application/vnd.google-earth.kml+xml");
+      else if (b.dataset.baixar === "geojson") baixar(base + ".geojson", M.geojson(p, nome), "application/geo+json");
+      else baixar(base + "-shp.zip", M.shapefileZip(p, nome, base), "application/zip");
+    });
+  });
+
+  // ------------------------------------------------------------ botões
+
+  $("ler").addEventListener("click", function () { ler(false); });
+  $("recalcular").addEventListener("click", function () { ler(true); });
+  $("exemplo").addEventListener("click", function () { $("texto").value = EXEMPLO; $("nome").value = "Fazenda Vereda do Exemplo (ficticia)"; ler(false); });
+  $("limpar").addEventListener("click", function () {
+    $("texto").value = ""; $("pe").value = ""; $("pn").value = ""; atual = null;
+    $("saida").hidden = true; $("o-erro-msg").hidden = true; $("vazio").hidden = false;
+    $("partida-info").textContent = "A coordenada de partida e o fuso vêm do texto. Se não vierem, ou vierem errados, corrija aqui e toque em “Recalcular”.";
+    $("texto").focus();
+  });
+  $("fundo").addEventListener("change", function () { if (atual) desenhar(atual); });
+  window.addEventListener("online", function () { if (atual) desenhar(atual); });
+  window.addEventListener("offline", function () { if (atual) desenhar(atual); });
+
+  $("copiar-ia").addEventListener("click", function () {
+    var t = $("pedido-ia").textContent;
+    var fim = function (ok) { $("copiado").textContent = ok ? "Pedido copiado." : "Não deu para copiar: selecione o texto e copie."; };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { fim(true); }, function () { fim(false); }); else fim(false);
+  });
+
+  // ------------------------------------------------------------ sem internet
+
+  var FECHA_SCRIPT = "<" + "/script>";
+  function trocar(html, de, para) { var i = html.indexOf(de); return i < 0 ? html : html.slice(0, i) + para + html.slice(i + de.length); }
+  async function buscar(caminho) {
+    try { var r = await fetch(caminho, { cache: "no-cache" }); if (r.ok) return await r.text(); } catch (e) { /* sem rede: tenta o cache */ }
+    if (window.caches) { var c = await caches.match(caminho, { ignoreSearch: true }); if (c) return await c.text(); }
+    throw new Error("sem " + caminho);
+  }
+  if (ARQUIVO) {
+    $("baixar-html").hidden = true;
+    $("offline-info").textContent = "Você está usando a ferramenta baixada, num arquivo só. Ela funciona sem internet.";
+    $("fundo").checked = false;
+  } else {
+    $("baixar-html").addEventListener("click", async function () {
+      var info = $("offline-info");
+      info.textContent = "Montando o arquivo…";
+      try {
+        var partes = await Promise.all(["memorial-geo.html", "css/style.css", "js/nav.js", "js/memorial-geo.js"].map(buscar));
+        var html = partes[0];
+        html = trocar(html, '<link rel="stylesheet" href="css/style.css">', "<style>\n" + partes[1] + "\n</style>");
+        html = trocar(html, '<script src="js/nav.js">' + FECHA_SCRIPT, "<script>\n" + partes[2] + "\n" + FECHA_SCRIPT);
+        html = trocar(html, '<script src="js/memorial-geo.js">' + FECHA_SCRIPT, "<script>\n" + partes[3] + "\n" + FECHA_SCRIPT);
+        html = trocar(html, "<head>", '<head>\n<base href="https://www.oanalistaambiental.com/">');
+        baixar("memorial-geo.html", html, "text/html");
+        info.textContent = "Pronto: guarde o arquivo memorial-geo.html e abra no navegador, mesmo sem internet.";
+      } catch (e) {
+        info.textContent = "Não deu para montar o arquivo agora. Abra a página com internet uma vez e tente de novo.";
+      }
+    });
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("memorial-geo-sw.js", { scope: "memorial-geo.html" }).then(function () {
+        $("offline-info").textContent = navigator.onLine === false ? "Sem internet agora: a página veio da cópia guardada." : "Esta página fica guardada neste navegador para abrir sem internet.";
+      }, function () { /* sem service worker: o HTML único continua valendo */ });
+    }
+  }
+})();
+</script>
+</body>
+</html>
