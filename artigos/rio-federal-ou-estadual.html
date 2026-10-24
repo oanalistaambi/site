@@ -611,7 +611,7 @@
         var t = G.el('div'); t.innerHTML = v.titulo + '. ' + (v.motivo || '');
         return 'Ponto ' + ctx.lat.toFixed(6).replace('.', ',') + ', ' + ctx.lon.toFixed(6).replace('.', ',') + ' (' + ufTxt + '): ' + t.textContent.trim() +
           (v.k === 'nada' ? '' : ' Outorga: ' + quem + '. ' + v.fonte) +
-          ' Consulta indicativa na base pública da ANA; a decisão é a da Plataforma Águas Brasil. Feito em oanalistaambiental.com/artigos/rio-federal-ou-estadual.html';
+          ' Consulta indicativa na base pública da ANA; a decisão é a da Plataforma Águas Brasil. Feito em www.oanalistaambiental.com/artigos/rio-federal-ou-estadual.html';
       } });
     return { voz: v.k === 'nada' ? 'Nenhum rio da base da ANA perto do ponto.' : 'Resultado: domínio ' + (v.k === 'fed' ? 'da União. A outorga é na ANA.' : 'do estado. A outorga é no órgão estadual.') };
   }

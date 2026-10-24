@@ -420,7 +420,7 @@ if (typeof module !== 'undefined') module.exports = REGRAS;
     U.teto = !$('o-teto').hidden ? $('o-teto').textContent : '';
     /* modo completo: resultado válido (município reconhecido + área > 0) acende o selo do kit */
     if (mun && area > 0) { try { if (window.Guiado) window.Guiado.kit.noCompleto('imovel', $('res-mf')); } catch (e) { /* sem armazenamento */ } }
-    $('resumo').textContent = r.length ? r.join('\n') + '\n\nOrientação; a análise do CAR é do órgão estadual. Fonte e conferência: oanalistaambiental.com/artigos/calculadora-imovel-rural-car.html' : 'Escolha o município e informe a área.';
+    $('resumo').textContent = r.length ? r.join('\n') + '\n\nOrientação; a análise do CAR é do órgão estadual. Fonte e conferência: www.oanalistaambiental.com/artigos/calculadora-imovel-rural-car.html' : 'Escolha o município e informe a área.';
   }
 
   /* para o modo guiado: as mesmas funções, sem cópia da regra */

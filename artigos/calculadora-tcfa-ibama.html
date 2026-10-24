@@ -403,7 +403,7 @@ if (typeof module !== "undefined") module.exports = TCFA;
     $("r-rapp").textContent = brl(r.anual * 0.2); $("r-comp").textContent = brl(r.anual * 0.6);
     ultimo = "TCFA (Ibama): " + brl(r.trimestral) + " por trimestre (" + brl(r.anual) + " por ano). " + T.NOME_PORTE[r.porte] +
       " × potencial " + T.NOME_PP[r.categoria.pp] + ", categoria " + r.categoria.c + " (" + r.categoria.nome + ") do Anexo VIII da Lei 6.938/1981. " +
-      "Valores do Ibama a partir do 4º tri/2015. Estimativa: o valor oficial é o da GRU. Calculado em oanalistaambiental.com/artigos/calculadora-tcfa-ibama.html";
+      "Valores do Ibama a partir do 4º tri/2015. Estimativa: o valor oficial é o da GRU. Calculado em www.oanalistaambiental.com/artigos/calculadora-tcfa-ibama.html";
   }
   document.querySelectorAll('input[name="quem"]').forEach(function (i) { i.addEventListener("change", atualiza); });
   ["receita", "ano", "porteManual"].forEach(function (id) { $(id).addEventListener("input", atualiza); $(id).addEventListener("change", atualiza); });
