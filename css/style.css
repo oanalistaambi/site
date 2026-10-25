@@ -139,7 +139,7 @@ p{ margin:0; }
   background:var(--rule-strong);
   flex:none;
 }
-.on-dark .ref{ color:var(--text-invert-soft); }
+.on-dark .ref{ color:#A6B7AB; }   /* fundo do .on-dark é escuro nos dois temas */
 .on-dark .ref::before{ background:currentColor; opacity:.55; }
 
 /* ---------- estrutura ---------- */
@@ -231,7 +231,7 @@ section{ padding-block:clamp(3.5rem,8vw,7rem); }
 .btn:hover{ transform:translateY(-2px); }
 .btn--solid{ background:var(--accent); color:var(--on-accent); }
 .btn--solid:hover{ background:var(--accent-hover); }
-.btn--ghost{ border-color:currentColor; color:inherit; }
+.btn--ghost{ background:transparent; border-color:currentColor; color:inherit; }
 .btn--ghost:hover{ border-color:var(--accent); color:var(--accent); }
 .on-dark .btn--solid{ background:var(--accent-on-dark); color:#08130B; }
 
