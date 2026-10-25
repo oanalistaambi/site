@@ -26,8 +26,9 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   ok(r.status() === 200, `${larg}px: abre`);
   ok(await pg.locator('meta[name="robots"][content*="noindex"]').count() === 1, `${larg}px: noindex`);
   ok(/Preparado com apoio de IA e revisado pelo autor\. Opiniões pessoais, sem representar órgão público\./.test(await pg.locator(".rodape").innerText()), `${larg}px: rodapé`);
-  const mat = await pg.$$eval('nav[aria-label="Material da palestra"] a', as => as.map(a => [a.getAttribute("href"), a.getBoundingClientRect().height]));
-  ok(mat.length === 3 && ["palestra-ia-dae-2026.html", "memorial-geo.html", "ferramentas.html"].every((h, i) => mat[i][0] === h) && mat.every(([, a]) => a >= 44), `${larg}px: 3 links do material da palestra, fáceis de tocar`);
+  const mat = await pg.$$eval('nav[aria-label="Material da palestra"] .material a', as => as.map(a => [a.getAttribute("href"), a.getBoundingClientRect().height]));
+  const esperados = ["palestra-ia-dae-2026.html", "memorial-geo.html", "ferramentas.html", "radar-audio.html#federal", "chao-geo-mg.html#baixar", "chaogeo/#baixar"];
+  ok(mat.length === esperados.length && esperados.every((h, i) => mat[i][0] === h) && mat.every(([, a]) => a >= 44), `${larg}px: ${esperados.length} links do material da palestra, fáceis de tocar`);
   const fichas = await pg.locator("section.ficha").count();
   ok(fichas >= 10, `${larg}px: ${fichas} pedidos`);
   const sobra = await pg.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
