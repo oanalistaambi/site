@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-24T11:45-03:00",
+ "gerado_em": "2026-10-26T15:47-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -89,8 +89,8 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-22",
-    "2026-10-23"
+    "2026-10-23",
+    "2026-10-26"
    ],
    "temas": [
     {
@@ -148,6 +148,14 @@
      "ementa": "Altera a Portaria GM/MMA nº 641, de 12 de novembro de 2019, que instituiu a Comissão de Acompanhamento da Avaliação de Desempenho-CAD, no âmbito do Ministério do Meio Ambiente.",
      "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.808-de-22-de-outubro-de-2026-739948233",
      "referencia": "DOU de 23/10/2026, Seção: 1, p. 66"
+    },
+    {
+     "data": "2026-10-26",
+     "orgao": "Ministério do Meio Ambiente",
+     "titulo": "Portaria GM/MMA nº 1.807, de 22 de outubro de 2026",
+     "ementa": "Institui o Grupo de Trabalho Interinstitucional para a gestão e o uso sustentável dos recursos pesqueiros no âmbito do Ministério do Meio Ambiente e Mudança do Clima.",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.807-de-22-de-outubro-de-2026-740357477",
+     "referencia": "DOU de 26/10/2026, Seção: 1, p. 56"
     }
    ],
    "nome": "Federal (DOU)",
