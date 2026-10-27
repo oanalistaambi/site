@@ -30,6 +30,10 @@ for (const [fid, aba] of [["mg", "#aba-mg"], ["dou", "#aba-federal"]]) {
   const semAudio = f.temas.filter(t => !t.audio).length;
   ok(await pg.locator("#ra-painel .ra-ouvir").count() + await pg.locator("#ra-painel audio").count() === f.temas.length,
     `${fid}: cada tema tem áudio ou botão de voz do navegador (${semAudio} sem MP3)`);
+  for (const a of await pg.$$("#ra-painel audio")) {
+    const dur = await a.evaluate(el => new Promise(res => { el.preload = "metadata"; el.onloadedmetadata = () => res(el.duration); el.onerror = () => res(-1); el.load(); }));
+    ok(dur > 10 && dur < 40, `${fid}: áudio carrega no navegador (${dur.toFixed(1)} s)`);
+  }
   const larg = await pg.evaluate(() => document.documentElement.scrollWidth);
   ok(larg <= 390, `${fid}: sem rolagem lateral em 390 px (${larg})`);
 }
@@ -38,9 +42,9 @@ ok(!/\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{5}\.\d{6}\/\d
 await pg.goto(BASE + "/radar-audio.html#federal", { waitUntil: "networkidle" });
 ok(await pg.locator('#aba-federal[aria-selected="true"]').count() === 1, "#federal abre direto na aba federal");
 ok(erros.length === 0, "sem erro de console " + erros.join(" | "));
-for (const p of ["/index.html", "/radar.html", "/ferramentas.html", "/kit-ia-dae.html", "/sitemap.xml"]) {
+for (const p of ["/index.html", "/radar.html", "/ferramentas.html", "/sitemap.xml"]) {
   const t = await (await ctx.request.get(BASE + p)).text();
-  ok(!t.includes("radar-audio"), `${p} não aponta para radar-audio (fora dos menus)`);
+  ok(!t.includes("radar-audio"), `${p} não aponta para radar-audio (fora dos menus; o kit do DAE aponta desde o PR #36)`);
 }
 await nav.close();
 console.log(falhas ? `${falhas} falha(s)` : "tudo certo");
