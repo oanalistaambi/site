@@ -482,7 +482,7 @@
     var fuso = fusoDoc, deduzido = false;
     if (!fuso) {
       var mg = [22, 23, 24].filter(function (zz) { var g = inverter(c.e, c.n, zz, true); return emMg(g[0], g[1]); });
-      fuso = mg.indexOf(23) >= 0 ? 23 : (mg[0] || 23); // 23 cobre a maior parte de MG
+      fuso = mg[0] || 23; // como o app (ExtratorDocumento.coordenadasUtm): o primeiro de 22, 23, 24 que põe o ponto em MG
       deduzido = true;
       avisos.push(mg.length === 1
         ? "Fuso não escrito no texto: " + fuso + " deduzido (é o único que põe o ponto em MG). Confira."
