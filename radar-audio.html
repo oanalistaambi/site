@@ -125,7 +125,7 @@
 (function(){
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
   var linkOk=function(u){return /^https:\/\/(www\.in\.gov\.br|www\.jornalminasgerais\.mg\.gov\.br)\//.test(u||'')};
-  var audioOk=function(u){return /^https:\/\/github\.com\/oanalistaambi\/site\/releases\/download\/radar-audios\/[\w.-]+\.mp3$/.test(u||'')};
+  var audioOk=function(u){return /^(https:\/\/github\.com\/oanalistaambi\/site\/releases\/download\/radar-audios\/|radar\/audios\/)[\w.-]+\.mp3$/.test(u||'')};
   var br=function(s){var p=s.split('-');return p[2]+'/'+p[1]};
   var fala=('speechSynthesis' in window)?window.speechSynthesis:null, falando=null, dados=null;
   function vozBr(){var v=fala.getVoices().filter(function(x){return /^pt[-_]BR/i.test(x.lang)});return v[0]||null}

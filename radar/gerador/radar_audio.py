@@ -57,7 +57,8 @@ TEMAS = [
 ]
 INTERNO = re.compile(r"Regimento Interno|estrutura regimental|Comit[êe] de Governan|Pol[íi]tica de (Gest[ãa]o da )?Integridade|"
                      r"Avalia[çc][ãa]o de Desempenho|Grupo de Trabalho|Comiss[ãa]o de Acompanhamento|gest[ãa]o de riscos|"
-                     r"planejamento estrat[ée]gico|Programa de Gest[ãa]o e Desempenho|teletrabalho|delega[çc][ãa]o de compet", F)
+                     r"planejamento estrat[ée]gico|Programa de Gest[ãa]o e Desempenho|teletrabalho|delega[çc][ãa]o de compet|"
+                     r"Prote[çc][ãa]o de Dados Pessoais|seguran[çc]a da informa[çc][ãa]o", F)
 EMENTA_VERBO = re.compile(r"^(Disp[õo]e|Estabelece|Altera|Institui|Regulamenta|Aprova|Define|Cria|Revoga|Prorroga|Suspende|"
                           r"Disciplina|Atualiza|Fixa|Torna p[úu]blic|Divulga|Reconhece|Amplia|Acrescenta|Consolida|Convoca)", F)
 LGPD = re.compile(r"\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}|\b\d{4,5}\.\d{2,6}[./]\d{3,7}/\d{4}-\d{2}\b|"
@@ -285,8 +286,13 @@ def main():
     ap.add_argument("--audios", required=True, help="pasta onde gravar os MP3 novos")
     ap.add_argument("--existentes", help="arquivo com os nomes dos MP3 que já estão publicados (um por linha)")
     ap.add_argument("--base-url", default="https://github.com/oanalistaambi/site/releases/download/radar-audios/")
+    ap.add_argument("--no-repo", default="radar/audios",
+                    help="pasta do site com MP3 gerados fora do workflow (sem o segredo); servidos como radar/audios/...")
+    ap.add_argument("--gravar-no-repo", action="store_true",
+                    help="grava os MP3 novos na pasta do site (--no-repo) em vez de --audios (para a release)")
     ap.add_argument("--hoje", default=dt.date.today().isoformat())
     a = ap.parse_args()
+    url_repo = Path(a.no_repo).as_posix().rstrip("/") + "/"
     anterior = {}
     if Path(a.saida).exists():
         anterior = {f["id"]: f for f in json.loads(Path(a.saida).read_text(encoding="utf-8")).get("fontes", [])}
@@ -308,12 +314,17 @@ def main():
             h = hashlib.sha1((t["fala"] + VOZ["id"] + VOZ["modelo"]).encode()).hexdigest()[:10]
             arq = f"{fid}-{t['id']}-{h}.mp3"
             ant = next((x for x in (anterior.get(fid) or {}).get("temas", []) if x.get("audio", "") and x["audio"].endswith(arq)), None)
+            no_repo = Path(a.no_repo) / arq
             if arq in existentes:
                 t["audio"], t["duracao_s"] = a.base_url + arq, (ant or {}).get("duracao_s")
+            elif no_repo.exists():  # gerado antes, sem o segredo, e guardado no site
+                t["audio"], t["duracao_s"] = url_repo + arq, round(no_repo.stat().st_size * 8 / 64000)
             elif chave and enviados + len(t["fala"]) <= MAX_CARACTERES:
                 try:
-                    t["duracao_s"] = gerar_mp3(t["fala"], os.path.join(a.audios, arq), chave)
-                    t["audio"] = a.base_url + arq
+                    destino = no_repo if a.gravar_no_repo else Path(a.audios) / arq
+                    destino.parent.mkdir(parents=True, exist_ok=True)
+                    t["duracao_s"] = gerar_mp3(t["fala"], destino, chave)
+                    t["audio"] = (url_repo if a.gravar_no_repo else a.base_url) + arq
                     enviados += len(t["fala"])
                 except (urllib.error.URLError, ValueError, TimeoutError) as e:
                     print(f"{arq}: sem áudio ({type(e).__name__}: {e}); a página usa a voz do navegador", file=sys.stderr)
