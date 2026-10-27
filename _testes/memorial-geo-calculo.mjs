@@ -133,7 +133,7 @@ na distância de 200,00 m; daí, S 44°30' E, 200,00 m; daí S 45°30' W, 200,00
 }
 { // fuso não escrito: deduzido pelo que cai em MG, com aviso
   const r = M.analisar(`Vértice inicial de coordenadas E 612.000,00 m e N 7.795.000,00 m; azimute 90° e 10 m; azimute 180° e 10 m; azimute 270° e 10 m; azimute 0° e 10 m.`);
-  ok(r.partida.fuso === 23 && r.avisos.some(a => /fusos 22 e 23/.test(a)), "fuso não escrito: cabe em 22 e 23, fica 23 com aviso para escolher");
+  ok(r.partida.fuso === 22 && r.avisos.some(a => /fusos 22 e 23/.test(a)), "fuso não escrito: cabe em 22 e 23, fica o primeiro (22, como no app) com aviso para escolher");
 }
 { // SAD 69 recebe aviso, sem conversão
   const r = M.analisar(memorial.replace("SIRGAS 2000", "SAD 69"));
