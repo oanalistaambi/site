@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-27T18:56-03:00",
+ "gerado_em": "2026-10-28T15:25-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,53 +9,51 @@
   {
    "id": "mg",
    "janela": [
-    "2026-10-24",
-    "2026-10-27"
+    "2026-10-27",
+    "2026-10-28"
    ],
    "temas": [
     {
-     "id": "flora",
-     "nome": "Flora, florestas e unidades de conservação",
-     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad/IEF nº 3.434, de 23 de outubro de 2026, publicada em 24 de outubro. Revoga a Resolução Conjunta SEMAD/IEF nº 3.433 de 22 de outubro de 2026. A ementa continua no texto oficial. Esta resolução conjunta entra em vigor na data de sua publicação. Há mais 2 atos deste tema na página. Confira o texto oficial no link da página.",
-     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad IEF número 3.434, de 23 de outubro de 2026, publicada em 24 de outubro. Revoga a Resolução Conjunta Semad IEF número 3.433 de 22 de outubro de 2026. A ementa continua no texto oficial. Esta resolução conjunta entra em vigor na data de sua publicação. Há mais 2 atos deste tema na página. Confira o texto oficial no link da página.",
-     "audio": "radar/audios/mg-flora-4a61e0877f.mp3",
-     "duracao_s": 32,
+     "id": "fiscalizacao",
+     "nome": "Fiscalização, autos e sanções",
+     "roteiro": "Fiscalização, autos e sanções, no Diário Oficial de Minas Gerais. Resolução ARSAE-MG nº 239, de 26 de outubro de 2026, publicada em 28 de outubro. A ementa é longa; leia o resumo completo no texto oficial. Esta resolução entra em vigor na data da sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Fiscalização, autos e sanções, no Diário Oficial de Minas Gerais. Resolução Arsae-MG número 239, de 26 de outubro de 2026, publicada em 28 de outubro. A ementa é longa; leia o resumo completo no texto oficial. Esta resolução entra em vigor na data da sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
      "atos": [
       {
-       "data": "2026-10-24",
-       "orgao": "IEF",
-       "titulo": "Resolução conjunta Semad/IEF nº 3.434, de 23 de outubro de 2026",
-       "ementa": "Revoga a Resolução Conjunta SEMAD/IEF nº 3.433 de 22 de outubro de 2026,que estabelece a transição do Sistema de Controle de Atividades Florestais – CAF/SIAM para o módulo Controle de Carvão Vegetal – CCV do sistema MG Florestas e revoga a Resolução Conjunta SEMAD/IEF Nº 2.248, de 30 de dezembro de 2014 e a Resolução Conjunta SEMAD/IEF Nº 2.691, de 14 de setembro de 2018.",
+       "data": "2026-10-28",
+       "orgao": "Arsae",
+       "titulo": "Resolução ARSAE-MG nº 239, de 26 de outubro de 2026",
+       "ementa": "Estabelece a desoneração das tabelas tarifárias, das tabelas de preços de serviços complementares e das multas aplicáveis aos usuários dos serviços de abastecimento de água e esgotamento sanitário regulados pela Arsae-MG, para implementação da reforma tributária do consumo.",
        "trechos": {
-        "vigencia": "Esta resolução conjunta entra em vigor na data de sua publicação",
+        "vigencia": "Esta resolução entra em vigor na data da sua publicação",
         "revoga": null
        },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-24T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A8%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 24/10/2026, p. 8, código de autenticidade 320261024872126318"
-      },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-28T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A28%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 28/10/2026, p. 28, código de autenticidade 3202610288076470428"
+      }
+     ]
+    },
+    {
+     "id": "geral",
+     "nome": "Outras normas ambientais",
+     "roteiro": "Outras normas ambientais, no Diário Oficial de Minas Gerais. Resolução conjunta Semad/Seapa/SEDE/Seinfra, publicada em 28 de outubro. Estabelece normas complementares para o cumprimento do Decreto nº 49.260, de 17 de julho de 2026. A ementa continua no texto oficial. Esta resolução conjunta, entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Outras normas ambientais, no Diário Oficial de Minas Gerais. Resolução conjunta Semad Seapa/SEDE Seinfra, publicada em 28 de outubro. Estabelece normas complementares para o cumprimento do Decreto número 49.260, de 17 de julho de 2026. A ementa continua no texto oficial. Esta resolução conjunta, entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
       {
-       "data": "2026-10-24",
-       "orgao": "IEF",
-       "titulo": "Portaria IEF nº 85, de 22 de outubro de 2026",
-       "ementa": "Estabelece normas, procedimentos e orientações para o planejamento e a implementação da gestão de segurança da visitação nas unidades de conservação estaduais administradas pelo Instituto Estadual de Florestas de Minas Gerais.",
+       "data": "2026-10-28",
+       "orgao": "Semad",
+       "titulo": "Resolução conjunta Semad/Seapa/SEDE/Seinfra",
+       "ementa": "Estabelece normas complementares para o cumprimento do Decreto nº 49.260, de 17 de julho de 2026, que dispõe sobre o procedimento administrativo de declaração de utilidade pública ou de interesse social para fins de autorização de intervenção ambiental.",
        "trechos": {
-        "vigencia": "Esta portaria entra em vigor na data de sua publicação",
+        "vigencia": "Esta resolução conjunta, entra em vigor na data de sua publicação",
         "revoga": null
        },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-24T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A9%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 24/10/2026, p. 9, código de autenticidade 320261024872126319"
-      },
-      {
-       "data": "2026-10-24",
-       "orgao": "IEF",
-       "titulo": "Portaria IEF nº 86, de 23 de outubro de 2026",
-       "ementa": "Revoga a Portaria IEF nº 84, de 21 de outubro de 2026, que estabelece diretrizes para o controle do transporte, armazenamento, consumo e uso de carvão vegetal de espécies exóticas no Estado de Minas Gerais.",
-       "trechos": {
-        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-24T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A9%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 24/10/2026, p. 9, código de autenticidade 320261024872126319"
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-28T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A26%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 28/10/2026, p. 26, código de autenticidade 3202610288076470426"
       }
      ]
     }
@@ -67,18 +65,52 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-26",
-    "2026-10-27"
+    "2026-10-27",
+    "2026-10-28"
    ],
    "temas": [
     {
+     "id": "agua",
+     "nome": "Água, outorga e saneamento",
+     "roteiro": "Água, outorga e saneamento, no Diário Oficial da União. Resolução ANA nº 307, de 26 de outubro de 2026, publicada em 28 de outubro. Aprova a divulgação da NOTA TÉCNICA Nº 40/2026/COTAR/SSB-SEI. A ementa continua no texto oficial. Esta Resolução entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Água, outorga e saneamento, no Diário Oficial da União. Resolução ANA número 307, de 26 de outubro de 2026, publicada em 28 de outubro. Aprova a divulgação da NOTA TÉCNICA número 40 de 2026/COTAR SSB-SEI. A ementa continua no texto oficial. Esta Resolução entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
+      {
+       "data": "2026-10-28",
+       "orgao": "ANA",
+       "titulo": "Resolução ANA nº 307, de 26 de outubro de 2026",
+       "ementa": "Aprova a divulgação da NOTA TÉCNICA Nº 40/2026/COTAR/SSB-SEI, que contém orientações às entidades reguladoras infranacionais para a adequação das tabelas tarifárias dos serviços públicos de abastecimento de água e esgotamento sanitário em decorrência da extinção da Contribuição para o PIS/Pasep e da Cofins e da entrada em vigor da CBS e do IBS.",
+       "trechos": {
+        "vigencia": "Esta Resolução entra em vigor na data de sua publicação",
+        "revoga": null
+       },
+       "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-307-de-26-de-outubro-de-2026-740661871",
+       "referencia": "DOU de 28/10/2026, Seção: 1, p. 43"
+      }
+     ]
+    },
+    {
      "id": "flora",
      "nome": "Flora, florestas e unidades de conservação",
-     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM/MMA nº 1.809, de 26 de outubro de 2026, publicada em 27 de outubro. Altera a Portaria GM/MMA nº 350, de 11 de dezembro de 2006, que reconhece o Mosaico Mata Atlântica Central Fluminense. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM MMA número 1.809, de 26 de outubro de 2026, publicada em 27 de outubro. Altera a Portaria GM MMA número 350, de 11 de dezembro de 2006, que reconhece o Mosaico Mata Atlântica Central Fluminense. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": "radar/audios/dou-flora-b05ea54b22.mp3",
-     "duracao_s": 28,
+     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM/MMA nº 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA nº 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA nº 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
+     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM MMA número 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA número 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA número 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
      "atos": [
+      {
+       "data": "2026-10-28",
+       "orgao": "Ministério do Meio Ambiente",
+       "titulo": "Portaria GM/MMA nº 1.783, de 26 de outubro de 2026",
+       "ementa": "Altera a Portaria MMA nº 443, de 17 de dezembro de 2014, que reconhece como espécies da flora brasileira ameaçadas de extinção aquelas constantes da \"Lista Nacional Oficial de Espécies da Flora Ameaçadas de Extinção\" - Lista, conforme Anexo da presente Portaria, em observância aos arts. 6º e 7º da Portaria nº 43, de 31 de janeiro de 2014; e revoga a Portaria MMA nº 148, de 7 de junho de 2022.",
+       "trechos": {
+        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
+        "revoga": "Fica revogada a Portaria MMA nº 148, de 7 de junho de 2022"
+       },
+       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.783-de-26-de-outubro-de-2026-740664196",
+       "referencia": "DOU de 28/10/2026, Seção: 1, p. 55"
+      },
       {
        "data": "2026-10-27",
        "orgao": "Ministério do Meio Ambiente",
@@ -94,49 +126,29 @@
      ]
     },
     {
-     "id": "fauna",
-     "nome": "Fauna, pesca e aquicultura",
-     "roteiro": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria interministerial MPA/MMA nº 73, de 23 de outubro de 2026, publicada em 26 de outubro. Estabelece a matriz de permissionamento e as normas gerais aplicáveis às embarcações de pesca em águas continentais, para o uso sustentável dos recursos pesqueiros. Esta Portaria entra em vigor 30 (trinta) dias após a data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
-     "fala": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria interministerial MPA MMA número 73, de 23 de outubro de 2026, publicada em 26 de outubro. Estabelece a matriz de permissionamento e as normas gerais aplicáveis às embarcações de pesca em águas continentais, para o uso sustentável dos recursos pesqueiros. Esta Portaria entra em vigor 30 dias após a data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
-     "audio": "radar/audios/dou-fauna-31856a900d.mp3",
-     "duracao_s": 34,
+     "id": "geral",
+     "nome": "Outras normas ambientais",
+     "roteiro": "Outras normas ambientais, no Diário Oficial da União. Portaria GM/MMA nº 1.811, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria GM/MMA nº 577, de 18 de outubro de 2019. A ementa continua no texto oficial. Fica revogada a Portaria GM/MMA nº 796, de 19 de outubro de 2023. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Outras normas ambientais, no Diário Oficial da União. Portaria GM MMA número 1.811, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria GM MMA número 577, de 18 de outubro de 2019. A ementa continua no texto oficial. Fica revogada a Portaria GM MMA número 796, de 19 de outubro de 2023. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
      "atos": [
       {
-       "data": "2026-10-26",
-       "orgao": "Ministério da Pesca e Aquicultura",
-       "titulo": "Portaria interministerial MPA/MMA nº 73, de 23 de outubro de 2026",
-       "ementa": "Estabelece a matriz de permissionamento e as normas gerais aplicáveis às embarcações de pesca em águas continentais, para o uso sustentável dos recursos pesqueiros.",
-       "trechos": {
-        "vigencia": "Esta Portaria entra em vigor 30 (trinta) dias após a data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-73-de-23-de-outubro-de-2026-740414104",
-       "referencia": "DOU de 26/10/2026, Seção: 1 - Extra B, p. 3"
-      },
-      {
-       "data": "2026-10-26",
-       "orgao": "Ministério da Pesca e Aquicultura",
-       "titulo": "Portaria interministerial MPA/MMA nº 75, de 26 de outubro de 2026",
-       "ementa": "Dispõe sobre o ordenamento do exercício da atividade pesqueira na área marinha adjacente à foz do Rio Doce, no Estado do Espírito Santo.",
+       "data": "2026-10-28",
+       "orgao": "Ministério do Meio Ambiente",
+       "titulo": "Portaria GM/MMA nº 1.811, de 26 de outubro de 2026",
+       "ementa": "Altera a Portaria GM/MMA nº 577, de 18 de outubro de 2019, que instituiu o Comitê de Desenvolvimento na Carreira - CDC.",
        "trechos": {
         "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
-        "revoga": null
+        "revoga": "Fica revogada a Portaria GM/MMA nº 796, de 19 de outubro de 2023"
        },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-75-de-26-de-outubro-de-2026-740332704",
-       "referencia": "DOU de 26/10/2026, Seção: 1 - Extra A, p. 1"
+       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.811-de-26-de-outubro-de-2026-740647810",
+       "referencia": "DOU de 28/10/2026, Seção: 1, p. 92"
       }
      ]
     }
    ],
    "internos": [
-    {
-     "data": "2026-10-26",
-     "orgao": "Ministério do Meio Ambiente",
-     "titulo": "Portaria GM/MMA nº 1.807, de 22 de outubro de 2026",
-     "ementa": "Institui o Grupo de Trabalho Interinstitucional para a gestão e o uso sustentável dos recursos pesqueiros no âmbito do Ministério do Meio Ambiente e Mudança do Clima.",
-     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.807-de-22-de-outubro-de-2026-740357477",
-     "referencia": "DOU de 26/10/2026, Seção: 1, p. 56"
-    },
     {
      "data": "2026-10-27",
      "orgao": "Ministério da Pesca e Aquicultura",
