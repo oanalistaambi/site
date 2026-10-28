@@ -1,0 +1,64 @@
+# Guarda do repositório (curadoria de 28/10/2026, aprovada pelo dono).
+# 1) Barra, em todo PR, arquivo de vídeo, áudio ou pacote e qualquer arquivo acima de 5 MB.
+#    Regra do projeto: "vídeo e áudio nunca no git" (ficam no Drive). Exceções por repositório em PERMITIDOS.
+# 2) Avisa quando o CLAUDE.md passa de 120 linhas (ele entra em toda rodada de toda sessão) e barra acima de 200.
+name: Guarda do repositório
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  guarda:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Mídia e arquivo grande
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+          LIMITE_MB: "5"
+          PERMITIDOS: "apps/*.apk radar/audios/*.mp3"
+        run: |
+          set -u
+          erro=0
+          limite=$((LIMITE_MB * 1024 * 1024))
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            permitido=0
+            for g in $PERMITIDOS; do
+              case "$f" in $g) permitido=1 ;; esac
+            done
+            [ "$permitido" = 1 ] && continue
+            case "${f,,}" in
+              *.mp4|*.mov|*.mkv|*.webm|*.avi|*.mp3|*.wav|*.m4a|*.ogg|*.opus|*.aac|*.flac|*.apk|*.aab|*.zip|*.rar|*.7z)
+                echo "::error file=$f::Mídia ou pacote no git: '$f'. Vídeo, áudio e APK ficam no Drive ou na release (regra do projeto)."
+                erro=1 ;;
+            esac
+            tam=$(git cat-file -s "$HEAD:$f" 2>/dev/null || echo 0)
+            if [ "$tam" -gt "$limite" ]; then
+              mb=$(awk -v t="$tam" 'BEGIN{printf "%.1f", t/1048576}')
+              echo "::error file=$f::Arquivo de $mb MB: '$f' passa de ${LIMITE_MB} MB. Use o Drive, uma release ou um link."
+              erro=1
+            fi
+          done < <(git diff --name-only --diff-filter=AM "$BASE" "$HEAD")
+          if [ "$erro" = 1 ]; then
+            echo "Para um caso excepcional, o dono acrescenta o caminho em PERMITIDOS deste fluxo."
+            exit 1
+          fi
+          echo "Nenhuma mídia nem arquivo grande no PR."
+      - name: CLAUDE.md curto
+        run: |
+          [ -f CLAUDE.md ] || { echo "Sem CLAUDE.md neste repositório."; exit 0; }
+          n=$(wc -l < CLAUDE.md)
+          echo "CLAUDE.md tem $n linhas."
+          if [ "$n" -gt 200 ]; then
+            echo "::error file=CLAUDE.md::CLAUDE.md com $n linhas (limite 200). Ele entra em toda rodada de toda sessão: mova o histórico para DECISOES_DO_DONO.md."
+            exit 1
+          elif [ "$n" -gt 120 ]; then
+            echo "::warning file=CLAUDE.md::CLAUDE.md com $n linhas (meta: até 120). Mova decisões antigas para DECISOES_DO_DONO.md."
+          fi
