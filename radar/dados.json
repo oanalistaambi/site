@@ -1,7 +1,92 @@
 {
- "atualizado_em": "2026-10-27",
+ "atualizado_em": "2026-10-28",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-10-28",
+   "atos": [
+    {
+     "orgao": "Semad",
+     "tipo": "Resolução conjunta",
+     "numero": null,
+     "titulo": "RESOLUÇÃO CONJUNTA SEMAD/SEAPA/SEDE/SEINFRA",
+     "ementa": "Estabelece normas complementares para o cumprimento do Decreto nº 49.260, de 17 de julho de 2026, que dispõe sobre o procedimento administrativo de declaração de utilidade pública ou de interesse social para fins de autorização de intervenção ambiental.",
+     "relevancia": "mudança de procedimento",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 26,
+     "autenticidade": "3202610288076470426"
+    },
+    {
+     "orgao": "Arsae",
+     "tipo": "Resolução",
+     "numero": "239",
+     "titulo": "RESOLUÇÃO ARSAE-MG Nº 239, DE 26 DE OUTUBRO DE 2026",
+     "ementa": "Estabelece a desoneração das tabelas tarifárias, das tabelas de preços de serviços complementares e das multas aplicáveis aos usuários dos serviços de abastecimento de água e esgotamento sanitário regulados pela Arsae-MG, para implementação da reforma tributária do consumo.",
+     "relevancia": "nova regra",
+     "trilha": "Trilha 4 · Licenciamento",
+     "pagina": 28,
+     "autenticidade": "3202610288076470428"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 4,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 10,
+     "processos": 14,
+     "decisoes": {
+      "deferimentos/concessões": 6,
+      "requerimentos": 5,
+      "transferências de titularidade": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Ato sobre empresa/empreendimento específico",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "requerimentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 6,
+     "processos": 37,
+     "decisoes": {
+      "deferimentos/concessões": 5,
+      "indeferimentos": 2,
+      "arquivamentos": 2
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "arquivamentos": 1
+     }
+    }
+   ]
+  },
   {
    "data": "2026-10-27",
    "atos": [],
@@ -597,71 +682,6 @@
      "grupo": "Auto de infração / sanção",
      "publicacoes": 2,
      "processos": 2,
-     "decisoes": {}
-    }
-   ]
-  },
-  {
-   "data": "2026-10-14",
-   "atos": [],
-   "movimento": [
-    {
-     "orgao": "Arsae",
-     "grupo": "Ato sobre empresa/empreendimento específico",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {}
-    },
-    {
-     "orgao": "Copam",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 1,
-     "processos": 3,
-     "decisoes": {
-      "deferimentos/concessões": 1,
-      "indeferimentos": 1,
-      "arquivamentos": 1
-     }
-    },
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 5,
-     "processos": 7,
-     "decisoes": {
-      "deferimentos/concessões": 5,
-      "requerimentos": 2,
-      "indeferimentos": 1,
-      "transferências de titularidade": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 2,
-     "processos": 3,
-     "decisoes": {
-      "requerimentos": 2,
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 3,
-     "processos": 34,
-     "decisoes": {
-      "requerimentos": 1,
-      "deferimentos/concessões": 3,
-      "arquivamentos": 2,
-      "indeferimentos": 1
-     }
-    },
-    {
-     "orgao": "Semad",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 1,
-     "processos": 1,
      "decisoes": {}
     }
    ]
