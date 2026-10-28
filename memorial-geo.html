@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Memorial descritivo em polígono: KML, GeoJSON e shapefile — O Analista Ambiental</title>
-<meta name="description" content="Cole o memorial descritivo da matrícula (azimute ou rumo e distância) e veja o polígono no mapa, com área, perímetro e erro de fechamento. Baixe em KML, GeoJSON e shapefile. Grátis, no navegador, também sem internet.">
+<meta name="description" content="Cole o memorial descritivo da matrícula (azimute ou rumo e distância, ou a coordenada de cada vértice) e veja o polígono no mapa, com área, perímetro, erro de fechamento e o lado suspeito. Baixe em KML, GeoJSON, shapefile, DXF e CSV. Grátis, no navegador, também sem internet.">
 <meta name="author" content="Francisco de Assis da Silva Júnior">
 <link rel="canonical" href="https://www.oanalistaambiental.com/memorial-geo.html">
 <meta property="og:type" content="website">
@@ -91,8 +91,39 @@
   .resumo{ white-space:pre-wrap; overflow-wrap:anywhere; font-family:var(--f-mono); font-size:.8rem; background:var(--bg); border:1px solid var(--rule); padding:1rem; margin:1rem 0 0; color:var(--text); }
   .fontes li{ margin:.45rem 0; color:var(--text-soft); font-size:.95rem; }
   .article__body{ overflow-wrap:break-word; max-width:880px; }
-  .article__body > p, .article__body > ol, .article__body > ul, .article__body > .nota, .article__body > h2{ max-width:var(--measure); }
+  .article__body > p, .article__body > ol, .article__body > ul, .article__body > .nota, .article__body > h2,
+  .extra > p, .extra > ol, .extra > h2{ max-width:var(--measure); }
   [hidden]{ display:none !important; }
+  .fonte{ margin-top:1rem; display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; align-items:center; font-size:.92rem; color:var(--text-soft); }
+  .fonte b{ width:100%; font-family:var(--f-mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); font-weight:400; }
+  .fonte label{ display:flex; gap:.45rem; align-items:center; cursor:pointer; min-height:2rem; }
+  .diag{ margin-top:.8rem; border:1px solid var(--rule-strong); background:var(--bg); padding:.9rem 1rem 1rem; }
+  .diag--teste{ border-color:var(--focus); border-width:2px; }
+  .diag__t{ font-family:var(--f-display); font-weight:700; margin:0; color:var(--text); }
+  .diag ol{ margin:.5rem 0 0; padding-left:1.2rem; display:flex; flex-direction:column; gap:.7rem; }
+  .diag li{ font-size:.92rem; line-height:1.45; color:var(--text); }
+  .diag p{ font-size:.88rem; color:var(--text-soft); margin:.6rem 0 0; }
+  .mini{ font:inherit; font-family:var(--f-mono); font-size:.72rem; padding:.45rem .7rem; margin:.4rem .4rem 0 0; border:1px solid var(--accent); background:transparent; color:var(--accent); cursor:pointer; border-radius:2px; }
+  .mini:hover{ background:var(--accent); color:var(--on-accent); }
+  .m-outra{ fill:none; stroke:var(--accent); stroke-width:1.8; stroke-dasharray:7 5; }
+  .m-destaque{ stroke:var(--focus); stroke-width:7; stroke-linecap:round; opacity:.85; }
+  .tabela tbody tr{ cursor:pointer; }
+  .tabela tbody tr.sel td{ background:var(--bg-sunken); color:var(--text); font-weight:600; }
+  .so-impressao{ display:none; }
+  @media print{
+    :root:root{ --bg:#fff; --bg-raised:#fff; --bg-sunken:#f1f1ec; --text:#111; --text-soft:#333; --text-faint:#555; --rule:#bbb; --rule-strong:#888; --accent:#2E6B3E; --ochre:#A8452A; --focus:#C79A2E; }
+    body{ background:#fff !important; color:#111; }
+    header.nav, footer, .nota, .nao-imprime, #calc > .calc__step:nth-child(1), #calc > .calc__step:nth-child(2), .baixar, .mapa__barra, .mini, .acoes, .fontes, .fontes + .calc__hint, .article__body > h2:last-of-type{ display:none !important; }
+    .so-impressao{ display:block; font-size:.85rem; color:#333; margin:0 0 .6rem; }
+    .article{ padding-block:0; }
+    .calc{ border:0; padding:0; margin-top:1rem; }
+    #mapa{ break-inside:avoid; }
+    .tabela{ max-height:none; overflow:visible; border:0; }
+    .tabela table{ min-width:0; font-size:7.5pt; }
+    .tabela th{ position:static; }
+    .tabela td.trecho{ min-width:0; font-size:6.5pt; }
+    .limite{ break-inside:avoid; }
+  }
 </style>
 </head>
 <body>
@@ -147,9 +178,10 @@
     <p class="ref">Ferramentas &middot; memorial descritivo &middot; roda no seu navegador, também sem internet</p>
     <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Memorial descritivo em polígono no mapa</h1>
     <p style="color:var(--text-soft);font-size:1.12rem;margin-top:.6rem">
-      Cole o memorial da matrícula, com o ponto de partida e cada lado em azimute ou rumo e distância. A página monta
-      a poligonal no plano UTM (SIRGAS 2000), mostra o desenho, a área, o perímetro e o erro de fechamento, e entrega o
-      polígono em KML, GeoJSON e shapefile para abrir no SIG.
+      Cole o memorial da matrícula, com o ponto de partida e cada lado em azimute ou rumo e distância, ou com a
+      coordenada de cada vértice. A página monta a poligonal no plano UTM (SIRGAS 2000), mostra o desenho, a área, o
+      perímetro e o erro de fechamento, aponta o lado suspeito quando não fecha, e entrega o polígono em KML, GeoJSON,
+      shapefile, DXF e CSV para abrir no SIG ou no CAD.
     </p>
   </div>
 
@@ -172,10 +204,12 @@ V2; S 12° W; 230,50"></textarea>
         <div class="acoes">
           <button type="button" class="btn btn--solid" id="ler">Ler o memorial</button>
           <button type="button" class="btn btn--ghost" id="exemplo">Exemplo</button>
+          <button type="button" class="btn btn--ghost" id="exemplo-erro">Exemplo com erro</button>
           <button type="button" class="btn btn--ghost" id="limpar">Limpar</button>
         </div>
         <p class="calc__hint">Aceita azimute em graus, minutos e segundos (120°15'30") ou em grau decimal (120,2583°), rumo
-          por quadrante (N 45°30' E, S 12° W, NO, SE), distância com vírgula ou ponto, e a tabela que uma IA extrai do PDF.</p>
+          por quadrante (N 45°30' E, S 12° W, NO, SE), distância com vírgula ou ponto, a tabela que uma IA extrai do PDF e o
+          memorial ou a tabela com a coordenada de cada vértice (UTM ou latitude e longitude).</p>
       </div>
 
       <div class="calc__step">
@@ -197,6 +231,7 @@ V2; S 12° W; 230,50"></textarea>
 
       <div class="calc__step" id="resultado" aria-live="polite">
         <span class="calc__step-label">Passo 3 &middot; Poligonal</span>
+        <p class="so-impressao" id="impresso-em"></p>
         <p class="calc__placeholder" id="vazio">Cole o memorial e toque em "Ler o memorial", ou veja o Exemplo.</p>
         <div id="saida" hidden>
           <dl class="calc__resultado">
@@ -207,7 +242,13 @@ V2; S 12° W; 230,50"></textarea>
             <div><dt>Precisão relativa</dt><dd id="o-prec">—</dd></div>
             <div><dt>Datum e fuso</dt><dd id="o-sis" style="font-size:1.05rem">—</dd></div>
           </dl>
+          <div class="fonte" id="o-fonte" hidden>
+            <b>O texto tem as duas leituras. Desenhar e exportar a partir de:</b>
+            <label><input type="radio" name="fonte" value="azimute"> lados (azimute ou rumo e distância)</label>
+            <label><input type="radio" name="fonte" value="coordenadas"> coordenadas dos vértices</label>
+          </div>
           <p class="fecho" id="o-fecho"></p>
+          <div class="diag" id="o-diag" hidden></div>
           <ul class="confere" id="o-conf"></ul>
 
           <div class="mapa">
@@ -225,12 +266,23 @@ V2; S 12° W; 230,50"></textarea>
               <button type="button" class="btn btn--solid" data-baixar="kml">Baixar KML</button>
               <button type="button" class="btn btn--solid" data-baixar="geojson">Baixar GeoJSON</button>
               <button type="button" class="btn btn--solid" data-baixar="shp">Baixar Shapefile (zip)</button>
+              <button type="button" class="btn btn--solid" data-baixar="dxf">Baixar DXF (CAD)</button>
+              <button type="button" class="btn btn--solid" data-baixar="csv">Baixar CSV (planilha)</button>
             </div>
-            <p class="calc__hint" id="o-arqs">KML e GeoJSON em latitude e longitude (SIRGAS 2000). Shapefile em metros, SIRGAS 2000 / UTM, com o .prj.</p>
+            <p class="calc__hint" id="o-arqs">KML e GeoJSON em latitude e longitude (SIRGAS 2000). Shapefile e DXF em metros, SIRGAS 2000 / UTM
+              (o shapefile leva o .prj). CSV com ";" e vírgula decimal, para o Excel em português.</p>
+            <div class="acoes">
+              <button type="button" class="btn btn--ghost" id="copiar-memorial">Copiar o memorial com coordenadas</button>
+              <button type="button" class="btn btn--ghost" data-baixar="txt">Baixar o memorial (.txt)</button>
+              <button type="button" class="btn btn--ghost" id="imprimir">Imprimir relatório ou salvar em PDF</button>
+              <span class="calc__hint" id="copiado-memorial" role="status"></span>
+            </div>
+            <p class="calc__hint">O memorial com coordenadas é gerado do cálculo, com a coordenada de cada vértice, e esta página o lê de volta.
+              Não é memorial de levantamento.</p>
           </div>
 
           <h3 class="sub">Vértices e lados lidos</h3>
-          <p class="calc__hint">Confira cada lado com o original: o trecho lido está na última coluna.</p>
+          <p class="calc__hint">Confira cada lado com o original: o trecho lido está na última coluna.<span class="nao-imprime"> Toque numa linha para destacar o lado no mapa.</span></p>
           <div class="tabela"><table id="o-tab">
             <thead><tr><th>Vértice</th><th>E (m)</th><th>N (m)</th><th>Latitude</th><th>Longitude</th><th>Azimute do lado</th><th>Distância (m)</th><th>Lido do texto</th></tr></thead>
             <tbody></tbody>
@@ -256,12 +308,18 @@ V2; S 12° W; 230,50"></textarea>
         <li><b>Não substitui levantamento topográfico nem georreferenciamento certificado no SIGEF</b> (Lei 10.267/2001).
           É uma reconstrução do que o texto descreve.</li>
         <li><b>Nada é enviado a servidor.</b> Tudo roda no navegador (LGPD).</li>
+        <li><b>O diagnóstico do fechamento dá hipóteses, não correções.</b> Ele testa um erro de cada vez (um dígito, o
+          quadrante, um lado a mais ou a menos). Dois erros juntos, ou um lado inteiro lido errado, escapam dele. "Testar"
+          muda só o cálculo, nunca o texto.</li>
+        <li><b>Memorial por coordenadas.</b> Os vértices são ligados na ordem do texto. Se o texto mistura duas áreas, ou
+          traz coordenada de algo que não é vértice (poço, ponto de amostragem), confira a tabela de vértices.</li>
         <li><b>Critério do fechamento.</b> As faixas "bom" (1:5.000 ou melhor), "fraco" (1:1.000 a 1:5.000) e "ruim"
           (pior que 1:1.000) são critério desta página para chamar a atenção, não tolerância de norma. A tolerância de
           uma poligonal depende da classe do levantamento (ABNT NBR 13133).</li>
       </ul>
     </aside>
 
+    <div class="extra nao-imprime">
     <h2 id="ia">Como usar com IA</h2>
     <p>Certidão de matrícula costuma vir como imagem, em várias páginas, com o memorial no meio do texto. Uma IA de
       conversa (com leitura de PDF ou de foto) transcreve bem esse trecho para uma tabela, e a tabela entra aqui. O
@@ -283,7 +341,7 @@ As páginas da certidão que eu anexei (PDF ou fotos).
 
 REGRAS
 1. Comece pela coordenada de partida exatamente como está escrita (E e N com o fuso ou o meridiano central, ou latitude e longitude) e pelo datum citado (SIRGAS 2000, SAD 69, Córrego Alegre ou nenhum).
-2. Uma linha por lado: o vértice de onde o lado sai, o azimute ou o rumo exatamente como escrito (graus, minutos, segundos e quadrante), a distância em metros e a página.
+2. Uma linha por lado: o vértice de onde o lado sai, o azimute ou o rumo exatamente como escrito (graus, minutos, segundos e quadrante), a distância em metros e a página. Se o memorial também trouxer a coordenada de cada vértice, inclua duas colunas logo depois do vértice: E e N (UTM) ou latitude e longitude, como escritas.
 3. Não calcule, não arredonde, não converta rumo em azimute e não corrija nada.
 4. Confira página por página: ao fim, diga quantos lados leu em cada página.
 5. Número ilegível ou cortado: escreva "ilegível" na célula. Não adivinhe.
@@ -292,7 +350,8 @@ REGRAS
 SAÍDA
 Primeira linha: Partida: E ... m, N ... m, fuso ..., datum ...
 Depois a tabela:
-| Vértice | Azimute ou rumo | Distância (m) | Página |</pre>
+| Vértice | Azimute ou rumo | Distância (m) | Página |
+(com coordenadas: | Vértice | E (m) | N (m) | Azimute ou rumo | Distância (m) | Página |)</pre>
     <div class="acoes"><button type="button" class="btn btn--ghost" id="copiar-ia">Copiar o pedido</button><span class="calc__hint" id="copiado" role="status"></span></div>
 
     <h2>Direto do PDF, no celular</h2>
@@ -305,12 +364,19 @@ Depois a tabela:
       computador, baixe a ferramenta num arquivo só: abre com dois cliques, no navegador, sem instalar nada. Sem
       internet o mapa de fundo some e fica o desenho com a grade UTM e o norte.</p>
     <div class="acoes"><button type="button" class="btn btn--solid" id="baixar-html">Baixar a ferramenta (HTML único)</button><span class="calc__hint" id="offline-info" role="status"></span></div>
+    </div>
 
     <h2>De onde vem cada regra</h2>
     <ul class="fontes">
       <li><b>Lado por azimute e distância:</b> E = E<sub>0</sub> + d &middot; sen(Az) e N = N<sub>0</sub> + d &middot; cos(Az),
         somados lado a lado; erro de fechamento é a distância entre onde o último lado chega e o ponto de partida, e a
         precisão relativa é perímetro &divide; erro (cálculo de poligonal, ABNT NBR 13133, Execução de levantamento topográfico).</li>
+      <li><b>Diagnóstico do fechamento:</b> o vetor de fechamento (da chegada do último lado até a partida) é comparado com
+        um erro de cada vez: lado que faltou (ele é o próprio vetor), lado a mais, um dígito trocado, invertido, a mais ou a
+        menos na distância ou no ângulo, quadrante do rumo trocado e sentido invertido. Uma hipótese só aparece se,
+        corrigida, a poligonal passa a fechar em 1:5.000 ou melhor (o critério desta página).</li>
+      <li><b>Memorial por coordenadas e "vértice fora do lugar":</b> mesmas regras do app Chão Geo MG (vértices seguidos
+        no texto viram polígono; o vértice para onde o contorno "vai e volta" mais de 500 m é apontado).</li>
       <li><b>Rumo em azimute:</b> NE = rumo; SE = 180° &minus; rumo; SW = 180° + rumo; NW = 360° &minus; rumo (mesma regra do app Chão Geo MG).</li>
       <li><b>Área:</b> fórmula de Gauss sobre as coordenadas UTM. O SIGEF calcula a área no Sistema Geodésico Local
         (<a href="https://sigef.incra.gov.br/static/documentos/manual_tecnico_posicionamento_1ed.pdf" target="_blank" rel="noopener">Manual Técnico de Posicionamento</a>, INCRA, 2013).</li>
@@ -325,7 +391,8 @@ Depois a tabela:
       <li><b>Declinação magnética:</b> <a href="https://www.ngdc.noaa.gov/geomag/calculators/magcalc.shtml" target="_blank" rel="noopener">calculadora do World Magnetic Model</a> (NOAA).</li>
       <li><b>Arquivos:</b> <a href="https://www.ogc.org/standard/kml/" target="_blank" rel="noopener">KML 2.2</a> (OGC),
         <a href="https://www.rfc-editor.org/rfc/rfc7946" target="_blank" rel="noopener">GeoJSON, RFC 7946</a> e
-        <a href="https://www.esri.com/content/dam/esrisites/sitecore-archive/Files/Pdfs/library/whitepapers/pdfs/shapefile.pdf" target="_blank" rel="noopener">ESRI Shapefile Technical Description</a> (1998).</li>
+        <a href="https://www.esri.com/content/dam/esrisites/sitecore-archive/Files/Pdfs/library/whitepapers/pdfs/shapefile.pdf" target="_blank" rel="noopener">ESRI Shapefile Technical Description</a> (1998)
+        e DXF R12 (AC1009), conforme a DXF Reference da Autodesk.</li>
       <li><b>Mapa de fundo:</b> blocos do OpenStreetMap, com a atribuição pedida na
         <a href="https://operations.osmfoundation.org/policies/tiles/" target="_blank" rel="noopener">política de uso</a>; só os blocos da área desenhada, sem baixar em massa.</li>
       <li><b>Exemplo:</b> a Fazenda Vereda do Exemplo é inventada; nome, coordenadas e medidas são fictícios.</li>
@@ -371,24 +438,35 @@ Depois a tabela:
   var ARQUIVO = location.protocol === "file:";
   var EXEMPLO = "MEMORIAL DESCRITIVO — EXEMPLO FICTÍCIO, SÓ PARA DEMONSTRAÇÃO (nomes, valores e coordenadas inventados)\nImóvel: Fazenda Vereda do Exemplo, zona rural de município de Minas Gerais. Matrícula: fictícia.\nÁrea: 2.324,0104 ha. Perímetro: 18.961,69 m.\nInicia-se a descrição deste perímetro no vértice V-01, de coordenadas N 7.912.640,25 m e E 452.318,40 m, referidas ao Meridiano Central 45° WGr, fuso 23 S, Datum SIRGAS 2000; deste, segue com azimute de 354°52'30\" e distância de 700,65 m, até o vértice V-02; deste, segue com azimute de 10°21'53\" e distância de 742,69 m, até o vértice V-03; deste, segue com azimute de 67°58'10\" e distância de 767,93 m, até o vértice V-04; deste, segue com azimute de 101°54'58\" e distância de 875,47 m, até o vértice V-05; deste, segue com rumo S 79°30'52\" E e distância de 586,65 m, até o vértice V-06; deste, segue com azimute de 72°05'22\" e distância de 456,00 m, até o vértice V-07; deste, segue com azimute de 66°11'50\" e distância de 525,51 m, até o vértice V-08; deste, segue com azimute de 69°58'36\" e distância de 635,15 m, até o vértice V-09; deste, segue com azimute de 115°15'28\" e distância de 572,71 m, até o vértice V-10; deste, segue com azimute de 103°54'43\" e distância de 643,97 m, até o vértice V-11; deste, segue com azimute de 133°07'39\" e distância de 630,06 m, até o vértice V-12; deste, segue com rumo S 30°42'06\" E e distância de 634,27 m, até o vértice V-13; deste, segue com azimute de 152°27'09\" e distância de 655,55 m, até o vértice V-14; deste, segue com azimute de 193°56'19\" e distância de 674,14 m, até o vértice V-15; deste, segue com azimute de 224°42'57\" e distância de 720,53 m, até o vértice V-16; deste, segue com azimute de 239°59'32\" e distância de 632,82 m, até o vértice V-17; deste, segue com azimute de 204°23'00\" e distância de 432,36 m, até o vértice V-18; deste, segue com rumo S 14°52'15\" W e distância de 516,28 m, até o vértice V-19; deste, segue com azimute de 194°22'57\" e distância de 688,50 m, até o vértice V-20; deste, segue com azimute de 205°32'40\" e distância de 832,25 m, até o vértice V-21; deste, segue com azimute de 262°41'28\" e distância de 686,42 m, até o vértice V-22; deste, segue com azimute de 288°59'13\" e distância de 692,21 m, até o vértice V-23; deste, segue com azimute de 311°23'17\" e distância de 683,59 m, até o vértice V-24; deste, segue com rumo N 68°24'56\" W e distância de 563,36 m, até o vértice V-25; deste, segue com azimute de 315°47'58\" e distância de 563,50 m, até o vértice V-26; deste, segue com azimute de 344°45'02\" e distância de 579,82 m, até o vértice V-27; deste, segue com azimute de 326°40'34\" e distância de 494,18 m, até o vértice V-28; deste, segue com azimute de 341°08'14\" e distância de 497,20 m, até o vértice V-29; deste, segue com azimute de 351°58'57\" e distância de 500,09 m, até o vértice V-30; deste, segue com azimute de 321°53'41\" e distância de 777,83 m, até o vértice V-01, ponto inicial desta descrição.";
   var atual = null;
+  /** O que a pessoa escolheu depois da leitura: campos de partida, fonte, correção em teste e lado destacado. */
+  var estado = { campos: false, fonte: null, correcoes: [], destaque: null };
 
   function numero(s) { s = String(s || "").trim(); return s ? M.numeroMetrico(s) : null; }
   function fmt(v, c) { return M.decimal(v, c); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
-  function ler(usarCampos) {
-    var texto = $("texto").value;
-    var op = {};
-    if (usarCampos) {
+  function opcoes() {
+    var op = { fonte: estado.fonte, correcoes: estado.correcoes };
+    if (estado.campos) {
       var e = numero($("pe").value), n = numero($("pn").value);
       if (e != null && n != null) { op.e = e; op.n = n; }
       op.fuso = Number($("fuso").value);
     }
-    var r = M.analisar(texto, op);
+    return op;
+  }
+
+  /** Ler o memorial do zero (usarCampos=false) ou recalcular com a partida e o fuso dos campos. */
+  function ler(usarCampos) {
+    if (usarCampos) estado.campos = true;
+    else estado = { campos: false, fonte: null, correcoes: [], destaque: null };
+    var op = opcoes(), r = M.analisar($("texto").value, op);
     if (!usarCampos) preencherPartida(r);
     else $("partida-info").textContent = "Partida e fuso informados por você: E " + fmt(op.e != null ? op.e : 0, 2) + ", N " + fmt(op.n != null ? op.n : 0, 2) + ", fuso " + op.fuso + " S.";
     mostrar(r);
   }
+
+  /** Refaz o cálculo com o mesmo texto e as escolhas de agora (fonte, correção em teste). */
+  function refazer() { mostrar(M.analisar($("texto").value, opcoes())); }
 
   function preencherPartida(r) {
     var p = r.partidaLida, info = $("partida-info");
@@ -421,11 +499,17 @@ Depois a tabela:
     msg.hidden = true;
     $("saida").hidden = false;
     var p = r.poligonal;
-    $("o-n").innerHTML = p.vertices.length + "<small>" + r.lados.length + " lados lidos" + (r.lados.some(function (l) { return l.deRumo; }) ? ", com rumos" : "") + "</small>";
+    var porCoord = p.fonte === "coordenadas";
+    if (estado.destaque != null && estado.destaque >= p.vertices.length) estado.destaque = null;
+    $("o-n").innerHTML = p.vertices.length + "<small>" + (porCoord ? "lidos das coordenadas" : r.lados.length + " lados lidos" +
+      (r.lados.some(function (l) { return l.deRumo; }) ? ", com rumos" : "")) + "</small>";
     $("o-per").innerHTML = fmt(p.perimetroM, 2) + " m<small>soma dos lados</small>";
     $("o-area").innerHTML = fmt(p.areaM2 / 10000, 4) + " ha<small>" + fmt(p.areaM2, 2) + " m² no plano UTM</small>";
-    $("o-erro").innerHTML = fmt(p.erroFechamentoM, 3) + " m<small>entre a chegada do último lado e a partida</small>";
-    $("o-prec").innerHTML = (p.precisaoRelativa ? "1:" + M.inteiro(Math.floor(p.precisaoRelativa + 1e-6)) : "exato") + "<small>perímetro &divide; erro</small>";
+    $("o-erro").innerHTML = porCoord ? "—<small>não se aplica: cada vértice tem coordenada</small>" : fmt(p.erroFechamentoM, 3) + " m<small>entre a chegada do último lado e a partida</small>";
+    $("o-prec").innerHTML = porCoord ? "—<small>não se aplica</small>" : (p.precisaoRelativa ? "1:" + M.inteiro(Math.floor(p.precisaoRelativa + 1e-6)) : "exato") + "<small>perímetro &divide; erro</small>";
+    var fonte = $("o-fonte");
+    fonte.hidden = r.fontes.length < 2;
+    fonte.querySelectorAll("input").forEach(function (i) { i.checked = i.value === r.fonte; });
     $("o-sis").innerHTML = esc((r.datum || "SIRGAS 2000 (não citado)") + " · UTM " + p.fuso + " S") + "<small>EPSG " + M.epsg(p.fuso) + " no shapefile</small>";
     var f = $("o-fecho");
     f.className = "fecho fecho--" + p.qualidade.nivel;
@@ -434,15 +518,46 @@ Depois a tabela:
     $("o-conf").innerHTML = itens.map(function (c) {
       return '<li class="confere--' + c.nivel + '"><span>' + (c.nivel === "ok" ? "OK" : c.nivel === "info" ? "Nota" : "Atenção") + "</span>" + esc(c.texto) + "</li>";
     }).join("");
+    diagnostico(r);
     tabela(r);
     desenhar(r);
+  }
+
+  /** Quadro "Por que não fecha?": hipóteses de um erro só, com "Ver no mapa" e "Testar". */
+  function diagnostico(r) {
+    var box = $("o-diag"), d = r.diagnostico;
+    box.className = "diag";
+    if (estado.correcoes.length) {
+      box.hidden = false;
+      box.className = "diag diag--teste";
+      box.innerHTML = '<p class="diag__t">Correção em teste</p><p>O cálculo, o mapa e os arquivos usam a hipótese escolhida. O texto colado ' +
+        'não mudou: confira o lado no original antes de usar estes arquivos.</p><button type="button" class="mini" data-desfazer>Desfazer o teste</button>';
+      return;
+    }
+    if (!d) { box.hidden = true; box.innerHTML = ""; return; }
+    box.hidden = false;
+    var falta = "um lado inteiro com azimute " + M.dms(d.faltante.az) + " e " + fmt(d.faltante.d, 2) + " m (é o lado que fecharia a poligonal; a posição dele na sequência não muda o fechamento)";
+    var h = '<p class="diag__t">Por que não fecha?</p>';
+    if (d.hipoteses.length) {
+      h += "<p>Um erro só, num destes lados, explicaria o fechamento. Confira no original:</p><ol>" + d.hipoteses.map(function (x, k) {
+        return "<li>" + esc(M.textoHipotese(x)) + '<br><button type="button" class="mini" data-ver="' + x.lado + '">Ver no mapa</button>' +
+          '<button type="button" class="mini" data-testar="' + k + '">Testar esta correção</button></li>';
+      }).join("") + "</ol>";
+      if (d.outras) h += "<p>Há outras " + d.outras + " hipóteses que fecham quase tão bem: o erro pode estar em mais de um lugar.</p>";
+      h += "<p>Se nenhuma delas for, pode ter faltado " + esc(falta) + ".</p>";
+    } else {
+      h += "<p>Nenhum dígito trocado, quadrante de rumo trocado nem lado repetido explica sozinho o erro. Pode ter faltado " + esc(falta) +
+        ", ou há mais de um erro. Confira lado a lado no original.</p>";
+    }
+    h += "<p>São hipóteses calculadas pela página, não correções: quem decide é o original.</p>";
+    box.innerHTML = h;
   }
 
   function tabela(r) {
     var p = r.poligonal;
     $("o-tab").querySelector("tbody").innerHTML = p.vertices.map(function (v, i) {
-      var l = r.lados[i];
-      return "<tr><td>" + esc(p.nomes[i]) + "</td><td>" + fmt(v[0], 2) + "</td><td>" + fmt(v[1], 2) + "</td><td>" + p.geo[i][0].toFixed(7) +
+      var l = p.lados[i];
+      return '<tr data-i="' + i + '"' + (estado.destaque === i ? ' class="sel"' : "") + "><td>" + esc(p.nomes[i]) + "</td><td>" + fmt(v[0], 2) + "</td><td>" + fmt(v[1], 2) + "</td><td>" + p.geo[i][0].toFixed(7) +
         "</td><td>" + p.geo[i][1].toFixed(7) + "</td><td>" + M.dms(l.azimuteGraus) + (l.deRumo ? ' <small>(rumo)</small>' : "") + "</td><td>" + fmt(l.distanciaM, 2) +
         '</td><td class="trecho">' + esc(l.trecho.length > 140 ? l.trecho.slice(0, 140) + "…" : l.trecho) + "</td></tr>";
     }).join("");
@@ -519,6 +634,14 @@ Depois a tabela:
       h.push('<line class="m-gap" x1="' + tl[0].toFixed(1) + '" y1="' + tl[1].toFixed(1) + '" x2="' + tc2[0].toFixed(1) + '" y2="' + tc2[1].toFixed(1) + '"/>' +
         '<circle class="m-chegada" cx="' + tc2[0].toFixed(1) + '" cy="' + tc2[1].toFixed(1) + '" r="5"/><text class="m-rot m-rot--gap" x="' + (tc2[0] + 8).toFixed(1) + '" y="' + (tc2[1] - 8).toFixed(1) + '">chegada do último lado</text>');
     }
+    if (r.outra) {
+      var to = r.outra.geo.map(function (q) { return tela(q[0], q[1]); });
+      h.push('<polygon class="m-outra" points="' + to.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" ") + '"/>');
+    }
+    if (estado.destaque != null && tp[estado.destaque]) {
+      var da = tp[estado.destaque], db = tp[(estado.destaque + 1) % tp.length];
+      h.push('<line class="m-destaque" x1="' + da[0].toFixed(1) + '" y1="' + da[1].toFixed(1) + '" x2="' + db[0].toFixed(1) + '" y2="' + db[1].toFixed(1) + '"/>');
+    }
     var rotular = tp.length <= 45;
     tp.forEach(function (q, i) {
       h.push('<circle class="m-v' + (i === 0 ? " m-v0" : "") + '" cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="' + (i === 0 ? 5 : 3) + '"/>');
@@ -536,7 +659,8 @@ Depois a tabela:
     svg.innerHTML = h.join("");
 
     $("attr").hidden = !querFundo;
-    $("mapa-info").textContent = querFundo ? "" : (navigator.onLine === false ? "Sem internet: desenho com a grade UTM (" + passo + " m) e o norte." : "Grade UTM de " + passo + " m e norte verdadeiro para cima.");
+    $("mapa-info").textContent = (querFundo ? "" : (navigator.onLine === false ? "Sem internet: desenho com a grade UTM (" + passo + " m) e o norte." : "Grade UTM de " + passo + " m e norte verdadeiro para cima.")) +
+      (r.outra ? " Tracejado verde: a leitura pelas " + (r.outra.fonte === "coordenadas" ? "coordenadas dos vértices." : "lados (azimute e distância).") : "");
     if (querFundo) {
       var imgs = svg.querySelectorAll(".m-tile"), falhas = 0;
       Array.prototype.forEach.call(imgs, function (im) {
@@ -565,8 +689,12 @@ Depois a tabela:
     b.addEventListener("click", function () {
       if (!atual) return;
       var p = atual.poligonal, nome = ($("nome").value || "Imóvel do memorial").trim(), base = nomeArquivo();
-      if (b.dataset.baixar === "kml") baixar(base + ".kml", M.kml(p, nome), "application/vnd.google-earth.kml+xml");
-      else if (b.dataset.baixar === "geojson") baixar(base + ".geojson", M.geojson(p, nome), "application/geo+json");
+      var tipo = b.dataset.baixar;
+      if (tipo === "kml") baixar(base + ".kml", M.kml(p, nome), "application/vnd.google-earth.kml+xml");
+      else if (tipo === "geojson") baixar(base + ".geojson", M.geojson(p, nome), "application/geo+json");
+      else if (tipo === "dxf") baixar(base + ".dxf", M.dxf(p, nome), "application/dxf");
+      else if (tipo === "csv") baixar(base + ".csv", M.csv(p), "text/csv;charset=utf-8");
+      else if (tipo === "txt") baixar(base + "-memorial.txt", M.memorialTexto(p, nome), "text/plain;charset=utf-8");
       else baixar(base + "-shp.zip", M.shapefileZip(p, nome, base), "application/zip");
     });
   });
@@ -576,13 +704,53 @@ Depois a tabela:
   $("ler").addEventListener("click", function () { ler(false); });
   $("recalcular").addEventListener("click", function () { ler(true); });
   $("exemplo").addEventListener("click", function () { $("texto").value = EXEMPLO; $("nome").value = "Fazenda Vereda do Exemplo (ficticia)"; ler(false); });
+  // O mesmo exemplo com um erro de digitação de propósito (742,69 escrito 724,69), para ver o diagnóstico.
+  $("exemplo-erro").addEventListener("click", function () {
+    $("texto").value = EXEMPLO.replace("SÓ PARA DEMONSTRAÇÃO", "SÓ PARA DEMONSTRAÇÃO, COM UM ERRO DE DIGITAÇÃO DE PROPÓSITO").replace("742,69", "724,69");
+    $("nome").value = "Fazenda Vereda do Exemplo (ficticia)";
+    ler(false);
+  });
   $("limpar").addEventListener("click", function () {
     $("texto").value = ""; $("pe").value = ""; $("pn").value = ""; atual = null;
+    estado = { campos: false, fonte: null, correcoes: [], destaque: null };
     $("saida").hidden = true; $("o-erro-msg").hidden = true; $("vazio").hidden = false;
     $("partida-info").textContent = "A coordenada de partida e o fuso vêm do texto. Se não vierem, ou vierem errados, corrija aqui e toque em “Recalcular”.";
     $("texto").focus();
   });
   $("fundo").addEventListener("change", function () { if (atual) desenhar(atual); });
+  $("o-fonte").addEventListener("change", function (ev) { estado.fonte = ev.target.value; estado.destaque = null; refazer(); });
+  $("o-diag").addEventListener("click", function (ev) {
+    var b = ev.target.closest("button");
+    if (!b || !atual) return;
+    if (b.hasAttribute("data-desfazer")) { estado.correcoes = []; estado.destaque = null; refazer(); return; }
+    if (b.dataset.ver != null) { estado.destaque = Number(b.dataset.ver); tabela(atual); desenhar(atual); $("mapa").scrollIntoView({ block: "center" }); return; }
+    var h = atual.diagnostico && atual.diagnostico.hipoteses[Number(b.dataset.testar)];
+    if (!h) return;
+    estado.correcoes = [h.tipo === "extra" ? { lado: h.lado, remover: true } : { lado: h.lado, az: h.proposta.az, d: h.proposta.d }];
+    estado.destaque = h.tipo === "extra" ? null : h.lado;
+    refazer();
+  });
+  $("o-tab").addEventListener("click", function (ev) {
+    var tr = ev.target.closest("tbody tr");
+    if (!tr || !atual) return;
+    var i = Number(tr.dataset.i);
+    estado.destaque = estado.destaque === i ? null : i;
+    tabela(atual); desenhar(atual);
+  });
+  $("copiar-memorial").addEventListener("click", function () {
+    if (!atual) return;
+    var t = M.memorialTexto(atual.poligonal, ($("nome").value || "Imóvel do memorial").trim());
+    var fim = function (ok) { $("copiado-memorial").textContent = ok ? "Memorial copiado." : "Não deu para copiar: use \u201cBaixar o memorial (.txt)\u201d."; };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { fim(true); }, function () { fim(false); }); else fim(false);
+  });
+  /** Linha do topo do relatório impresso: nome, data e de onde saiu (também no Ctrl+P). */
+  function cabecalhoImpressao() {
+    var d = new Date(), dia = String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear();
+    $("impresso-em").textContent = ($("nome").value || "Imóvel do memorial").trim() + " · relatório gerado em " + dia +
+      " em www.oanalistaambiental.com/memorial-geo.html · reconstrução do texto do memorial: confira no SIG e no original.";
+  }
+  window.addEventListener("beforeprint", cabecalhoImpressao);
+  $("imprimir").addEventListener("click", function () { cabecalhoImpressao(); window.print(); });
   window.addEventListener("online", function () { if (atual) desenhar(atual); });
   window.addEventListener("offline", function () { if (atual) desenhar(atual); });
 

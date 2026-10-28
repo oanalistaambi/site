@@ -1,6 +1,7 @@
 // Teste da página memorial-geo.html no Chromium: exemplo, leitura, larguras de 1280 e 390 px sem rolagem
-// lateral, os três downloads (o .zip com os quatro arquivos do shapefile), funcionamento sem internet
-// depois do primeiro carregamento e o HTML único.
+// lateral, diagnóstico do fechamento com "Testar" e "Desfazer", memorial por coordenadas, destaque do lado
+// no mapa, os downloads (o .zip com os quatro arquivos do shapefile, DXF, CSV e o memorial em texto),
+// relatório para imprimir, funcionamento sem internet depois do primeiro carregamento e o HTML único.
 // Uso: python3 -m http.server 8765 (na raiz do site) e, em outro terminal,
 //      BASE=http://127.0.0.1:8765 node _testes/memorial-geo-pagina.mjs
 import { createRequire } from "node:module";
@@ -76,6 +77,35 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   ok(/ruim/.test(await pg.textContent("#o-fecho")), `${larg}px: lado faltando dá fechamento ruim com aviso`);
   ok(await pg.locator("#mapa .m-chegada").count() === 1, `${larg}px: mapa marca a chegada do último lado`);
 
+  // Diagnóstico: o "Exemplo com erro" (dígitos invertidos numa distância), "Testar" e "Desfazer".
+  await pg.click("#exemplo-erro");
+  ok(await pg.isVisible("#o-diag") && /742,69 m em vez de 724,69 m \(dois dígitos invertidos\)/.test(await pg.textContent("#o-diag")), `${larg}px: diagnóstico aponta a distância com dígitos invertidos`);
+  await pg.click("#o-diag [data-ver]");
+  ok(await pg.locator("#mapa .m-destaque").count() === 1 && await pg.locator("#o-tab tbody tr.sel").count() === 1, `${larg}px: "Ver no mapa" destaca o lado no mapa e na tabela`);
+  await pg.click("#o-diag [data-testar='0']");
+  ok(/bom/.test(await pg.textContent("#o-fecho")) && /Correção em teste/.test(await pg.textContent("#o-diag")) && /Correção só para teste/.test(await pg.textContent("#o-conf")), `${larg}px: "Testar esta correção" fecha e avisa que é teste`);
+  ok((await pg.inputValue("#texto")).includes("724,69"), `${larg}px: o texto colado não muda com o teste`);
+  await pg.click("#o-diag [data-desfazer]");
+  ok(/fraco|ruim/.test(await pg.textContent("#o-fecho")) && /Por que não fecha/.test(await pg.textContent("#o-diag")), `${larg}px: "Desfazer o teste" volta ao cálculo do texto`);
+
+  // Memorial por coordenadas e as duas leituras.
+  await pg.fill("#texto", `Partida: E 610.000,00 m, N 7.800.000,00 m, fuso 23, SIRGAS 2000
+| Vértice | E (m) | N (m) | Azimute ou rumo | Distância (m) | Página |
+| V1 | 610.000,00 | 7.800.000,00 | 90°00'00" | 100,00 | 2 |
+| V2 | 610.100,00 | 7.800.000,00 | N 0° E | 100,00 | 2 |
+| V3 | 610.100,00 | 7.800.100,00 | 270°00'00" | 100,00 | 3 |
+| V4 | 610.000,00 | 7.800.100,00 | S 0° E | 100,00 | 3 |`);
+  await pg.click("#ler");
+  ok(await pg.isVisible("#o-fonte") && await pg.locator("#mapa .m-outra").count() === 1, `${larg}px: duas leituras: seletor e tracejado da outra no mapa`);
+  await pg.check('#o-fonte input[value="coordenadas"]');
+  ok(/lidos das coordenadas/.test(await pg.textContent("#o-n")) && /não se aplica/.test(await pg.textContent("#o-erro")) && /1,0000 ha/.test(await pg.textContent("#o-area")),
+    `${larg}px: desenhar pelas coordenadas`);
+  await pg.fill("#texto", "Vértice | E (m) | N (m)\nV1 | 610.000,00 | 7.800.000,00\nV2 | 610.100,00 | 7.800.000,00\nV3 | 610.100,00 | 7.800.100,00\nV4 | 610.000,00 | 7.800.100,00\nCoordenadas UTM, SIRGAS 2000, fuso 23 S.");
+  await pg.click("#ler");
+  ok(!(await pg.isVisible("#o-fonte")) && /lidos das coordenadas/.test(await pg.textContent("#o-n")), `${larg}px: tabela só de coordenadas vira polígono`);
+  await pg.click("#o-tab tbody tr:nth-child(2)");
+  ok(await pg.locator("#mapa .m-destaque").count() === 1, `${larg}px: tocar na linha destaca o lado no mapa`);
+
   // Rumo e partida corrigida na mão.
   await pg.fill("#texto", "Partida E 612.000,00 m e N 7.795.000,00 m, SAD 69.\nV1; N 0° E; 100\nV2; 90°; 100\nV3; S 0° E; 100\nV4; 270°; 100");
   await pg.click("#ler");
@@ -84,10 +114,10 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   await pg.fill("#pe", "500.000,00"); await pg.selectOption("#fuso", "22"); await pg.click("#recalcular");
   ok(/500\.000,00/.test(await pg.textContent("#o-tab tbody tr:first-child")) && /22 S/.test(await pg.textContent("#o-sis")), `${larg}px: recalcula com partida e fuso informados`);
 
-  // Os três downloads.
+  // Os downloads.
   await pg.click("#exemplo");
   await pg.fill("#nome", "Fazenda Vereda do Exemplo");
-  for (const [tipo, ext] of [["kml", ".kml"], ["geojson", ".geojson"], ["shp", "-shp.zip"]]) {
+  for (const [tipo, ext] of [["kml", ".kml"], ["geojson", ".geojson"], ["shp", "-shp.zip"], ["dxf", ".dxf"], ["csv", ".csv"], ["txt", "-memorial.txt"]]) {
     const [d] = await Promise.all([pg.waitForEvent("download"), pg.click(`[data-baixar="${tipo}"]`)]);
     const nome = d.suggestedFilename(), caminho = join(SAIDA, `${larg}-${nome}`);
     await d.saveAs(caminho);
@@ -95,11 +125,25 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
     ok(nome === "fazenda-vereda-do-exemplo" + ext, `${larg}px: download ${nome}`);
     if (tipo === "kml") ok(/<kml xmlns="http:\/\/www.opengis.net\/kml\/2.2">/.test(buf.toString()) && (buf.toString().match(/<Placemark>/g) || []).length === 31, `${larg}px: KML com o polígono e 30 vértices`);
     if (tipo === "geojson") { const g = JSON.parse(buf.toString()); ok(g.features[0].geometry.type === "Polygon" && g.features[0].geometry.coordinates[0].length === 31, `${larg}px: GeoJSON com anel de 31 pontos`); }
+    if (tipo === "dxf") ok(/AC1009/.test(buf.toString()) && (buf.toString().match(/\r\nVERTEX\r\n/g) || []).length === 30, `${larg}px: DXF com a polilinha de 30 vértices`);
+    if (tipo === "csv") ok(buf.toString("utf8").split("\r\n").length === 32 && /^\uFEFFvertice;e_m;n_m/.test(buf.toString("utf8")), `${larg}px: CSV com 30 vértices`);
+    if (tipo === "txt") ok(/^MEMORIAL DESCRITIVO RECONSTRUÍDO — Fazenda Vereda do Exemplo/.test(buf.toString("utf8")), `${larg}px: memorial em texto`);
     if (tipo === "shp") {
       const nomes = nomesNoZip(buf);
       ok(JSON.stringify(nomes) === JSON.stringify(["fazenda-vereda-do-exemplo.shp", "fazenda-vereda-do-exemplo.shx", "fazenda-vereda-do-exemplo.dbf", "fazenda-vereda-do-exemplo.prj"]), `${larg}px: zip com os quatro arquivos (${nomes.join(", ")})`);
     }
   }
+
+  // Copiar o memorial com coordenadas e o relatório impresso.
+  await pg.click("#copiar-memorial");
+  ok(/^MEMORIAL DESCRITIVO RECONSTRUÍDO/.test(await pg.evaluate(() => navigator.clipboard.readText())), `${larg}px: copia o memorial com coordenadas`);
+  await pg.emulateMedia({ media: "print" });
+  await pg.evaluate(() => window.dispatchEvent(new Event("beforeprint")));
+  ok(await pg.isHidden("header.nav") && await pg.isHidden("#texto") && await pg.isHidden("#pedido-ia") && await pg.isVisible("#mapa") && await pg.isVisible("#o-tab") && await pg.isVisible("#limite"),
+    `${larg}px: impressão só com o resultado, o mapa, a tabela e os limites`);
+  ok(/relatório gerado em \d{2}\/\d{2}\/\d{4}/.test(await pg.textContent("#impresso-em")) && await pg.isVisible("#impresso-em"), `${larg}px: impressão com data e origem no topo`);
+  if (larg === 1280) await pg.pdf({ path: join(SAIDA, "relatorio.pdf"), format: "A4", printBackground: true });
+  await pg.emulateMedia({ media: "screen" });
 
   // Botão Copiar do pedido para IA.
   await pg.click("#copiar-ia");
