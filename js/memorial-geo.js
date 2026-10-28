@@ -308,7 +308,7 @@
   /** Critério desta página para o fechamento (não é norma: ver os limites na página). */
   function qualidadeFechamento(p) {
     if (p.erroFechamentoM < 0.01) return { nivel: "ok", texto: "Fecha: a diferença é de arredondamento (menos de 1 cm)." };
-    var n = p.precisaoRelativa;
+    var n = Math.floor(p.precisaoRelativa + 1e-6); // 1:N truncado, como no quadro de resultado e no app
     if (n >= 5000) return { nivel: "ok", texto: "Fechamento bom: 1:" + inteiro(n) + "." };
     if (n >= 1000) return { nivel: "atencao", texto: "Fechamento fraco (1:" + inteiro(n) + "): comum em memorial antigo. Confira o desenho no original antes de usar." };
     return {
@@ -316,6 +316,223 @@
       texto: "Fechamento ruim (1:" + inteiro(n) + ", " + metros(p.erroFechamentoM) + "): o último lado não volta ao ponto de partida. " +
         "Costuma ser lado que faltou, azimute ou distância lido errado, ou rumo com quadrante trocado. Confira lado a lado no original."
     };
+  }
+
+
+  // ------------------------------------------------------------------ diagnóstico do fechamento
+
+  function vetor(az, d) { var a = az * Math.PI / 180; return [d * Math.sin(a), d * Math.cos(a)]; }
+  function azimuteDe(v) { return (Math.atan2(v[0], v[1]) * 180 / Math.PI + 360) % 360; }
+  function difAngulo(a, b) { var d = Math.abs(a - b) % 360; return d > 180 ? 360 - d : d; }
+
+  /** Rumo por quadrante a partir do azimute: { q1: "N"|"S", r: graus, q2: "E"|"W" }. */
+  function rumoDe(az) {
+    az = ((az % 360) + 360) % 360;
+    if (az <= 90) return { q1: "N", r: az, q2: "E" };
+    if (az <= 180) return { q1: "S", r: 180 - az, q2: "E" };
+    if (az <= 270) return { q1: "S", r: az - 180, q2: "W" };
+    return { q1: "N", r: 360 - az, q2: "W" };
+  }
+  function rumoTexto(az) { var q = rumoDe(az); return q.q1 + " " + dms(q.r) + " " + q.q2; }
+  function anguloTexto(l, az) { return l.deRumo ? "rumo " + rumoTexto(az) : "azimute " + dms(az); }
+
+  /**
+   * Variações de um número como ele é escrito: um dígito trocado, dois vizinhos invertidos, um
+   * dígito a mais ou a menos. São os erros de digitação e de leitura mais comuns.
+   */
+  function variacoesDigitos(s) {
+    var out = {}, dig = "0123456789";
+    function poe(v, como) { if (v !== s && v !== "" && !(v in out)) out[v] = como; }
+    for (var i = 0; i < s.length; i++) {
+      if (!/\d/.test(s[i])) continue;
+      for (var k = 0; k < 10; k++) if (dig[k] !== s[i]) poe(s.slice(0, i) + dig[k] + s.slice(i + 1), "um dígito trocado");
+      if (i + 1 < s.length && /\d/.test(s[i + 1]) && s[i] !== s[i + 1]) poe(s.slice(0, i) + s[i + 1] + s[i] + s.slice(i + 2), "dois dígitos invertidos");
+      poe(s.slice(0, i) + s.slice(i + 1), "um dígito a mais no texto");
+      for (k = 0; k < 10; k++) poe(s.slice(0, i) + dig[k] + s.slice(i), "um dígito faltando no texto");
+    }
+    return out;
+  }
+
+  /** Ângulos vizinhos de um ângulo em graus, minutos e segundos, campo a campo. */
+  function variacoesAngulo(graus, max) {
+    var tot = Math.round(graus * 3600), g = Math.floor(tot / 3600), m = Math.floor((tot % 3600) / 60), sg = tot % 60, out = [];
+    function poe(gg, mm, ss, como) {
+      if (gg >= max || mm >= 60 || ss >= 60 || gg < 0) return;
+      var v = gg + mm / 60 + ss / 3600;
+      if (Math.abs(v - graus) > 1e-9) out.push({ v: v, como: como });
+    }
+    var vg = variacoesDigitos(String(g)), vm = variacoesDigitos(String(m).padStart(2, "0")), vs = variacoesDigitos(String(sg).padStart(2, "0"));
+    Object.keys(vg).forEach(function (x) { poe(Number(x), m, sg, vg[x] + " nos graus"); });
+    Object.keys(vm).forEach(function (x) { if (x.length === 2) poe(g, Number(x), sg, vm[x] + " nos minutos"); });
+    Object.keys(vs).forEach(function (x) { if (x.length === 2) poe(g, m, Number(x), vs[x] + " nos segundos"); });
+    if (m !== sg) poe(g, sg, m, "minutos e segundos trocados");
+    return out;
+  }
+
+  /**
+   * Por que a poligonal não fecha. O vetor de fechamento (da chegada do último lado até a partida)
+   * é comparado com hipóteses de um erro só: lado que faltou, lado lido a mais, um dígito errado
+   * na distância ou no ângulo, quadrante de rumo trocado ou sentido invertido. Uma hipótese vale
+   * quando, corrigida, a poligonal passa a fechar bem (1:5.000 ou melhor, o critério da página).
+   * São hipóteses para conferir no original, nunca correção automática.
+   */
+  function diagnosticar(pol) {
+    var w = [pol.chegada[0] - pol.vertices[0][0], pol.chegada[1] - pol.vertices[0][1]];
+    var erro = Math.hypot(w[0], w[1]), per = pol.perimetroM, achados = [];
+    if (erro < 0.01) return null;
+    function aceita(res, perDepois) { return res < erro / 3 && (res < 0.05 || perDepois / res >= 5000); }
+    function nome(i) { return pol.nomes ? pol.nomes[i] + " → " + pol.nomes[(i + 1) % pol.vertices.length] : "lado " + (i + 1); }
+    pol.lados.forEach(function (l, i) {
+      var s = vetor(l.azimuteGraus, l.distanciaM);
+      function testa(az, d, tipo, como) {
+        var s2 = vetor(az, d), r = Math.hypot(w[0] - s[0] + s2[0], w[1] - s[1] + s2[1]), perDepois = per - l.distanciaM + d;
+        if (aceita(r, perDepois)) achados.push({ tipo: tipo, lado: i, nome: nome(i), como: como, original: { az: l.azimuteGraus, d: l.distanciaM },
+          proposta: { az: az, d: d }, residuo: r, precisaoDepois: r > 1e-6 ? perDepois / r : null, deRumo: l.deRumo });
+      }
+      // Lado lido a mais (repetido, ou um número que não era lado).
+      var rx = Math.hypot(w[0] - s[0], w[1] - s[1]);
+      if (aceita(rx, per - l.distanciaM)) achados.push({ tipo: "extra", lado: i, nome: nome(i), como: "lado lido a mais ou repetido",
+        original: { az: l.azimuteGraus, d: l.distanciaM }, residuo: rx, precisaoDepois: rx > 1e-6 ? (per - l.distanciaM) / rx : null, deRumo: l.deRumo });
+      // Distância com dígito errado.
+      var casas = Math.abs(l.distanciaM * 100 - Math.round(l.distanciaM * 100)) > 1e-6 ? 3 : 2;
+      var vd = variacoesDigitos(l.distanciaM.toFixed(casas));
+      Object.keys(vd).forEach(function (x) {
+        if (/^\./.test(x) || /\.$/.test(x) || (x.split(".").length > 2)) return;
+        var d = Number(x);
+        if (d > 0 && isFinite(d)) testa(l.azimuteGraus, d, "distancia", vd[x]);
+      });
+      // Ângulo com dígito errado (no rumo, o ângulo do rumo; no azimute, o azimute).
+      if (l.deRumo) {
+        var q = rumoDe(l.azimuteGraus);
+        variacoesAngulo(q.r, 91).forEach(function (v) {
+          if (v.v > 90) return;
+          var az = azimuteDeRumo(q.q1 + q.q2, v.v);
+          if (az != null) testa(az, l.distanciaM, "angulo", v.como);
+        });
+        ["NE", "SE", "SW", "NW"].forEach(function (qq) {
+          if (qq === q.q1 + q.q2) return;
+          var az = azimuteDeRumo(qq, q.r);
+          if (az != null && difAngulo(az, l.azimuteGraus) > 1e-6) testa(az, l.distanciaM, "quadrante", "quadrante trocado");
+        });
+      } else {
+        variacoesAngulo(l.azimuteGraus, 360).forEach(function (v) { testa(v.v, l.distanciaM, "angulo", v.como); });
+        testa((l.azimuteGraus + 180) % 360, l.distanciaM, "sentido", "sentido invertido (180°)");
+      }
+    });
+    // Melhor hipótese por lado e tipo, da que fecha melhor para a pior.
+    achados.sort(function (a, b) { return a.residuo - b.residuo; });
+    // Só as que fecham quase tão bem quanto a melhor: uma hipótese que deixa 2 m de erro não
+    // concorre com outra que deixa 3 cm.
+    var vistos = {}, hipoteses = [], teto = achados.length ? Math.max(0.05, 10 * achados[0].residuo) : 0;
+    achados.forEach(function (h) {
+      var k = h.lado + ":" + h.tipo;
+      if (!vistos[k] && h.residuo <= teto) { vistos[k] = true; hipoteses.push(h); }
+    });
+    var faltante = { az: azimuteDe([-w[0], -w[1]]), d: erro };
+    return { erroM: erro, faltante: faltante, hipoteses: hipoteses.slice(0, 4), outras: Math.max(0, hipoteses.length - 4) };
+  }
+
+  /** Frase de uma hipótese do diagnóstico, com o efeito no fechamento. */
+  function textoHipotese(h) {
+    var l = { deRumo: h.deRumo }, efeito = h.precisaoDepois ? "o fechamento passa a " + metros(h.residuo) + " (1:" + inteiro(Math.floor(h.precisaoDepois)) + ")" : "a poligonal fecha exato";
+    if (h.tipo === "extra") return "Lado " + h.nome + " (" + anguloTexto(l, h.original.az) + ", " + decimal(h.original.d, 2) + " m) pode ter sido lido a mais ou estar repetido: sem ele, " + efeito + ".";
+    if (h.tipo === "distancia") return "Lado " + h.nome + ": com " + decimal(h.proposta.d, 2) + " m em vez de " + decimal(h.original.d, 2) + " m (" + h.como + "), " + efeito + ".";
+    return "Lado " + h.nome + ": com " + anguloTexto(l, h.proposta.az) + " em vez de " + anguloTexto(l, h.original.az) + " (" + h.como + "), " + efeito + ".";
+  }
+
+  // ------------------------------------------------------------------ memorial por coordenadas
+
+  /** Distância máxima, em caracteres, entre duas coordenadas da mesma tabela ou memorial (a mesma do app). */
+  var SALTO_MAXIMO = 420;
+
+  /** Todas as coordenadas do texto, na ordem, em E/N do fuso informado e em lat/long. */
+  function coordenadasDoTexto(t, fuso) {
+    var lista = candidatosUtm(t).map(function (c) { c.tipo = "utm"; return c; })
+      .concat(candidatosGeo(t).map(function (c) { c.tipo = "geo"; return c; }))
+      .sort(function (a, b) { return a.ini - b.ini; });
+    var out = [];
+    lista.forEach(function (c) {
+      if (out.length && c.ini < out[out.length - 1].fim) return; // o mesmo trecho lido por dois padrões
+      var x = { ini: c.ini, fim: c.fim, tipo: c.tipo, txt: c.txt.replace(/\s+/g, " ").trim() };
+      if (c.tipo === "geo") { var u = projetar(c.lat, c.lon, fuso, true); x.e = u.e; x.n = u.n; x.lat = c.lat; x.lon = c.lon; }
+      else { var g = inverter(c.e, c.n, fuso, true); x.e = c.e; x.n = c.n; x.lat = g[0]; x.lon = g[1]; }
+      out.push(x);
+    });
+    return out;
+  }
+
+  /**
+   * Vértices seguidos, com pouco texto entre eles (tabela ou memorial), viram uma sequência, como
+   * em ExtratorDocumento.sequencias do app: o vértice que volta ao inicial fecha o anel e não entra
+   * duas vezes; o mesmo ponto em UTM e em grau, lado a lado, conta uma vez; sem voltar ao inicial,
+   * só 4 vértices ou mais viram polígono. Fica a sequência mais longa.
+   */
+  function sequenciaDeCoordenadas(cs) {
+    var grupos = [];
+    cs.forEach(function (x) {
+      var g = grupos[grupos.length - 1], u = g && g[g.length - 1];
+      var salto = u ? x.ini - u.fim : 0, d = u ? Math.hypot(x.e - u.e, x.n - u.n) : 0;
+      if (u && salto >= -5 && salto <= SALTO_MAXIMO && d < 30000) {
+        if (d < 1 && salto < 80 && x.tipo !== u.tipo) return;
+        // O mesmo ponto repetido logo em seguida ("Partida: E..., N..." e depois a linha V1 da
+        // tabela) é um vértice só; fica o segundo, que costuma trazer o nome.
+        if (d < 1 && x.tipo === u.tipo) { g[g.length - 1] = x; return; }
+        g.push(x);
+      } else grupos.push([x]);
+    });
+    var melhor = null;
+    grupos.forEach(function (g) {
+      var fechado = g.length >= 4 && Math.hypot(g[0].e - g[g.length - 1].e, g[0].n - g[g.length - 1].n) < 1;
+      var vs = fechado ? g.slice(0, -1) : g;
+      if (vs.length < 3 || (!fechado && vs.length < 4)) return;
+      if (!melhor || vs.length > melhor.vertices.length) melhor = { vertices: vs, fechado: fechado };
+    });
+    return melhor;
+  }
+
+  var RE_CODIGO_SIGEF = /\b[A-Z0-9]{3,4}-[MPV]-\d{1,6}\b/g;
+
+  /** Nome do vértice de uma coordenada: código do SIGEF, "vértice V2" ou a 1ª coluna da linha da tabela. */
+  function rotuloDaCoordenada(t, c, fimAnterior) {
+    var trecho = t.substring(Math.max(fimAnterior || 0, c.ini - 200), c.ini);
+    var sig = todos(RE_CODIGO_SIGEF, trecho);
+    if (sig.length) return sig[sig.length - 1][0];
+    var rot = todos(RE_ROTULO, trecho);
+    if (rot.length && rot[rot.length - 1][1].length <= 16) return rot[rot.length - 1][1];
+    var linha = t.lastIndexOf("\n", c.ini - 1) + 1;
+    if (linha >= (fimAnterior || 0)) {
+      var cel = t.substring(linha, c.ini).replace(/^[\s|]+/, "").split(/[\s;|\t]+/)[0];
+      if (cel && /^[A-Za-z]{0,6}-?[A-Za-z0-9-]*\d$/.test(cel) && cel.length <= 16) return cel;
+    }
+    return null;
+  }
+
+  /** Poligonal das coordenadas: o lado de cada vértice ao seguinte, com azimute de quadrícula e distância no plano UTM. */
+  function poligonalDeCoordenadas(seq) {
+    var vs = seq.vertices.map(function (c) { return [c.e, c.n]; }), per = 0;
+    var ls = vs.map(function (a, i) {
+      var b = vs[(i + 1) % vs.length], d = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      per += d;
+      return lado(azimuteDe([b[0] - a[0], b[1] - a[1]]), d, false, seq.vertices[i].ini, seq.vertices[i].txt);
+    });
+    return { vertices: vs, chegada: vs[0], lados: ls, perimetroM: per, erroFechamentoM: null, precisaoRelativa: null,
+      areaM2: areaPlana(vs), fonte: "coordenadas", fechadoNoTexto: seq.fechado };
+  }
+
+  /**
+   * Vértice com dígito trocado (N 7.800.100 lido como 7.808.100) faz o contorno "ir e voltar": os
+   * dois lados que tocam nele somam muito mais que a ligação direta entre os vizinhos. Mesma regra
+   * de ConferenciaPoligonal.conferir, no app.
+   */
+  function verticesForaDoLugar(vs) {
+    var n = vs.length, out = [];
+    if (n < 4) return out;
+    for (var i = 0; i < n; i++) {
+      var a = vs[(i - 1 + n) % n], v = vs[i], b = vs[(i + 1) % n];
+      var ida = Math.hypot(v[0] - a[0], v[1] - a[1]) + Math.hypot(b[0] - v[0], b[1] - v[1]), direto = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      if (ida - direto > 500 && ida > 5 * Math.max(direto, 1)) out.push({ i: i, ida: ida });
+    }
+    return out;
   }
 
   // ------------------------------------------------------------------ UTM (GRS80 = SIRGAS 2000)
@@ -418,7 +635,7 @@
       todos(p.re, t).forEach(function (m) {
         var e = numeroMetrico(m[p.norteAntes ? 2 : 1]), n = numeroMetrico(m[p.norteAntes ? 1 : 2]);
         if (e == null || n == null) return;
-        if (e >= 100000 && e <= 900000 && n >= 6000000 && n <= 10000000) out.push({ ini: m.index, e: e, n: n, txt: m[0] });
+        if (e >= 100000 && e <= 900000 && n >= 6000000 && n <= 10000000) out.push({ ini: m.index, fim: m.index + m[0].length, e: e, n: n, txt: m[0] });
       });
     });
     if (/\butm\b|coordenada|\bfuso\b|\bE\s*\(m\)|\bN\s*\(m\)|easting|northing/i.test(t)) {
@@ -428,8 +645,9 @@
         var e = a, n = b;
         if (a > 1000000) { e = b; n = a; }
         if (!(e >= 100000 && e <= 900000 && n >= 6000000 && n <= 10000000)) return;
-        if (out.some(function (o) { return Math.abs(o.ini - m.index) < 40; })) return;
-        out.push({ ini: m.index, e: e, n: n, txt: m[0] });
+        var fim = m.index + m[0].length;
+        if (out.some(function (o) { return o.ini < fim && m.index < o.fim; })) return; // já lido por um padrão com rótulo
+        out.push({ ini: m.index, fim: m.index + m[0].length, e: e, n: n, txt: m[0] });
       });
     }
     return out;
@@ -452,13 +670,13 @@
       if (!(a.sinal || a.h) || !(b.sinal || b.h)) return; // sem sinal nem hemisfério pode ser azimute
       var lat = a.v, lon = b.v;
       if (/[WOEL]/.test(a.h) || /[NS]/.test(b.h) || (!a.h && !b.h && Math.abs(a.v) > Math.abs(b.v))) { lat = b.v; lon = a.v; }
-      if (noBrasil(lat, lon)) out.push({ ini: m.index, lat: lat, lon: lon, txt: m[0] });
+      if (noBrasil(lat, lon)) out.push({ ini: m.index, fim: m.index + m[0].length, lat: lat, lon: lon, txt: m[0] });
     });
     var reDec = /(?<![\d.,])(-\s?\d{1,2}[.,]\d{4,})\s*°?\s*[,;/|]?\s*(?:e\s+|long(?:itude)?\.?\s*[:=]?\s*)?(-\s?\d{2}[.,]\d{4,})\s*°?(?!\d)/gi;
     todos(reDec, t).forEach(function (m) {
       var a = num(m[1].replace(/\s/g, "")), b = num(m[2].replace(/\s/g, ""));
       var lat = Math.abs(a) <= Math.abs(b) ? a : b, lon = lat === a ? b : a;
-      if (noBrasil(lat, lon)) out.push({ ini: m.index, lat: lat, lon: lon, txt: m[0] });
+      if (noBrasil(lat, lon)) out.push({ ini: m.index, fim: m.index + m[0].length, lat: lat, lon: lon, txt: m[0] });
     });
     return out;
   }
@@ -482,7 +700,7 @@
     var fuso = fusoDoc, deduzido = false;
     if (!fuso) {
       var mg = [22, 23, 24].filter(function (zz) { var g = inverter(c.e, c.n, zz, true); return emMg(g[0], g[1]); });
-      fuso = mg.indexOf(23) >= 0 ? 23 : (mg[0] || 23); // 23 cobre a maior parte de MG
+      fuso = mg[0] || 23; // como o app (ExtratorDocumento.coordenadasUtm): o primeiro de 22, 23, 24 que põe o ponto em MG
       deduzido = true;
       avisos.push(mg.length === 1
         ? "Fuso não escrito no texto: " + fuso + " deduzido (é o único que põe o ponto em MG). Confira."
@@ -517,12 +735,16 @@
 
   /**
    * Lê o texto e monta tudo: lados, partida, fuso, datum, poligonal e conferências.
-   * `opcoes` pode trazer { e, n, fuso } para trocar a partida e o fuso lidos do texto.
+   * `opcoes` pode trazer:
+   * - { e, n, fuso } para trocar a partida e o fuso lidos do texto;
+   * - { fonte: "azimute" | "coordenadas" } quando o texto tem as duas leituras;
+   * - { correcoes: [{ lado, az, d } | { lado, remover: true }] } para testar uma hipótese do
+   *   diagnóstico sem mudar o texto.
    */
   function analisar(texto, opcoes) {
     opcoes = opcoes || {};
     var t = normalizar(texto);
-    var r = { lados: lados(t), datum: datumCitado(t), fusoTexto: fusoCitado(t), avisos: [], conferencias: [] };
+    var r = { lados: lados(t), datum: datumCitado(t), fusoTexto: fusoCitado(t), avisos: [], conferencias: [], correcoes: [] };
     r.partidaLida = partidaDoTexto(t, r.fusoTexto);
     var p = r.partidaLida ? { e: r.partidaLida.e, n: r.partidaLida.n, fuso: r.partidaLida.fuso } : {};
     if (opcoes.e != null && opcoes.n != null) { p.e = opcoes.e; p.n = opcoes.n; }
@@ -534,37 +756,97 @@
       r.avisos.push("O texto cita " + r.datum + ". A página trata a coordenada como SIRGAS 2000, sem converter: em MG a diferença " +
         "chega a dezenas de metros. Converta a coordenada de partida (ProGriD, do IBGE) antes de usar.");
     }
-    if (r.lados.length < 3) {
-      r.erro = r.lados.length ? "Só " + r.lados.length + " lado(s) reconhecido(s): são precisos pelo menos 3." :
-        "Nenhum lado reconhecido. Cada lado precisa de azimute (ex.: 120°15'30\") ou rumo (ex.: N 45°30' E) e de distância em metros.";
-      return r;
-    }
-    if (!r.partida) {
-      r.erro = "Não achei a coordenada de partida no texto. Preencha E, N e o fuso abaixo.";
-      return r;
-    }
-    var pol = percorrer(p.e, p.n, r.lados);
-    var nomes = rotulos(t, r.lados, r.partidaLida);
-    var usados = {};
-    pol.nomes = pol.vertices.map(function (_, i) {
-      var nome = nomes[i];
-      if (!nome || usados[nome]) nome = "V" + (i + 1);
-      usados[nome] = true;
-      return nome;
+
+    // Correções de teste (hipóteses do diagnóstico): mudam só o cálculo, nunca o texto.
+    (opcoes.correcoes || []).forEach(function (c) {
+      var l = r.lados[c.lado];
+      if (!l) return;
+      if (c.remover) { r.correcoes.push({ lado: c.lado, remover: true, original: l }); return; }
+      var novo = lado(c.az != null ? c.az : l.azimuteGraus, c.d != null ? c.d : l.distanciaM, l.deRumo, l.posicao, l.trecho);
+      novo.corrigido = { az: l.azimuteGraus, d: l.distanciaM };
+      r.correcoes.push({ lado: c.lado, original: l, novo: novo });
+      r.lados[c.lado] = novo;
     });
-    pol.geo = pol.vertices.map(function (v) { return inverter(v[0], v[1], p.fuso, true); });
-    pol.fuso = p.fuso;
-    pol.qualidade = qualidadeFechamento(pol);
+    var removidos = r.correcoes.filter(function (c) { return c.remover; }).map(function (c) { return c.lado; });
+    if (removidos.length) r.lados = r.lados.filter(function (_, i) { return removidos.indexOf(i) < 0; });
+
+    // As duas leituras possíveis: lados (azimute ou rumo e distância) e coordenadas de cada vértice.
+    var fuso = p.fuso || (r.partidaLida && r.partidaLida.fuso);
+    r.sequencia = fuso ? sequenciaDeCoordenadas(coordenadasDoTexto(t, fuso)) : null;
+    r.fontes = [];
+    if (r.lados.length >= 3 && r.partida) r.fontes.push("azimute");
+    if (r.sequencia) r.fontes.push("coordenadas");
+    if (!r.fontes.length) {
+      r.erro = r.lados.length >= 3 ? "Não achei a coordenada de partida no texto. Preencha E, N e o fuso abaixo." :
+        r.lados.length ? "Só " + r.lados.length + " lado(s) reconhecido(s): são precisos pelo menos 3, ou a coordenada de cada vértice." :
+          "Nenhum lado reconhecido. Cada lado precisa de azimute (ex.: 120°15'30\") ou rumo (ex.: N 45°30' E) e de distância em metros; " +
+          "ou cole a tabela com a coordenada de cada vértice.";
+      return r;
+    }
+    r.fonte = r.fontes.indexOf(opcoes.fonte) >= 0 ? opcoes.fonte : r.fontes[0];
+
+    function montar(fonte) {
+      var pol;
+      if (fonte === "azimute") {
+        pol = percorrer(p.e, p.n, r.lados);
+        pol.fonte = "azimute";
+        var nomes = rotulos(t, r.lados, r.partidaLida);
+      } else {
+        pol = poligonalDeCoordenadas(r.sequencia);
+        nomes = r.sequencia.vertices.map(function (c, i) { return rotuloDaCoordenada(t, c, i ? r.sequencia.vertices[i - 1].fim : 0); });
+      }
+      var usados = {};
+      pol.nomes = pol.vertices.map(function (_, i) {
+        var nome = nomes[i];
+        if (!nome || usados[nome]) nome = "V" + (i + 1);
+        usados[nome] = true;
+        return nome;
+      });
+      pol.geo = pol.vertices.map(function (v) { return inverter(v[0], v[1], fuso, true); });
+      pol.fuso = fuso;
+      pol.qualidade = fonte === "azimute" ? qualidadeFechamento(pol) : pol.fechadoNoTexto
+        ? { nivel: "ok", texto: "Memorial por coordenadas: o texto volta ao vértice inicial, e o polígono fecha como está escrito." }
+        : { nivel: "info", texto: "Memorial por coordenadas: o texto não repete o vértice inicial; a página fechou o polígono ligando o último vértice ao primeiro." };
+      return pol;
+    }
+    var pol = montar(r.fonte);
     r.poligonal = pol;
+    if (r.correcoes.length && pol.fonte === "azimute") pol.correcaoDeTeste = "Correção só para teste aplicada em " + r.correcoes.length + " lado(s): o texto original é diferente.";
+    if (r.fontes.length === 2) r.outra = montar(r.fonte === "azimute" ? "coordenadas" : "azimute");
 
     var c = r.conferencias;
-    c.push({ nivel: pol.qualidade.nivel === "ruim" ? "atencao" : pol.qualidade.nivel === "atencao" ? "atencao" : "ok", texto: pol.qualidade.texto });
+    c.push({ nivel: pol.qualidade.nivel === "ruim" || pol.qualidade.nivel === "atencao" ? "atencao" : pol.qualidade.nivel, texto: pol.qualidade.texto });
+    if (r.correcoes.length) {
+      r.correcoes.forEach(function (k) {
+        var trecho = k.original.trecho || "", nomeLado = "lado " + (trecho ? "lido como \u201c" + (trecho.length > 70 ? trecho.slice(0, 70) + "…" : trecho) + "\u201d" : "nº " + (k.lado + 1));
+        c.push({ nivel: "atencao", texto: k.remover
+          ? "Correção só para teste: o " + nomeLado + " (" + anguloTexto(k.original, k.original.azimuteGraus) + ", " + decimal(k.original.distanciaM, 2) + " m) saiu do cálculo. O texto não mudou: confira no original."
+          : "Correção só para teste no " + nomeLado + ": " + anguloTexto(k.novo, k.novo.azimuteGraus) + " e " + decimal(k.novo.distanciaM, 2) + " m, no lugar de " +
+            anguloTexto(k.original, k.original.azimuteGraus) + " e " + decimal(k.original.distanciaM, 2) + " m. O texto não mudou: confira no original." });
+      });
+    }
+    if (r.outra) {
+      var az = r.fonte === "azimute" ? pol : r.outra, co = r.fonte === "azimute" ? r.outra : pol;
+      if (az.vertices.length === co.vertices.length) {
+        var maior = 0, k = 0;
+        az.vertices.forEach(function (v, i) { var d = Math.hypot(v[0] - co.vertices[i][0], v[1] - co.vertices[i][1]); if (d > maior) { maior = d; k = i; } });
+        c.push({ nivel: "info", texto: "O texto traz os lados e também a coordenada de cada vértice. Comparados vértice a vértice, a maior diferença é de " +
+          metros(maior) + " (" + co.nomes[k] + ")." });
+      } else {
+        c.push({ nivel: "atencao", texto: "O texto traz " + az.lados.length + " lados e " + co.vertices.length + " vértices com coordenada: as duas leituras não batem. Confira no original." });
+      }
+    }
+    if (pol.fonte === "coordenadas") {
+      verticesForaDoLugar(pol.vertices).forEach(function (x) {
+        c.push({ nivel: "atencao", texto: pol.nomes[x.i] + " parece fora do lugar: o contorno vai " + metros(x.ida / 2) + " até ele e volta. Confira o número desse vértice no original." });
+      });
+    }
     var cruz = ladosQueSeCruzam(pol.vertices);
     if (cruz.length) {
       c.push({ nivel: "atencao", texto: "Os lados se cruzam (" + cruz.slice(0, 3).map(function (x) { return pol.nomes[x[0]] + " e " + pol.nomes[x[1]]; }).join("; ") +
         "). Costuma ser lado fora de ordem, quadrante de rumo trocado ou azimute lido errado." });
     }
-    if (r.lados.some(function (l) { return l.deRumo; })) c.push({ nivel: "info", texto: "Rumos convertidos em azimute pelo quadrante (NE, SE, SW, NW)." });
+    if (pol.fonte === "azimute" && r.lados.some(function (l) { return l.deRumo; })) c.push({ nivel: "info", texto: "Rumos convertidos em azimute pelo quadrante (NE, SE, SW, NW)." });
     var escritas = todos(RE_AREA_ESCRITA, t).map(function (m) { return { valor: m[1].trim(), m2: areaEmM2(m[1]) }; }).filter(function (x) { return x.m2; });
     if (escritas.length && pol.areaM2 > 0) {
       var perto = escritas.reduce(function (a, b) { return Math.abs(b.m2 - pol.areaM2) < Math.abs(a.m2 - pol.areaM2) ? b : a; });
@@ -574,6 +856,7 @@
           : { nivel: "atencao", texto: "A área calculada não bate com a escrita no texto (" + perto.valor + "): diferença de " + decimal(dif * 100, 0) + "%." });
     }
     if (!pol.geo.some(function (g) { return emMg(g[0], g[1]); })) c.push({ nivel: "atencao", texto: "A área cai fora de Minas Gerais. Confira o fuso e o datum." });
+    if (pol.fonte === "azimute" && pol.qualidade.nivel !== "ok") r.diagnostico = diagnosticar(pol);
     return r;
   }
 
@@ -591,6 +874,7 @@
 
   /** "Fechamento: 0,42 m em 1.234,56 m de perímetro (1:2.939)" — como no app. */
   function resumoFechamento(p) {
+    if (p.erroFechamentoM == null) return "Memorial por coordenadas: " + decimal(p.perimetroM, 2) + " m de perímetro, sem erro de fechamento a calcular";
     var rel = p.precisaoRelativa ? " (1:" + inteiro(Math.floor(p.precisaoRelativa + 1e-6)) + ")" : " (fecha exato)";
     return "Fechamento: " + decimal(p.erroFechamentoM, 2) + " m em " + decimal(p.perimetroM, 2) + " m de perímetro" + rel;
   }
@@ -609,13 +893,93 @@
 
   function propriedades(pol, nome) {
     return {
-      nome: nome, fonte: "memorial descritivo (azimute/rumo e distância)", datum: "SIRGAS 2000",
+      nome: nome, fonte: pol.fonte === "coordenadas" ? "memorial descritivo (coordenadas dos vértices)" : "memorial descritivo (azimute/rumo e distância)", datum: "SIRGAS 2000",
       fuso_utm: pol.fuso + "S", vertices: pol.vertices.length,
       area_ha: +(pol.areaM2 / 10000).toFixed(4), perimetro_m: +pol.perimetroM.toFixed(2),
-      erro_fechamento_m: +pol.erroFechamentoM.toFixed(3),
-      precisao_relativa: pol.precisaoRelativa ? "1:" + Math.floor(pol.precisaoRelativa) : "exato",
+      erro_fechamento_m: pol.erroFechamentoM == null ? null : +pol.erroFechamentoM.toFixed(3),
+      precisao_relativa: pol.erroFechamentoM == null ? "não se aplica" : pol.precisaoRelativa ? "1:" + Math.floor(pol.precisaoRelativa + 1e-6) : "exato",
+      correcao_de_teste: pol.correcaoDeTeste || null,
       aviso: "Desenho reconstruído do memorial. Confira no SIG e no original. Não substitui levantamento nem georreferenciamento certificado."
     };
+  }
+
+  /** Lado geométrico de cada vértice ao seguinte (o último fecha no primeiro), no plano UTM. */
+  function ladosGeometricos(pol) {
+    var v = pol.vertices;
+    return v.map(function (a, i) { var b = v[(i + 1) % v.length]; return { az: azimuteDe([b[0] - a[0], b[1] - a[1]]), d: Math.hypot(b[0] - a[0], b[1] - a[1]) }; });
+  }
+
+  function dataHoje() { var d = new Date(); return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear(); }
+
+  /**
+   * CSV dos vértices para planilha: ";" entre colunas e vírgula decimal (Excel em português), com
+   * BOM para os acentos. E e N sem ponto de milhar, para importar no SIG como número.
+   */
+  function csv(pol) {
+    var lg = ladosGeometricos(pol), f = function (v, c) { return v.toFixed(c).replace(".", ","); };
+    // Campo com ";" ou aspas vai entre aspas, com as aspas dobradas (RFC 4180): o azimute 30" tem aspas.
+    function campo(v) { v = String(v); return /[;"\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+    var linhas = ["vertice;e_m;n_m;latitude;longitude;azimute_ate_o_proximo;azimute_graus_decimais;distancia_ate_o_proximo_m"];
+    pol.vertices.forEach(function (v, i) {
+      linhas.push([campo(pol.nomes[i]), f(v[0], 3), f(v[1], 3), f(pol.geo[i][0], 8), f(pol.geo[i][1], 8), campo(dms(lg[i].az)), f(lg[i].az, 6), f(lg[i].d, 2)].join(";"));
+    });
+    return "﻿" + linhas.join("\r\n") + "\r\n";
+  }
+
+  /**
+   * DXF R12 (AC1009), que todo CAD e o QGIS abrem: o polígono fechado na camada POLIGONO, um ponto
+   * por vértice em VERTICES e o nome em NOMES, em metros no UTM do fuso (Autodesk, DXF Reference).
+   */
+  function dxf(pol, nome) {
+    var v = pol.vertices, xs = v.map(function (p) { return p[0]; }), ys = v.map(function (p) { return p[1]; });
+    var diag = Math.hypot(Math.max.apply(null, xs) - Math.min.apply(null, xs), Math.max.apply(null, ys) - Math.min.apply(null, ys));
+    var h = Math.max(0.5, +(diag / 150).toFixed(2)), out = [];
+    function g(c, val) { out.push(String(c), String(val)); }
+    function xy(p) { g(10, p[0].toFixed(3)); g(20, p[1].toFixed(3)); g(30, "0.0"); }
+    g(999, semAcento("Memorial em poligono - " + nome + " - SIRGAS 2000 UTM " + pol.fuso + "S - oanalistaambiental.com/memorial-geo.html"));
+    g(0, "SECTION"); g(2, "HEADER"); g(9, "$ACADVER"); g(1, "AC1009");
+    g(9, "$EXTMIN"); xy([Math.min.apply(null, xs), Math.min.apply(null, ys)]);
+    g(9, "$EXTMAX"); xy([Math.max.apply(null, xs), Math.max.apply(null, ys)]);
+    g(0, "ENDSEC");
+    g(0, "SECTION"); g(2, "ENTITIES");
+    g(0, "POLYLINE"); g(8, "POLIGONO"); g(66, 1); g(10, "0.0"); g(20, "0.0"); g(30, "0.0"); g(70, 1);
+    v.forEach(function (p) { g(0, "VERTEX"); g(8, "POLIGONO"); xy(p); });
+    g(0, "SEQEND"); g(8, "POLIGONO");
+    v.forEach(function (p, i) {
+      g(0, "POINT"); g(8, "VERTICES"); xy(p);
+      g(0, "TEXT"); g(8, "NOMES"); g(10, (p[0] + h / 2).toFixed(3)); g(20, (p[1] + h / 2).toFixed(3)); g(30, "0.0"); g(40, h); g(1, semAcento(pol.nomes[i]));
+    });
+    g(0, "ENDSEC"); g(0, "EOF");
+    return out.join("\r\n") + "\r\n";
+  }
+
+  /**
+   * Memorial em texto, com a coordenada de cada vértice, no formato que esta página lê de volta.
+   * Sai do cálculo: não é memorial de levantamento.
+   */
+  function memorialTexto(pol, nome) {
+    var lg = ladosGeometricos(pol), n = pol.vertices.length;
+    function coord(i) { return "N " + decimal(pol.vertices[i][1], 2) + " m e E " + decimal(pol.vertices[i][0], 2) + " m"; }
+    var cab = ["MEMORIAL DESCRITIVO RECONSTRUÍDO — " + nome,
+      "Gerado em " + dataHoje() + " pela página www.oanalistaambiental.com/memorial-geo.html, a partir do texto colado. " +
+        "Não é memorial de levantamento: confira com o original e no SIG.",
+      "Sistema: SIRGAS 2000, projeção UTM, fuso " + pol.fuso + " S (meridiano central " + Math.abs(meridianoCentral(pol.fuso)) + "° W). " +
+        "Azimutes de quadrícula e distâncias no plano UTM.",
+      "Área: " + decimal(pol.areaM2 / 10000, 4) + " ha. Perímetro: " + decimal(lg.reduce(function (s, l) { return s + l.d; }, 0), 2) + " m."];
+    if (pol.fonte === "azimute" && pol.erroFechamentoM >= 0.01) {
+      var o = pol.lados[n - 1];
+      // Sem "azimute ... m" nesta frase: a página relê o texto, e ela não pode virar lado.
+      cab.push("O memorial original não fecha (" + resumoFechamento(pol) + "). Aqui o último lado foi recalculado do último vértice ao inicial; " +
+        "no original ele tem ângulo de " + (o.deRumo ? rumoTexto(o.azimuteGraus) : dms(o.azimuteGraus)) + " e comprimento de " + decimal(o.distanciaM, 2) + " (em metros).");
+    }
+    if (pol.correcaoDeTeste) cab.push("ATENÇÃO: " + pol.correcaoDeTeste);
+    var partes = ["Inicia-se a descrição deste perímetro no vértice " + pol.nomes[0] + ", de coordenadas " + coord(0)];
+    for (var i = 0; i < n; i++) {
+      var prox = (i + 1) % n;
+      partes.push("deste, segue com azimute de " + dms(lg[i].az) + " e distância de " + decimal(lg[i].d, 2) + " m até o vértice " + pol.nomes[prox] +
+        (prox === 0 ? ", ponto inicial da descrição deste perímetro" : ", de coordenadas " + coord(prox)));
+    }
+    return cab.join("\n") + "\n\n" + partes.join("; ") + ".\n";
   }
 
   /** GeoJSON (RFC 7946): longitude e latitude em graus, anel externo anti-horário. */
@@ -703,11 +1067,13 @@
       ["NOME", "C", 60, 0, semAcento(nome)],
       ["AREA_HA", "N", 16, 4, (pol.areaM2 / 10000).toFixed(4)],
       ["PERIM_M", "N", 14, 2, pol.perimetroM.toFixed(2)],
-      ["ERRO_M", "N", 10, 3, pol.erroFechamentoM.toFixed(3)],
+      ["ERRO_M", "N", 10, 3, pol.erroFechamentoM == null ? "" : pol.erroFechamentoM.toFixed(3)],
       ["PREC_REL", "N", 12, 0, pol.precisaoRelativa ? String(Math.floor(pol.precisaoRelativa)) : "0"],
       ["VERTICES", "N", 6, 0, String(pol.vertices.length)],
       ["FUSO", "C", 4, 0, pol.fuso + "S"],
-      ["DATUM", "C", 12, 0, "SIRGAS 2000"]
+      ["DATUM", "C", 12, 0, "SIRGAS 2000"],
+      ["FONTE", "C", 12, 0, pol.fonte === "coordenadas" ? "COORDENADAS" : "AZIMUTE"],
+      ["TESTE", "C", 3, 0, pol.correcaoDeTeste ? "SIM" : "NAO"]
     ];
     var tamReg = 1 + campos.reduce(function (s, c) { return s + c[2]; }, 0);
     var tamCab = 32 + 32 * campos.length + 1;
@@ -784,7 +1150,9 @@
     lado: lado, percorrer: percorrer, areaPlana: areaPlana, ladosQueSeCruzam: ladosQueSeCruzam, qualidadeFechamento: qualidadeFechamento,
     zonaDe: zonaDe, meridianoCentral: meridianoCentral, projetar: projetar, inverter: inverter, emMg: emMg,
     datumCitado: datumCitado, fusoCitado: fusoCitado, partidaDoTexto: partidaDoTexto, analisar: analisar,
+    diagnosticar: diagnosticar, textoHipotese: textoHipotese, rumoTexto: rumoTexto, variacoesDigitos: variacoesDigitos,
+    coordenadasDoTexto: coordenadasDoTexto, sequenciaDeCoordenadas: sequenciaDeCoordenadas, verticesForaDoLugar: verticesForaDoLugar,
     decimal: decimal, inteiro: inteiro, metros: metros, dms: dms, resumoFechamento: resumoFechamento,
-    geojson: geojson, kml: kml, prj: prj, epsg: epsg, shapefile: shapefile, shapefileZip: shapefileZip, zip: zip, crc32: crc32
+    geojson: geojson, kml: kml, csv: csv, dxf: dxf, memorialTexto: memorialTexto, prj: prj, epsg: epsg, shapefile: shapefile, shapefileZip: shapefileZip, zip: zip, crc32: crc32
   };
 });

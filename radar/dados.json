@@ -1,7 +1,42 @@
 {
- "atualizado_em": "2026-10-24",
+ "atualizado_em": "2026-10-27",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-10-27",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {
+      "requerimentos": 2,
+      "deferimentos/concessões": 1,
+      "transferências de titularidade": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 6,
+     "processos": 39,
+     "decisoes": {
+      "deferimentos/concessões": 6,
+      "arquivamentos": 2,
+      "indeferimentos": 2
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {}
+    }
+   ]
+  },
   {
    "data": "2026-10-24",
    "atos": [
@@ -628,107 +663,6 @@
      "publicacoes": 1,
      "processos": 1,
      "decisoes": {}
-    }
-   ]
-  },
-  {
-   "data": "2026-10-10",
-   "atos": [
-    {
-     "orgao": "Arsae",
-     "tipo": "Portaria",
-     "numero": "416",
-     "titulo": "PORTARIA ARSAE-MG Nº 416, DE 08 DE OUTUBRO DE 2026",
-     "ementa": "Institui o Comitê de Gestão de Riscos, Integridade e Compliance da Agência Reguladora de Saneamento e Energia de Minas Gerais (Arsae-MG) e dá outras providências.",
-     "relevancia": "notícia",
-     "trilha": "Trilha 1 · Órgãos e sistemas",
-     "pagina": 11,
-     "autenticidade": "3202610102941338911"
-    },
-    {
-     "orgao": "IEF",
-     "tipo": "Edital",
-     "numero": "01/2026",
-     "titulo": "EDITAL DE CONVOCAÇÃO IEF/ EEEMC Nº .: 01/2026",
-     "ementa": "Estabelece regras para a eleição de representantes de Órgãos/Entidades Públicas e representantes da sociedade civil organizada, visando compor o Conselho da Estação Ecológica Estadual Mata do Cedro.",
-     "relevancia": "prazo",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 51,
-     "autenticidade": "3202610102941338951"
-    },
-    {
-     "orgao": "IEF",
-     "tipo": "Edital",
-     "numero": "01/2026",
-     "titulo": "EDITAL DE CONVOCAÇÃO IEF/PEM Nº.: 01/2026",
-     "ementa": "O Instituto Estadual de Florestas – IEF, torna público o Edital de Convocação IEF/PEM Nº.: 01/2026, para eleição de órgãos/entidades públicas e representantes da sociedade civil organizada, visando compor as vagas para a formação do Conselho do Parque Estadual de Montezuma, com respaldo na Portaria IEF nº 19/2017, conforme calendário de atividades abaixo.",
-     "relevancia": "prazo",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 51,
-     "autenticidade": "3202610102941338951"
-    },
-    {
-     "orgao": "IEF",
-     "tipo": "Aviso / comunicado",
-     "numero": null,
-     "titulo": "AVISO DE PRORROGAÇÃO",
-     "ementa": "EDITAL IEF Nº 01/2026 A DIRETORA-GERAL DO INSTITUTO ESTADUAL DE FLORESTAS – IEF, no uso de suas atribuições legais, nos termos do item 9.3 do Edital IEF nº 01/2026, na Seção 9 – Dos Recursos, e considerando o disposto no art. 21, § 2º, do Decreto Estadual nº 47.553, de 07 de dezembro de 2018, RESOLVE:",
-     "relevancia": "mudança de procedimento",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 51,
-     "autenticidade": "3202610102941338951"
-    }
-   ],
-   "movimento": [
-    {
-     "orgao": "Copam",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 1,
-     "processos": 2,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 5,
-     "processos": 17,
-     "decisoes": {
-      "deferimentos/concessões": 5,
-      "requerimentos": 2,
-      "revogações/cancelamentos": 1,
-      "transferências de titularidade": 2
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 1,
-     "processos": 2,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 5,
-     "processos": 14,
-     "decisoes": {
-      "requerimentos": 4,
-      "deferimentos/concessões": 2
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 3,
-     "processos": 13,
-     "decisoes": {
-      "deferimentos/concessões": 3,
-      "indeferimentos": 1
-     }
     }
    ]
   }

@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-24T11:45-03:00",
+ "gerado_em": "2026-10-27T18:56-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,39 +9,17 @@
   {
    "id": "mg",
    "janela": [
-    "2026-10-23",
-    "2026-10-24"
+    "2026-10-24",
+    "2026-10-27"
    ],
    "temas": [
-    {
-     "id": "agua",
-     "nome": "Água, outorga e saneamento",
-     "roteiro": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Ato da Arsae, publicado em 23 de outubro. Estabelece diretrizes para a verificação de ativos por meio de vídeos encaminhados pelos prestadores de serviços de abastecimento de água e de esgotamento sanitário. Esta Resolução entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Ato da Arsae, publicado em 23 de outubro. Estabelece diretrizes para a verificação de ativos por meio de vídeos encaminhados pelos prestadores de serviços de abastecimento de água e de esgotamento sanitário. Esta Resolução entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-10-23",
-       "orgao": "Arsae",
-       "titulo": "Ato da Arsae",
-       "ementa": "Estabelece diretrizes para a verificação de ativos por meio de vídeos encaminhados pelos prestadores de serviços de abastecimento de água e de esgotamento sanitário.",
-       "trechos": {
-        "vigencia": "Esta Resolução entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-23T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A13%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 23/10/2026, p. 13, código de autenticidade 3202610233282365113"
-      }
-     ]
-    },
     {
      "id": "flora",
      "nome": "Flora, florestas e unidades de conservação",
      "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad/IEF nº 3.434, de 23 de outubro de 2026, publicada em 24 de outubro. Revoga a Resolução Conjunta SEMAD/IEF nº 3.433 de 22 de outubro de 2026. A ementa continua no texto oficial. Esta resolução conjunta entra em vigor na data de sua publicação. Há mais 2 atos deste tema na página. Confira o texto oficial no link da página.",
      "fala": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad IEF número 3.434, de 23 de outubro de 2026, publicada em 24 de outubro. Revoga a Resolução Conjunta Semad IEF número 3.433 de 22 de outubro de 2026. A ementa continua no texto oficial. Esta resolução conjunta entra em vigor na data de sua publicação. Há mais 2 atos deste tema na página. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
+     "audio": "radar/audios/mg-flora-4a61e0877f.mp3",
+     "duracao_s": 32,
      "atos": [
       {
        "data": "2026-10-24",
@@ -89,65 +67,91 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-22",
-    "2026-10-23"
+    "2026-10-26",
+    "2026-10-27"
    ],
    "temas": [
     {
-     "id": "fauna",
-     "nome": "Fauna, pesca e aquicultura",
-     "roteiro": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria interministerial MPA/MMA nº 72, de 23 de outubro de 2026, publicada em 23 de outubro. Aprova o Plano de Gestão para o Uso Sustentável da Corvina (Micropogonias furnieri), nas regiões Sudeste e Sul do Brasil. Esta Portaria entra em vigor na data de sua publicação. Há mais 2 atos deste tema na página. Confira o texto oficial no link da página.",
-     "fala": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria interministerial MPA MMA número 72, de 23 de outubro de 2026, publicada em 23 de outubro. Aprova o Plano de Gestão para o Uso Sustentável da Corvina, nas regiões Sudeste e Sul do Brasil. Esta Portaria entra em vigor na data de sua publicação. Há mais 2 atos deste tema na página. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
+     "id": "flora",
+     "nome": "Flora, florestas e unidades de conservação",
+     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM/MMA nº 1.809, de 26 de outubro de 2026, publicada em 27 de outubro. Altera a Portaria GM/MMA nº 350, de 11 de dezembro de 2006, que reconhece o Mosaico Mata Atlântica Central Fluminense. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM MMA número 1.809, de 26 de outubro de 2026, publicada em 27 de outubro. Altera a Portaria GM MMA número 350, de 11 de dezembro de 2006, que reconhece o Mosaico Mata Atlântica Central Fluminense. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": "radar/audios/dou-flora-b05ea54b22.mp3",
+     "duracao_s": 28,
      "atos": [
       {
-       "data": "2026-10-23",
-       "orgao": "Ministério da Pesca e Aquicultura",
-       "titulo": "Portaria interministerial MPA/MMA nº 72, de 23 de outubro de 2026",
-       "ementa": "Aprova o Plano de Gestão para o Uso Sustentável da Corvina (Micropogonias furnieri), nas regiões Sudeste e Sul do Brasil.",
+       "data": "2026-10-27",
+       "orgao": "Ministério do Meio Ambiente",
+       "titulo": "Portaria GM/MMA nº 1.809, de 26 de outubro de 2026",
+       "ementa": "Altera a Portaria GM/MMA nº 350, de 11 de dezembro de 2006, que reconhece o Mosaico Mata Atlântica Central Fluminense.",
        "trechos": {
         "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
         "revoga": null
        },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-72-de-23-de-outubro-de-2026-740172906",
-       "referencia": "DOU de 23/10/2026, Seção: 1 - Extra A, p. 3"
+       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.809-de-26-de-outubro-de-2026-740420292",
+       "referencia": "DOU de 27/10/2026, Seção: 1, p. 66"
+      }
+     ]
+    },
+    {
+     "id": "fauna",
+     "nome": "Fauna, pesca e aquicultura",
+     "roteiro": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria interministerial MPA/MMA nº 73, de 23 de outubro de 2026, publicada em 26 de outubro. Estabelece a matriz de permissionamento e as normas gerais aplicáveis às embarcações de pesca em águas continentais, para o uso sustentável dos recursos pesqueiros. Esta Portaria entra em vigor 30 (trinta) dias após a data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
+     "fala": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria interministerial MPA MMA número 73, de 23 de outubro de 2026, publicada em 26 de outubro. Estabelece a matriz de permissionamento e as normas gerais aplicáveis às embarcações de pesca em águas continentais, para o uso sustentável dos recursos pesqueiros. Esta Portaria entra em vigor 30 dias após a data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
+     "audio": "radar/audios/dou-fauna-31856a900d.mp3",
+     "duracao_s": 34,
+     "atos": [
+      {
+       "data": "2026-10-26",
+       "orgao": "Ministério da Pesca e Aquicultura",
+       "titulo": "Portaria interministerial MPA/MMA nº 73, de 23 de outubro de 2026",
+       "ementa": "Estabelece a matriz de permissionamento e as normas gerais aplicáveis às embarcações de pesca em águas continentais, para o uso sustentável dos recursos pesqueiros.",
+       "trechos": {
+        "vigencia": "Esta Portaria entra em vigor 30 (trinta) dias após a data de sua publicação",
+        "revoga": null
+       },
+       "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-73-de-23-de-outubro-de-2026-740414104",
+       "referencia": "DOU de 26/10/2026, Seção: 1 - Extra B, p. 3"
       },
       {
-       "data": "2026-10-23",
+       "data": "2026-10-26",
        "orgao": "Ministério da Pesca e Aquicultura",
-       "titulo": "Portaria interministerial MPA/MMA nº 71, de 23 de outubro de 2026",
-       "ementa": "Estabelece as medidas de ordenamento e monitoramento para captura do camarão-da-Amazônia (Macrobrachium amazonicum), nos estados do Pará e Amapá.",
+       "titulo": "Portaria interministerial MPA/MMA nº 75, de 26 de outubro de 2026",
+       "ementa": "Dispõe sobre o ordenamento do exercício da atividade pesqueira na área marinha adjacente à foz do Rio Doce, no Estado do Espírito Santo.",
        "trechos": {
         "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
         "revoga": null
        },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-71-de-23-de-outubro-de-2026-740118044",
-       "referencia": "DOU de 23/10/2026, Seção: 1 - Extra A, p. 1"
-      },
-      {
-       "data": "2026-10-23",
-       "orgao": "Ministério da Pesca e Aquicultura",
-       "titulo": "Portaria interministerial MPA/MMA nº 74, de 23 de outubro de 2026",
-       "ementa": "Altera a Instrução Normativa nº 15, de 21 de maio de 2009, do Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis, que estabelece normas, critérios e períodos de defeso para a pesca e a proteção da sardinha-verdadeira (Sardinella brasiliensis).",
-       "trechos": {
-        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-74-de-23-de-outubro-de-2026-740172929",
-       "referencia": "DOU de 23/10/2026, Seção: 1 - Extra A, p. 3"
+       "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-75-de-26-de-outubro-de-2026-740332704",
+       "referencia": "DOU de 26/10/2026, Seção: 1 - Extra A, p. 1"
       }
      ]
     }
    ],
    "internos": [
     {
-     "data": "2026-10-23",
+     "data": "2026-10-26",
      "orgao": "Ministério do Meio Ambiente",
-     "titulo": "Portaria GM/MMA nº 1.808, de 22 de outubro de 2026",
-     "ementa": "Altera a Portaria GM/MMA nº 641, de 12 de novembro de 2019, que instituiu a Comissão de Acompanhamento da Avaliação de Desempenho-CAD, no âmbito do Ministério do Meio Ambiente.",
-     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.808-de-22-de-outubro-de-2026-739948233",
-     "referencia": "DOU de 23/10/2026, Seção: 1, p. 66"
+     "titulo": "Portaria GM/MMA nº 1.807, de 22 de outubro de 2026",
+     "ementa": "Institui o Grupo de Trabalho Interinstitucional para a gestão e o uso sustentável dos recursos pesqueiros no âmbito do Ministério do Meio Ambiente e Mudança do Clima.",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.807-de-22-de-outubro-de-2026-740357477",
+     "referencia": "DOU de 26/10/2026, Seção: 1, p. 56"
+    },
+    {
+     "data": "2026-10-27",
+     "orgao": "Ministério da Pesca e Aquicultura",
+     "titulo": "Portaria MPA nº 764, de 5 de outubro de 2026",
+     "ementa": "Institui a Política de Proteção de Dados Pessoais no âmbito do Ministério da Pesca e Aquicultura.",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-764-de-5-de-outubro-de-2026-740446328",
+     "referencia": "DOU de 27/10/2026, Seção: 1, p. 84"
+    },
+    {
+     "data": "2026-10-27",
+     "orgao": "Ministério do Meio Ambiente",
+     "titulo": "Portaria GM/MMA nº 1.810, de 26 de outubro de 2026",
+     "ementa": "Aprova o Regimento Interno da Secretaria Nacional de Mudança do Clima do Ministério do Meio Ambiente e Mudança do Clima.",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.810-de-26-de-outubro-de-2026-740432343",
+     "referencia": "DOU de 27/10/2026, Seção: 1, p. 66"
     }
    ],
    "nome": "Federal (DOU)",
