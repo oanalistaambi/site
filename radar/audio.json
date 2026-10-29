@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-28T15:25-03:00",
+ "gerado_em": "2026-10-29T15:35-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,8 +9,8 @@
   {
    "id": "mg",
    "janela": [
-    "2026-10-27",
-    "2026-10-28"
+    "2026-10-28",
+    "2026-10-29"
    ],
    "temas": [
     {
@@ -32,6 +32,40 @@
        },
        "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-28T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A28%7D",
        "referencia": "Jornal Minas Gerais, Diário do Executivo de 28/10/2026, p. 28, código de autenticidade 3202610288076470428"
+      }
+     ]
+    },
+    {
+     "id": "agua",
+     "nome": "Água, outorga e saneamento",
+     "roteiro": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução ARSAE-MG N° 238, de 22 de outubro de 2026, publicada em 29 de outubro. Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais – GASMIG. A data de vigência não foi identificada automaticamente. Também saiu: Resolução ARSAE-MG nº 240. Confira o texto oficial no link da página.",
+     "fala": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução Arsae-MG número 238, de 22 de outubro de 2026, publicada em 29 de outubro. Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais, GASMIG. A data de vigência não foi identificada automaticamente. Também saiu: Resolução Arsae-MG número 240. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
+      {
+       "data": "2026-10-29",
+       "orgao": "Arsae",
+       "titulo": "Resolução ARSAE-MG N° 238, de 22 de outubro de 2026",
+       "ementa": "Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais – GASMIG.",
+       "trechos": {
+        "vigencia": null,
+        "revoga": null
+       },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-29T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A15%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 29/10/2026, p. 15, código de autenticidade 3202610291025995615"
+      },
+      {
+       "data": "2026-10-29",
+       "orgao": "Arsae",
+       "titulo": "Resolução ARSAE-MG nº 240, de 28 de outubro de 2026",
+       "ementa": "Aprova a Agenda Regulatória da Agência Reguladora de Saneamento e Energia de Minas Gerais – Arsae-MG – para o biênio de 2027-2028.",
+       "trechos": {
+        "vigencia": "Esta Resolução entra em vigor no dia 01 de janeiro de 2027",
+        "revoga": null
+       },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-29T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A15%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 29/10/2026, p. 15, código de autenticidade 3202610291025995615"
       }
      ]
     },
@@ -65,8 +99,8 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-27",
-    "2026-10-28"
+    "2026-10-28",
+    "2026-10-29"
    ],
    "temas": [
     {
@@ -94,8 +128,8 @@
     {
      "id": "flora",
      "nome": "Flora, florestas e unidades de conservação",
-     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM/MMA nº 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA nº 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA nº 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
-     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM MMA número 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA número 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA número 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Há mais 1 ato deste tema na página. Confira o texto oficial no link da página.",
+     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM/MMA nº 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA nº 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA nº 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM MMA número 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA número 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA número 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
      "audio": null,
      "duracao_s": null,
      "atos": [
@@ -110,18 +144,28 @@
        },
        "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.783-de-26-de-outubro-de-2026-740664196",
        "referencia": "DOU de 28/10/2026, Seção: 1, p. 55"
-      },
+      }
+     ]
+    },
+    {
+     "id": "fauna",
+     "nome": "Fauna, pesca e aquicultura",
+     "roteiro": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria MPA nº 771, de 26 de outubro de 2026, publicada em 28 de outubro. Institui o Comitê Temático da Carta de Serviços no âmbito do Comitê Interno de Governança do Ministério da Pesca e Aquicultura. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria MPA número 771, de 26 de outubro de 2026, publicada em 28 de outubro. Institui o Comitê Temático da Carta de Serviços no âmbito do Comitê Interno de Governança do Ministério da Pesca e Aquicultura. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
       {
-       "data": "2026-10-27",
-       "orgao": "Ministério do Meio Ambiente",
-       "titulo": "Portaria GM/MMA nº 1.809, de 26 de outubro de 2026",
-       "ementa": "Altera a Portaria GM/MMA nº 350, de 11 de dezembro de 2006, que reconhece o Mosaico Mata Atlântica Central Fluminense.",
+       "data": "2026-10-28",
+       "orgao": "Ministério da Pesca e Aquicultura",
+       "titulo": "Portaria MPA nº 771, de 26 de outubro de 2026",
+       "ementa": "Institui o Comitê Temático da Carta de Serviços no âmbito do Comitê Interno de Governança do Ministério da Pesca e Aquicultura.",
        "trechos": {
         "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
         "revoga": null
        },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.809-de-26-de-outubro-de-2026-740420292",
-       "referencia": "DOU de 27/10/2026, Seção: 1, p. 66"
+       "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-771-de-26-de-outubro-de-2026-740877091",
+       "referencia": "DOU de 28/10/2026, Seção: 1 - Extra A, p. 47"
       }
      ]
     },
@@ -150,20 +194,12 @@
    ],
    "internos": [
     {
-     "data": "2026-10-27",
-     "orgao": "Ministério da Pesca e Aquicultura",
-     "titulo": "Portaria MPA nº 764, de 5 de outubro de 2026",
-     "ementa": "Institui a Política de Proteção de Dados Pessoais no âmbito do Ministério da Pesca e Aquicultura.",
-     "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-764-de-5-de-outubro-de-2026-740446328",
-     "referencia": "DOU de 27/10/2026, Seção: 1, p. 84"
-    },
-    {
-     "data": "2026-10-27",
-     "orgao": "Ministério do Meio Ambiente",
-     "titulo": "Portaria GM/MMA nº 1.810, de 26 de outubro de 2026",
-     "ementa": "Aprova o Regimento Interno da Secretaria Nacional de Mudança do Clima do Ministério do Meio Ambiente e Mudança do Clima.",
-     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.810-de-26-de-outubro-de-2026-740432343",
-     "referencia": "DOU de 27/10/2026, Seção: 1, p. 66"
+     "data": "2026-10-29",
+     "orgao": "Ibama",
+     "titulo": "Portaria conjunta Ibama/PFE-IBAMA nº 7, de 20 de outubro de 2026",
+     "ementa": "Altera o art. 34 da Portaria Conjunta Ibama/PFE-Ibama nº 3, de 6 de julho de 2022, que aprovou o Regimento Interno da Procuradoria Federal Especializada junto ao Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis.",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-conjunta-ibama/pfe-ibama-n-7-de-20-de-outubro-de-2026-741103885",
+     "referencia": "DOU de 29/10/2026, Seção: 1, p. 47"
     }
    ],
    "nome": "Federal (DOU)",
