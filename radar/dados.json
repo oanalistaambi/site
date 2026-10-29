@@ -1,7 +1,105 @@
 {
- "atualizado_em": "2026-10-28",
+ "atualizado_em": "2026-10-29",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-10-29",
+   "atos": [
+    {
+     "orgao": "Arsae",
+     "tipo": "Resolução",
+     "numero": "238",
+     "titulo": "RESOLUÇÃO ARSAE-MG N° 238, DE 22 DE OUTUBRO DE 2026",
+     "ementa": "Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais – GASMIG.",
+     "relevancia": "nova regra",
+     "trilha": "Trilha 4 · Licenciamento",
+     "pagina": 15,
+     "autenticidade": "3202610291025995615"
+    },
+    {
+     "orgao": "Arsae",
+     "tipo": "Resolução",
+     "numero": "240",
+     "titulo": "RESOLUÇÃO ARSAE-MG Nº 240, DE 28 DE OUTUBRO DE 2026",
+     "ementa": "Aprova a Agenda Regulatória da Agência Reguladora de Saneamento e Energia de Minas Gerais – Arsae-MG – para o biênio de 2027-2028.",
+     "relevancia": "nova regra",
+     "trilha": "Trilha 1 · Órgãos e sistemas",
+     "pagina": 15,
+     "autenticidade": "3202610291025995615"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 2,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 10,
+     "processos": 14,
+     "decisoes": {
+      "deferimentos/concessões": 4,
+      "requerimentos": 4,
+      "arquivamentos": 4,
+      "revogações/cancelamentos": 2,
+      "transferências de titularidade": 1,
+      "indeferimentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 2,
+     "processos": 13,
+     "decisoes": {
+      "requerimentos": 1,
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 9,
+     "processos": 46,
+     "decisoes": {
+      "deferimentos/concessões": 8,
+      "indeferimentos": 5,
+      "arquivamentos": 4,
+      "revogações/cancelamentos": 1
+     }
+    }
+   ]
+  },
   {
    "data": "2026-10-28",
    "atos": [
@@ -616,73 +714,6 @@
      "decisoes": {
       "deferimentos/concessões": 4
      }
-    }
-   ]
-  },
-  {
-   "data": "2026-10-15",
-   "atos": [
-    {
-     "orgao": "IEF",
-     "tipo": "Edital",
-     "numero": "01/2026",
-     "titulo": "EDITAL DE CONVOCAÇÃO IEF/PEN Nº.: 01/2026",
-     "ementa": "O Instituto Estadual de Florestas – IEF, torna público o Edital de Convocação IEF/PEB Nº.: 01/2026, para eleição de órgãos/entidades públicas e representantes da sociedade civil organizada, visando compor as vagas para a formação do Conselho do Parque Estadual de Botumirim, com respaldo na Portaria IEF nº 19/2017, conforme calendário de atividades abaixo.",
-     "relevancia": "prazo",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 34,
-     "autenticidade": "3202610148043323134"
-    }
-   ],
-   "movimento": [
-    {
-     "orgao": "Copam",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 1,
-     "processos": 2,
-     "decisoes": {
-      "deferimentos/concessões": 1,
-      "arquivamentos": 1
-     }
-    },
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 9,
-     "processos": 15,
-     "decisoes": {
-      "requerimentos": 6,
-      "arquivamentos": 2,
-      "deferimentos/concessões": 4,
-      "revogações/cancelamentos": 1,
-      "transferências de titularidade": 2,
-      "indeferimentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {}
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 8,
-     "processos": 60,
-     "decisoes": {
-      "deferimentos/concessões": 7,
-      "indeferimentos": 3,
-      "arquivamentos": 4
-     }
-    },
-    {
-     "orgao": "Semad",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 2,
-     "processos": 2,
-     "decisoes": {}
     }
    ]
   }
