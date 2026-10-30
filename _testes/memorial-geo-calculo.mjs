@@ -250,6 +250,18 @@ const exemplo = JSON.parse(readFileSync(new URL("../memorial-geo.html", import.m
     "variações de dígitos: invertido, a mais e a menos");
 }
 
+// ---- Onde cada lado está no texto (para as marcas da página)
+{
+  const r = M.analisar(exemplo);
+  ok(r.lados.length === 30 && r.lados.every(l => /^(azimute|rumo)\b/.test(r.texto.slice(l.faixa[0], l.faixa[1])) && / m$/.test(r.texto.slice(l.faixa[0], l.faixa[1]))),
+    "cada lado do texto corrido marca do ângulo até o fim da distância");
+  ok(r.texto.slice(r.partidaLida.ini, r.partidaLida.ini + r.partidaLida.txt.length) === "N 7.912.640,25 m e E 452.318,40", "a partida marca a coordenada lida");
+  const t = M.analisar(`E=612000,00 N=7795000,00 fuso 23\nV1; 90°; 100\nV2; 180°; 100\nV3; 270°; 100\nV4; 0°; 100`);
+  ok(t.texto.slice(t.lados[1].faixa[0], t.lados[1].faixa[1]) === "V2; 180°; 100", "na tabela, o lado marca a linha inteira");
+  const c = M.analisar(reservaLegal);
+  ok(/^E 610\.100,00 m e N 7\.800\.000,00$/.test(c.texto.slice(c.poligonal.lados[1].faixa[0], c.poligonal.lados[1].faixa[1])), "no memorial por coordenadas, o vértice marca a coordenada");
+}
+
 // ---- CSV, DXF e memorial em texto
 {
   const p = M.analisar(exemplo).poligonal;
