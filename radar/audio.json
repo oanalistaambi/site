@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-29T15:35-03:00",
+ "gerado_em": "2026-10-30T15:06-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,32 +9,10 @@
   {
    "id": "mg",
    "janela": [
-    "2026-10-28",
-    "2026-10-29"
+    "2026-10-29",
+    "2026-10-30"
    ],
    "temas": [
-    {
-     "id": "fiscalizacao",
-     "nome": "Fiscalização, autos e sanções",
-     "roteiro": "Fiscalização, autos e sanções, no Diário Oficial de Minas Gerais. Resolução ARSAE-MG nº 239, de 26 de outubro de 2026, publicada em 28 de outubro. A ementa é longa; leia o resumo completo no texto oficial. Esta resolução entra em vigor na data da sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Fiscalização, autos e sanções, no Diário Oficial de Minas Gerais. Resolução Arsae-MG número 239, de 26 de outubro de 2026, publicada em 28 de outubro. A ementa é longa; leia o resumo completo no texto oficial. Esta resolução entra em vigor na data da sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-10-28",
-       "orgao": "Arsae",
-       "titulo": "Resolução ARSAE-MG nº 239, de 26 de outubro de 2026",
-       "ementa": "Estabelece a desoneração das tabelas tarifárias, das tabelas de preços de serviços complementares e das multas aplicáveis aos usuários dos serviços de abastecimento de água e esgotamento sanitário regulados pela Arsae-MG, para implementação da reforma tributária do consumo.",
-       "trechos": {
-        "vigencia": "Esta resolução entra em vigor na data da sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-28T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A28%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 28/10/2026, p. 28, código de autenticidade 3202610288076470428"
-      }
-     ]
-    },
     {
      "id": "agua",
      "nome": "Água, outorga e saneamento",
@@ -68,28 +46,6 @@
        "referencia": "Jornal Minas Gerais, Diário do Executivo de 29/10/2026, p. 15, código de autenticidade 3202610291025995615"
       }
      ]
-    },
-    {
-     "id": "geral",
-     "nome": "Outras normas ambientais",
-     "roteiro": "Outras normas ambientais, no Diário Oficial de Minas Gerais. Resolução conjunta Semad/Seapa/SEDE/Seinfra, publicada em 28 de outubro. Estabelece normas complementares para o cumprimento do Decreto nº 49.260, de 17 de julho de 2026. A ementa continua no texto oficial. Esta resolução conjunta, entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Outras normas ambientais, no Diário Oficial de Minas Gerais. Resolução conjunta Semad Seapa/SEDE Seinfra, publicada em 28 de outubro. Estabelece normas complementares para o cumprimento do Decreto número 49.260, de 17 de julho de 2026. A ementa continua no texto oficial. Esta resolução conjunta, entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-10-28",
-       "orgao": "Semad",
-       "titulo": "Resolução conjunta Semad/Seapa/SEDE/Seinfra",
-       "ementa": "Estabelece normas complementares para o cumprimento do Decreto nº 49.260, de 17 de julho de 2026, que dispõe sobre o procedimento administrativo de declaração de utilidade pública ou de interesse social para fins de autorização de intervenção ambiental.",
-       "trechos": {
-        "vigencia": "Esta resolução conjunta, entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-28T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A26%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 28/10/2026, p. 26, código de autenticidade 3202610288076470426"
-      }
-     ]
     }
    ],
    "internos": [],
@@ -99,99 +55,10 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-28",
-    "2026-10-29"
+    "2026-10-29",
+    "2026-10-30"
    ],
-   "temas": [
-    {
-     "id": "agua",
-     "nome": "Água, outorga e saneamento",
-     "roteiro": "Água, outorga e saneamento, no Diário Oficial da União. Resolução ANA nº 307, de 26 de outubro de 2026, publicada em 28 de outubro. Aprova a divulgação da NOTA TÉCNICA Nº 40/2026/COTAR/SSB-SEI. A ementa continua no texto oficial. Esta Resolução entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Água, outorga e saneamento, no Diário Oficial da União. Resolução ANA número 307, de 26 de outubro de 2026, publicada em 28 de outubro. Aprova a divulgação da NOTA TÉCNICA número 40 de 2026/COTAR SSB-SEI. A ementa continua no texto oficial. Esta Resolução entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-10-28",
-       "orgao": "ANA",
-       "titulo": "Resolução ANA nº 307, de 26 de outubro de 2026",
-       "ementa": "Aprova a divulgação da NOTA TÉCNICA Nº 40/2026/COTAR/SSB-SEI, que contém orientações às entidades reguladoras infranacionais para a adequação das tabelas tarifárias dos serviços públicos de abastecimento de água e esgotamento sanitário em decorrência da extinção da Contribuição para o PIS/Pasep e da Cofins e da entrada em vigor da CBS e do IBS.",
-       "trechos": {
-        "vigencia": "Esta Resolução entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-307-de-26-de-outubro-de-2026-740661871",
-       "referencia": "DOU de 28/10/2026, Seção: 1, p. 43"
-      }
-     ]
-    },
-    {
-     "id": "flora",
-     "nome": "Flora, florestas e unidades de conservação",
-     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM/MMA nº 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA nº 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA nº 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial da União. Portaria GM MMA número 1.783, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria MMA número 443, de 17 de dezembro de 2014. A ementa continua no texto oficial. Fica revogada a Portaria MMA número 148, de 7 de junho de 2022. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-10-28",
-       "orgao": "Ministério do Meio Ambiente",
-       "titulo": "Portaria GM/MMA nº 1.783, de 26 de outubro de 2026",
-       "ementa": "Altera a Portaria MMA nº 443, de 17 de dezembro de 2014, que reconhece como espécies da flora brasileira ameaçadas de extinção aquelas constantes da \"Lista Nacional Oficial de Espécies da Flora Ameaçadas de Extinção\" - Lista, conforme Anexo da presente Portaria, em observância aos arts. 6º e 7º da Portaria nº 43, de 31 de janeiro de 2014; e revoga a Portaria MMA nº 148, de 7 de junho de 2022.",
-       "trechos": {
-        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
-        "revoga": "Fica revogada a Portaria MMA nº 148, de 7 de junho de 2022"
-       },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.783-de-26-de-outubro-de-2026-740664196",
-       "referencia": "DOU de 28/10/2026, Seção: 1, p. 55"
-      }
-     ]
-    },
-    {
-     "id": "fauna",
-     "nome": "Fauna, pesca e aquicultura",
-     "roteiro": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria MPA nº 771, de 26 de outubro de 2026, publicada em 28 de outubro. Institui o Comitê Temático da Carta de Serviços no âmbito do Comitê Interno de Governança do Ministério da Pesca e Aquicultura. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Fauna, pesca e aquicultura, no Diário Oficial da União. Portaria MPA número 771, de 26 de outubro de 2026, publicada em 28 de outubro. Institui o Comitê Temático da Carta de Serviços no âmbito do Comitê Interno de Governança do Ministério da Pesca e Aquicultura. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-10-28",
-       "orgao": "Ministério da Pesca e Aquicultura",
-       "titulo": "Portaria MPA nº 771, de 26 de outubro de 2026",
-       "ementa": "Institui o Comitê Temático da Carta de Serviços no âmbito do Comitê Interno de Governança do Ministério da Pesca e Aquicultura.",
-       "trechos": {
-        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-771-de-26-de-outubro-de-2026-740877091",
-       "referencia": "DOU de 28/10/2026, Seção: 1 - Extra A, p. 47"
-      }
-     ]
-    },
-    {
-     "id": "geral",
-     "nome": "Outras normas ambientais",
-     "roteiro": "Outras normas ambientais, no Diário Oficial da União. Portaria GM/MMA nº 1.811, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria GM/MMA nº 577, de 18 de outubro de 2019. A ementa continua no texto oficial. Fica revogada a Portaria GM/MMA nº 796, de 19 de outubro de 2023. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Outras normas ambientais, no Diário Oficial da União. Portaria GM MMA número 1.811, de 26 de outubro de 2026, publicada em 28 de outubro. Altera a Portaria GM MMA número 577, de 18 de outubro de 2019. A ementa continua no texto oficial. Fica revogada a Portaria GM MMA número 796, de 19 de outubro de 2023. Esta Portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-10-28",
-       "orgao": "Ministério do Meio Ambiente",
-       "titulo": "Portaria GM/MMA nº 1.811, de 26 de outubro de 2026",
-       "ementa": "Altera a Portaria GM/MMA nº 577, de 18 de outubro de 2019, que instituiu o Comitê de Desenvolvimento na Carreira - CDC.",
-       "trechos": {
-        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
-        "revoga": "Fica revogada a Portaria GM/MMA nº 796, de 19 de outubro de 2023"
-       },
-       "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.811-de-26-de-outubro-de-2026-740647810",
-       "referencia": "DOU de 28/10/2026, Seção: 1, p. 92"
-      }
-     ]
-    }
-   ],
+   "temas": [],
    "internos": [
     {
      "data": "2026-10-29",
