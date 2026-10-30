@@ -70,6 +70,23 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   await pg.evaluate(() => { location.hash = "#triagem"; });
   await pg.waitForTimeout(200);
   ok(await pg.locator("#triagem").isVisible(), `${larg}px: âncora para pedido escondido reabre`);
+  // Texto do pedido começa recolhido; os colchetes aparecem destacados.
+  await pg.goto(BASE + "/kit-ia-dae.html", { waitUntil: "load" });
+  ok(await pg.locator("details.pedido[open]").count() === 0, `${larg}px: pedidos começam recolhidos`);
+  ok(await pg.locator("#p19 mark.campo").count() >= 3, `${larg}px: campos [entre colchetes] destacados`);
+  // Busca sem acento e combinada com o público.
+  await pg.fill("#busca", "infracao");
+  ok(await pg.locator("section.ficha:visible").count() >= 1 && await pg.locator("#auto").isVisible(), `${larg}px: busca "infracao" acha o auto de infração`);
+  await pg.click('[data-filtro="consultor"]');
+  ok(await pg.locator("section.ficha:visible").count() === 0 && await pg.locator("#vazio").isVisible(), `${larg}px: busca + público sem resultado mostra aviso`);
+  await pg.fill("#busca", "");
+  await pg.click('[data-filtro="todos"]');
+  // Link direto por público.
+  await pg.goto(BASE + "/kit-ia-dae.html?publico=controle", { waitUntil: "load" });
+  ok(await pg.locator("section.ficha:visible").count() === 2 && await pg.locator('[data-filtro="controle"][aria-pressed="true"]').count() === 1, `${larg}px: ?publico=controle abre filtrado`);
+  // Link para um pedido abre o texto dele.
+  await pg.goto(BASE + "/kit-ia-dae.html#minuta", { waitUntil: "load" });
+  ok(await pg.locator("#minuta details.pedido[open]").count() === 1, `${larg}px: #minuta abre o texto do pedido`);
   await pg.screenshot({ path: process.env.FOTO_DIR ? `${process.env.FOTO_DIR}/kit-${larg}.png` : `/dev/null`, fullPage: false }).catch(() => {});
   ok(erros.length === 0, `${larg}px: sem erro de script ${erros.join(" | ")}`);
   await ctx.close();
