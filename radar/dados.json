@@ -1,7 +1,91 @@
 {
- "atualizado_em": "2026-10-29",
+ "atualizado_em": "2026-10-30",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-10-30",
+   "atos": [
+    {
+     "orgao": "Outro órgão (Secretaria de Estado de Infraestrutura, Mobilidade e Parcerias)",
+     "tipo": "Resolução",
+     "numero": "60/2026",
+     "titulo": "RESOLUÇÃO SEINFRA N° 60/2026, DE 28 DE OUTUBRO DE 2026",
+     "ementa": "60/2026, DE 28 DE OUTUBRO DE 2026 Declara de utilidade pública para fins de intervenções ambientais associadas à implantação do Sistema Viário Estruturante do Município de Conceição do Mato Dentro, composto pelas Alças Leste e Oeste O Secretário de Estado de Infraestrutura, Mobilidade e Parcerias, no uso das atribuições que lhe confere o inciso III do § 1º do art. 93 da Constituição do Estado de M",
+     "relevancia": "mudança de procedimento",
+     "trilha": "Trilha 5 · Água",
+     "pagina": 7,
+     "autenticidade": "320261030287867017"
+    },
+    {
+     "orgao": "Outro órgão (Secretaria de Estado de Infraestrutura, Mobilidade e Parcerias)",
+     "tipo": "Resolução",
+     "numero": "61/2026",
+     "titulo": "RESOLUÇÃO SEINFRA N° 61/2026, DE 28 DE OUTUBRO DE 2026",
+     "ementa": "28 DE OUTUBRO DE 2026 Declara de utilidade pública para as áreas necessárias às Obras de Melhoria e Pavimentação da Rodovia MGC-267, Trecho: Entr.º BR-354 (B) – Caxambu e Entr.º BR-381 – Palmela (3ª Faixa), abrangendo os municípios de Campanha, Cambuquira, Conceição do Rio Verde, Soledade de Minas e Caxambu.",
+     "relevancia": "notícia",
+     "trilha": "Trilha 5 · Água",
+     "pagina": 7,
+     "autenticidade": "320261030287867017"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 9,
+     "processos": 24,
+     "decisoes": {
+      "deferimentos/concessões": 7,
+      "revogações/cancelamentos": 2,
+      "requerimentos": 2,
+      "transferências de titularidade": 1,
+      "indeferimentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 4,
+     "processos": 56,
+     "decisoes": {
+      "requerimentos": 4,
+      "deferimentos/concessões": 3,
+      "indeferimentos": 3,
+      "arquivamentos": 2
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 4,
+     "processos": 11,
+     "decisoes": {
+      "deferimentos/concessões": 3,
+      "indeferimentos": 2,
+      "arquivamentos": 2
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 4,
+     "processos": 4,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "indeferimentos": 1
+     }
+    }
+   ]
+  },
   {
    "data": "2026-10-29",
    "atos": [
@@ -660,59 +744,6 @@
      "processos": 7,
      "decisoes": {
       "deferimentos/concessões": 2
-     }
-    }
-   ]
-  },
-  {
-   "data": "2026-10-16",
-   "atos": [],
-   "movimento": [
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 4,
-     "processos": 6,
-     "decisoes": {
-      "requerimentos": 2,
-      "deferimentos/concessões": 3,
-      "transferências de titularidade": 2,
-      "revogações/cancelamentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {}
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "requerimentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 1,
-     "processos": 2,
-     "decisoes": {
-      "requerimentos": 1,
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 5,
-     "processos": 27,
-     "decisoes": {
-      "deferimentos/concessões": 4
      }
     }
    ]
