@@ -849,11 +849,13 @@ Depois a tabela:
 
   var W = 800, H = 520, TILE = 256, ZMAX = 19, ZMIN = 3;
   /** Em tela estreita o mapa fica mais alto (800 × 680) e os textos do SVG crescem na mesma proporção que ele encolhe. */
+  var K = 1; // unidades do desenho por pixel da tela (≈ 2,3 no celular)
   function medirMapa() {
     var svg = $("mapa"), larg = svg.getBoundingClientRect().width || W;
     var h = larg < 560 ? 680 : 520;
     if (h !== H) { H = h; svg.setAttribute("viewBox", "0 0 " + W + " " + H); }
-    svg.style.setProperty("--k", Math.max(1, Math.min(2.6, W / larg)).toFixed(2));
+    K = Math.max(1, Math.min(2.6, W / larg));
+    svg.style.setProperty("--k", K.toFixed(2));
   }
   var girou = null;
   window.addEventListener("resize", function () {
@@ -945,7 +947,7 @@ Depois a tabela:
       h.push('<polygon class="m-pol--fantasma" points="' + tp.map(xy).join(" ") + '"/>');
       var feito = tp.slice(0, k + 1);
       if (feito.length > 1) h.push('<polyline class="m-feito" points="' + feito.map(xy).join(" ") + '"/>');
-      h.push('<defs><marker id="seta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="m-seta" d="M0 0 10 5 0 10z"/></marker></defs>');
+      h.push('<defs><marker id="seta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto-start-reverse"><path class="m-seta" d="M0 0 10 5 0 10z"/></marker></defs>');
       h.push('<line class="m-passo" x1="' + ini[0].toFixed(1) + '" y1="' + ini[1].toFixed(1) + '" x2="' + fim[0].toFixed(1) + '" y2="' + fim[1].toFixed(1) + '" marker-end="url(#seta)"/>');
       if (k === nv - 1 && Math.hypot(tc2[0] - t0[0], tc2[1] - t0[1]) > 3) {
         h.push('<line class="m-gap" x1="' + tc2[0].toFixed(1) + '" y1="' + tc2[1].toFixed(1) + '" x2="' + t0[0].toFixed(1) + '" y2="' + t0[1].toFixed(1) + '"/>');
@@ -954,17 +956,18 @@ Depois a tabela:
       var vu = p.vertices[k], gn = M.inverter(vu[0], vu[1] + 100, p.fuso, true), tn = tela(gn[0], gn[1]);
       var dn = [tn[0] - ini[0], tn[1] - ini[1]], ln = Math.hypot(dn[0], dn[1]) || 1;
       dn = [dn[0] / ln, dn[1] / ln];
-      var az = p.lados[k].azimuteGraus, ang0 = Math.atan2(dn[1], dn[0]), raio = 34;
+      var az = p.lados[k].azimuteGraus, ang0 = Math.atan2(dn[1], dn[0]), raio = 30 * K;
       var ang1 = ang0 + az * Math.PI / 180, angm = ang0 + az * Math.PI / 360;
-      var pn = [ini[0] + dn[0] * 62, ini[1] + dn[1] * 62];
+      var pn = [ini[0] + dn[0] * 58 * K, ini[1] + dn[1] * 58 * K];
       h.push('<line class="m-norte-q" x1="' + ini[0].toFixed(1) + '" y1="' + ini[1].toFixed(1) + '" x2="' + pn[0].toFixed(1) + '" y2="' + pn[1].toFixed(1) + '"/>' +
-        '<text class="m-norte-q-t" x="' + (pn[0] + dn[0] * 10).toFixed(1) + '" y="' + (pn[1] + dn[1] * 10 + 4).toFixed(1) + '" text-anchor="middle">N</text>');
+        '<text class="m-norte-q-t" x="' + (pn[0] + dn[0] * 10 * K).toFixed(1) + '" y="' + (pn[1] + dn[1] * 10 * K + 4 * K).toFixed(1) + '" text-anchor="middle">N</text>');
       if (az > 0.01) {
         var a0 = [ini[0] + raio * Math.cos(ang0), ini[1] + raio * Math.sin(ang0)], a1 = [ini[0] + raio * Math.cos(ang1), ini[1] + raio * Math.sin(ang1)];
         h.push('<path class="m-arco" d="M' + xy(a0) + " A" + raio + " " + raio + " 0 " + (az > 180 ? 1 : 0) + " 1 " + xy(a1) + '"/>');
       }
-      var cm = Math.cos(angm), ancora = cm > 0.25 ? "start" : cm < -0.25 ? "end" : "middle";
-      h.push('<text class="m-arco-t" x="' + (ini[0] + (raio + 10) * cm).toFixed(1) + '" y="' + (ini[1] + (raio + 10) * Math.sin(angm) + 4).toFixed(1) +
+      // Rótulo para fora do arco; perto da vertical (azimute pequeno ou perto de 180°) ele vai para o lado, longe do "N".
+      var cm = Math.cos(angm), ancora = cm < -0.25 ? "end" : "start", dx = Math.abs(cm) <= 0.25 ? 8 * K : 0;
+      h.push('<text class="m-arco-t" x="' + (ini[0] + (raio + 8 * K) * cm + dx).toFixed(1) + '" y="' + (ini[1] + (raio + 8 * K) * Math.sin(angm) + 4 * K).toFixed(1) +
         '" text-anchor="' + ancora + '">' + M.dms(az) + "</text>");
     }
     var rotular = nv <= 45;
@@ -1076,7 +1079,7 @@ Depois a tabela:
     estado.passo = Math.max(0, Math.min(n - 1, k));
     estado.destaque = estado.passo;
     if (seguir) {
-      // Em tela estreita, o polígono inteiro fica pequeno demais: o mapa segue o lado, com até 2 níveis a mais de zoom.
+      // Com o polígono inteiro na tela, um lado curto vira um risco: o mapa segue o lado, com até 2 níveis a mais de zoom.
       var fim = estado.passo === n - 1 ? M.inverter(p.chegada[0], p.chegada[1], p.fuso, true) : p.geo[estado.passo + 1];
       var todo = enquadramento(p.geo), lado = enquadramento([p.geo[estado.passo], fim]), z = Math.max(todo.z, Math.min(todo.z + 2, lado.z - 1));
       var f = Math.pow(2, z - lado.z);
@@ -1107,7 +1110,7 @@ Depois a tabela:
   $("percorrer").addEventListener("click", function () {
     if (!atual) return;
     estado.vista = null;
-    seguir = ($("mapa").getBoundingClientRect().width || W) < 560;
+    seguir = true;
     irPara(0);
     rolar($("mapa-bloco"), "start");
   });
