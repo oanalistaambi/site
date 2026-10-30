@@ -1,7 +1,10 @@
 name: Radar em áudio (MG e DOU)
 
 # Lê o Jornal Minas Gerais (Diário do Executivo) e o Diário Oficial da União (Seção 1), separa os atos gerais da área
-# ambiental dos 2 últimos dias de jornal, monta um áudio curto por tema e atualiza radar/audio.json (página radar-audio.html).
+# ambiental e atualiza radar/audio.json (página radar-audio.html):
+# - Federal: um episódio por dia (até ~5 min, com capítulos), para as 4 últimas edições com destaque. Cada episódio fica
+#   salvo em radar/episodios/ e não é refeito (pode ser revisado à mão); os mais velhos saem sozinhos.
+# - Minas Gerais: um áudio curto por tema, com os 2 últimos dias de jornal.
 # Os MP3 ficam como arquivos da release fixa "radar-audios" (não entram no histórico do git) e os antigos são apagados.
 # Áudios gravados fora do workflow (quando o segredo ainda não existe) ficam em radar/audios/ e saem quando deixam a página.
 # LGPD: nada de nome, CPF, CNPJ ou número de processo.
@@ -43,13 +46,13 @@ jobs:
           fi
       - uses: actions/checkout@v4
         if: steps.ligado.outputs.roda == 'sim'
-      - name: Instalar pdftotext
+      - name: Instalar pdftotext e ffmpeg
         if: steps.ligado.outputs.roda == 'sim'
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils ffmpeg
       - name: Ler os jornais
         if: steps.ligado.outputs.roda == 'sim'
         run: |
-          ini=$(date -u -d '6 days ago' +%F); fim=${{ steps.ligado.outputs.hoje }}
+          ini=$(date -u -d '9 days ago' +%F); fim=${{ steps.ligado.outputs.hoje }}
           python3 -I radar/gerador/diario_mg.py --data "$ini" --ate "$fim" --saida /tmp/mg --cache /tmp/mg-cache || true
           python3 -I radar/gerador/diario_uniao.py --data "$ini" --ate "$fim" --saida /tmp/dou || true
       - name: Montar roteiros e gerar os áudios novos
@@ -72,14 +75,14 @@ jobs:
         run: |
           git config user.name "radar-audio"
           git config user.email "radar-audio@users.noreply.github.com"
-          # MP3 guardados no site (gerados sem o segredo): ficam só os que a página ainda usa (os 2 últimos dias)
+          # MP3 guardados no site (gerados fora do workflow): ficam só os que a página ainda usa
           if [ -d radar/audios ]; then
             for f in radar/audios/*.mp3; do
               [ -e "$f" ] || continue
               grep -qF "\"$f\"" radar/audio.json || git rm -q "$f"
             done
           fi
-          git add radar/audio.json
+          git add -A radar/audio.json radar/episodios
           if ! git diff --cached --quiet; then
             git commit -m "Radar em áudio: atualização automática"
             for i in 1 2 3; do git pull --rebase -q origin main && git push && break; sleep 5; done
@@ -89,7 +92,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          python3 -I -c "import json,re;print('\n'.join(re.sub(r'.*/','',t['audio']) for f in json.load(open('radar/audio.json'))['fontes'] for t in f['temas'] if t.get('audio')))" > /tmp/em-uso.txt
+          python3 -I -c "import json,re;print('\n'.join(re.sub(r'.*/','',t['audio']) for f in json.load(open('radar/audio.json'))['fontes'] for t in f['temas'] + f.get('episodios', []) if t.get('audio')))" > /tmp/em-uso.txt
           gh release view "$RELEASE" --json assets -q '.assets[].name' | while read -r nome; do
             grep -qxF "$nome" /tmp/em-uso.txt || gh release delete-asset "$RELEASE" "$nome" -y
           done

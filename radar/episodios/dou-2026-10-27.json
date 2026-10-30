@@ -1,0 +1,40 @@
+{
+ "id": "dou-2026-10-27",
+ "fonte": "dou",
+ "data": "2026-10-27",
+ "dia_semana": "terça-feira",
+ "titulo": "Mosaico Mata Atlântica Central Fluminense atualizado",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de terça-feira, 27 de outubro de 2026. Hoje é um dia mais curto, com um destaque sobre unidades de conservação da Mata Atlântica, no Rio de Janeiro.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Mosaico Mata Atlântica Central Fluminense: a nova composição",
+   "tema": "Flora e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria GM/MMA nº 1.809, de 26 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.809-de-26-de-outubro-de-2026-740420292",
+     "referencia": "DOU de 27/10/2026, Seção 1, p. 66",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "A Portaria número 1.809, do Ministério do Meio Ambiente, altera a portaria de 2006 que reconhece o Mosaico Mata Atlântica Central Fluminense. Um mosaico reúne unidades de conservação próximas para que sejam geridas de forma integrada. A nova redação lista quem faz parte: unidades do ICMBio, como o Parque Nacional da Serra dos Órgãos e a Reserva Biológica do Tinguá; unidades do Instituto Estadual do Ambiente, como o Parque Estadual dos Três Picos; unidades de vários municípios fluminenses; e reservas particulares do patrimônio natural. A lista inclui ainda dois territórios quilombolas, um em Petrópolis e outro em Areal. A portaria também define a composição do conselho consultivo, com gestores das unidades, sociedade civil, reservas particulares, povos e comunidades tradicionais, os quilombos e quatro comitês de bacias hidrográficas. O conselho poderá ser presidido por um chefe de unidade de conservação ou por um representante dos territórios quilombolas. Está em vigor desde a publicação.",
+   "inicio_s": 16.9
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "No mesmo dia saíram atos de organização interna, como o regimento da Secretaria Nacional de Mudança do Clima, e dezenas de despachos de mineração sobre casos específicos, que não detalhamos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+   "inicio_s": 80.7
+  }
+ ],
+ "audio": "radar/audios/dou-2026-10-27-98fa4267d5.mp3",
+ "duracao_s": 105
+}

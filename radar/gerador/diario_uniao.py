@@ -54,13 +54,13 @@ TIPOS_NORMATIVOS = re.compile(r"^(Lei|Decreto|Medida Provis|Resolu|Instru[çc][�
                               r"Aviso|Ato Declarat)", re.I)
 EMENTA_VERBO = re.compile(r"^(Disp[õo]e|Estabelece|Altera|Institui|Regulamenta|Aprova|Define|Cria|Revoga|Prorroga|Suspende|"
                           r"Disciplina|Atualiza|Fixa|Torna p[úu]blic|Divulga|Reconhece|Dispensa|Amplia|Acrescenta|Consolida|"
-                          r"Publica|Homologa a|Convoca|Abre consulta)", re.I)
+                          r"Publica|Homologa a|Convoca|Abre consulta|Submete)", re.I)
 PESSOAL = re.compile(r"nomea|exonera|designa[rç]|dispensa[r ]d|substitut|f[ée]rias|aposenta|cess[ãa]o d[eo] servidor|"
                      r"requisi[çc]|lota[çc][ãa]o|redistribu|progress[ãa]o|pens[ãa]o|servidor|cargo em comiss|fun[çc][ãa]o comissionada|"
                      r"di[áa]rias|afastamento|delega compet|subdelega", re.I)
 ESPECIFICO = re.compile(r"\bLtda\b|(?-i:\bS\.?/?A\.(?=[\s,.;]|$)|\bS/A\b)|EIRELI|CNPJ|CPF|\bempresa\b|interessad[oa]|requerente|"
                         r"\bSr\.|\bSra\.|\bautos? de infra[çc][ãa]o n|homologa o resultado|torna sem efeito|"
-                        r"\bextrato\b|licita[çc]|preg[ãa]o|resultado de julgamento|ad referendum|retifica|embarca[çc][ãa]o|vistoriador|"
+                        r"\bextrato\b|licita[çc]|preg[ãa]o|resultado de julgamento|ad referendum|retifica|\bda embarca[çc][ãa]o\b|vistoriador|"
                         r"sob o n[º°o]|inscrit[oa] n[oa]|Autoriza[çc][ãa]o de Pesca d", re.I)
 TIPO_AVISO_UTIL = re.compile(r"consulta p[úu]blica|audi[êe]ncia p[úu]blica", re.I)
 LIMITE_POR_DIA = 80  # textos integrais baixados por dia, no máximo
@@ -154,7 +154,9 @@ def processar_dia(data):
             time.sleep(1)  # educação com o servidor
             if not t or not t["ementa"]:
                 continue
-            ementa = mg.limpar(PROC_UNIAO.sub("[processo omitido]", t["ementa"]))
+            # número de processo citado entre parênteses na ementa sai do texto; o ato continua
+            em = re.sub(r"\s*\((?:processo|proc\.)[^)]*\)", "", t["ementa"], flags=re.I)
+            ementa = mg.limpar(PROC_UNIAO.sub("[processo omitido]", em))
             if "omitido" in ementa or PESSOAL.search(ementa) or ESPECIFICO.search(ementa):
                 continue
             tr = mg.trechos_do_texto(PROC_UNIAO.sub("", t["texto"]))

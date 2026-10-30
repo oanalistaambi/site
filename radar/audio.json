@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-10-30T15:06-03:00",
+ "gerado_em": "2026-10-30T16:30-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -18,8 +18,8 @@
      "nome": "Água, outorga e saneamento",
      "roteiro": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução ARSAE-MG N° 238, de 22 de outubro de 2026, publicada em 29 de outubro. Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais – GASMIG. A data de vigência não foi identificada automaticamente. Também saiu: Resolução ARSAE-MG nº 240. Confira o texto oficial no link da página.",
      "fala": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução Arsae-MG número 238, de 22 de outubro de 2026, publicada em 29 de outubro. Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais, GASMIG. A data de vigência não foi identificada automaticamente. Também saiu: Resolução Arsae-MG número 240. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
+     "audio": "radar/audios/mg-agua-41af0289fb.mp3",
+     "duracao_s": 30,
      "atos": [
       {
        "data": "2026-10-29",
@@ -55,8 +55,10 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-29",
-    "2026-10-30"
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28",
+    "2026-10-29"
    ],
    "temas": [],
    "internos": [
@@ -70,7 +72,239 @@
     }
    ],
    "nome": "Federal (DOU)",
-   "jornal": "Diário Oficial da União, Seção 1"
+   "jornal": "Diário Oficial da União, Seção 1",
+   "episodios": [
+    {
+     "id": "dou-2026-10-29",
+     "fonte": "dou",
+     "data": "2026-10-29",
+     "dia_semana": "quinta-feira",
+     "titulo": "ICMBio cria núcleo de gestão para as Florestas Nacionais do Jamari e do Bom Futuro",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quinta-feira, 29 de outubro de 2026. Dia curto, com um destaque sobre unidades de conservação na Amazônia.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Núcleo de Gestão Integrada Vale do Jamari, em Rondônia",
+       "tema": "Flora e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria ICMBio nº 5.050, de 28 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.050-de-28-de-outubro-de-2026-741168209",
+         "referencia": "DOU de 29/10/2026, Seção 1, p. 47",
+         "vigencia": "sete dias úteis após a publicação"
+        }
+       ],
+       "fala": "A Portaria número 5.050, do ICMBio, cria o Núcleo de Gestão Integrada Vale do Jamari, que junta a gestão da Floresta Nacional do Bom Futuro e da Floresta Nacional do Jamari, em Rondônia. A ideia, segundo o texto, é ganhar eficiência com a gestão em conjunto, o uso compartilhado de equipes, instalações e equipamentos, e um planejamento integrado das duas unidades. O núcleo terá sede em Porto Velho e uma base avançada na Floresta Nacional do Jamari, em Itapuã do Oeste. O regimento interno deve ser publicado em até noventa dias. A portaria entra em vigor sete dias úteis após a publicação.",
+       "inicio_s": 13.7
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração e certificados de obras, ou da organização interna dos órgãos. E atenção: em 30 de outubro não houve edição normal do Diário Oficial da União. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+       "inicio_s": 54.5
+      }
+     ],
+     "audio": "radar/audios/dou-2026-10-29-e3cdfe38ae.mp3",
+     "duracao_s": 82
+    },
+    {
+     "id": "dou-2026-10-28",
+     "fonte": "dou",
+     "data": "2026-10-28",
+     "dia_semana": "quarta-feira",
+     "titulo": "Nova lista da flora ameaçada, consulta do Ibama sobre o Proconve e tarifas de água na reforma tributária",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quarta-feira, 28 de outubro de 2026. O grande destaque do dia é a nova Lista Nacional Oficial das Espécies da Flora Ameaçadas de Extinção. Depois, uma consulta pública do Ibama sobre a poluição de veículos pesados e uma orientação da ANA sobre as tarifas de água e esgoto na reforma tributária.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Nova Lista Nacional da Flora Ameaçada de Extinção",
+       "tema": "Flora e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria GM/MMA nº 1.783, de 26 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.783-de-26-de-outubro-de-2026-740664196",
+         "referencia": "DOU de 28/10/2026, Seção 1, p. 55",
+         "vigencia": "na data da publicação; revoga a Portaria MMA nº 148/2022"
+        }
+       ],
+       "fala": "A Portaria número 1.783, do Ministério do Meio Ambiente, dá nova redação ao anexo da Portaria 443, de 2014, que é a Lista Nacional Oficial das Espécies da Flora Ameaçadas de Extinção. Os números, contados no anexo publicado: são 3.730 espécies. 730 estão criticamente em perigo, duas delas possivelmente extintas; 2.162 estão em perigo; e 838 são vulneráveis. Das 3.730, 595 não constavam da lista anterior, de 2022, e aparecem marcadas com asterisco no anexo. A portaria revoga a Portaria 148, de 2022, e está em vigor desde a publicação. Para quem trabalha com inventário florestal e pedidos de supressão de vegetação, vale conferir na nova lista a situação de cada espécie do seu levantamento.",
+       "inicio_s": 26.4
+      },
+      {
+       "titulo": "Consulta pública do Ibama: Proconve, fase P8",
+       "tema": "Consulta pública",
+       "atos": [
+        {
+         "titulo": "Portaria Ibama nº 201, de 23 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-n-201-de-23-de-outubro-de-2026-740877650",
+         "referencia": "DOU de 28/10/2026, Seção 1, Extra A, p. 47",
+         "vigencia": "na data da publicação; consulta aberta por 15 dias corridos"
+        }
+       ],
+       "fala": "Segundo destaque: a Portaria número 201, do Ibama, abre consulta pública por quinze dias corridos, a partir da publicação, sobre uma mudança na Instrução Normativa 20, de 2020, que trata da fase P8 do Proconve, o programa de controle da poluição do ar por veículos. A proposta inclui a metodologia e os requisitos de verificação e controle de qualidade dos equipamentos contadores de partículas usados nos ensaios de emissões de veículos pesados novos. As contribuições vão pelo portal Brasil Participativo.",
+       "inicio_s": 78.9
+      },
+      {
+       "titulo": "ANA orienta tarifas de água e esgoto para a reforma tributária",
+       "tema": "Água, outorga e saneamento",
+       "atos": [
+        {
+         "titulo": "Resolução ANA nº 307, de 26 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-307-de-26-de-outubro-de-2026-740661871",
+         "referencia": "DOU de 28/10/2026, Seção 1, p. 43",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Terceiro destaque: a Resolução número 307, da ANA, divulga a Nota Técnica 40, de 2026, com orientações às agências reguladoras de estados e municípios sobre as tabelas de tarifas de água e esgoto. Em primeiro de janeiro de 2027, o PIS/Pasep e a Cofins deixam de existir e passa a valer a CBS. Segundo a nota, os tributos antigos estão hoje embutidos na tarifa, enquanto a CBS e o IBS são cobrados por fora, destacados na conta. Se a tarifa não for ajustada antes, o usuário pagaria a parcela do tributo antigo e a do novo ao mesmo tempo. A nota é apenas orientativa: não é norma de referência e não tira a competência das agências locais.",
+       "inicio_s": 112.1
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do dia tratam de casos específicos ou da organização interna dos órgãos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+       "inicio_s": 156.9
+      }
+     ],
+     "audio": "radar/audios/dou-2026-10-28-085bb5e16c.mp3",
+     "duracao_s": 176
+    },
+    {
+     "id": "dou-2026-10-27",
+     "fonte": "dou",
+     "data": "2026-10-27",
+     "dia_semana": "terça-feira",
+     "titulo": "Mosaico Mata Atlântica Central Fluminense atualizado",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de terça-feira, 27 de outubro de 2026. Hoje é um dia mais curto, com um destaque sobre unidades de conservação da Mata Atlântica, no Rio de Janeiro.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Mosaico Mata Atlântica Central Fluminense: a nova composição",
+       "tema": "Flora e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria GM/MMA nº 1.809, de 26 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.809-de-26-de-outubro-de-2026-740420292",
+         "referencia": "DOU de 27/10/2026, Seção 1, p. 66",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Portaria número 1.809, do Ministério do Meio Ambiente, altera a portaria de 2006 que reconhece o Mosaico Mata Atlântica Central Fluminense. Um mosaico reúne unidades de conservação próximas para que sejam geridas de forma integrada. A nova redação lista quem faz parte: unidades do ICMBio, como o Parque Nacional da Serra dos Órgãos e a Reserva Biológica do Tinguá; unidades do Instituto Estadual do Ambiente, como o Parque Estadual dos Três Picos; unidades de vários municípios fluminenses; e reservas particulares do patrimônio natural. A lista inclui ainda dois territórios quilombolas, um em Petrópolis e outro em Areal. A portaria também define a composição do conselho consultivo, com gestores das unidades, sociedade civil, reservas particulares, povos e comunidades tradicionais, os quilombos e quatro comitês de bacias hidrográficas. O conselho poderá ser presidido por um chefe de unidade de conservação ou por um representante dos territórios quilombolas. Está em vigor desde a publicação.",
+       "inicio_s": 16.9
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "No mesmo dia saíram atos de organização interna, como o regimento da Secretaria Nacional de Mudança do Clima, e dezenas de despachos de mineração sobre casos específicos, que não detalhamos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+       "inicio_s": 80.7
+      }
+     ],
+     "audio": "radar/audios/dou-2026-10-27-98fa4267d5.mp3",
+     "duracao_s": 105
+    },
+    {
+     "id": "dou-2026-10-26",
+     "fonte": "dou",
+     "data": "2026-10-26",
+     "dia_semana": "segunda-feira",
+     "titulo": "Pesca em rios e lagos com novas regras, foz do Rio Doce e consulta pública",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Você está ouvindo o Radar Ambiental do Diário Oficial da União, edição de segunda-feira, 26 de outubro de 2026. Hoje o assunto é pesca, com quatro destaques: novas regras para os barcos de pesca comercial em rios, lagos e represas; o ordenamento da pesca no mar em frente à foz do Rio Doce, no Espírito Santo; uma consulta pública do Ministério da Pesca; e um novo grupo de trabalho no Ministério do Meio Ambiente. Vamos aos detalhes.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Barcos de pesca em águas continentais: a nova matriz de permissionamento",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria Interministerial MPA/MMA nº 73, de 23 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-73-de-23-de-outubro-de-2026-740414104",
+         "referencia": "DOU de 26/10/2026, Seção 1, Extra B, p. 3",
+         "vigencia": "30 dias após a publicação"
+        }
+       ],
+       "fala": "Primeiro destaque: a Portaria Interministerial número 73, do Ministério da Pesca e Aquicultura e do Ministério do Meio Ambiente. Ela aprova a matriz de permissionamento das embarcações de pesca em águas continentais, ou seja, rios, lagos, lagoas, açudes e represas. O que muda: a autorização de cada barco passa a seguir modalidades organizadas por região hidrográfica, com área de operação, petrecho, espécies permitidas e espécies não permitidas. Vale apenas para a pesca comercial feita com embarcação, e cada barco pode pedir até duas modalidades, em regiões hidrográficas vizinhas. Espécies não permitidas, se capturadas, devem ser soltas vivas ou descartadas na área de pesca, e a captura e a venda de espécies da lista oficial de ameaçadas continuam proibidas, salvo autorização do órgão ambiental. Prazos: o Ministério da Pesca tem noventa dias, contados da entrada em vigor, para publicar o cronograma de adequação dos barcos, e a portaria será revisada em dois anos. Quem descumprir responde pela Lei de Crimes Ambientais e pelo Decreto 6.514, de 2008. A portaria entra em vigor trinta dias após a publicação.",
+       "inicio_s": 28.0
+      },
+      {
+       "titulo": "Foz do Rio Doce: ordenamento da pesca no mar do Espírito Santo",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria Interministerial MPA/MMA nº 75, de 26 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-75-de-26-de-outubro-de-2026-740332704",
+         "referencia": "DOU de 26/10/2026, Seção 1, Extra A, p. 1",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Segundo destaque: a Portaria Interministerial número 75 estabelece o ordenamento da pesca na área marinha em frente à foz do Rio Doce, no Espírito Santo: a faixa entre Barra do Riacho, em Aracruz, e Degredo, em Linhares, até vinte metros de profundidade. Ali, só podem exercer a pesca profissional pescadores e embarcações regularizados, quando a lei exigir, e valem as normas já existentes de defeso, áreas restritas, espécies protegidas, tamanhos permitidos e petrechos, listadas na própria portaria. As decisões futuras de abrir, manter, suspender ou fechar a pesca serão baseadas em dados atualizados sobre a região, e as medidas seguem um Plano de Ação Integrado, que será divulgado nos sites dos dois ministérios. A portaria deixa claro que não afasta as obrigações de reparação do acordo judicial sobre o rompimento da Barragem de Fundão. Está em vigor desde a publicação.",
+       "inicio_s": 104.1
+      },
+      {
+       "titulo": "Consulta pública: registro de barcos de pesca em águas continentais",
+       "tema": "Consulta pública",
+       "atos": [
+        {
+         "titulo": "Portaria MPA nº 779, de 23 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-779-de-23-de-outubro-de-2026-740304990",
+         "referencia": "DOU de 26/10/2026, Seção 1, p. 68",
+         "vigencia": "na data da publicação; consulta aberta por 45 dias corridos"
+        }
+       ],
+       "fala": "Terceiro destaque, para quem quer participar: a Portaria número 779, do Ministério da Pesca e Aquicultura, abre consulta pública sobre a proposta de critérios e procedimentos para inscrever embarcações de pesca de águas continentais no Registro Geral da Atividade Pesqueira, o RGP. A proposta se apoia na matriz de permissionamento que acabamos de ver. As contribuições são feitas apenas pela plataforma Brasil Participativo, no prazo de quarenta e cinco dias corridos, contados da publicação.",
+       "inicio_s": 163.8
+      },
+      {
+       "titulo": "Novo grupo de trabalho sobre recursos pesqueiros no Meio Ambiente",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria GM/MMA nº 1.807, de 22 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.807-de-22-de-outubro-de-2026-740357477",
+         "referencia": "DOU de 26/10/2026, Seção 1, p. 56",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Por fim, a Portaria número 1.807, do Ministério do Meio Ambiente, cria o GTPESC, um grupo de trabalho permanente com representantes do ministério, do Ibama e do ICMBio. Ele vai dar suporte técnico às posições do Meio Ambiente sobre as normas de uso dos recursos pesqueiros discutidas com o Ministério da Pesca. Quando a medida tratar de espécie ameaçada de extinção, a manifestação formal da presidência do ICMBio passa a ser obrigatória. O grupo se reúne todo mês.",
+       "inicio_s": 194.9
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Além desses destaques, os órgãos ambientais federais publicaram outros atos sobre casos específicos, a maioria despachos de mineração, que não detalhamos porque envolvem empresas e pessoas. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+       "inicio_s": 225.3
+      }
+     ],
+     "audio": "radar/audios/dou-2026-10-26-45dc14055b.mp3",
+     "duracao_s": 250
+    }
+   ]
   }
  ]
 }
