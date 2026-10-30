@@ -4,10 +4,13 @@
 // relatório para imprimir, funcionamento sem internet depois do primeiro carregamento e o HTML único.
 // Desde a v3: "Ver um exemplo pronto" no topo, leitura ao vivo, resumo em linguagem simples, "?" nos números,
 // marcas no texto lido, percurso lado a lado, aproximar, arrastar e enquadrar, "Entenda em 1 minuto".
+// Desde a v4: envio de PDF com texto, PDF escaneado e foto (OCR), "Parar", tipo não aceito, e a leitura
+// de PDF e foto sem internet depois do primeiro uso. Os arquivos de teste são gerados aqui, com o
+// memorial fictício do exemplo.
 // Uso: python3 -m http.server 8765 (na raiz do site) e, em outro terminal,
 //      BASE=http://127.0.0.1:8765 node _testes/memorial-geo-pagina.mjs
 import { createRequire } from "node:module";
-import { readFileSync, mkdtempSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 const { chromium } = createRequire(import.meta.url)("playwright");
@@ -40,6 +43,33 @@ function nomesNoZip(buf) {
 }
 
 const nav = await chromium.launch({ args: ["--no-proxy-server"] });
+
+/** Certidão fictícia com o memorial do exemplo: PDF com texto, PDF só imagem (~300 dpi) e foto (~150 dpi). */
+async function gerarArquivos() {
+  const html = readFileSync("memorial-geo.html", "utf8");
+  const ex = JSON.parse(html.match(/var EXEMPLO = (".*?");\n/)[1]);
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const corpo = `<!doctype html><meta charset="utf-8"><style>body{font-family:"Times New Roman",serif;font-size:12pt;line-height:1.45;margin:2cm 2.2cm;color:#000;background:#fff}
+    p{text-align:justify;margin:0 0 .8em}</style><p><b>CERTIDÃO DE INTEIRO TEOR — EXEMPLO FICTÍCIO</b></p>` + ex.split("\n").map(l => "<p>" + esc(l) + "</p>").join("");
+  const pg = await nav.newPage({ viewport: { width: 794, height: 1123 }, deviceScaleFactor: 3.125 });
+  await pg.setContent(corpo);
+  await pg.pdf({ path: join(SAIDA, "certidao-texto.pdf"), format: "A4" });
+  const png300 = await pg.screenshot({ fullPage: true });
+  await pg.setContent(`<!doctype html><style>@page{size:A4;margin:0}body{margin:0}img{width:210mm;display:block}</style><img src="data:image/png;base64,${png300.toString("base64")}">`);
+  await pg.pdf({ path: join(SAIDA, "certidao-escaneada.pdf"), format: "A4" });
+  await pg.close();
+  const foto = await nav.newPage({ viewport: { width: 1240, height: 1754 } });
+  await foto.setContent(corpo);
+  writeFileSync(join(SAIDA, "foto-certidao.png"), await foto.screenshot({ fullPage: true }));
+  await foto.close();
+}
+await gerarArquivos();
+/** Espera a leitura do arquivo terminar (o botão "Parar" some) e devolve o resumo dela. */
+async function fimDaLeitura(pg, limite = 120000) {
+  await pg.waitForFunction(() => !document.getElementById("leitura").hidden && document.getElementById("leitura-parar").hidden &&
+    !/Parando/.test(document.getElementById("leitura-txt").textContent), null, { timeout: limite });
+  return (await pg.textContent("#leitura-txt")).trim();
+}
 for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   const ctx = await nav.newContext({ viewport: { width: larg, height: alt }, acceptDownloads: true });
   await ctx.grantPermissions(["clipboard-read", "clipboard-write"], { origin: BASE });
@@ -212,6 +242,44 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   await ctx.close();
 }
 
+// Leitura de arquivo: PDF com texto, PDF escaneado (OCR), "Parar" e tipo não aceito.
+for (const [larg, alt] of [[1280, 900], [390, 844]]) {
+  const ctx = await nav.newContext({ viewport: { width: larg, height: alt } });
+  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, r => r.abort());
+  const pg = await ctx.newPage();
+  const erros = [];
+  pg.on("pageerror", e => erros.push(String(e)));
+  await pg.goto(BASE + "/memorial-geo.html", { waitUntil: "load" });
+  ok(await pg.isVisible("#envio") && await pg.isVisible("#arquivo-escolher"), `${larg}px: área para enviar o PDF ou a foto`);
+  await pg.setInputFiles("#arquivo", join(SAIDA, "certidao-texto.pdf"));
+  let resumo = await fimDaLeitura(pg);
+  ok(/Achei 30 lados/.test(resumo) && /Fecha bem/.test(await pg.textContent("#o-fecho")) && /452\.318,40/.test(await pg.inputValue("#pe")),
+    `${larg}px: PDF com texto lido na hora (${resumo.slice(0, 60)})`);
+  ok(/MEMORIAL DESCRITIVO/.test(await pg.inputValue("#texto")), `${larg}px: o texto do PDF vai para o campo, para conferir`);
+  await pg.click("#leitura-ver");
+  await pg.waitForFunction(() => { const r = document.getElementById("resultado").getBoundingClientRect(); return r.top >= -2 && r.top < window.innerHeight / 2; }, null, { timeout: 5000 });
+  ok(true, `${larg}px: "Ver o mapa e o resultado" leva ao Passo 3`);
+  const sobra = await pg.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  ok(sobra <= 0, `${larg}px: sem rolagem horizontal com a leitura de arquivo (sobra ${sobra})`);
+  if (larg === 1280) {
+    await pg.setInputFiles("#arquivo", join(SAIDA, "certidao-escaneada.pdf"));
+    await pg.waitForFunction(() => /Preparando|Reconhecendo/.test(document.getElementById("leitura-txt").textContent), null, { timeout: 30000 });
+    ok(await pg.isVisible("#leitura-parar") && await pg.isVisible(".leitura__barra"), "PDF escaneado: progresso com barra e botão Parar");
+    resumo = await fimDaLeitura(pg);
+    ok(/lida por imagem/.test(resumo) && /Achei 30 lados/.test(resumo) && /Fecha bem/.test(await pg.textContent("#o-fecho")), `PDF escaneado lido por OCR (${resumo.slice(0, 80)})`);
+    await pg.setInputFiles("#arquivo", join(SAIDA, "certidao-escaneada.pdf"));
+    await pg.waitForFunction(() => /Reconhecendo/.test(document.getElementById("leitura-txt").textContent), null, { timeout: 30000 });
+    await pg.click("#leitura-parar");
+    resumo = await fimDaLeitura(pg, 20000);
+    ok(/interrompida/.test(resumo), `"Parar" interrompe a leitura (${resumo})`);
+    await pg.setInputFiles("#arquivo", { name: "planilha.zip", mimeType: "application/zip", buffer: Buffer.from("PK\x03\x04") });
+    resumo = await fimDaLeitura(pg);
+    ok(/não é lido aqui/.test(resumo), "tipo de arquivo não aceito: aviso claro");
+  }
+  ok(erros.length === 0, `${larg}px: leitura de arquivo sem erro de JavaScript ${erros.join(" | ")}`);
+  await ctx.close();
+}
+
 // Sem internet: primeiro carregamento com rede, depois o contexto fica offline.
 {
   const ctx = await nav.newContext({ viewport: { width: 1280, height: 900 }, acceptDownloads: true });
@@ -229,7 +297,11 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   const unico = join(SAIDA, "memorial-geo-unico.html");
   await d.saveAs(unico);
   const html = readFileSync(unico, "utf8");
-  ok(!/^<script src=|^<link rel="stylesheet" href="css/m.test(html) && /MemorialGeo/.test(html) && /--ochre/.test(html), "HTML único: JS e CSS dentro do arquivo");
+  ok(!/^<script src=|^<link rel="stylesheet" href="css/m.test(html) && /MemorialGeo/.test(html) && /LeitorArquivo/.test(html) && /--ochre/.test(html), "HTML único: JS e CSS dentro do arquivo");
+
+  // Um arquivo lido com rede deixa a leitura guardada (pdf.js, OCR e o português).
+  await pg.setInputFiles("#arquivo", join(SAIDA, "certidao-escaneada.pdf"));
+  ok(/Achei 30 lados/.test(await fimDaLeitura(pg)), "com rede: PDF escaneado lido (a leitura fica guardada)");
 
   await ctx.setOffline(true);
   const r = await pg.reload({ waitUntil: "load" });
@@ -240,6 +312,12 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   ok(/^30/.test(await pg.textContent("#o-n")), "sem internet: calcula o exemplo");
   ok(await pg.locator("#mapa image.m-tile").count() === 0 && await pg.locator("#mapa polygon.m-pol").count() === 1 && !(await pg.isVisible("#attr")), "sem internet: desenho sem fundo, sem atribuição");
   ok(/Sem internet/.test(await pg.textContent("#mapa-info")), "sem internet: aviso no mapa");
+  await pg.setInputFiles("#arquivo", join(SAIDA, "foto-certidao.png"));
+  let lidoOff = await fimDaLeitura(pg);
+  ok(/Achei 30 lados/.test(lidoOff) && /Fecha bem/.test(await pg.textContent("#o-fecho")), `sem internet: foto da certidão lida por OCR (${lidoOff.slice(0, 50)})`);
+  await pg.setInputFiles("#arquivo", join(SAIDA, "certidao-texto.pdf"));
+  lidoOff = await fimDaLeitura(pg);
+  ok(/Achei 30 lados/.test(lidoOff), "sem internet: PDF com texto lido");
   const [z] = await Promise.all([pg.waitForEvent("download"), pg.click('[data-baixar="shp"]')]);
   const zc = join(SAIDA, "offline.zip"); await z.saveAs(zc);
   ok(nomesNoZip(readFileSync(zc)).length === 4, "sem internet: shapefile baixa");
@@ -256,6 +334,9 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   await p2.click("#exemplo");
   await p2.waitForSelector("#saida:not([hidden])");
   ok(/^30/.test(await p2.textContent("#o-n")) && await p2.isHidden("#baixar-html"), "HTML único aberto do disco, sem rede: calcula");
+  await p2.setInputFiles("#arquivo", join(SAIDA, "certidao-texto.pdf"));
+  const avisoUnico = await fimDaLeitura(p2, 30000);
+  ok(/internet/.test(avisoUnico) && /precisa de internet/.test(await p2.textContent("#envio-ajuda")), `HTML único sem rede: ler PDF avisa que precisa de internet (${avisoUnico.slice(0, 60)})`);
   ok(e2.length === 0, "HTML único: sem erro de JavaScript " + e2.join(" | "));
   await c2.close();
 }

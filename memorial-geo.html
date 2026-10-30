@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Memorial descritivo em polígono: KML, GeoJSON e shapefile — O Analista Ambiental</title>
-<meta name="description" content="Cole o memorial descritivo da matrícula (azimute ou rumo e distância, ou a coordenada de cada vértice) e veja o polígono no mapa, com área, perímetro, erro de fechamento e o lado suspeito. Baixe em KML, GeoJSON, shapefile, DXF e CSV. Grátis, no navegador, também sem internet.">
+<meta name="description" content="Envie o PDF ou a foto da matrícula, ou cole o memorial descritivo (azimute ou rumo e distância, ou a coordenada de cada vértice), e veja o polígono no mapa, com área, perímetro, erro de fechamento e o lado suspeito. Baixe em KML, GeoJSON, shapefile, DXF e CSV. Grátis, no navegador, também sem internet.">
 <meta name="author" content="Francisco de Assis da Silva Júnior">
 <link rel="canonical" href="https://www.oanalistaambiental.com/memorial-geo.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Memorial descritivo em polígono no mapa">
-<meta property="og:description" content="Azimute ou rumo e distância da matrícula viram polígono, com área, perímetro, erro de fechamento e arquivos KML, GeoJSON e shapefile. Tudo no navegador.">
+<meta property="og:description" content="Envie o PDF da matrícula: o memorial vira polígono no mapa, com área, perímetro, erro de fechamento e arquivos KML, shapefile, GeoJSON, DXF e CSV. Tudo no navegador.">
 <meta property="og:url" content="https://www.oanalistaambiental.com/memorial-geo.html">
 <meta property="og:image" content="https://www.oanalistaambiental.com/assets/hero-banner.jpg">
 <meta property="og:locale" content="pt_BR">
@@ -132,6 +132,32 @@
   .atalhos .btn{ cursor:pointer; font:inherit; font-family:var(--f-display); }
   .atalhos__link{ color:var(--accent); font-family:var(--f-display); font-weight:600; text-underline-offset:3px; }
 
+  /* ---------- envio de arquivo (PDF, foto) */
+  .envio{ display:flex; flex-wrap:wrap; gap:.9rem 1.1rem; align-items:center; padding:1.1rem 1.2rem; border:2px dashed var(--accent); background:var(--bg); border-radius:4px; transition:background .15s, border-color .15s; }
+  .envio.sobre{ background:rgba(46,107,62,.12); border-style:solid; }
+  .envio__ic{ flex:none; width:40px; height:48px; fill:none; stroke:var(--accent); stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .envio__txt{ flex:1 1 16rem; min-width:0; }
+  .envio__txt b{ display:block; font-family:var(--f-display); font-size:1.05rem; color:var(--text); }
+  .envio__txt small{ display:block; color:var(--text-soft); font-size:.86rem; line-height:1.45; margin-top:.25rem; }
+  .envio__bt{ cursor:pointer; font:inherit; font-family:var(--f-display); }
+  .leitura{ margin-top:.8rem; padding:.85rem 1rem; border:1px solid var(--rule); border-left:4px solid var(--accent); background:var(--bg); }
+  .leitura--aviso{ border-left-color:var(--focus); }
+  .leitura--erro{ border-left-color:var(--ochre); }
+  .leitura__topo{ display:flex; gap:.8rem; justify-content:space-between; align-items:center; }
+  .leitura__topo b{ font-family:var(--f-display); color:var(--text); overflow-wrap:anywhere; }
+  .leitura__topo .mini{ margin:0; }
+  .leitura__barra{ height:8px; background:var(--bg-sunken); border-radius:4px; margin-top:.6rem; overflow:hidden; }
+  .leitura__barra i{ display:block; height:100%; width:0; background:var(--accent); transition:width .3s ease; }
+  .leitura p{ margin:.55rem 0 0; font-size:.9rem; color:var(--text-soft); line-height:1.5; }
+  .leitura__ver{ margin:.7rem 0 0; }
+  .opcoes{ margin-top:.6rem; font-size:.86rem; color:var(--text-soft); }
+  .opcoes > summary{ cursor:pointer; color:var(--text-faint); }
+  .opcoes__l{ display:flex; gap:.5rem; align-items:flex-start; margin-top:.5rem; cursor:pointer; line-height:1.4; }
+  .opcoes__l input{ margin-top:.25rem; flex:none; }
+  .opcoes__l small{ display:block; color:var(--text-faint); }
+  .ou{ display:flex; align-items:center; gap:.8rem; margin:1.1rem 0 .7rem; font-family:var(--f-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-faint); }
+  .ou::before, .ou::after{ content:""; flex:1; height:1px; background:var(--rule); }
+
   /* ---------- leitura ao vivo e estado vazio */
   .aovivo{ display:flex; gap:.55rem; align-items:baseline; font-size:.88rem; color:var(--text-soft); margin:.55rem 0 0; min-height:1.4em; }
   .aovivo__ponto{ flex:none; width:.6rem; height:.6rem; border-radius:50%; background:var(--rule-strong); }
@@ -229,7 +255,7 @@
   .ent-t{ font-family:var(--f-mono); font-size:11px; fill:var(--text-soft); text-anchor:middle; }
   .ent-t--n{ fill:var(--text); font-weight:700; font-family:var(--f-display); font-size:13px; }
   .ent-t--v{ fill:var(--accent); font-weight:700; font-size:12px; }
-  @media (prefers-reduced-motion:reduce){ .aovivo__ponto{ animation:none !important; } .arq{ transition:none; } .arq:hover{ transform:none; } }
+  @media (prefers-reduced-motion:reduce){ .aovivo__ponto{ animation:none !important; } .arq{ transition:none; } .arq:hover{ transform:none; } .leitura__barra i, .envio{ transition:none; } }
   .so-impressao{ display:none; }
   @media print{
     :root:root{ --bg:#fff; --bg-raised:#fff; --bg-sunken:#f1f1ec; --text:#111; --text-soft:#333; --text-faint:#555; --rule:#bbb; --rule-strong:#888; --accent:#2E6B3E; --ochre:#A8452A; --focus:#C79A2E; }
@@ -298,10 +324,10 @@
   <div class="article__head stack-sm">
     <p class="ref">Ferramentas &middot; memorial descritivo &middot; roda no seu navegador, também sem internet</p>
     <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Memorial descritivo em polígono no mapa</h1>
-    <p class="lede-m">Cole o memorial da matrícula e veja o imóvel desenhado no mapa, com área, perímetro e a conferência
+    <p class="lede-m">Envie o PDF da matrícula (ou cole o memorial) e veja o imóvel desenhado no mapa, com área, perímetro e a conferência
       do fechamento. Depois leve o polígono para o SIG ou o CAD.</p>
     <ol class="como" aria-label="Como funciona">
-      <li><span class="como__n" aria-hidden="true">1</span><b>Cole o texto</b><small>trecho da matrícula, tabela do SIGEF ou a tabela que uma IA tirou do PDF</small></li>
+      <li><span class="como__n" aria-hidden="true">1</span><b>Envie o PDF ou cole o texto</b><small>a matrícula em PDF, a foto da certidão ou o trecho do memorial; tudo é lido no seu aparelho</small></li>
       <li><span class="como__n" aria-hidden="true">2</span><b>Confira o desenho</b><small>área, perímetro, fechamento e, se não fechar, o lado suspeito</small></li>
       <li><span class="como__n" aria-hidden="true">3</span><b>Leve para o seu trabalho</b><small>KML, shapefile, GeoJSON, DXF, CSV ou relatório em PDF</small></li>
     </ol>
@@ -313,14 +339,36 @@
 
   <div class="article__body">
     <div class="nota">
-      <strong>Nada sai do seu aparelho.</strong> O texto que você cola é lido e calculado aqui mesmo, no navegador: não
-      há envio para servidor nem cadastro (Lei 13.709/2018, LGPD). Só o mapa de fundo, se ligado, busca os blocos do
-      OpenStreetMap, e esse pedido não leva o seu texto.
+      <strong>Nada sai do seu aparelho.</strong> O PDF, a foto e o texto são lidos e calculados aqui mesmo, no navegador:
+      não há envio para servidor nem cadastro (Lei 13.709/2018, LGPD). Só o mapa de fundo, se ligado, busca os blocos do
+      OpenStreetMap, e esse pedido não leva o seu arquivo nem o seu texto.
     </div>
 
     <div class="calc" id="calc">
       <div class="calc__step">
         <span class="calc__step-label">Passo 1 &middot; O memorial</span>
+        <div class="envio" id="envio">
+          <svg class="envio__ic" viewBox="0 0 40 48" aria-hidden="true"><path d="M6 2h20l10 10v32a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M26 2v10h10"/><path class="envio__seta" d="M20 38V22m-7 7 7-7 7 7"/></svg>
+          <div class="envio__txt">
+            <b>Envie o PDF da matrícula ou uma foto da certidão</b>
+            <small id="envio-ajuda">Arraste o arquivo para cá, cole uma captura de tela ou toque em &ldquo;Escolher arquivo&rdquo;. O PDF com
+              texto é lido na hora; o PDF escaneado e a foto passam por reconhecimento de texto (OCR). Tudo no seu aparelho, nada é enviado.</small>
+          </div>
+          <button type="button" class="btn btn--solid envio__bt" id="arquivo-escolher" aria-describedby="envio-ajuda">Escolher arquivo</button>
+          <input type="file" id="arquivo" accept=".pdf,application/pdf,image/*,.txt,text/plain" hidden>
+        </div>
+        <div class="leitura" id="leitura" role="status" aria-live="polite" hidden>
+          <div class="leitura__topo"><b id="leitura-arq"></b><button type="button" class="mini" id="leitura-parar">Parar</button></div>
+          <div class="leitura__barra" aria-hidden="true"><i id="leitura-i"></i></div>
+          <p id="leitura-txt"></p>
+          <button type="button" class="mini leitura__ver" id="leitura-ver" hidden>Ver o mapa e o resultado &darr;</button>
+        </div>
+        <details class="opcoes">
+          <summary>Opções da leitura de arquivo</summary>
+          <label class="opcoes__l"><input type="checkbox" id="forcar-ocr"> Ler por imagem (OCR) também as páginas que já têm texto
+            <small>Use quando o texto do PDF sair com letras trocadas ou faltando.</small></label>
+        </details>
+        <p class="ou"><span>ou cole o texto</span></p>
         <label class="calc__lbl" for="texto">Texto do memorial (trecho da matrícula) ou tabela vértice; azimute ou rumo; distância</label>
         <textarea id="texto" rows="9" spellcheck="false" placeholder="Inicia-se no vértice V1, de coordenadas E 612.000,00 m e N 7.795.000,00 m, fuso 23 S, SIRGAS 2000; deste segue com azimute de 120°15'30&quot; e distância de 85,40 m até o vértice V2; deste segue com rumo S 12°00' W e distância de 230,50 m...
 
@@ -461,7 +509,11 @@ V2; S 12° W; 230,50"></textarea>
           ter erro de digitação. A tabela de lados mostra o trecho lido de cada um.</li>
         <li><b>Não substitui levantamento topográfico nem georreferenciamento certificado no SIGEF</b> (Lei 10.267/2001).
           É uma reconstrução do que o texto descreve.</li>
-        <li><b>Nada é enviado a servidor.</b> Tudo roda no navegador (LGPD).</li>
+        <li><b>PDF e foto: confira o texto lido.</b> O PDF com texto é lido como está escrito. A página escaneada e a foto
+          passam por OCR, que pode trocar um número ou um símbolo (°, ', "). Quando a primeira leitura não fecha, a página relê
+          em outro tamanho e fica a que fecha melhor; o diagnóstico aponta o dígito suspeito. Só as 40 primeiras páginas
+          escaneadas são lidas.</li>
+        <li><b>Nada é enviado a servidor.</b> Tudo roda no navegador (LGPD), inclusive a leitura do PDF e da foto.</li>
       </ul>
       <details class="limite__mais">
         <summary>Mais 3 limites: o diagnóstico, o memorial por coordenadas e o critério do fechamento</summary>
@@ -524,9 +576,9 @@ V2; S 12° W; 230,50"></textarea>
 
     <div class="extra nao-imprime">
     <h2 id="ia">Como usar com IA</h2>
-    <p>Certidão de matrícula costuma vir como imagem, em várias páginas, com o memorial no meio do texto. Uma IA de
-      conversa (com leitura de PDF ou de foto) transcreve bem esse trecho para uma tabela, e a tabela entra aqui. O
-      cálculo continua sendo feito por esta página, não pela IA.</p>
+    <p>A página já lê o PDF e a foto, lá em cima. Quando a cópia é muito ruim (escaneado torto, manchado, com carimbo
+      ou assinatura sobre os números), uma IA de conversa com leitura de PDF ou de foto pode transcrever o memorial para
+      uma tabela, e a tabela entra aqui. O cálculo continua sendo feito por esta página, não pela IA.</p>
     <ol>
       <li>Anexe as páginas da certidão na IA e cole o pedido abaixo.</li>
       <li>Confira página por página: a IA diz quantos lados leu em cada página; compare com o original.</li>
@@ -557,16 +609,18 @@ Depois a tabela:
 (com coordenadas: | Vértice | E (m) | N (m) | Azimute ou rumo | Distância (m) | Página |)</pre>
     <div class="acoes"><button type="button" class="btn btn--ghost" id="copiar-ia">Copiar o pedido</button><span class="calc__hint" id="copiado" role="status"></span></div>
 
-    <h2>Direto do PDF, no celular</h2>
-    <p>O app <a href="chao-geo-mg.html">Chão Geo MG</a> faz o mesmo cálculo direto do PDF da matrícula, no botão
-      "Ler documento (PDF)", sem precisar da IA nem de copiar e colar, e confere a poligonal com as coordenadas
-      quando o memorial também as traz.</p>
+    <h2>No app, em campo</h2>
+    <p>O app <a href="chao-geo-mg.html">Chão Geo MG</a> faz a mesma leitura no botão &ldquo;Ler documento (PDF)&rdquo;,
+      com o OCR do próprio celular, e junta o polígono às camadas e à vistoria.</p>
 
     <h2>Sem internet</h2>
     <p>Depois da primeira visita, esta página abre sem internet neste navegador. Para levar a campo ou guardar no
       computador, baixe a ferramenta num arquivo só: abre com dois cliques, no navegador, sem instalar nada. Sem
       internet o mapa de fundo some e fica o desenho com a grade UTM e o norte.</p>
     <div class="acoes"><button type="button" class="btn btn--solid" id="baixar-html">Baixar a ferramenta (HTML único)</button><span class="calc__hint" id="offline-info" role="status"></span></div>
+    <p>A leitura de PDF fica guardada depois do primeiro arquivo lido. Para levar a campo sem ter lido nenhum, deixe a
+      leitura pronta agora (cerca de 7 MB, uma vez só). O arquivo único baixado acima lê PDF só com internet.</p>
+    <div class="acoes"><button type="button" class="btn btn--ghost" id="preparar-leitor">Deixar a leitura de PDF e foto pronta para usar sem internet</button><span class="calc__hint" id="preparar-info" role="status"></span></div>
     </div>
 
     <h2>De onde vem cada regra</h2>
@@ -598,6 +652,10 @@ Depois a tabela:
         e DXF R12 (AC1009), conforme a DXF Reference da Autodesk.</li>
       <li><b>Mapa de fundo:</b> blocos do OpenStreetMap, com a atribuição pedida na
         <a href="https://operations.osmfoundation.org/policies/tiles/" target="_blank" rel="noopener">política de uso</a>; só os blocos da área desenhada, sem baixar em massa.</li>
+      <li><b>Leitura de PDF e foto:</b> <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">pdf.js</a> 6.4 (Mozilla) e
+        <a href="https://github.com/naptha/tesseract.js" target="_blank" rel="noopener">Tesseract.js</a> 7, com o modelo do português, ambos de
+        licença livre (Apache 2.0), servidos por este site e rodando no seu navegador. A regra é a do &ldquo;Ler documento (PDF)&rdquo; do app
+        Chão Geo MG: página com texto vem do PDF, página escaneada vai para o OCR (até 40), e as linhas de tabela são remontadas pela posição na página.</li>
       <li><b>Exemplo:</b> a Fazenda Vereda do Exemplo é inventada; nome, coordenadas e medidas são fictícios.</li>
     </ul>
     <p class="calc__hint">Conferido em 24/10/2026.</p>
@@ -632,6 +690,7 @@ Depois a tabela:
 
 <script src="js/nav.js"></script>
 <script src="js/memorial-geo.js"></script>
+<script src="js/memorial-geo-arquivo.js"></script>
 <script>
 /* Interface da página: lê o texto, desenha, lista e baixa. O cálculo está em js/memorial-geo.js. */
 (function () {
@@ -1256,6 +1315,101 @@ Depois a tabela:
   window.addEventListener("afterprint", function () { abertosAntes.forEach(function (x) { x[0].open = x[1]; }); });
   $("imprimir").addEventListener("click", function () { cabecalhoImpressao(); window.print(); });
 
+  // ------------------------------------------------------------ arquivo: PDF, foto ou texto
+
+  var sinalLeitura = null;
+  function mostrarLeitura(classe, titulo, frase, fracao, comParar) {
+    var box = $("leitura");
+    box.hidden = false;
+    box.className = "leitura" + (classe ? " leitura--" + classe : "");
+    $("leitura-arq").textContent = titulo;
+    $("leitura-txt").textContent = frase;
+    $("leitura-i").parentNode.hidden = fracao == null;
+    if (fracao != null) $("leitura-i").style.width = Math.round(Math.max(0.03, Math.min(1, fracao)) * 100) + "%";
+    $("leitura-parar").hidden = !comParar;
+    $("leitura-ver").hidden = true;
+  }
+  /** Lê o arquivo, põe o texto no campo e mostra o resultado; diz o que foi lido e como. */
+  async function lerArquivo(arq) {
+    if (!arq || sinalLeitura) return;
+    var nome = arq.name || "imagem colada";
+    if (!window.LeitorArquivo) { mostrarLeitura("erro", nome, "Este navegador não carregou o leitor de arquivo. Copie o texto do memorial e cole no campo abaixo.", null, false); return; }
+    var sinal = sinalLeitura = { parado: false };
+    mostrarLeitura("", nome, "Abrindo…", 0, true);
+    try {
+      var res = await LeitorArquivo.ler(arq, {
+        forcarOcr: $("forcar-ocr").checked, sinal: sinal,
+        progresso: function (f, frase) { if (!sinal.parado) mostrarLeitura("", nome, frase, f, true); }
+      });
+      var texto = LeitorArquivo.juntar(res);
+      $("texto").value = texto;
+      clearTimeout(espera);
+      ler(false, true);
+      var n = res.paginas.length, comTexto = res.paginas.filter(function (p) { return p.origem === "pdf"; }).length, partes = [];
+      if (n > 1 || res.ocr) {
+        partes.push(n + (n === 1 ? " página" : " páginas") + (res.ocr ? " (" + (comTexto ? comTexto + " com texto, " : "") + res.ocr + (res.ocr > 1 ? " lidas" : " lida") + " por imagem)" : "") + ".");
+      }
+      if (res.semOcr) partes.push(res.semOcr + (res.semOcr > 1 ? " páginas escaneadas" : " página escaneada") + " depois da 40ª ficou sem leitura.");
+      if (res.segundaLeitura) partes.push("A leitura por imagem foi feita duas vezes, em tamanhos diferentes, e ficou a que fecha melhor.");
+      var lidos = atual ? (atual.poligonal.fonte === "coordenadas" ? atual.poligonal.vertices.length + " vértices com coordenada" : atual.lados.length + " lados") : null;
+      if (lidos) {
+        partes.push("Achei " + lidos + ": o resultado está no Passo 3, e o texto lido está no campo abaixo, para conferir e corrigir.");
+        if (res.ocr) partes.push("A leitura por imagem pode trocar um número: confira em “Ver no texto o que a página leu”.");
+      } else {
+        partes.push(texto.trim()
+          ? "Não achei azimute, rumo nem coordenadas suficientes no texto lido. Ele está no campo abaixo: se a cópia está ruim, tente uma foto mais nítida, a opção de ler por imagem ou o pedido para IA, mais abaixo."
+          : "O arquivo não tem texto que dê para ler.");
+      }
+      mostrarLeitura(lidos ? (res.ocr ? "aviso" : "") : "erro", nome, partes.join(" "), null, false);
+      $("leitura-ver").hidden = !lidos;
+    } catch (e) {
+      mostrarLeitura("erro", nome, e && e.falha ? e.message : "Não deu para ler o arquivo: " + (e && e.message || e) + ". Copie o texto e cole no campo abaixo.", null, false);
+    } finally { sinalLeitura = null; }
+  }
+  $("arquivo-escolher").addEventListener("click", function () { $("arquivo").click(); });
+  $("arquivo").addEventListener("change", function () { var f = this.files[0]; this.value = ""; lerArquivo(f); });
+  $("leitura-ver").addEventListener("click", function () { rolar($("resultado")); });
+  $("leitura-parar").addEventListener("click", function () {
+    if (!sinalLeitura) return;
+    sinalLeitura.parado = true;
+    mostrarLeitura("", $("leitura-arq").textContent, "Parando…", null, false);
+    if (sinalLeitura.cancelar) sinalLeitura.cancelar();
+  });
+  // Arrastar o arquivo para qualquer ponto da página, ou colar uma captura de tela (Ctrl+V).
+  (function () {
+    var zona = $("envio"), conta = 0;
+    function temArquivo(ev) { return ev.dataTransfer && Array.prototype.indexOf.call(ev.dataTransfer.types || [], "Files") >= 0; }
+    window.addEventListener("dragenter", function (ev) { if (temArquivo(ev)) { conta++; zona.classList.add("sobre"); } });
+    window.addEventListener("dragleave", function (ev) { if (temArquivo(ev) && --conta <= 0) { conta = 0; zona.classList.remove("sobre"); } });
+    window.addEventListener("dragover", function (ev) { if (temArquivo(ev)) ev.preventDefault(); });
+    window.addEventListener("drop", function (ev) {
+      if (!temArquivo(ev)) return;
+      ev.preventDefault();
+      conta = 0; zona.classList.remove("sobre");
+      var f = ev.dataTransfer.files[0];
+      if (f) { rolar(zona, "center"); lerArquivo(f); }
+    });
+    document.addEventListener("paste", function (ev) {
+      var fs = ev.clipboardData && ev.clipboardData.files;
+      if (!fs || !fs.length || !/^image\/|\/pdf$/.test(fs[0].type)) return;
+      ev.preventDefault();
+      rolar(zona, "center");
+      lerArquivo(fs[0]);
+    });
+  })();
+  if (ARQUIVO) $("envio-ajuda").textContent += " Neste arquivo baixado, ler PDF e foto precisa de internet.";
+  if (ARQUIVO || !window.LeitorArquivo) $("preparar-leitor").hidden = true;
+  else $("preparar-leitor").addEventListener("click", async function () {
+    var b = this, info = $("preparar-info");
+    b.disabled = true; info.textContent = "Baixando…";
+    try {
+      await LeitorArquivo.preparar(function (f, frase) { info.textContent = frase; });
+      info.textContent = "Pronto: a leitura de PDF e foto funciona sem internet neste navegador.";
+    } catch (e) {
+      info.textContent = e && e.falha ? e.message : "Não deu para preparar agora: " + (e && e.message || e);
+    } finally { b.disabled = false; }
+  });
+
   $("copiar-ia").addEventListener("click", function () {
     var t = $("pedido-ia").textContent;
     var fim = function (ok) { $("copiado").textContent = ok ? "Pedido copiado." : "Não deu para copiar: selecione o texto e copie."; };
@@ -1280,11 +1434,12 @@ Depois a tabela:
       var info = $("offline-info");
       info.textContent = "Montando o arquivo…";
       try {
-        var partes = await Promise.all(["memorial-geo.html", "css/style.css", "js/nav.js", "js/memorial-geo.js"].map(buscar));
+        var partes = await Promise.all(["memorial-geo.html", "css/style.css", "js/nav.js", "js/memorial-geo.js", "js/memorial-geo-arquivo.js"].map(buscar));
         var html = partes[0];
         html = trocar(html, '<link rel="stylesheet" href="css/style.css">', "<style>\n" + partes[1] + "\n</style>");
         html = trocar(html, '<script src="js/nav.js">' + FECHA_SCRIPT, "<script>\n" + partes[2] + "\n" + FECHA_SCRIPT);
         html = trocar(html, '<script src="js/memorial-geo.js">' + FECHA_SCRIPT, "<script>\n" + partes[3] + "\n" + FECHA_SCRIPT);
+        html = trocar(html, '<script src="js/memorial-geo-arquivo.js">' + FECHA_SCRIPT, "<script>\n" + partes[4] + "\n" + FECHA_SCRIPT);
         html = trocar(html, "<head>", '<head>\n<base href="https://www.oanalistaambiental.com/">');
         baixar("memorial-geo.html", html, "text/html");
         info.textContent = "Pronto: guarde o arquivo memorial-geo.html e abra no navegador, mesmo sem internet.";

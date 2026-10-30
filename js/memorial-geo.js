@@ -628,8 +628,9 @@
   var NUM = "(\\d{1,3}(?:\\.\\d{3})+(?:,\\d+)?|\\d{6,7}(?:[.,]\\d+)?)";
   var PADROES_UTM = [
     // E 612.000,00 m e N 7.795.000,00 m  |  E=612000.00; N=7795000.00  |  X: 612000 Y: 7795000
-    { re: new RegExp("\\b(?:E|X|Este|Leste)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM + "\\s*m?\\b[^\\d\\n]{0,25}?\\b(?:N|Y|Norte)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM, "g"), norteAntes: false },
-    { re: new RegExp("\\b(?:N|Y|Norte)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM + "\\s*m?\\b[^\\d\\n]{0,25}?\\b(?:E|X|Este|Leste)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM, "g"), norteAntes: true },
+    // (o par pode quebrar de linha: texto tirado de PDF quebra onde a página quebrou)
+    { re: new RegExp("\\b(?:E|X|Este|Leste)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM + "\\s*m?\\b[^\\d]{0,25}?\\b(?:N|Y|Norte)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM, "g"), norteAntes: false },
+    { re: new RegExp("\\b(?:N|Y|Norte)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM + "\\s*m?\\b[^\\d]{0,25}?\\b(?:E|X|Este|Leste)\\s*(?:\\(m\\))?\\s*[:=]?\\s*" + NUM, "g"), norteAntes: true },
     // 612.000,00 mE e 7.795.000,00 mN
     { re: new RegExp(NUM + "\\s*m\\s?E\\b[^\\d\\n]{0,15}?" + NUM + "\\s*m\\s?N\\b", "g"), norteAntes: false },
     { re: new RegExp(NUM + "\\s*m\\s?N\\b[^\\d\\n]{0,15}?" + NUM + "\\s*m\\s?E\\b", "g"), norteAntes: true }
@@ -739,6 +740,69 @@
 
   var RE_AREA_ESCRITA = /(?<![\wÀ-ú])[áÁaA]rea(?![\wà-ú])[^\d\n]{0,60}?([\d.,]+\s*(?:ha|hectares?|m²|m2))(?![\wà-ú])/gi;
 
+  // ------------------------------------------------------------------ texto vindo de PDF ou de imagem
+
+  /**
+   * Pedaços de texto com posição (linhas do OCR ou trechos do PDF) remontados em linhas da página,
+   * como OrdemLinhas.montar no app: mesma altura = mesma linha, da esquerda para a direita. Numa
+   * tabela escaneada cada coluna costuma vir num bloco; assim o vértice volta a ficar com o E, o N,
+   * o azimute e a distância dele. Cada pedaço: { texto, x0, x1, y0, y1 }, com y crescendo para
+   * baixo. Entre pedaços da mesma linha: nada (encostados), um espaço, ou três espaços (coluna).
+   */
+  function montarLinhas(pedacos) {
+    var v = pedacos.filter(function (p) { return p.texto && p.texto.trim(); }).map(function (p) {
+      return { texto: p.texto.trim(), x0: p.x0, x1: p.x1, cy: (p.y0 + p.y1) / 2, h: Math.max(1, p.y1 - p.y0) };
+    }).sort(function (a, b) { return a.cy - b.cy; });
+    var linhas = [];
+    v.forEach(function (p) {
+      var atual = linhas[linhas.length - 1];
+      if (atual) {
+        var refY = atual.reduce(function (s, q) { return s + q.cy; }, 0) / atual.length;
+        var refH = atual.reduce(function (s, q) { return s + q.h; }, 0) / atual.length;
+        // Mesma linha: o centro vertical cai dentro de metade da altura típica da linha.
+        if (Math.abs(p.cy - refY) <= refH * 0.5) { atual.push(p); return; }
+      }
+      linhas.push([p]);
+    });
+    return linhas.map(function (l) {
+      l.sort(function (a, b) { return a.x0 - b.x0; });
+      var s = l[0].texto;
+      for (var k = 1; k < l.length; k++) {
+        var a = l[k - 1], b = l[k], vao = b.x0 - a.x1, h = (a.h + b.h) / 2;
+        s += (vao < 0.12 * h ? "" : vao < 1.2 * h ? " " : "   ") + b.texto;
+      }
+      return s;
+    }).join("\n");
+  }
+
+  /**
+   * Correções conservadoras do texto que vem do OCR, antes de ler os lados: o grau lido como "º",
+   * "o", "O" ou "*" logo antes dos minutos; o apóstrofo dos minutos lido como "/" ou "|"; letra O ou
+   * o entre algarismos (zero); l ou I entre
+   * algarismos (um); "rn" no lugar de "m" depois de número; o quadrante colado no "e" seguinte
+   * ("15" We distância" → "15" W e distância"). Nada além disso: o resto a pessoa
+   * confere no texto, e o diagnóstico do fechamento aponta o dígito trocado.
+   */
+  function limparOcr(t) {
+    return String(t || "")
+      .replace(/(\d{1,3})\s?[º°oO*]\s?(?=\d{1,2}\s?['’´`])/g, "$1°")
+      .replace(/(\d{1,3})\s?[º°oO*]\s?(\d{1,2})\s?[\/|]\s?(?=\d{1,2}(?:[.,]\d+)?\s?["”'’]{1,2})/g, "$1°$2'")
+      .replace(/(?<=\d)[Oo](?=\d|[.,]\d)/g, "0")
+      .replace(/(?<=\d[.,]\d{0,2})[Oo](?![\wà-ú])/g, "0")
+      .replace(/(?<=\d)[lI](?=\d)/g, "1")
+      .replace(/(\d)\s?rn\b/g, "$1 m")
+      .replace(/(\d\s?["”'’°]\s?)([EWOL])(e)(?=\s)/g, "$1$2 $3")
+      .replace(/[ \t]+$/gm, "");
+  }
+
+  /**
+   * As linhas "— página 2 de 6 (…) —" que a leitura do PDF põe entre as páginas viram espaços do
+   * mesmo tamanho: um lado que começa numa página e termina na outra continua inteiro, e as
+   * posições no texto não mudam (as marcas da página caem no lugar certo).
+   */
+  var RE_MARCADOR_PAGINA = /^[-—] página \d+ de \d+(?: \([^)\n]*\))? [-—][ \t]*$/gm; // o "—" vira "-" na normalização
+  function semMarcadores(t) { return t.replace(RE_MARCADOR_PAGINA, function (m) { return " ".repeat(m.length); }); }
+
   // ------------------------------------------------------------------ análise completa
 
   /**
@@ -751,8 +815,8 @@
    */
   function analisar(texto, opcoes) {
     opcoes = opcoes || {};
-    var t = normalizar(texto);
-    var r = { texto: t, lados: lados(t), datum: datumCitado(t), fusoTexto: fusoCitado(t), avisos: [], conferencias: [], correcoes: [] };
+    var visto = normalizar(texto), t = semMarcadores(visto);
+    var r = { texto: visto, lados: lados(t), datum: datumCitado(t), fusoTexto: fusoCitado(t), avisos: [], conferencias: [], correcoes: [] };
     r.partidaLida = partidaDoTexto(t, r.fusoTexto);
     var p = r.partidaLida ? { e: r.partidaLida.e, n: r.partidaLida.n, fuso: r.partidaLida.fuso } : {};
     if (opcoes.e != null && opcoes.n != null) { p.e = opcoes.e; p.n = opcoes.n; }
@@ -1161,6 +1225,7 @@
     datumCitado: datumCitado, fusoCitado: fusoCitado, partidaDoTexto: partidaDoTexto, analisar: analisar,
     diagnosticar: diagnosticar, textoHipotese: textoHipotese, rumoTexto: rumoTexto, variacoesDigitos: variacoesDigitos,
     coordenadasDoTexto: coordenadasDoTexto, sequenciaDeCoordenadas: sequenciaDeCoordenadas, verticesForaDoLugar: verticesForaDoLugar,
+    montarLinhas: montarLinhas, limparOcr: limparOcr, semMarcadores: semMarcadores,
     decimal: decimal, inteiro: inteiro, metros: metros, dms: dms, resumoFechamento: resumoFechamento,
     geojson: geojson, kml: kml, csv: csv, dxf: dxf, memorialTexto: memorialTexto, prj: prj, epsg: epsg, shapefile: shapefile, shapefileZip: shapefileZip, zip: zip, crc32: crc32
   };

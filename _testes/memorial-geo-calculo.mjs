@@ -262,6 +262,31 @@ const exemplo = JSON.parse(readFileSync(new URL("../memorial-geo.html", import.m
   ok(/^E 610\.100,00 m e N 7\.800\.000,00$/.test(c.texto.slice(c.poligonal.lados[1].faixa[0], c.poligonal.lados[1].faixa[1])), "no memorial por coordenadas, o vértice marca a coordenada");
 }
 
+// ---- Texto vindo de PDF e de OCR
+{
+  // OrdemLinhasTest do app: OCR de tabela em colunas volta a sair linha a linha.
+  ok(M.montarLinhas([
+    { texto: "V1", x0: 10, x1: 40, y0: 100, y1: 120 }, { texto: "V2", x0: 10, x1: 40, y0: 130, y1: 150 },
+    { texto: "610000,00", x0: 100, x1: 200, y0: 101, y1: 121 }, { texto: "610100,00", x0: 100, x1: 200, y0: 131, y1: 151 },
+    { texto: "7800000,00", x0: 250, x1: 360, y0: 99, y1: 119 }, { texto: "7800000,00", x0: 250, x1: 360, y0: 129, y1: 149 }
+  ]) === "V1   610000,00   7800000,00\nV2   610100,00   7800000,00", "tabela em colunas remontada em linhas (como OrdemLinhas do app)");
+  ok(M.montarLinhas([
+    { texto: "azimute", x0: 0, x1: 70, y0: 0, y1: 12 }, { texto: "120°15'", x0: 73, x1: 120, y0: 0, y1: 12 }, { texto: "30\"", x0: 120.5, x1: 135, y0: 0, y1: 12 }
+  ]) === "azimute 120°15'30\"", "trechos do PDF: espaço entre palavras, nada entre pedaços encostados");
+  const o = M.limparOcr("azimute de 120º15’30” e distância de 85,4O rn; rumo S 12o00' W e 23O,5O m; azimute de 115º 15/28\" e 572,71 m; o 2o lado; V1O; 1/2");
+  ok(o === "azimute de 120°15’30” e distância de 85,40 m; rumo S 12°00' W e 230,50 m; azimute de 115°15'28\" e 572,71 m; o 2o lado; V1O; 1/2",
+    "correções do OCR: grau, minuto lido como barra, O no número, rn no lugar de m (ordinal, nome e fração intactos)");
+  ok(igual(M.lados(o).map(l => M.dms(l.azimuteGraus)), ["120°15'30\"", "192°00'00\"", "115°15'28\""]), "depois das correções, os três lados são lidos");
+  // Lado que atravessa a quebra de página: a linha "— página 2 de 2 —" não o interrompe.
+  const quebra = exemplo.replace("deste, segue com azimute de 351°58'57\"", "deste, segue com azimute de\n\n— página 2 de 2 (texto do PDF) —\n351°58'57\"");
+  const rq = M.analisar(quebra);
+  ok(rq.lados.length === 30 && rq.poligonal.qualidade.nivel === "ok" && /- página 2 de 2/.test(rq.texto), "lado partido pela quebra de página continua inteiro (e a linha da página fica no texto)");
+  ok(M.semMarcadores("a\n- página 3 de 9 (lida por imagem) -\nb") === "a\n" + " ".repeat(35) + "\nb", "linha de página vira espaços do mesmo tamanho");
+  // Par E/N quebrado em duas linhas, como sai do PDF.
+  const r2 = M.analisar(exemplo.replace("N 7.912.640,25 m e E 452.318,40 m", "N 7.912.640,25 m e\nE 452.318,40 m"));
+  ok(r2.partida && perto(r2.partida.e, 452318.40), "coordenada de partida quebrada em duas linhas");
+}
+
 // ---- CSV, DXF e memorial em texto
 {
   const p = M.analisar(exemplo).poligonal;
