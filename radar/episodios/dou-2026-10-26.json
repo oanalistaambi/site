@@ -1,0 +1,82 @@
+{
+ "id": "dou-2026-10-26",
+ "fonte": "dou",
+ "data": "2026-10-26",
+ "dia_semana": "segunda-feira",
+ "titulo": "Pesca em rios e lagos com novas regras, foz do Rio Doce e consulta pública",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Você está ouvindo o Radar Ambiental do Diário Oficial da União, edição de segunda-feira, 26 de outubro de 2026. Hoje o assunto é pesca, com quatro destaques: novas regras para os barcos de pesca comercial em rios, lagos e represas; o ordenamento da pesca no mar em frente à foz do Rio Doce, no Espírito Santo; uma consulta pública do Ministério da Pesca; e um novo grupo de trabalho no Ministério do Meio Ambiente. Vamos aos detalhes.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Barcos de pesca em águas continentais: a nova matriz de permissionamento",
+   "tema": "Fauna, pesca e aquicultura",
+   "atos": [
+    {
+     "titulo": "Portaria Interministerial MPA/MMA nº 73, de 23 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-73-de-23-de-outubro-de-2026-740414104",
+     "referencia": "DOU de 26/10/2026, Seção 1, Extra B, p. 3",
+     "vigencia": "30 dias após a publicação"
+    }
+   ],
+   "fala": "Primeiro destaque: a Portaria Interministerial número 73, do Ministério da Pesca e Aquicultura e do Ministério do Meio Ambiente. Ela aprova a matriz de permissionamento das embarcações de pesca em águas continentais, ou seja, rios, lagos, lagoas, açudes e represas. O que muda: a autorização de cada barco passa a seguir modalidades organizadas por região hidrográfica, com área de operação, petrecho, espécies permitidas e espécies não permitidas. Vale apenas para a pesca comercial feita com embarcação, e cada barco pode pedir até duas modalidades, em regiões hidrográficas vizinhas. Espécies não permitidas, se capturadas, devem ser soltas vivas ou descartadas na área de pesca, e a captura e a venda de espécies da lista oficial de ameaçadas continuam proibidas, salvo autorização do órgão ambiental. Prazos: o Ministério da Pesca tem noventa dias, contados da entrada em vigor, para publicar o cronograma de adequação dos barcos, e a portaria será revisada em dois anos. Quem descumprir responde pela Lei de Crimes Ambientais e pelo Decreto 6.514, de 2008. A portaria entra em vigor trinta dias após a publicação.",
+   "inicio_s": 28.0
+  },
+  {
+   "titulo": "Foz do Rio Doce: ordenamento da pesca no mar do Espírito Santo",
+   "tema": "Fauna, pesca e aquicultura",
+   "atos": [
+    {
+     "titulo": "Portaria Interministerial MPA/MMA nº 75, de 26 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-75-de-26-de-outubro-de-2026-740332704",
+     "referencia": "DOU de 26/10/2026, Seção 1, Extra A, p. 1",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Segundo destaque: a Portaria Interministerial número 75 estabelece o ordenamento da pesca na área marinha em frente à foz do Rio Doce, no Espírito Santo: a faixa entre Barra do Riacho, em Aracruz, e Degredo, em Linhares, até vinte metros de profundidade. Ali, só podem exercer a pesca profissional pescadores e embarcações regularizados, quando a lei exigir, e valem as normas já existentes de defeso, áreas restritas, espécies protegidas, tamanhos permitidos e petrechos, listadas na própria portaria. As decisões futuras de abrir, manter, suspender ou fechar a pesca serão baseadas em dados atualizados sobre a região, e as medidas seguem um Plano de Ação Integrado, que será divulgado nos sites dos dois ministérios. A portaria deixa claro que não afasta as obrigações de reparação do acordo judicial sobre o rompimento da Barragem de Fundão. Está em vigor desde a publicação.",
+   "inicio_s": 104.1
+  },
+  {
+   "titulo": "Consulta pública: registro de barcos de pesca em águas continentais",
+   "tema": "Consulta pública",
+   "atos": [
+    {
+     "titulo": "Portaria MPA nº 779, de 23 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-779-de-23-de-outubro-de-2026-740304990",
+     "referencia": "DOU de 26/10/2026, Seção 1, p. 68",
+     "vigencia": "na data da publicação; consulta aberta por 45 dias corridos"
+    }
+   ],
+   "fala": "Terceiro destaque, para quem quer participar: a Portaria número 779, do Ministério da Pesca e Aquicultura, abre consulta pública sobre a proposta de critérios e procedimentos para inscrever embarcações de pesca de águas continentais no Registro Geral da Atividade Pesqueira, o RGP. A proposta se apoia na matriz de permissionamento que acabamos de ver. As contribuições são feitas apenas pela plataforma Brasil Participativo, no prazo de quarenta e cinco dias corridos, contados da publicação.",
+   "inicio_s": 163.8
+  },
+  {
+   "titulo": "Novo grupo de trabalho sobre recursos pesqueiros no Meio Ambiente",
+   "tema": "Fauna, pesca e aquicultura",
+   "atos": [
+    {
+     "titulo": "Portaria GM/MMA nº 1.807, de 22 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.807-de-22-de-outubro-de-2026-740357477",
+     "referencia": "DOU de 26/10/2026, Seção 1, p. 56",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Por fim, a Portaria número 1.807, do Ministério do Meio Ambiente, cria o GTPESC, um grupo de trabalho permanente com representantes do ministério, do Ibama e do ICMBio. Ele vai dar suporte técnico às posições do Meio Ambiente sobre as normas de uso dos recursos pesqueiros discutidas com o Ministério da Pesca. Quando a medida tratar de espécie ameaçada de extinção, a manifestação formal da presidência do ICMBio passa a ser obrigatória. O grupo se reúne todo mês.",
+   "inicio_s": 194.9
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Além desses destaques, os órgãos ambientais federais publicaram outros atos sobre casos específicos, a maioria despachos de mineração, que não detalhamos porque envolvem empresas e pessoas. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+   "inicio_s": 225.3
+  }
+ ],
+ "audio": "radar/audios/dou-2026-10-26-45dc14055b.mp3",
+ "duracao_s": 250
+}

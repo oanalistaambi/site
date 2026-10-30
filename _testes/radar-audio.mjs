@@ -1,4 +1,4 @@
-// Teste da página radar-audio.html (abas MG e Federal, links oficiais, aviso de IA, voz do navegador sem MP3).
+// Teste da página radar-audio.html: episódios federais (DOU) com capítulos e áudios por tema de MG.
 // Uso: python3 -m http.server 8765 (na raiz do site) e, em outro terminal,
 //      BASE=http://127.0.0.1:8765 node _testes/radar-audio.mjs
 import { chromium } from "playwright";
@@ -7,8 +7,12 @@ import { readFileSync } from "node:fs";
 const BASE = process.env.BASE || "http://127.0.0.1:8765";
 let falhas = 0;
 const ok = (c, m) => { if (!c) { falhas++; console.log("FALHA:", m); } else console.log("ok:", m); };
+const OFICIAL = /^https:\/\/(www\.in\.gov\.br|www\.jornalminasgerais\.mg\.gov\.br)\//;
+const dados = JSON.parse(readFileSync("radar/audio.json", "utf8"));
+const dou = dados.fontes.find(f => f.id === "dou");
+const mg = dados.fontes.find(f => f.id === "mg");
 
-const nav = await chromium.launch({ args: ["--no-proxy-server"] });
+const nav = await chromium.launch({ args: ["--no-proxy-server", "--autoplay-policy=no-user-gesture-required"] });
 const ctx = await nav.newContext({ viewport: { width: 390, height: 844 } });
 await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, r => r.abort());
 const pg = await ctx.newPage();
@@ -18,29 +22,54 @@ pg.on("pageerror", e => erros.push(String(e)));
 const r = await pg.goto(BASE + "/radar-audio.html", { waitUntil: "networkidle" });
 ok(r.status() === 200, "abre (HTTP " + r.status() + ")");
 ok(await pg.locator('meta[name="robots"][content="noindex"]').count() === 1, "noindex");
-ok(/gerad[ao] por IA/.test(await pg.locator(".ra-ia").innerText()), "aviso de IA visível");
-const dados = JSON.parse(readFileSync("radar/audio.json", "utf8"));
-for (const [fid, aba] of [["mg", "#aba-mg"], ["dou", "#aba-federal"]]) {
-  await pg.click(aba);
-  const f = dados.fontes.find(x => x.id === fid);
-  ok(await pg.locator(aba + '[aria-selected="true"]').count() === 1, `${fid}: aba selecionada`);
-  ok(await pg.locator("#ra-painel .ra-tema:not(details)").count() === f.temas.length, `${fid}: ${f.temas.length} tema(s) na tela`);
-  const links = await pg.$$eval("#ra-painel .ra-ato a", as => as.map(a => a.href));
-  ok(links.length > 0 && links.every(h => /^https:\/\/(www\.in\.gov\.br|www\.jornalminasgerais\.mg\.gov\.br)\//.test(h)), `${fid}: todo ato com link oficial (${links.length})`);
-  const semAudio = f.temas.filter(t => !t.audio).length;
-  ok(await pg.locator("#ra-painel .ra-ouvir").count() + await pg.locator("#ra-painel audio").count() === f.temas.length,
-    `${fid}: cada tema tem áudio ou botão de voz do navegador (${semAudio} sem MP3)`);
-  for (const a of await pg.$$("#ra-painel audio")) {
-    const dur = await a.evaluate(el => new Promise(res => { el.preload = "metadata"; el.onloadedmetadata = () => res(el.duration); el.onerror = () => res(-1); el.load(); }));
-    ok(dur > 10 && dur < 40, `${fid}: áudio carrega no navegador (${dur.toFixed(1)} s)`);
-  }
-  const larg = await pg.evaluate(() => document.documentElement.scrollWidth);
-  ok(larg <= 390, `${fid}: sem rolagem lateral em 390 px (${larg})`);
+ok(/inteligência artificial/.test(await pg.locator(".ra-aviso").innerText()), "aviso de IA visível");
+ok(await pg.locator('#aba-federal[aria-selected="true"]').count() === 1, "abre na aba Federal");
+
+// Federal: episódios
+ok(dou.episodios.length >= 4, `DOU com pelo menos 4 edições (${dou.episodios.length})`);
+ok(await pg.locator("#ra-painel .ra-ep").count() === dou.episodios.length, "um cartão por edição");
+const audios = await pg.$$("#ra-painel audio");
+ok(audios.length === dou.episodios.filter(e => e.audio).length, `${audios.length} episódio(s) com player`);
+for (const [i, a] of audios.entries()) {
+  const dur = await a.evaluate(el => new Promise(res => { if (el.readyState >= 1) return res(el.duration); el.onloadedmetadata = () => res(el.duration); el.onerror = () => res(-1); el.load(); }));
+  const esperado = dou.episodios[i].duracao_s;
+  ok(Math.abs(dur - esperado) < 3 && dur <= 300, `${dou.episodios[i].id}: MP3 carrega (${dur.toFixed(0)} s, até 5 min)`);
 }
-const txt = await pg.locator("main").innerText();
-ok(!/\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{5}\.\d{6}\/\d{4}-\d{2}/.test(txt), "sem CPF, CNPJ ou processo na tela");
-await pg.goto(BASE + "/radar-audio.html#federal", { waitUntil: "networkidle" });
-ok(await pg.locator('#aba-federal[aria-selected="true"]').count() === 1, "#federal abre direto na aba federal");
+for (const ep of dou.episodios) {
+  ok(ep.capitulos.every((c, k) => k === 0 || c.inicio_s > ep.capitulos[k - 1].inicio_s), `${ep.id}: capítulos em ordem de tempo`);
+}
+// pular para o 2º destaque do episódio mais recente
+const ep0 = dou.episodios[0];
+const alvo = ep0.capitulos.filter(c => c.atos.length)[0];
+// pular no áudio exige servidor com Range (o GitHub Pages tem; o http.server do Python, não)
+const range = (await ctx.request.get(BASE + "/" + ep0.audio, { headers: { Range: "bytes=0-99" } })).status() === 206;
+await pg.locator(".ra-ep--destaque .ra-cap__t").first().click();
+await pg.waitForTimeout(800);
+const t = await pg.$eval(`#ep-${ep0.data}`, el => el.currentTime);
+if (range) ok(Math.abs(t - alvo.inicio_s) < 1.5, `capítulo pula para ${alvo.inicio_s} s (${t.toFixed(1)})`);
+else console.log(`(pulado: o servidor de teste não aceita Range; o salto de capítulo é conferido no site publicado)`);
+await pg.locator(".ra-ep--destaque [data-vel='1.5']").click();
+ok(await pg.$eval(`#ep-${ep0.data}`, el => el.playbackRate) === 1.5, "velocidade 1,5×");
+await pg.$eval(`#ep-${ep0.data}`, el => el.pause());
+let links = await pg.$$eval("#ra-painel .ra-ato a", as => as.map(a => a.href));
+ok(links.length > 0 && links.every(h => OFICIAL.test(h)), `federal: todo ato com link oficial (${links.length})`);
+ok(await pg.evaluate(() => document.documentElement.scrollWidth) <= 390, "federal: sem rolagem lateral em 390 px");
+
+// Minas Gerais
+await pg.click("#aba-mg");
+ok(await pg.locator("#ra-painel .ra-ep").count() === mg.temas.length, `MG: ${mg.temas.length} tema(s)`);
+for (const a of await pg.$$("#ra-painel audio")) {
+  const dur = await a.evaluate(el => new Promise(res => { if (el.readyState >= 1) return res(el.duration); el.onloadedmetadata = () => res(el.duration); el.onerror = () => res(-1); el.load(); }));
+  ok(dur > 10 && dur < 45, `MG: áudio carrega (${dur.toFixed(1)} s)`);
+}
+links = await pg.$$eval("#ra-painel .ra-ato a", as => as.map(a => a.href));
+ok(links.every(h => OFICIAL.test(h)), `MG: links oficiais (${links.length})`);
+ok(await pg.evaluate(() => document.documentElement.scrollWidth) <= 390, "MG: sem rolagem lateral em 390 px");
+
+const txt = await pg.locator("main").innerText() + JSON.stringify(dados);
+ok(!/\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{5}\.\d{6}\/\d{4}-\d{2}/.test(txt), "sem CPF, CNPJ ou processo (tela e dados)");
+await pg.goto(BASE + "/radar-audio.html#mg", { waitUntil: "networkidle" });
+ok(await pg.locator('#aba-mg[aria-selected="true"]').count() === 1, "#mg abre direto na aba Minas Gerais");
 ok(erros.length === 0, "sem erro de console " + erros.join(" | "));
 for (const p of ["/index.html", "/radar.html", "/ferramentas.html", "/sitemap.xml"]) {
   const t = await (await ctx.request.get(BASE + p)).text();

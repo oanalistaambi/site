@@ -1,0 +1,68 @@
+{
+ "id": "dou-2026-10-28",
+ "fonte": "dou",
+ "data": "2026-10-28",
+ "dia_semana": "quarta-feira",
+ "titulo": "Nova lista da flora ameaçada, consulta do Ibama sobre o Proconve e tarifas de água na reforma tributária",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quarta-feira, 28 de outubro de 2026. O grande destaque do dia é a nova Lista Nacional Oficial das Espécies da Flora Ameaçadas de Extinção. Depois, uma consulta pública do Ibama sobre a poluição de veículos pesados e uma orientação da ANA sobre as tarifas de água e esgoto na reforma tributária.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Nova Lista Nacional da Flora Ameaçada de Extinção",
+   "tema": "Flora e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria GM/MMA nº 1.783, de 26 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.783-de-26-de-outubro-de-2026-740664196",
+     "referencia": "DOU de 28/10/2026, Seção 1, p. 55",
+     "vigencia": "na data da publicação; revoga a Portaria MMA nº 148/2022"
+    }
+   ],
+   "fala": "A Portaria número 1.783, do Ministério do Meio Ambiente, dá nova redação ao anexo da Portaria 443, de 2014, que é a Lista Nacional Oficial das Espécies da Flora Ameaçadas de Extinção. Os números, contados no anexo publicado: são 3.730 espécies. 730 estão criticamente em perigo, duas delas possivelmente extintas; 2.162 estão em perigo; e 838 são vulneráveis. Das 3.730, 595 não constavam da lista anterior, de 2022, e aparecem marcadas com asterisco no anexo. A portaria revoga a Portaria 148, de 2022, e está em vigor desde a publicação. Para quem trabalha com inventário florestal e pedidos de supressão de vegetação, vale conferir na nova lista a situação de cada espécie do seu levantamento.",
+   "inicio_s": 26.4
+  },
+  {
+   "titulo": "Consulta pública do Ibama: Proconve, fase P8",
+   "tema": "Consulta pública",
+   "atos": [
+    {
+     "titulo": "Portaria Ibama nº 201, de 23 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-n-201-de-23-de-outubro-de-2026-740877650",
+     "referencia": "DOU de 28/10/2026, Seção 1, Extra A, p. 47",
+     "vigencia": "na data da publicação; consulta aberta por 15 dias corridos"
+    }
+   ],
+   "fala": "Segundo destaque: a Portaria número 201, do Ibama, abre consulta pública por quinze dias corridos, a partir da publicação, sobre uma mudança na Instrução Normativa 20, de 2020, que trata da fase P8 do Proconve, o programa de controle da poluição do ar por veículos. A proposta inclui a metodologia e os requisitos de verificação e controle de qualidade dos equipamentos contadores de partículas usados nos ensaios de emissões de veículos pesados novos. As contribuições vão pelo portal Brasil Participativo.",
+   "inicio_s": 78.9
+  },
+  {
+   "titulo": "ANA orienta tarifas de água e esgoto para a reforma tributária",
+   "tema": "Água, outorga e saneamento",
+   "atos": [
+    {
+     "titulo": "Resolução ANA nº 307, de 26 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-307-de-26-de-outubro-de-2026-740661871",
+     "referencia": "DOU de 28/10/2026, Seção 1, p. 43",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Terceiro destaque: a Resolução número 307, da ANA, divulga a Nota Técnica 40, de 2026, com orientações às agências reguladoras de estados e municípios sobre as tabelas de tarifas de água e esgoto. Em primeiro de janeiro de 2027, o PIS/Pasep e a Cofins deixam de existir e passa a valer a CBS. Segundo a nota, os tributos antigos estão hoje embutidos na tarifa, enquanto a CBS e o IBS são cobrados por fora, destacados na conta. Se a tarifa não for ajustada antes, o usuário pagaria a parcela do tributo antigo e a do novo ao mesmo tempo. A nota é apenas orientativa: não é norma de referência e não tira a competência das agências locais.",
+   "inicio_s": 112.1
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Os demais atos ambientais do dia tratam de casos específicos ou da organização interna dos órgãos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+   "inicio_s": 156.9
+  }
+ ],
+ "audio": "radar/audios/dou-2026-10-28-085bb5e16c.mp3",
+ "duracao_s": 176
+}

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-"""Radar em áudio: junta os atos ambientais dos 2 últimos dias com jornal (MG e DOU), separa por tema,
-monta um roteiro curto por tema (cerca de 30 segundos) e, se houver chave do ElevenLabs, gera o MP3.
+"""Radar em áudio.
+- Minas Gerais: atos ambientais dos 2 últimos dias de jornal, um áudio curto (cerca de 30 segundos) por tema.
+- Federal (DOU): um episódio por dia, de até uns 5 minutos, com capítulos (um por destaque), para os 4 últimos dias
+  com destaque. O episódio fica salvo em radar/episodios/ e não é refeito; pode ser revisado à mão (origem "revisado").
+Se houver chave do ElevenLabs, gera o MP3.
 
 Uso:
     python3 -I radar_audio.py --mg PASTA_JSON_MG --dou PASTA_JSON_DOU --saida ../audio.json \
@@ -58,9 +61,9 @@ TEMAS = [
 INTERNO = re.compile(r"Regimento Interno|estrutura regimental|Comit[êe] de Governan|Pol[íi]tica de (Gest[ãa]o da )?Integridade|"
                      r"Avalia[çc][ãa]o de Desempenho|Grupo de Trabalho|Comiss[ãa]o de Acompanhamento|gest[ãa]o de riscos|"
                      r"planejamento estrat[ée]gico|Programa de Gest[ãa]o e Desempenho|teletrabalho|delega[çc][ãa]o de compet|"
-                     r"Prote[çc][ãa]o de Dados Pessoais|seguran[çc]a da informa[çc][ãa]o", F)
+                     r"Prote[çc][ãa]o de Dados Pessoais|seguran[çc]a da informa[çc][ãa]o|Ass[ée]dio e [àa] Discrimina", F)
 EMENTA_VERBO = re.compile(r"^(Disp[õo]e|Estabelece|Altera|Institui|Regulamenta|Aprova|Define|Cria|Revoga|Prorroga|Suspende|"
-                          r"Disciplina|Atualiza|Fixa|Torna p[úu]blic|Divulga|Reconhece|Amplia|Acrescenta|Consolida|Convoca)", F)
+                          r"Disciplina|Atualiza|Fixa|Torna p[úu]blic|Divulga|Reconhece|Amplia|Acrescenta|Consolida|Convoca|Submete)", F)
 LGPD = re.compile(r"\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}|\b\d{4,5}\.\d{2,6}[./]\d{3,7}/\d{4}-\d{2}\b|"
                   r"\bSr\.|\bSra\.|\bLtda\b|\bCPF\b|\bCNPJ\b|omitido", F)
 ORDEM_TIPO = [r"^Lei", r"^(Decreto|Medida)", r"Conama|Delibera[çc][ãa]o Normativa|DN ", r"Instru[çc][ãa]o Normativa",
@@ -96,12 +99,39 @@ def titulo_bonito(t):
     return s[:1].upper() + s[1:]
 
 
+_UN = "zero um dois três quatro cinco seis sete oito nove dez onze doze treze quatorze quinze dezesseis dezessete dezoito dezenove".split()
+_DEZ = "_ _ vinte trinta quarenta cinquenta sessenta setenta oitenta noventa".split()
+_CEM = "_ cento duzentos trezentos quatrocentos quinhentos seiscentos setecentos oitocentos novecentos".split()
+
+
+def _ate_mil(n):
+    if n == 100:
+        return "cem"
+    c, r = divmod(n, 100)
+    p = [_CEM[c]] if c else []
+    if r:
+        p.append(_UN[r] if r < 20 else _DEZ[r // 10] + (" e " + _UN[r % 10] if r % 10 else ""))
+    return " e ".join(p)
+
+
+def por_extenso(n):
+    """Inteiro (até 999.999) por extenso; a voz sintética erra números com ponto de milhar (ex.: 1.809, 5.050)."""
+    m, r = divmod(n, 1000)
+    if not m:
+        return _ate_mil(r)
+    mil = "mil" if m == 1 else _ate_mil(m) + " mil"
+    if not r:
+        return mil
+    return mil + (" e " if r < 100 or r % 100 == 0 else " ") + _ate_mil(r)
+
+
 def para_fala(t):
     t = re.sub(r"\s*\([^)]*\)", "", t)  # nomes científicos e siglas entre parênteses
     t = re.sub(r"\b[Nn]\.?\s?[º°]\.?\s*", "número ", t)
     t = re.sub(r"\bart\.\s*", "artigo ", t, flags=F)
     t = t.replace("§", "parágrafo ")
     t = re.sub(r"(\d+)/(\d{4})\b", r"\1 de \2", t)
+    t = re.sub(r"(?<![\d.])(\d{1,3}(?:\.\d{3})+)(?![\d.])", lambda m: por_extenso(int(m.group(1).replace(".", ""))), t)
     t = re.sub(r"\b([A-Z][A-Za-z]{1,7})/([A-Z][A-Za-z]{1,7})\b", r"\1 \2", t)  # GM/MMA -> GM MMA
     t = re.sub(r"\s+–\s+|\s+-\s+", ", ", t)
     t = re.sub(r"\b(" + "|".join(SIGLAS_FALA) + r")\b", lambda m: SIGLAS_FALA[m.group(1)], t)
@@ -255,6 +285,134 @@ def gerar_mp3(texto, destino, chave):
     return round(len(dados) * 8 / 64000)  # 64 kbit/s constante
 
 
+# ---------------------------------------------------------------- episódios do DOU (um por dia, até ~5 min)
+
+DIAS_EPISODIOS = 4  # o dia mais recente e pelo menos os 3 anteriores com destaque
+PALAVRAS_EPISODIO = 650  # ~4min40 na voz Jerri
+DIAS_SEMANA = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
+ORDINAIS = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto", "Sexto", "Sétimo", "Oitavo", "Nono", "Décimo"]
+FECHO_AUTO = ("Este resumo foi montado automaticamente a partir do texto publicado e lido por uma voz sintética. "
+              "Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!")
+
+
+def nome_tema(a):
+    if re.search(r"^Submete|consulta p[úu]blica", a["ementa"], F):
+        return "Consulta pública"
+    return next(nome for tid, nome, _ in TEMAS if tid == tema_de(a))
+
+
+def episodio_auto(data, atos):
+    """Episódio montado só com trechos copiados do ato (título, ementa, revogação e vigência)."""
+    d = dt.date.fromisoformat(data)
+    quando = f"{DIAS_SEMANA[d.weekday()]}, {data_extenso(data)} de {d.year}"
+    atos = sorted(atos, key=peso)
+    caps, usadas = [], 0
+    abre = (f"Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de {quando}. "
+            f"Hoje {'é um destaque' if len(atos) == 1 else f'são {len(atos)} destaques'} da área ambiental.")
+    caps.append({"titulo": "Abertura", "tema": None, "atos": [], "fala": abre})
+    usadas += len(abre.split()) + 45  # reserva para o fechamento
+    for k, a in enumerate(atos):
+        cab, ementa = frase_ato(a)
+        e, cortou = cortar(ementa, 70)
+        txt = [f"{ORDINAIS[k] if k < len(ORDINAIS) else 'Outro'} destaque: " + cab[0],
+               (e + "." + (" A ementa continua no texto oficial." if cortou else "")) if e else
+               "A ementa é longa; leia o resumo completo no texto oficial."]
+        tr = a.get("trechos") or {}
+        if tr.get("revoga"):
+            txt.append(tr["revoga"] + ".")
+        txt.append((tr["vigencia"] + ".") if tr.get("vigencia") else "A data de vigência não foi identificada automaticamente.")
+        fala = " ".join(txt)
+        if usadas + len(fala.split()) > PALAVRAS_EPISODIO and caps[1:]:
+            resto = len(atos) - k
+            caps[-1]["fala"] += f" Há mais {resto} {'ato' if resto == 1 else 'atos'} deste dia na página."
+            break
+        usadas += len(fala.split())
+        caps.append({"titulo": a["titulo"], "tema": nome_tema(a), "fala": fala,
+                     "atos": [{"titulo": a["titulo"], "link": a["link"], "referencia": a["referencia"],
+                               "vigencia": tr.get("vigencia") or "confira no texto oficial"}]})
+    caps.append({"titulo": "Fechamento", "tema": None, "atos": [], "fala": FECHO_AUTO})
+    return {"id": f"dou-{data}", "fonte": "dou", "data": data, "dia_semana": DIAS_SEMANA[d.weekday()],
+            "titulo": " · ".join(dict.fromkeys(c["tema"] for c in caps[1:-1])) + f": {len(caps) - 2} destaque{'s' if len(caps) > 3 else ''}",
+            "origem": "automatico", "capitulos": caps, "audio": None, "duracao_s": None}
+
+
+def _dur(arq):
+    import subprocess
+    out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(arq)],
+                         capture_output=True, text=True, check=True).stdout
+    return float(out.strip())
+
+
+def tts_trecho(texto, destino, chave, antes="", depois=""):
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{VOZ['id']}?output_format=mp3_44100_128"
+    corpo = {"text": texto, "model_id": VOZ["modelo"], "previous_text": antes[-1000:], "next_text": depois[:1000],
+             "voice_settings": {"stability": 0.5, "similarity_boost": 0.75, "style": 0.0, "use_speaker_boost": True}}
+    req = urllib.request.Request(url, data=json.dumps(corpo).encode(), method="POST",
+                                 headers={"xi-api-key": chave, "Content-Type": "application/json", "Accept": "audio/mpeg"})
+    with urllib.request.urlopen(req, timeout=300, context=mg._ctx()) as r:
+        dados = r.read()
+    if len(dados) < 2000:
+        raise ValueError("resposta curta demais para ser áudio")
+    Path(destino).write_bytes(dados)
+
+
+def sintetizar_episodio(ep, destino, chave):
+    """Um pedido por capítulo (com o texto vizinho, para a entonação seguir natural), unidos com pausa curta.
+    Grava o MP3 final e o instante de início de cada capítulo."""
+    import subprocess
+    import tempfile
+    falas = [para_fala(c["fala"]) for c in ep["capitulos"]]
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        pausa = tmp / "pausa.mp3"
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", "0.8",
+                        "-b:a", "128k", str(pausa)], check=True)
+        partes, inicios, t = [], [], 0.0
+        for i, f in enumerate(falas):
+            p = tmp / f"cap{i:02d}.mp3"
+            tts_trecho(f, p, chave, " ".join(falas[:i]), " ".join(falas[i + 1:]))
+            inicios.append(round(t, 1))
+            t += _dur(p) + (0.8 if i + 1 < len(falas) else 0)
+            partes += [p] + ([pausa] if i + 1 < len(falas) else [])
+        lista = tmp / "lista.txt"
+        lista.write_text("".join(f"file '{p}'\n" for p in partes))
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lista),
+                        "-ac", "1", "-ar", "44100", "-b:a", "96k", "-id3v2_version", "3",
+                        "-metadata", f"title=Radar Ambiental do DOU, {ep['data']}", "-metadata", "artist=O Analista Ambiental",
+                        str(destino)], check=True)
+    for c, ini in zip(ep["capitulos"], inicios):
+        c["inicio_s"] = ini
+    ep["duracao_s"] = round(_dur(destino))
+    return sum(len(f) for f in falas)
+
+
+def hash_episodio(ep):
+    return hashlib.sha1(("|".join(c["fala"] for c in ep["capitulos"]) + VOZ["id"] + VOZ["modelo"]).encode()).hexdigest()[:10]
+
+
+def episodios_dou(pasta, dir_ep, hoje, atos):
+    """Garante um episódio salvo para cada dia lido com ato ambiental geral e devolve os DIAS_EPISODIOS mais recentes.
+    Episódio já salvo (revisado ou automático) não é refeito: o roteiro e o áudio ficam como estão."""
+    dir_ep = Path(dir_ep)
+    dir_ep.mkdir(parents=True, exist_ok=True)
+    por_dia = {}
+    for a in atos:
+        if a["data"] <= hoje and not INTERNO.search(a["ementa"]) and not LGPD.search(
+                " ".join([a["titulo"], a["ementa"]] + [v or "" for v in a["trechos"].values()])):
+            por_dia.setdefault(a["data"], []).append(a)
+    for data, lista in por_dia.items():
+        arq = dir_ep / f"dou-{data}.json"
+        if not arq.exists():
+            arq.write_text(json.dumps(episodio_auto(data, lista), ensure_ascii=False, indent=1), encoding="utf-8")
+    eps = sorted((json.loads(p.read_text(encoding="utf-8")) for p in dir_ep.glob("dou-20??-??-??.json")),
+                 key=lambda e: e["data"], reverse=True)
+    eps = [e for e in eps if e["data"] <= hoje]
+    manter, sair = eps[:DIAS_EPISODIOS], eps[DIAS_EPISODIOS:]
+    for e in sair:
+        (dir_ep / f"{e['id']}.json").unlink()
+    return manter
+
+
 # ---------------------------------------------------------------- montagem
 
 
@@ -290,6 +448,7 @@ def main():
                     help="pasta do site com MP3 gerados fora do workflow (sem o segredo); servidos como radar/audios/...")
     ap.add_argument("--gravar-no-repo", action="store_true",
                     help="grava os MP3 novos na pasta do site (--no-repo) em vez de --audios (para a release)")
+    ap.add_argument("--episodios", default="radar/episodios", help="pasta dos episódios diários do DOU (ficam no site)")
     ap.add_argument("--hoje", default=dt.date.today().isoformat())
     a = ap.parse_args()
     url_repo = Path(a.no_repo).as_posix().rstrip("/") + "/"
@@ -310,6 +469,31 @@ def main():
             print(f"{fid}: nenhuma edição lida hoje; mantida a anterior")
             continue
         f = dict(montar_fonte(fid, leitor(pasta), pasta, a.hoje), nome=nome, jornal=jornal)
+        if fid == "dou":  # federal: um episódio por dia, no lugar dos áudios curtos por tema
+            f["temas"] = []
+            f["episodios"] = episodios_dou(pasta, a.episodios, a.hoje, leitor(pasta))
+            f["janela"] = sorted(e["data"] for e in f["episodios"])
+            for ep in f["episodios"]:
+                arq = f"{ep['id']}-{hash_episodio(ep)}.mp3"
+                no_repo = Path(a.no_repo) / arq
+                if arq in existentes:
+                    ep["audio"] = a.base_url + arq
+                elif no_repo.exists():
+                    ep["audio"] = url_repo + arq
+                elif chave and len(ep["capitulos"]) > 2 and enviados + sum(len(c["fala"]) for c in ep["capitulos"]) <= MAX_CARACTERES:
+                    destino = no_repo if a.gravar_no_repo else Path(a.audios) / arq
+                    destino.parent.mkdir(parents=True, exist_ok=True)
+                    try:
+                        enviados += sintetizar_episodio(ep, destino, chave)
+                        ep["audio"] = (url_repo if a.gravar_no_repo else a.base_url) + arq
+                    except Exception as e:  # sem áudio hoje; a página oferece a voz do navegador
+                        print(f"{arq}: sem áudio ({type(e).__name__}: {e})", file=sys.stderr)
+                else:
+                    ep["audio"] = None
+                Path(a.episodios, f"{ep['id']}.json").write_text(json.dumps(ep, ensure_ascii=False, indent=1), encoding="utf-8")
+                print(f"dou/{ep['id']}: {len(ep['capitulos']) - 2} destaque(s), {ep['origem']}, "
+                      f"{sum(len(c['fala'].split()) for c in ep['capitulos'])} palavras, áudio {'ok' if ep['audio'] else 'não'}"
+                      + (f" ({ep['duracao_s']} s)" if ep.get("duracao_s") else ""))
         for t in f["temas"]:
             h = hashlib.sha1((t["fala"] + VOZ["id"] + VOZ["modelo"]).encode()).hexdigest()[:10]
             arq = f"{fid}-{t['id']}-{h}.mp3"

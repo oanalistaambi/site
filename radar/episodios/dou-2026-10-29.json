@@ -1,0 +1,40 @@
+{
+ "id": "dou-2026-10-29",
+ "fonte": "dou",
+ "data": "2026-10-29",
+ "dia_semana": "quinta-feira",
+ "titulo": "ICMBio cria núcleo de gestão para as Florestas Nacionais do Jamari e do Bom Futuro",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quinta-feira, 29 de outubro de 2026. Dia curto, com um destaque sobre unidades de conservação na Amazônia.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Núcleo de Gestão Integrada Vale do Jamari, em Rondônia",
+   "tema": "Flora e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria ICMBio nº 5.050, de 28 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.050-de-28-de-outubro-de-2026-741168209",
+     "referencia": "DOU de 29/10/2026, Seção 1, p. 47",
+     "vigencia": "sete dias úteis após a publicação"
+    }
+   ],
+   "fala": "A Portaria número 5.050, do ICMBio, cria o Núcleo de Gestão Integrada Vale do Jamari, que junta a gestão da Floresta Nacional do Bom Futuro e da Floresta Nacional do Jamari, em Rondônia. A ideia, segundo o texto, é ganhar eficiência com a gestão em conjunto, o uso compartilhado de equipes, instalações e equipamentos, e um planejamento integrado das duas unidades. O núcleo terá sede em Porto Velho e uma base avançada na Floresta Nacional do Jamari, em Itapuã do Oeste. O regimento interno deve ser publicado em até noventa dias. A portaria entra em vigor sete dias úteis após a publicação.",
+   "inicio_s": 13.7
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração e certificados de obras, ou da organização interna dos órgãos. E atenção: em 30 de outubro não houve edição normal do Diário Oficial da União. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+   "inicio_s": 54.5
+  }
+ ],
+ "audio": "radar/audios/dou-2026-10-29-e3cdfe38ae.mp3",
+ "duracao_s": 82
+}

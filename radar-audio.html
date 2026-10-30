@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Radar em áudio do Diário Oficial — O Analista Ambiental</title>
-<meta name="description" content="Áudios curtos, por tema, com os atos ambientais dos dois últimos dias do Diário Oficial de Minas Gerais e do Diário Oficial da União.">
+<title>Diário Oficial em áudio — O Analista Ambiental</title>
+<meta name="description" content="O Diário Oficial ambiental em áudio: episódios diários do Diário Oficial da União, com capítulos por destaque, e áudios por tema do Diário Oficial de Minas Gerais, sempre com o link do texto oficial.">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://www.oanalistaambiental.com/radar-audio.html">
 <link rel="icon" href="assets/logo.png" type="image/png">
@@ -63,58 +63,95 @@
 
 <style>
 .ra-hero{background:#0E1512;color:#E7EDE6}
-.ra-hero .wrap{padding-top:clamp(2.2rem,5vw,4rem);padding-bottom:clamp(2rem,4vw,3.2rem)}
+.ra-hero .wrap{padding-top:clamp(2rem,5vw,3.6rem);padding-bottom:clamp(1.8rem,4vw,3rem)}
 .ra-hero .ref{color:#E3C06A}.ra-hero .ref::before{background:#C79A2E}
+.ra-hero h1{max-width:20ch}
 .ra-hero p.ra-sub{color:#C9D4CB;max-width:62ch;font-size:1.1rem}
 .ra-selo{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#0E1512;background:#E3C06A;border-radius:999px;padding:.3rem .8rem;max-width:100%;flex-wrap:wrap;align-self:flex-start}
-.ra-sec{padding:clamp(1.6rem,4vw,3rem) 0;border-top:1px solid var(--rule)}
+.ra-passos{padding:0;display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-top:1.2rem;counter-reset:passo}
+.ra-passos li{list-style:none;background:#16211C;border:1px solid #253429;border-radius:12px;padding:.8rem .9rem .8rem 3rem;position:relative;color:#C9D4CB;font-size:.98rem;line-height:1.4}
+.ra-passos li::before{counter-increment:passo;content:counter(passo);position:absolute;left:.85rem;top:.75rem;width:1.6rem;height:1.6rem;border-radius:50%;background:#E3C06A;color:#0E1512;font-family:var(--f-display);font-weight:700;display:grid;place-items:center;font-size:.9rem}
+.ra-passos b{color:#E7EDE6;font-family:var(--f-display)}
+.ra-sec{padding:clamp(1.4rem,4vw,2.6rem) 0;border-top:1px solid var(--rule)}
 .ra-sec .wrap{min-width:0}
-.ra-abas{display:flex;flex-wrap:wrap;gap:.5rem}
-.ra-abas button{font:inherit;font-family:var(--f-display);font-weight:600;border:1px solid var(--rule-strong);background:transparent;color:var(--text);border-radius:999px;padding:.5rem 1.1rem;cursor:pointer}
+.ra-abas{display:flex;flex-wrap:wrap;gap:.5rem;position:sticky;top:0;z-index:5;background:var(--bg);padding:.6rem 0}
+.ra-abas button{font:inherit;font-family:var(--f-display);font-weight:600;border:1px solid var(--rule-strong);background:transparent;color:var(--text);border-radius:999px;padding:.55rem 1.15rem;cursor:pointer;min-height:44px}
 .ra-abas button[aria-selected=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.ra-info{font-family:var(--f-mono);font-size:.8rem;color:var(--text-soft)}
-.ra-ia{background:var(--bg-raised);border:1px solid var(--rule);border-left:4px solid #C79A2E;border-radius:10px;padding:.9rem 1.1rem;font-size:.98rem;color:var(--text-soft)}
-.ra-tema{background:var(--bg-raised);border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;margin-top:1rem;overflow-wrap:anywhere}
-.ra-tema h3{margin:0 0 .6rem}
-.ra-tema audio{width:100%;margin:.2rem 0 .4rem}
-.ra-ouvir{font:inherit;font-weight:600;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:.45rem 1rem;cursor:pointer}
-.ra-tema details{margin-top:.5rem}
-.ra-tema summary{cursor:pointer;color:var(--text-soft);font-size:.95rem}
-.ra-roteiro{font-size:1rem;color:var(--text-soft);margin:.5rem 0 0}
-.ra-ato{border-top:1px solid var(--rule);padding-top:.7rem;margin-top:.7rem}
+.ra-info{font-family:var(--f-mono);font-size:.78rem;color:var(--text-soft);margin:.2rem 0 0}
+.ra-ep{background:var(--bg-raised);border:1px solid var(--rule);border-radius:16px;padding:clamp(1rem,3vw,1.5rem);margin-top:1.1rem;overflow-wrap:anywhere}
+.ra-ep--destaque{border:2px solid var(--accent);box-shadow:0 6px 24px rgba(20,29,24,.08)}
+.ra-ep__topo{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;font-family:var(--f-mono);font-size:.74rem;color:var(--text-soft);text-transform:uppercase;letter-spacing:.06em}
+.ra-ep__topo .ra-novo{background:var(--accent);color:var(--on-accent);border-radius:999px;padding:.15rem .6rem;font-weight:500}
+.ra-ep h2,.ra-ep h3{margin:.45rem 0 .3rem;line-height:1.2}
+.ra-ep h2{font-size:clamp(1.35rem,3.6vw,1.75rem)}
+.ra-ep h3{font-size:1.2rem}
+.ra-ep__orig{font-size:.92rem;color:var(--text-soft);margin:0 0 .7rem}
+.ra-player{background:var(--bg);border:1px solid var(--rule);border-radius:12px;padding:.7rem}
+.ra-player audio{width:100%;display:block}
+.ra-ctrl{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-top:.55rem;font-size:.9rem;color:var(--text-soft)}
+.ra-ctrl button,.ra-ctrl a{font:inherit;font-size:.85rem;font-family:var(--f-mono);border:1px solid var(--rule-strong);background:transparent;color:var(--text);border-radius:999px;padding:.3rem .75rem;cursor:pointer;text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+.ra-ctrl button[aria-pressed=true]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.ra-ctrl .ra-baixar{margin-left:auto}
+.ra-caps{list-style:none;padding:0;margin:1rem 0 0}
+.ra-cap{display:grid;grid-template-columns:auto 1fr;gap:.2rem .8rem;padding:.85rem 0;border-top:1px solid var(--rule)}
+.ra-cap:first-child{border-top:0}
+.ra-cap__t{font:inherit;font-family:var(--f-mono);font-size:.85rem;border:1px solid var(--accent);color:var(--accent);background:transparent;border-radius:8px;padding:.3rem .5rem;cursor:pointer;align-self:start;min-width:4.6rem;min-height:36px}
+.ra-cap__t::before{content:"▶ "}
+.ra-cap.is-agora{background:linear-gradient(90deg,rgba(46,107,62,.10),transparent);border-radius:8px}
+.ra-cap.is-agora .ra-cap__t{background:var(--accent);color:var(--on-accent)}
+.ra-cap h4{margin:0;font-size:1.05rem;line-height:1.3;font-family:var(--f-display)}
+.ra-cap__corpo{grid-column:2}
+.ra-tema{display:inline-block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:.12rem .55rem;margin-bottom:.3rem;background:var(--chip,#DDE6DA);color:#14301D}
+.ra-ato{margin:.45rem 0 0;font-size:.98rem}
 .ra-ato a{font-weight:600}
-.ra-ato p{margin:.3rem 0}
-.ra-ato small{display:block;font-family:var(--f-mono);font-size:.72rem;color:var(--text-faint)}
+.ra-ato small{display:block;font-family:var(--f-mono);font-size:.72rem;color:var(--text-faint);margin-top:.15rem}
+.ra-vig{display:inline-block;font-size:.88rem;color:var(--text-soft);margin-top:.2rem}
+.ra-ep details{margin-top:.8rem}
+.ra-ep summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:.98rem;min-height:36px;display:flex;align-items:center}
+.ra-transc p{font-size:1rem;color:var(--text-soft);margin:.5rem 0}
+.ra-transc b{color:var(--text);font-family:var(--f-display);font-size:.95rem}
+.ra-ouvir{font:inherit;font-weight:600;border:1px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:.5rem 1rem;cursor:pointer;min-height:44px}
+.ra-aviso{font-size:.95rem;color:var(--text-soft);background:var(--bg-raised);border:1px solid var(--rule);border-left:4px solid #C79A2E;border-radius:10px;padding:.85rem 1.05rem}
+.ra-anteriores{margin-top:1.8rem}
+.ra-mg .ra-ep h3{font-size:1.15rem}
 .ra-vazio{color:var(--text-soft);font-style:italic}
+.ra-legenda{display:flex;flex-wrap:wrap;gap:.35rem;margin:.6rem 0 0}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .ra-tema{color:#0E1512}}
+@media(max-width:520px){.ra-cap{grid-template-columns:1fr}.ra-cap__corpo{grid-column:1}.ra-cap__t{justify-self:start}.ra-ctrl .ra-baixar{margin-left:0}}
 </style>
 
 <section class="ra-hero">
   <div class="wrap stack-sm">
-    <span class="ra-selo">Em teste · atualizado todo dia útil</span>
+    <span class="ra-selo">Atualizado todo dia útil · versão de teste</span>
     <p class="ref">Radar em áudio · Diário Oficial</p>
-    <h1>O que saiu no Diário Oficial para a área ambiental, em áudios de 30 segundos</h1>
-    <p class="ra-sub">Um áudio curto por tema, com os atos gerais publicados nos dois últimos dias de jornal: Minas Gerais (Jornal Minas Gerais) e federal (Diário Oficial da União, Seção 1). Cada ato traz o link para o texto oficial.</p>
+    <h1>O Diário Oficial ambiental, em áudio</h1>
+    <p class="ra-sub">Ouça em poucos minutos o que saiu de mais importante para a área ambiental no Diário Oficial da União e no Diário Oficial de Minas Gerais: o que muda, para quem e quando entra em vigor. Cada destaque traz o link para o texto oficial.</p>
+    <ol class="ra-passos" aria-label="Como usar">
+      <li><b>Escolha o jornal.</b> Federal (DOU) ou Minas Gerais.</li>
+      <li><b>Dê o play.</b> Ou toque no horário de um capítulo para ir direto ao assunto.</li>
+      <li><b>Confira o texto oficial.</b> Antes de aplicar qualquer regra, abra o link do ato.</li>
+    </ol>
   </div>
 </section>
 
 <main>
-  <section class="ra-sec" style="border-top:0">
+  <section class="ra-sec" style="border-top:0;padding-top:.6rem">
     <div class="wrap stack-sm">
       <div class="ra-abas" role="tablist" aria-label="Escolha o Diário Oficial">
-        <button type="button" role="tab" id="aba-mg" aria-controls="ra-painel" aria-selected="true" data-fonte="mg">Minas Gerais</button>
-        <button type="button" role="tab" id="aba-federal" aria-controls="ra-painel" aria-selected="false" data-fonte="dou">Federal (DOU)</button>
+        <button type="button" role="tab" id="aba-federal" aria-controls="ra-painel" aria-selected="true" data-fonte="dou">Federal (DOU)</button>
+        <button type="button" role="tab" id="aba-mg" aria-controls="ra-painel" aria-selected="false" data-fonte="mg">Minas Gerais</button>
       </div>
       <p class="ra-info" id="ra-info" aria-live="polite">Carregando…</p>
-      <p class="ra-ia"><strong>Resumo automático e voz gerada por IA.</strong> O texto de cada áudio é montado automaticamente só com o que está publicado (título, ementa, vigência e revogação copiadas do ato) e lido por uma voz sintética do ElevenLabs. Revisão humana quando houver. Sempre confira o texto oficial pelo link antes de agir. Atos sobre pessoas, empresas ou processos específicos ficam de fora (LGPD).</p>
-      <div id="ra-painel" role="tabpanel" aria-labelledby="aba-mg"></div>
+      <div id="ra-painel" role="tabpanel" aria-labelledby="aba-federal"></div>
     </div>
   </section>
 
   <section class="ra-sec">
     <div class="wrap stack-sm">
-      <p class="ref">Como funciona</p>
+      <p class="ref">Sobre o conteúdo</p>
       <div class="prose">
-        <p>Todo dia útil de manhã, o radar lê o Diário do Executivo do <a href="https://www.jornalminasgerais.mg.gov.br/" target="_blank" rel="noopener">Jornal Minas Gerais</a> e a Seção 1 do <a href="https://www.in.gov.br/leiturajornal" target="_blank" rel="noopener">Diário Oficial da União</a>, separa os atos gerais da área ambiental (licenciamento, água e outorga, fiscalização, flora, fauna e pesca, mineração e barragens, Conama, Ibama, ICMBio, ANA e MMA) e grava um áudio por tema. Só ficam os dois últimos dias de jornal; os áudios mais velhos saem.</p>
+        <p class="ra-aviso"><strong>Resumo e voz gerados por inteligência artificial.</strong> Os episódios federais são escritos a partir do texto integral de cada ato publicado; nos dias marcados como "montado automaticamente", o texto usa só trechos copiados do ato (ementa, vigência e revogação). A voz é sintética (ElevenLabs). Revisão humana quando houver. Atos sobre pessoas, empresas ou processos específicos ficam de fora (LGPD).</p>
+        <p>Todo dia útil de manhã, o radar lê a Seção 1 do <a href="https://www.in.gov.br/leiturajornal" target="_blank" rel="noopener">Diário Oficial da União</a> (com as edições extras) e o Diário do Executivo do <a href="https://www.jornalminasgerais.mg.gov.br/" target="_blank" rel="noopener">Jornal Minas Gerais</a>, separa os atos gerais da área ambiental (licenciamento, água e outorga, fiscalização, flora e unidades de conservação, fauna e pesca, mineração e barragens, Conama, Ibama, ICMBio, ANA e MMA) e grava os áudios. No federal ficam as quatro últimas edições com destaque; em Minas Gerais, os dois últimos dias de jornal.</p>
         <p style="color:var(--text-soft);font-size:1rem">Conteúdo informativo. Nada aqui substitui a leitura do texto integral no jornal oficial.</p>
       </div>
     </div>
@@ -126,16 +163,60 @@
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
   var linkOk=function(u){return /^https:\/\/(www\.in\.gov\.br|www\.jornalminasgerais\.mg\.gov\.br)\//.test(u||'')};
   var audioOk=function(u){return /^(https:\/\/github\.com\/oanalistaambi\/site\/releases\/download\/radar-audios\/|radar\/audios\/)[\w.-]+\.mp3$/.test(u||'')};
+  var MESES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  var dataLonga=function(iso){var p=iso.split('-');return (+p[2])+' de '+MESES[+p[1]-1]+' de '+p[0]};
   var br=function(s){var p=s.split('-');return p[2]+'/'+p[1]};
+  var mmss=function(s){s=Math.round(s||0);return Math.floor(s/60)+':'+('0'+s%60).slice(-2)};
+  var minutos=function(s){s=Math.round(s||0);var m=Math.floor(s/60),r=s%60;return (m?m+' min ':'')+(r?r+' s':'')};
+  var CORES={'Fauna, pesca e aquicultura':'#CFE3EE','Flora e unidades de conservação':'#D7EBCF','Flora, florestas e unidades de conservação':'#D7EBCF','Consulta pública':'#F2E2B8','Água, outorga e saneamento':'#CFE0F2','Licenciamento ambiental':'#E6D9F0','Mineração e barragens':'#EAD9CC','Fiscalização, autos e sanções':'#F2D2CF','Outras normas ambientais':'#DDE3DC'};
+  var chip=function(t){return t?'<span class="ra-tema" style="--chip:'+(CORES[t]||'#DDE3DC')+'">'+esc(t)+'</span>':''};
   var fala=('speechSynthesis' in window)?window.speechSynthesis:null, falando=null, dados=null;
-  function vozBr(){var v=fala.getVoices().filter(function(x){return /^pt[-_]BR/i.test(x.lang)});return v[0]||null}
   function ouvir(btn,texto){
     if(!fala)return;
     if(falando===btn){fala.cancel();return}
     fala.cancel();
-    var u=new SpeechSynthesisUtterance(texto);u.lang='pt-BR';var v=vozBr();if(v)u.voice=v;
+    var u=new SpeechSynthesisUtterance(texto);u.lang='pt-BR';
+    var v=fala.getVoices().filter(function(x){return /^pt[-_]BR/i.test(x.lang)})[0];if(v)u.voice=v;
     u.onend=u.onerror=function(){btn.textContent='Ouvir com a voz do navegador';if(falando===btn)falando=null};
     falando=btn;btn.textContent='Parar';fala.speak(u);
+  }
+  function player(id,src,dur){
+    if(!audioOk(src))return '';
+    return '<div class="ra-player"><audio id="'+id+'" controls preload="metadata" src="'+esc(src)+'"></audio>'+
+      '<div class="ra-ctrl" data-audio="'+id+'"><span>Velocidade:</span>'+
+      [1,1.25,1.5].map(function(v){return '<button type="button" data-vel="'+v+'" aria-pressed="'+(v===1)+'">'+String(v).replace('.',',')+'×</button>'}).join('')+
+      '<a class="ra-baixar" href="'+esc(src)+'" download>Baixar MP3'+(dur?' · '+minutos(dur):'')+'</a></div></div>';
+  }
+  function episodio(ep,i){
+    var id='ep-'+ep.data, caps=ep.capitulos||[], tem=audioOk(ep.audio);
+    var dia=ep.dia_semana?ep.dia_semana.replace('-feira','')+', ':'';
+    var h='<article class="ra-ep'+(i===0?' ra-ep--destaque':'')+'" aria-labelledby="t-'+id+'">'+
+      '<div class="ra-ep__topo">'+(i===0?'<span class="ra-novo">Mais recente</span>':'')+'<span>DOU de '+esc(dia+br(ep.data))+'</span>'+
+      (ep.duracao_s?'<span>· '+minutos(ep.duracao_s)+'</span>':'')+'<span>· '+(caps.length-2)+' destaque'+(caps.length-2===1?'':'s')+'</span></div>'+
+      (i===0?'<h2':'<h3')+' id="t-'+id+'">'+esc(ep.titulo)+(i===0?'</h2>':'</h3>')+
+      '<p class="ra-ep__orig">'+(ep.origem==='revisado'?'Roteiro escrito por IA a partir do texto integral de cada ato.':'Montado automaticamente com trechos copiados de cada ato.')+'</p>';
+    h+=tem?player(id,ep.audio,ep.duracao_s):(fala?'<button type="button" class="ra-ouvir" data-fala="'+esc(caps.map(function(c){return c.fala}).join(' '))+'">Ouvir com a voz do navegador</button><p class="ra-info">O áudio gravado deste dia ainda não está pronto.</p>':'');
+    var lista='<ol class="ra-caps" data-audio="'+id+'">'+caps.filter(function(c){return c.atos&&c.atos.length}).map(function(c){
+      return '<li class="ra-cap" data-ini="'+(c.inicio_s||0)+'">'+
+        (tem&&c.inicio_s!=null?'<button type="button" class="ra-cap__t" data-ir="'+c.inicio_s+'" aria-label="Ouvir a partir de '+mmss(c.inicio_s)+': '+esc(c.titulo)+'">'+mmss(c.inicio_s)+'</button>':'<span></span>')+
+        '<div class="ra-cap__corpo">'+chip(c.tema)+'<h4>'+esc(c.titulo)+'</h4>'+
+        c.atos.map(function(a){return '<p class="ra-ato">'+(linkOk(a.link)?'<a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.titulo)+' ↗</a>':esc(a.titulo))+
+          '<span class="ra-vig" style="display:block"><strong>Vigência:</strong> '+esc(a.vigencia||'confira no texto oficial')+'</span><small>'+esc(a.referencia)+'</small></p>'}).join('')+
+        '</div></li>'}).join('')+'</ol>';
+    h+=(i===0?'<p style="margin:1rem 0 0;font-family:var(--f-display);font-weight:600">Neste episódio</p>'+lista:'<details><summary>Ver os destaques e os links ('+(caps.length-2)+')</summary>'+lista+'</details>');
+    h+='<details class="ra-transc"><summary>Ler a transcrição completa</summary>'+caps.map(function(c){return '<p><b>'+esc(c.titulo)+(tem&&c.inicio_s!=null?' · '+mmss(c.inicio_s):'')+'</b><br>'+esc(c.fala)+'</p>'}).join('')+'</details>';
+    return h+'</article>';
+  }
+  function temaMg(t,i){
+    var id='mg-'+t.id, tr;
+    var h='<article class="ra-ep'+(i===0?' ra-ep--destaque':'')+'">'+chip(t.nome)+'<h3>'+esc(t.nome)+'</h3>';
+    h+=audioOk(t.audio)?player(id,t.audio,t.duracao_s):(fala?'<button type="button" class="ra-ouvir" data-fala="'+esc(t.fala||t.roteiro)+'">Ouvir com a voz do navegador</button>':'');
+    h+='<ol class="ra-caps">'+t.atos.map(function(a){tr=a.trechos||{};return '<li class="ra-cap" style="grid-template-columns:1fr"><div class="ra-cap__corpo" style="grid-column:1"><p class="ra-ato">'+
+      (linkOk(a.link)?'<a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.titulo)+' ↗</a>':'<b>'+esc(a.titulo)+'</b>')+'</p><p style="margin:.3rem 0">'+esc(a.ementa)+'</p>'+
+      (tr.revoga?'<span class="ra-vig" style="display:block"><strong>Revogação:</strong> '+esc(tr.revoga)+'.</span>':'')+
+      '<span class="ra-vig" style="display:block"><strong>Vigência:</strong> '+(tr.vigencia?esc(tr.vigencia)+'.':'confira no texto oficial.')+'</span><small style="display:block;font-family:var(--f-mono);font-size:.72rem;color:var(--text-faint)">'+esc(a.orgao)+' · '+esc(a.referencia)+'</small></div></li>'}).join('')+'</ol>';
+    h+='<details class="ra-transc"><summary>Ler o texto do áudio</summary><p>'+esc(t.roteiro)+'</p></details>';
+    return h+'</article>';
   }
   function render(fid){
     document.querySelectorAll('.ra-abas button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.fonte===fid)});
@@ -144,40 +225,42 @@
     if(fala){fala.cancel();falando=null}
     var f=(dados.fontes||[]).find(function(x){return x.id===fid});
     if(!f){painel.innerHTML='<p class="ra-vazio">Ainda não há leitura deste jornal.</p>';return}
-    var info='Jornal lido: '+esc(f.jornal)+(f.janela&&f.janela.length?' · edições de '+f.janela.map(br).join(' e '):'')+' · atualizado em '+esc((dados.gerado_em||'').replace('T',' às ').slice(0,19));
-    var velho=dados.gerado_em&&(Date.now()-new Date(dados.gerado_em).getTime())>4*864e5;
-    if(velho)info+=' · o radar em áudio está pausado; estes são os últimos atos lidos';
+    var info=esc(f.jornal)+' · atualizado em '+esc((dados.gerado_em||'').slice(8,10)+'/'+(dados.gerado_em||'').slice(5,7)+' às '+(dados.gerado_em||'').slice(11,16));
+    if(dados.gerado_em&&(Date.now()-new Date(dados.gerado_em).getTime())>5*864e5)info+=' · o radar em áudio está pausado; estes são os últimos episódios';
     if(f.aviso_leitura)info+=' · '+esc(f.aviso_leitura);
     document.getElementById('ra-info').innerHTML=info;
     var h='';
-    if(!f.temas.length)h='<p class="ra-vazio">Nenhum ato geral da área ambiental nas duas últimas edições deste jornal.</p>';
-    f.temas.forEach(function(t){
-      h+='<article class="ra-tema"><h3>'+esc(t.nome)+'</h3>';
-      if(audioOk(t.audio))h+='<audio controls preload="none" src="'+esc(t.audio)+'" aria-label="Áudio: '+esc(t.nome)+'"></audio>';
-      else if(fala)h+='<button type="button" class="ra-ouvir" data-fala="'+esc(t.fala||t.roteiro)+'">Ouvir com a voz do navegador</button>';
-      h+='<details><summary>Ler o texto do áudio</summary><p class="ra-roteiro">'+esc(t.roteiro)+'</p></details>';
-      t.atos.forEach(function(a){
-        var tr=a.trechos||{};
-        h+='<div class="ra-ato">'+(linkOk(a.link)?'<a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.titulo)+'</a>':'<b>'+esc(a.titulo)+'</b>')+
-          '<p>'+esc(a.ementa)+'</p>'+
-          (tr.revoga?'<p><em>Revogação:</em> '+esc(tr.revoga)+'.</p>':'')+
-          '<p><em>Vigência:</em> '+(tr.vigencia?esc(tr.vigencia)+'.':'confira no texto oficial.')+'</p>'+
-          '<small>'+esc(a.orgao)+' · '+esc(a.referencia)+'</small></div>';
-      });
-      h+='</article>';
-    });
-    if(f.internos&&f.internos.length){
-      h+='<details class="ra-tema"><summary>Outros atos ('+f.internos.length+') de organização interna dos órgãos, sem áudio</summary>';
-      f.internos.forEach(function(a){h+='<div class="ra-ato">'+(linkOk(a.link)?'<a href="'+esc(a.link)+'" target="_blank" rel="noopener">'+esc(a.titulo)+'</a>':'<b>'+esc(a.titulo)+'</b>')+'<p>'+esc(a.ementa)+'</p><small>'+esc(a.orgao)+' · '+esc(a.referencia)+'</small></div>'});
-      h+='</details>';
+    if(fid==='dou'){
+      var eps=f.episodios||[];
+      if(!eps.length)h='<p class="ra-vazio">Nenhum destaque ambiental nas últimas edições do DOU.</p>';
+      eps.forEach(function(ep,i){if(i===1)h+='<h2 class="ra-anteriores">Edições anteriores</h2>';h+=episodio(ep,i)});
+    }else{
+      h='<p class="ra-info" style="margin-top:.8rem">Um áudio curto por tema, com os atos de '+(f.janela||[]).map(function(d){return dataLonga(d)}).join(' e ')+'.</p>';
+      if(!f.temas.length)h+='<p class="ra-vazio">Nenhum ato geral da área ambiental nas duas últimas edições.</p>';
+      f.temas.forEach(function(t,i){h+=temaMg(t,i)});
     }
     painel.innerHTML=h;
+    painel.querySelectorAll('audio').forEach(function(a){
+      a.addEventListener('timeupdate',function(){
+        var l=painel.querySelector('.ra-caps[data-audio="'+a.id+'"]');if(!l)return;
+        var itens=[].slice.call(l.querySelectorAll('.ra-cap')),atual=null;
+        itens.forEach(function(li){if(a.currentTime+0.3>=+li.dataset.ini)atual=li});
+        itens.forEach(function(li){li.classList.toggle('is-agora',li===atual&&!a.paused)});
+      });
+      a.addEventListener('play',function(){painel.querySelectorAll('audio').forEach(function(o){if(o!==a)o.pause()})});
+    });
   }
+  var painel=document.getElementById('ra-painel');
   document.querySelector('.ra-abas').addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;history.replaceState(null,'',b.dataset.fonte==='mg'?'#mg':'#federal');render(b.dataset.fonte)});
-  document.getElementById('ra-painel').addEventListener('click',function(ev){var b=ev.target.closest('.ra-ouvir');if(b)ouvir(b,b.dataset.fala)});
-  document.getElementById('ra-painel').addEventListener('play',function(ev){document.querySelectorAll('#ra-painel audio').forEach(function(a){if(a!==ev.target)a.pause()})},true);
+  painel.addEventListener('click',function(ev){
+    var b=ev.target.closest('.ra-ouvir');if(b){ouvir(b,b.dataset.fala);return}
+    var ir=ev.target.closest('[data-ir]');
+    if(ir){var l=ir.closest('.ra-caps'),a=document.getElementById(l.dataset.audio);if(a){a.currentTime=+ir.dataset.ir;a.play()}return}
+    var v=ev.target.closest('[data-vel]');
+    if(v){var c=v.closest('.ra-ctrl'),au=document.getElementById(c.dataset.audio);au.playbackRate=+v.dataset.vel;c.querySelectorAll('[data-vel]').forEach(function(x){x.setAttribute('aria-pressed',x===v)})}
+  });
   fetch('radar/audio.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
-    dados=d;render(/federal|dou/.test(location.hash)?'dou':'mg');
+    dados=d;render(/(^|#)mg$/.test(location.hash)?'mg':'dou');
   }).catch(function(){document.getElementById('ra-info').textContent='Não foi possível carregar o radar em áudio agora.'});
 })();
 </script>
