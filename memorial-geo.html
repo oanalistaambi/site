@@ -44,9 +44,18 @@
   .calc__resultado dt{ font-family:var(--f-mono); font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; color:var(--text-faint); margin-bottom:.4rem; }
   .calc__resultado dd{ margin:0; font-family:var(--f-display); font-weight:700; font-size:1.35rem; color:var(--text); overflow-wrap:anywhere; }
   .calc__resultado dd small{ display:block; font-family:var(--f-body); font-weight:400; font-size:.8rem; color:var(--text-soft); margin-top:.3rem; }
-  .fecho{ margin-top:1rem; padding:.8rem 1rem; border-left:4px solid var(--accent); background:var(--bg); font-size:.95rem; }
+  .fecho{ margin:.2rem 0 1rem; padding:1rem 1.1rem; border-left:5px solid var(--accent); background:var(--bg); display:flex; gap:.9rem; align-items:flex-start; scroll-margin-top:90px; }
+  .fecho:focus{ outline:none; }
+  .fecho:focus-visible{ outline:2.5px solid var(--focus); outline-offset:2px; }
+  .fecho__ic{ flex:none; width:2.3rem; height:2.3rem; border-radius:50%; display:grid; place-items:center; font-family:var(--f-display); font-weight:700; font-size:1.15rem; background:var(--accent); color:var(--on-accent); }
+  .fecho__t{ font-family:var(--f-display); font-weight:700; font-size:1.2rem; color:var(--text); margin:0; line-height:1.25; }
+  .fecho p{ margin:.3rem 0 0; color:var(--text); font-size:.98rem; line-height:1.5; }
+  .fecho small{ display:block; margin-top:.35rem; color:var(--text-soft); font-size:.85rem; line-height:1.45; }
   .fecho--atencao{ border-left-color:var(--focus); }
-  .fecho--ruim{ border-left-color:var(--ochre); background:var(--bg-sunken); color:var(--text); font-weight:600; }
+  .fecho--atencao .fecho__ic{ background:var(--focus); color:#1b1400; }
+  .fecho--ruim{ border-left-color:var(--ochre); background:var(--bg-sunken); }
+  .fecho--ruim .fecho__ic{ background:var(--ochre); color:#fff; }
+  .fecho--info .fecho__ic{ background:var(--text-soft); color:var(--bg); }
   .confere{ list-style:none; padding:0; margin:.8rem 0 0; display:flex; flex-direction:column; gap:.45rem; }
   .confere li{ font-size:.9rem; color:var(--text-soft); line-height:1.45; display:flex; gap:.6rem; align-items:baseline; }
   .confere li span{ flex:none; font-family:var(--f-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; padding:.15rem .4rem; border:1px solid var(--rule-strong); border-radius:2px; }
@@ -55,27 +64,29 @@
   .erro{ margin-top:.8rem; border-left:4px solid var(--ochre); background:var(--bg-sunken); padding:.85rem 1rem; font-size:.93rem; color:var(--text-soft); }
   .erro b{ color:var(--text); }
   .mapa{ margin-top:1.2rem; }
-  .mapa__barra{ display:flex; flex-wrap:wrap; gap:.3rem 1rem; align-items:center; justify-content:space-between; font-size:.88rem; color:var(--text-soft); margin-bottom:.5rem; }
+  .mapa__barra{ display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between; font-size:.88rem; color:var(--text-soft); margin-bottom:.5rem; }
   .mapa__barra label{ display:flex; gap:.5rem; align-items:center; cursor:pointer; }
   .mapa__barra .calc__hint{ margin:0; }
-  #mapa{ display:block; width:100%; height:auto; border:1px solid var(--rule); background:var(--bg); }
+  #mapa{ display:block; width:100%; height:auto; border:1px solid var(--rule); background:var(--bg); touch-action:pan-y; cursor:grab; user-select:none; -webkit-user-select:none; }
+  #mapa.arrastando{ cursor:grabbing; }
   .m-fundo{ fill:var(--bg); }
   .m-grade line{ stroke:var(--text-faint); stroke-width:.7; stroke-dasharray:3 4; opacity:.75; }
-  .m-rot{ font-family:var(--f-mono); font-size:10px; fill:var(--text-soft); paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
+  .m-rot{ font-family:var(--f-mono); font-size:calc(10px * var(--k, 1)); fill:var(--text-soft); paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
   .m-pol{ fill:rgba(168,69,42,.16); stroke:var(--ochre); stroke-width:2.4; stroke-linejoin:round; }
   .m-v{ fill:var(--bg-raised); stroke:var(--ochre); stroke-width:1.6; }
   .m-v0{ fill:var(--ochre); }
-  .m-nome{ font-family:var(--f-mono); font-size:10px; fill:var(--text); paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
+  .m-nome{ font-family:var(--f-mono); font-size:calc(10px * var(--k, 1)); fill:var(--text); paint-order:stroke; stroke:var(--bg); stroke-width:3px; }
   .m-gap{ stroke:var(--focus); stroke-width:2; stroke-dasharray:5 4; }
   .m-chegada{ fill:none; stroke:var(--focus); stroke-width:2; }
   .m-rot--gap{ fill:var(--text); }
   .m-norte path{ fill:var(--text); }
-  .m-norte text, .m-escala text{ font-family:var(--f-display); font-weight:700; font-size:12px; fill:var(--text); }
+  .m-norte text, .m-escala text{ font-family:var(--f-display); font-weight:700; font-size:calc(12px * var(--k, 1)); fill:var(--text); }
   .m-escala rect{ fill:var(--bg); opacity:.85; }
   .m-escala path{ fill:none; stroke:var(--text); stroke-width:2; }
   .mapa__attr{ font-size:.75rem; color:var(--text-faint); text-align:right; margin-top:.3rem; }
   .mapa__attr a{ color:inherit; }
   .baixar{ margin-top:1.4rem; padding-top:1.2rem; border-top:1px solid var(--rule); }
+  .baixar > .calc__field{ margin-top:.9rem; }
   .sub{ font-size:1.15rem; margin-top:1.8rem; }
   .tabela{ overflow-x:auto; margin-top:.6rem; border:1px solid var(--rule); max-height:28rem; overflow-y:auto; }
   .tabela table{ border-collapse:collapse; width:100%; min-width:760px; font-size:.8rem; }
@@ -109,11 +120,121 @@
   .m-destaque{ stroke:var(--focus); stroke-width:7; stroke-linecap:round; opacity:.85; }
   .tabela tbody tr{ cursor:pointer; }
   .tabela tbody tr.sel td{ background:var(--bg-sunken); color:var(--text); font-weight:600; }
+  /* ---------- topo: como funciona */
+  .lede-m{ color:var(--text-soft); font-size:1.12rem; margin-top:.6rem; }
+  .como{ list-style:none; padding:0; margin:1.4rem 0 0; display:grid; gap:.6rem; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  @media (max-width:760px){ .como{ grid-template-columns:1fr; } }
+  .como li{ display:grid; grid-template-columns:auto 1fr; column-gap:.75rem; row-gap:.15rem; align-items:start; background:var(--bg-raised); border:1px solid var(--rule); padding:.85rem .95rem; border-radius:2px; }
+  .como__n{ grid-row:span 2; width:2rem; height:2rem; border-radius:50%; background:var(--accent); color:var(--on-accent); display:grid; place-items:center; font-family:var(--f-display); font-weight:700; }
+  .como b{ font-family:var(--f-display); color:var(--text); }
+  .como small{ color:var(--text-soft); font-size:.86rem; line-height:1.4; }
+  .atalhos{ display:flex; flex-wrap:wrap; gap:.7rem 1.3rem; align-items:center; margin-top:1.2rem; }
+  .atalhos .btn{ cursor:pointer; font:inherit; font-family:var(--f-display); }
+  .atalhos__link{ color:var(--accent); font-family:var(--f-display); font-weight:600; text-underline-offset:3px; }
+
+  /* ---------- leitura ao vivo e estado vazio */
+  .aovivo{ display:flex; gap:.55rem; align-items:baseline; font-size:.88rem; color:var(--text-soft); margin:.55rem 0 0; min-height:1.4em; }
+  .aovivo__ponto{ flex:none; width:.6rem; height:.6rem; border-radius:50%; background:var(--rule-strong); }
+  .aovivo[data-estado="ok"] .aovivo__ponto{ background:var(--accent); }
+  .aovivo[data-estado="lendo"] .aovivo__ponto{ background:var(--focus); animation:pisca 1s ease-in-out infinite; }
+  .aovivo[data-estado="erro"] .aovivo__ponto{ background:var(--ochre); }
+  @keyframes pisca{ 50%{ opacity:.25; } }
+  .vazio{ display:flex; gap:1rem; align-items:center; padding:1.1rem 1.2rem; border:1.5px dashed var(--rule-strong); color:var(--text-soft); font-size:.95rem; line-height:1.5; }
+  .vazio p{ margin:0; }
+  .vazio b{ color:var(--text); }
+  .vazio__ic{ flex:none; width:64px; height:48px; fill:none; stroke:var(--text-faint); stroke-width:2; stroke-linejoin:round; }
+  .vazio__ic circle{ fill:var(--ochre); stroke:none; }
+
+  /* ---------- "?" dos números */
+  .ajuda{ position:relative; font:inherit; font-family:var(--f-display); font-size:.7rem; font-weight:700; width:1.45rem; height:1.45rem; border-radius:50%;
+    border:1px solid var(--rule-strong); background:transparent; color:var(--text-soft); cursor:pointer; margin-left:.3rem; vertical-align:middle; letter-spacing:0; text-transform:none; line-height:1; padding:0; }
+  .ajuda::after{ content:""; position:absolute; inset:-9px; }
+  .ajuda:hover{ border-color:var(--accent); color:var(--accent); }
+  .ajuda[aria-expanded="true"]{ background:var(--accent); border-color:var(--accent); color:var(--on-accent); }
+  .ajuda:focus-visible{ outline:2.5px solid var(--focus); outline-offset:2px; }
+  .ajuda__txt{ margin:.55rem 0 0; font-size:.84rem; color:var(--text-soft); line-height:1.45; }
+
+  /* ---------- controles do mapa e percurso */
+  .mapa__ctl{ display:flex; gap:.35rem; }
+  .ctl{ display:inline-grid; place-items:center; min-width:2.5rem; height:2.5rem; padding:0 .55rem; border:1.5px solid var(--rule-strong); background:var(--bg-raised);
+    color:var(--text); border-radius:2px; cursor:pointer; font:inherit; font-family:var(--f-display); font-size:.9rem; }
+  .ctl svg{ width:1rem; height:1rem; fill:currentColor; }
+  .ctl:hover{ border-color:var(--accent); color:var(--accent); }
+  .ctl:focus-visible{ outline:2.5px solid var(--focus); outline-offset:2px; }
+  .ctl:disabled{ opacity:.4; cursor:default; }
+  .ctl--texto{ display:inline-flex; align-items:center; gap:.45rem; padding:0 .85rem; }
+  .mapa__info{ margin-top:.4rem; }
+  .mapa:fullscreen{ background:var(--bg); padding:1rem; display:flex; flex-direction:column; overflow:auto; }
+  .mapa:fullscreen #mapa{ flex:1 1 auto; height:auto; min-height:0; touch-action:none; }
+  .percurso{ margin-top:.9rem; }
+  .percurso__ir{ cursor:pointer; font:inherit; font-family:var(--f-display); display:inline-flex; gap:.55rem; align-items:center; }
+  .percurso__ir svg{ width:.9rem; height:.9rem; fill:currentColor; }
+  .percurso__barra{ display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; }
+  .percurso__n{ font-family:var(--f-mono); font-size:.8rem; color:var(--text-soft); padding:0 .35rem; min-width:4.8rem; text-align:center; }
+  .percurso__txt{ margin:.6rem 0 0; padding:.75rem .95rem; background:var(--bg); border:1px solid var(--rule); border-left:4px solid var(--focus); font-size:.95rem; line-height:1.55; color:var(--text); }
+  .percurso__txt b{ font-family:var(--f-display); }
+  .percurso__txt q{ font-family:var(--f-mono); font-size:.8rem; color:var(--text-soft); }
+  .m-pol--fantasma{ fill:none; stroke:var(--text-faint); stroke-width:1.2; stroke-dasharray:4 4; opacity:.8; }
+  .m-feito{ fill:none; stroke:var(--ochre); stroke-width:2.6; stroke-linejoin:round; stroke-linecap:round; }
+  .m-passo{ stroke:var(--focus); stroke-width:5; stroke-linecap:round; }
+  .m-seta{ fill:var(--focus); }
+  .m-norte-q{ stroke:var(--accent); stroke-width:1.8; stroke-dasharray:5 3; }
+  .m-norte-q-t{ font-family:var(--f-display); font-weight:700; font-size:calc(12px * var(--k, 1)); fill:var(--accent); paint-order:stroke; stroke:var(--bg); stroke-width:3.5px; }
+  .m-arco{ fill:none; stroke:var(--accent); stroke-width:2.2; }
+  .m-arco-t{ font-family:var(--f-mono); font-size:calc(12px * var(--k, 1)); font-weight:500; fill:var(--accent); paint-order:stroke; stroke:var(--bg); stroke-width:4px; }
+
+  /* ---------- o que foi lido no texto */
+  .sub2{ font-family:var(--f-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-faint); margin:1.3rem 0 0; }
+  .lido{ margin-top:.6rem; border:1px solid var(--rule); background:var(--bg); }
+  .lido > summary{ cursor:pointer; padding:.8rem 1rem; font-family:var(--f-display); font-weight:600; color:var(--text); }
+  .lido > summary:focus-visible{ outline:2.5px solid var(--focus); outline-offset:-2px; }
+  .lido__n{ font-family:var(--f-mono); font-size:.75rem; color:var(--text-soft); font-weight:400; }
+  .lido > .calc__hint{ margin:0 1rem; }
+  .lido__texto{ margin:.6rem 1rem 1rem; max-height:22rem; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; font-family:var(--f-mono); font-size:.78rem; line-height:2; color:var(--text-soft); }
+  .lido__m{ background:rgba(199,154,46,.24); color:var(--text); border-radius:2px; padding:.08rem .15rem; cursor:pointer; }
+  .lido__m b{ display:inline-block; font-size:.62rem; background:var(--ochre); color:#fff; border-radius:2px; padding:0 .3rem; margin-right:.25rem; font-weight:700; line-height:1.5; }
+  .lido__m--partida{ background:rgba(46,107,62,.18); }
+  .lido__m--partida b{ background:var(--accent); color:var(--on-accent); }
+  .lido__m.sel{ outline:2px solid var(--focus); }
+  .lido__m:focus-visible{ outline:2.5px solid var(--focus); outline-offset:1px; }
+
+  /* ---------- arquivos */
+  .arqs{ display:grid; gap:.6rem; grid-template-columns:repeat(auto-fill,minmax(min(100%,13.5rem),1fr)); margin-top:1rem; }
+  .arq{ position:relative; text-align:left; font:inherit; cursor:pointer; padding:.8rem 2.7rem .85rem .95rem; border:1.5px solid var(--rule-strong); background:var(--bg-raised);
+    color:var(--text); border-radius:2px; display:flex; flex-direction:column; gap:.2rem; transition:border-color .15s, transform .15s; }
+  .arq b{ font-family:var(--f-display); font-size:1rem; }
+  .arq small{ color:var(--text-soft); font-size:.8rem; line-height:1.35; }
+  .arq__ic{ position:absolute; right:.9rem; top:50%; width:1.15rem; height:1.15rem; margin-top:-.575rem; fill:var(--accent); }
+  .arq:hover{ border-color:var(--accent); transform:translateY(-2px); }
+  .arq:focus-visible{ outline:2.5px solid var(--focus); outline-offset:2px; }
+
+  /* ---------- limites e "Entenda em 1 minuto" */
+  .limite__mais{ margin-top:.7rem; }
+  .limite__mais > summary{ cursor:pointer; color:var(--accent); font-family:var(--f-display); font-weight:600; font-size:.9rem; }
+  .entenda{ margin-top:2.6rem; scroll-margin-top:80px; }
+  .entenda > p{ max-width:var(--measure); }
+  .entenda__grade{ display:grid; gap:.8rem; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr)); margin-top:1.3rem; }
+  .ent{ margin:0; border:1px solid var(--rule); background:var(--bg-raised); padding:.8rem .95rem 1rem; }
+  .ent svg{ display:block; width:100%; height:auto; max-height:11rem; }
+  .ent figcaption{ font-size:.9rem; color:var(--text-soft); line-height:1.45; margin-top:.4rem; }
+  .ent figcaption b{ display:block; font-family:var(--f-display); color:var(--text); font-size:1.05rem; margin-bottom:.15rem; }
+  .ent-guia{ fill:none; stroke:var(--rule-strong); stroke-width:1; stroke-dasharray:3 3; }
+  .ent-norte{ stroke:var(--text); stroke-width:1.6; }
+  .ent-lado{ fill:none; stroke:var(--ochre); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+  .ent-lado--fino{ stroke-width:2.2; }
+  .ent-arco{ fill:none; stroke:var(--accent); stroke-width:2.2; }
+  .ent-erro{ stroke:var(--focus); stroke-width:2.6; stroke-dasharray:4 3; }
+  .ent-ponto{ fill:var(--ochre); }
+  .ent-chegada{ fill:none; stroke:var(--focus); stroke-width:2; }
+  .ent-t{ font-family:var(--f-mono); font-size:11px; fill:var(--text-soft); text-anchor:middle; }
+  .ent-t--n{ fill:var(--text); font-weight:700; font-family:var(--f-display); font-size:13px; }
+  .ent-t--v{ fill:var(--accent); font-weight:700; font-size:12px; }
+  @media (prefers-reduced-motion:reduce){ .aovivo__ponto{ animation:none !important; } .arq{ transition:none; } .arq:hover{ transform:none; } }
   .so-impressao{ display:none; }
   @media print{
     :root:root{ --bg:#fff; --bg-raised:#fff; --bg-sunken:#f1f1ec; --text:#111; --text-soft:#333; --text-faint:#555; --rule:#bbb; --rule-strong:#888; --accent:#2E6B3E; --ochre:#A8452A; --focus:#C79A2E; }
     body{ background:#fff !important; color:#111; }
-    header.nav, footer, .nota, .nao-imprime, #calc > .calc__step:nth-child(1), #calc > .calc__step:nth-child(2), .baixar, .mapa__barra, .mini, .acoes, .fontes, .fontes + .calc__hint, .article__body > h2:last-of-type{ display:none !important; }
+    header.nav, footer, .nota, .nao-imprime, .como, .atalhos, .aovivo, .vazio, .percurso, .mapa__ctl, .entenda, .ajuda, .lido, .sub2 + .calc__hint .nao-imprime, #calc > .calc__step:nth-child(1), #calc > .calc__step:nth-child(2), .baixar, .mapa__barra, .mini, .acoes, .fontes, .fontes + .calc__hint, .article__body > h2:last-of-type{ display:none !important; }
     .so-impressao{ display:block; font-size:.85rem; color:#333; margin:0 0 .6rem; }
     .article{ padding-block:0; }
     .calc{ border:0; padding:0; margin-top:1rem; }
@@ -177,12 +298,17 @@
   <div class="article__head stack-sm">
     <p class="ref">Ferramentas &middot; memorial descritivo &middot; roda no seu navegador, também sem internet</p>
     <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Memorial descritivo em polígono no mapa</h1>
-    <p style="color:var(--text-soft);font-size:1.12rem;margin-top:.6rem">
-      Cole o memorial da matrícula, com o ponto de partida e cada lado em azimute ou rumo e distância, ou com a
-      coordenada de cada vértice. A página monta a poligonal no plano UTM (SIRGAS 2000), mostra o desenho, a área, o
-      perímetro e o erro de fechamento, aponta o lado suspeito quando não fecha, e entrega o polígono em KML, GeoJSON,
-      shapefile, DXF e CSV para abrir no SIG ou no CAD.
-    </p>
+    <p class="lede-m">Cole o memorial da matrícula e veja o imóvel desenhado no mapa, com área, perímetro e a conferência
+      do fechamento. Depois leve o polígono para o SIG ou o CAD.</p>
+    <ol class="como" aria-label="Como funciona">
+      <li><span class="como__n" aria-hidden="true">1</span><b>Cole o texto</b><small>trecho da matrícula, tabela do SIGEF ou a tabela que uma IA tirou do PDF</small></li>
+      <li><span class="como__n" aria-hidden="true">2</span><b>Confira o desenho</b><small>área, perímetro, fechamento e, se não fechar, o lado suspeito</small></li>
+      <li><span class="como__n" aria-hidden="true">3</span><b>Leve para o seu trabalho</b><small>KML, shapefile, GeoJSON, DXF, CSV ou relatório em PDF</small></li>
+    </ol>
+    <div class="atalhos">
+      <button type="button" class="btn btn--solid" id="exemplo-topo">Ver um exemplo pronto</button>
+      <a class="atalhos__link" href="#entenda">Nunca leu um memorial? Entenda em 1 minuto &darr;</a>
+    </div>
   </div>
 
   <div class="article__body">
@@ -201,6 +327,7 @@
 ou a tabela:
 V1; 120°15'30&quot;; 85,40
 V2; S 12° W; 230,50"></textarea>
+        <p class="aovivo" id="aovivo" role="status" aria-live="polite"><span class="aovivo__ponto" aria-hidden="true"></span><span id="aovivo-txt">Leitura automática: cole o texto e o resultado aparece logo abaixo.</span></p>
         <div class="acoes">
           <button type="button" class="btn btn--solid" id="ler">Ler o memorial</button>
           <button type="button" class="btn btn--ghost" id="exemplo">Exemplo</button>
@@ -232,56 +359,83 @@ V2; S 12° W; 230,50"></textarea>
       <div class="calc__step" id="resultado" aria-live="polite">
         <span class="calc__step-label">Passo 3 &middot; Poligonal</span>
         <p class="so-impressao" id="impresso-em"></p>
-        <p class="calc__placeholder" id="vazio">Cole o memorial e toque em "Ler o memorial", ou veja o Exemplo.</p>
+        <div class="vazio" id="vazio">
+          <svg class="vazio__ic" viewBox="0 0 64 48" aria-hidden="true"><path d="M8 38 14 10l22-4 18 14-6 20z"/><circle cx="8" cy="38" r="3"/></svg>
+          <p><b>O desenho aparece aqui.</b> Cole o memorial no Passo 1, ou toque em &ldquo;Exemplo&rdquo; para ver como fica.</p>
+        </div>
         <div id="saida" hidden>
+          <div class="fecho" id="o-fecho" tabindex="-1"></div>
           <dl class="calc__resultado">
-            <div><dt>Vértices</dt><dd id="o-n">—</dd></div>
-            <div><dt>Perímetro</dt><dd id="o-per">—</dd></div>
-            <div><dt>Área</dt><dd id="o-area">—<small>no plano UTM</small></dd></div>
-            <div><dt>Erro de fechamento</dt><dd id="o-erro">—</dd></div>
-            <div><dt>Precisão relativa</dt><dd id="o-prec">—</dd></div>
-            <div><dt>Datum e fuso</dt><dd id="o-sis" style="font-size:1.05rem">—</dd></div>
+            <div><dt>Vértices <button type="button" class="ajuda" aria-expanded="false" aria-label="O que é vértices?">?</button></dt><dd id="o-n">—</dd><p class="ajuda__txt" hidden>Pontos onde o contorno muda de direção, na ordem em que o texto os descreve.</p></div>
+            <div><dt>Perímetro <button type="button" class="ajuda" aria-expanded="false" aria-label="O que é perímetro?">?</button></dt><dd id="o-per">—</dd><p class="ajuda__txt" hidden>Soma das distâncias de todos os lados.</p></div>
+            <div><dt>Área <button type="button" class="ajuda" aria-expanded="false" aria-label="O que é área?">?</button></dt><dd id="o-area">—<small>no plano UTM</small></dd><p class="ajuda__txt" hidden>Calculada no plano UTM (SIRGAS 2000). O SIGEF calcula a área no Sistema Geodésico Local; a diferença costuma ser pequena, mas existe.</p></div>
+            <div><dt>Erro de fechamento <button type="button" class="ajuda" aria-expanded="false" aria-label="O que é erro de fechamento?">?</button></dt><dd id="o-erro">—</dd><p class="ajuda__txt" hidden>Somando os lados a partir da partida, o último deveria voltar a ela. A distância que sobra entre a chegada do último lado e a partida é o erro de fechamento.</p></div>
+            <div><dt>Precisão relativa <button type="button" class="ajuda" aria-expanded="false" aria-label="O que é precisão relativa?">?</button></dt><dd id="o-prec">—</dd><p class="ajuda__txt" hidden>Perímetro dividido pelo erro. 1:5.000 quer dizer 1 m de erro a cada 5 km medidos: quanto maior o número, melhor.</p></div>
+            <div><dt>Datum e fuso <button type="button" class="ajuda" aria-expanded="false" aria-label="O que é datum e fuso?">?</button></dt><dd id="o-sis" style="font-size:1.05rem">—</dd><p class="ajuda__txt" hidden>SIRGAS 2000 é o referencial oficial do Brasil. O fuso UTM é a faixa de 6° de longitude da projeção; Minas Gerais fica nos fusos 22, 23 e 24.</p></div>
           </dl>
           <div class="fonte" id="o-fonte" hidden>
             <b>O texto tem as duas leituras. Desenhar e exportar a partir de:</b>
             <label><input type="radio" name="fonte" value="azimute"> lados (azimute ou rumo e distância)</label>
             <label><input type="radio" name="fonte" value="coordenadas"> coordenadas dos vértices</label>
           </div>
-          <p class="fecho" id="o-fecho"></p>
           <div class="diag" id="o-diag" hidden></div>
           <ul class="confere" id="o-conf"></ul>
 
-          <div class="mapa">
+          <div class="mapa" id="mapa-bloco">
             <div class="mapa__barra">
-              <label><input type="checkbox" id="fundo" checked> Mapa de fundo (OpenStreetMap, precisa de internet)</label>
-              <span class="calc__hint" id="mapa-info"></span>
+              <label class="mapa__fundo"><input type="checkbox" id="fundo" checked> Mapa de fundo (OpenStreetMap)</label>
+              <div class="mapa__ctl" role="group" aria-label="Controles do mapa">
+                <button type="button" class="ctl" data-zoom="-1" aria-label="Afastar" title="Afastar"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 7.25h10v1.5H3z"/></svg></button>
+                <button type="button" class="ctl" data-zoom="1" aria-label="Aproximar" title="Aproximar"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 3h1.5v4.25H13v1.5H8.75V13h-1.5V8.75H3v-1.5h4.25z"/></svg></button>
+                <button type="button" class="ctl" id="enquadrar" aria-label="Enquadrar o polígono" title="Enquadrar o polígono"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 1h1.5v3h-1.5zM7.25 12h1.5v3h-1.5zM1 7.25h3v1.5H1zM12 7.25h3v1.5h-3zM8 5.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg></button>
+                <button type="button" class="ctl" id="tela-cheia" aria-label="Tela cheia" title="Tela cheia"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 1.5h5V3H3v3.5H1.5zM9.5 1.5h5v5H13V3H9.5zM1.5 9.5H3V13h3.5v1.5h-5zM13 9.5h1.5v5h-5V13H13z"/></svg></button>
+              </div>
             </div>
             <svg id="mapa" viewBox="0 0 800 520" role="img" aria-label="Desenho do polígono, com grade UTM e norte"></svg>
+            <p class="calc__hint mapa__info" id="mapa-info"></p>
             <p class="mapa__attr" id="attr" hidden>Mapa de fundo &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a></p>
+            <div class="percurso">
+              <button type="button" class="btn btn--solid percurso__ir" id="percorrer"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11L13 8z"/></svg> Percorrer o memorial lado a lado</button>
+              <div class="percurso__barra" id="percurso-barra" role="group" aria-label="Percurso lado a lado" hidden>
+                <button type="button" class="ctl" data-passo="inicio" aria-label="Primeiro lado" title="Primeiro lado"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2.5h2v11H2zM9 2.5v11L4.5 8zM14.5 2.5v11L10 8z"/></svg></button>
+                <button type="button" class="ctl" data-passo="-1" aria-label="Lado anterior" title="Lado anterior"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12 2.5v11L4 8z"/></svg></button>
+                <button type="button" class="ctl ctl--texto" data-passo="play" id="percurso-play"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11L13 8z"/></svg><span>Reproduzir</span></button>
+                <button type="button" class="ctl" data-passo="1" aria-label="Próximo lado" title="Próximo lado"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11L12 8z"/></svg></button>
+                <span class="percurso__n" id="percurso-n"></span>
+                <button type="button" class="ctl" data-passo="sair" aria-label="Sair do percurso" title="Sair do percurso"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.4 2.3 8 6.9l4.6-4.6 1.1 1.1L9.1 8l4.6 4.6-1.1 1.1L8 9.1l-4.6 4.6-1.1-1.1L6.9 8 2.3 3.4z"/></svg></button>
+              </div>
+              <p class="percurso__txt" id="percurso-txt" aria-live="polite" hidden></p>
+            </div>
           </div>
 
           <div class="baixar">
+            <h3 class="sub">Leve para o seu trabalho</h3>
             <div class="calc__field"><label for="nome">Nome do polígono nos arquivos</label><input id="nome" class="tx" value="Imóvel do memorial" maxlength="60"></div>
-            <div class="acoes">
-              <button type="button" class="btn btn--solid" data-baixar="kml">Baixar KML</button>
-              <button type="button" class="btn btn--solid" data-baixar="geojson">Baixar GeoJSON</button>
-              <button type="button" class="btn btn--solid" data-baixar="shp">Baixar Shapefile (zip)</button>
-              <button type="button" class="btn btn--solid" data-baixar="dxf">Baixar DXF (CAD)</button>
-              <button type="button" class="btn btn--solid" data-baixar="csv">Baixar CSV (planilha)</button>
+            <div class="arqs">
+              <button type="button" class="arq" data-baixar="kml"><b>KML</b><small>Google Earth e QGIS</small><svg class="arq__ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 1.5h1.5v7.19l2.47-2.47 1.06 1.06L8 11.56 3.72 7.28l1.06-1.06 2.47 2.47zM2 13h12v1.5H2z"/></svg></button>
+              <button type="button" class="arq" data-baixar="shp"><b>Shapefile (.zip)</b><small>QGIS, ArcGIS e outros SIG, com o .prj</small><svg class="arq__ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 1.5h1.5v7.19l2.47-2.47 1.06 1.06L8 11.56 3.72 7.28l1.06-1.06 2.47 2.47zM2 13h12v1.5H2z"/></svg></button>
+              <button type="button" class="arq" data-baixar="geojson"><b>GeoJSON</b><small>QGIS e mapas na web</small><svg class="arq__ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 1.5h1.5v7.19l2.47-2.47 1.06 1.06L8 11.56 3.72 7.28l1.06-1.06 2.47 2.47zM2 13h12v1.5H2z"/></svg></button>
+              <button type="button" class="arq" data-baixar="dxf"><b>DXF</b><small>AutoCAD e outros CAD, em UTM</small><svg class="arq__ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 1.5h1.5v7.19l2.47-2.47 1.06 1.06L8 11.56 3.72 7.28l1.06-1.06 2.47 2.47zM2 13h12v1.5H2z"/></svg></button>
+              <button type="button" class="arq" data-baixar="csv"><b>CSV</b><small>Excel e LibreOffice: a tabela de vértices</small><svg class="arq__ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 1.5h1.5v7.19l2.47-2.47 1.06 1.06L8 11.56 3.72 7.28l1.06-1.06 2.47 2.47zM2 13h12v1.5H2z"/></svg></button>
+              <button type="button" class="arq" data-baixar="txt"><b>Memorial (.txt)</b><small>o texto com a coordenada de cada vértice</small><svg class="arq__ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M7.25 1.5h1.5v7.19l2.47-2.47 1.06 1.06L8 11.56 3.72 7.28l1.06-1.06 2.47 2.47zM2 13h12v1.5H2z"/></svg></button>
             </div>
-            <p class="calc__hint" id="o-arqs">KML e GeoJSON em latitude e longitude (SIRGAS 2000). Shapefile e DXF em metros, SIRGAS 2000 / UTM
-              (o shapefile leva o .prj). CSV com ";" e vírgula decimal, para o Excel em português.</p>
+            <p class="calc__hint" id="o-arqs">KML e GeoJSON em latitude e longitude; shapefile e DXF em metros (UTM); tudo em SIRGAS 2000. O CSV usa ";" e
+              vírgula decimal, como o Excel em português. O memorial em texto sai do cálculo, e esta página o lê de volta: não é memorial de levantamento.</p>
             <div class="acoes">
               <button type="button" class="btn btn--ghost" id="copiar-memorial">Copiar o memorial com coordenadas</button>
-              <button type="button" class="btn btn--ghost" data-baixar="txt">Baixar o memorial (.txt)</button>
               <button type="button" class="btn btn--ghost" id="imprimir">Imprimir relatório ou salvar em PDF</button>
               <span class="calc__hint" id="copiado-memorial" role="status"></span>
             </div>
-            <p class="calc__hint">O memorial com coordenadas é gerado do cálculo, com a coordenada de cada vértice, e esta página o lê de volta.
-              Não é memorial de levantamento.</p>
           </div>
 
-          <h3 class="sub">Vértices e lados lidos</h3>
+          <h3 class="sub">Confira com o original</h3>
+          <details class="lido" id="o-lido">
+            <summary>Ver no texto o que a página leu <span class="lido__n" id="o-lido-n"></span></summary>
+            <p class="calc__hint">Cada lado lido está marcado com o número dele, e a coordenada de partida com P. O que não está marcado foi
+              ignorado. Toque numa marca para ver o lado no mapa.</p>
+            <div class="lido__texto" id="o-lido-texto"></div>
+          </details>
+          <p class="sub2">Vértices e lados lidos</p>
           <p class="calc__hint">Confira cada lado com o original: o trecho lido está na última coluna.<span class="nao-imprime"> Toque numa linha para destacar o lado no mapa.</span></p>
           <div class="tabela"><table id="o-tab">
             <thead><tr><th>Vértice</th><th>E (m)</th><th>N (m)</th><th>Latitude</th><th>Longitude</th><th>Azimute do lado</th><th>Distância (m)</th><th>Lido do texto</th></tr></thead>
@@ -308,6 +462,10 @@ V2; S 12° W; 230,50"></textarea>
         <li><b>Não substitui levantamento topográfico nem georreferenciamento certificado no SIGEF</b> (Lei 10.267/2001).
           É uma reconstrução do que o texto descreve.</li>
         <li><b>Nada é enviado a servidor.</b> Tudo roda no navegador (LGPD).</li>
+      </ul>
+      <details class="limite__mais">
+        <summary>Mais 3 limites: o diagnóstico, o memorial por coordenadas e o critério do fechamento</summary>
+        <ul>
         <li><b>O diagnóstico do fechamento dá hipóteses, não correções.</b> Ele testa um erro de cada vez (um dígito, o
           quadrante, um lado a mais ou a menos). Dois erros juntos, ou um lado inteiro lido errado, escapam dele. "Testar"
           muda só o cálculo, nunca o texto.</li>
@@ -316,8 +474,53 @@ V2; S 12° W; 230,50"></textarea>
         <li><b>Critério do fechamento.</b> As faixas "bom" (1:5.000 ou melhor), "fraco" (1:1.000 a 1:5.000) e "ruim"
           (pior que 1:1.000) são critério desta página para chamar a atenção, não tolerância de norma. A tolerância de
           uma poligonal depende da classe do levantamento (ABNT NBR 13133).</li>
-      </ul>
+        </ul>
+      </details>
     </aside>
+
+    <section class="entenda" id="entenda" aria-labelledby="entenda-t">
+      <h2 id="entenda-t">Entenda em 1 minuto</h2>
+      <p>O memorial descritivo descreve o contorno do imóvel como um caminho: parte de um ponto com coordenada conhecida e
+        segue lado a lado, cada lado com uma direção (azimute ou rumo) e um comprimento (distância), até voltar ao início.</p>
+      <div class="entenda__grade">
+        <figure class="ent">
+          <svg viewBox="0 0 200 150" role="img" aria-label="Azimute de 120 graus, medido do norte no sentido do relógio">
+            <circle class="ent-guia" cx="100" cy="85" r="52"/>
+            <line class="ent-norte" x1="100" y1="85" x2="100" y2="22"/><text class="ent-t ent-t--n" x="100" y="15">N</text>
+            <line class="ent-lado" x1="100" y1="85" x2="152" y2="115"/>
+            <path class="ent-arco" d="M100 55 A30 30 0 0 1 126 100"/>
+            <text class="ent-t ent-t--v" x="136" y="68">120°</text>
+            <circle class="ent-ponto" cx="100" cy="85" r="4"/>
+          </svg>
+          <figcaption><b>Azimute</b>Ângulo a partir do norte, no sentido do relógio, de 0° a 360°. Ex.: 120°15'30".</figcaption>
+        </figure>
+        <figure class="ent">
+          <svg viewBox="0 0 200 150" role="img" aria-label="Rumo sul 60 graus leste: o mesmo lado do azimute de 120 graus">
+            <line class="ent-guia" x1="100" y1="25" x2="100" y2="140"/><line class="ent-guia" x1="40" y1="85" x2="160" y2="85"/>
+            <text class="ent-t ent-t--n" x="100" y="17">N</text><text class="ent-t" x="100" y="150">S</text><text class="ent-t" x="170" y="89">E</text><text class="ent-t" x="29" y="89">W</text>
+            <line class="ent-lado" x1="100" y1="85" x2="152" y2="115"/>
+            <path class="ent-arco" d="M100 115 A30 30 0 0 0 126 100"/>
+            <text class="ent-t ent-t--v" x="124" y="133">60°</text>
+            <circle class="ent-ponto" cx="100" cy="85" r="4"/>
+          </svg>
+          <figcaption><b>Rumo</b>Ângulo a partir do norte ou do sul, até 90°, com o quadrante. S 60° E é o mesmo lado do azimute de 120°.</figcaption>
+        </figure>
+        <figure class="ent">
+          <svg viewBox="0 0 200 150" role="img" aria-label="Poligonal que não fecha: a chegada do último lado fica longe da partida">
+            <polyline class="ent-lado ent-lado--fino" points="40,118 58,40 150,28 172,104 70,132"/>
+            <line class="ent-erro" x1="70" y1="132" x2="40" y2="118"/>
+            <circle class="ent-ponto" cx="40" cy="118" r="4"/><circle class="ent-chegada" cx="70" cy="132" r="4"/>
+            <text class="ent-t" x="30" y="105">partida</text><text class="ent-t" x="98" y="146">chegada</text>
+            <text class="ent-t ent-t--v" x="48" y="141">erro</text>
+          </svg>
+          <figcaption><b>Fechamento</b>Somando os lados, o último deveria voltar à partida. O que sobra é o erro de fechamento;
+            perímetro &divide; erro dá a precisão 1:N.</figcaption>
+        </figure>
+      </div>
+      <p>Esta página faz essa soma no plano UTM, no referencial SIRGAS 2000, desenha o resultado e confere se ele volta ao
+        início. No resultado, toque em <b>&ldquo;Percorrer o memorial lado a lado&rdquo;</b> para ver cada lado sendo desenhado.</p>
+    </section>
+
 
     <div class="extra nao-imprime">
     <h2 id="ia">Como usar com IA</h2>
@@ -436,14 +639,20 @@ Depois a tabela:
   var M = window.MemorialGeo;
   var $ = function (id) { return document.getElementById(id); };
   var ARQUIVO = location.protocol === "file:";
+  var MENOS_MOVIMENTO = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var EXEMPLO = "MEMORIAL DESCRITIVO — EXEMPLO FICTÍCIO, SÓ PARA DEMONSTRAÇÃO (nomes, valores e coordenadas inventados)\nImóvel: Fazenda Vereda do Exemplo, zona rural de município de Minas Gerais. Matrícula: fictícia.\nÁrea: 2.324,0104 ha. Perímetro: 18.961,69 m.\nInicia-se a descrição deste perímetro no vértice V-01, de coordenadas N 7.912.640,25 m e E 452.318,40 m, referidas ao Meridiano Central 45° WGr, fuso 23 S, Datum SIRGAS 2000; deste, segue com azimute de 354°52'30\" e distância de 700,65 m, até o vértice V-02; deste, segue com azimute de 10°21'53\" e distância de 742,69 m, até o vértice V-03; deste, segue com azimute de 67°58'10\" e distância de 767,93 m, até o vértice V-04; deste, segue com azimute de 101°54'58\" e distância de 875,47 m, até o vértice V-05; deste, segue com rumo S 79°30'52\" E e distância de 586,65 m, até o vértice V-06; deste, segue com azimute de 72°05'22\" e distância de 456,00 m, até o vértice V-07; deste, segue com azimute de 66°11'50\" e distância de 525,51 m, até o vértice V-08; deste, segue com azimute de 69°58'36\" e distância de 635,15 m, até o vértice V-09; deste, segue com azimute de 115°15'28\" e distância de 572,71 m, até o vértice V-10; deste, segue com azimute de 103°54'43\" e distância de 643,97 m, até o vértice V-11; deste, segue com azimute de 133°07'39\" e distância de 630,06 m, até o vértice V-12; deste, segue com rumo S 30°42'06\" E e distância de 634,27 m, até o vértice V-13; deste, segue com azimute de 152°27'09\" e distância de 655,55 m, até o vértice V-14; deste, segue com azimute de 193°56'19\" e distância de 674,14 m, até o vértice V-15; deste, segue com azimute de 224°42'57\" e distância de 720,53 m, até o vértice V-16; deste, segue com azimute de 239°59'32\" e distância de 632,82 m, até o vértice V-17; deste, segue com azimute de 204°23'00\" e distância de 432,36 m, até o vértice V-18; deste, segue com rumo S 14°52'15\" W e distância de 516,28 m, até o vértice V-19; deste, segue com azimute de 194°22'57\" e distância de 688,50 m, até o vértice V-20; deste, segue com azimute de 205°32'40\" e distância de 832,25 m, até o vértice V-21; deste, segue com azimute de 262°41'28\" e distância de 686,42 m, até o vértice V-22; deste, segue com azimute de 288°59'13\" e distância de 692,21 m, até o vértice V-23; deste, segue com azimute de 311°23'17\" e distância de 683,59 m, até o vértice V-24; deste, segue com rumo N 68°24'56\" W e distância de 563,36 m, até o vértice V-25; deste, segue com azimute de 315°47'58\" e distância de 563,50 m, até o vértice V-26; deste, segue com azimute de 344°45'02\" e distância de 579,82 m, até o vértice V-27; deste, segue com azimute de 326°40'34\" e distância de 494,18 m, até o vértice V-28; deste, segue com azimute de 341°08'14\" e distância de 497,20 m, até o vértice V-29; deste, segue com azimute de 351°58'57\" e distância de 500,09 m, até o vértice V-30; deste, segue com azimute de 321°53'41\" e distância de 777,83 m, até o vértice V-01, ponto inicial desta descrição.";
   var atual = null;
-  /** O que a pessoa escolheu depois da leitura: campos de partida, fonte, correção em teste e lado destacado. */
-  var estado = { campos: false, fonte: null, correcoes: [], destaque: null };
+  /**
+   * O que a pessoa escolheu depois da leitura: campos de partida, fonte, correção em teste, lado
+   * destacado, enquadramento do mapa (null = o polígono inteiro) e o lado do percurso (null = fora).
+   */
+  var estado = novoEstado();
+  function novoEstado() { return { campos: false, fonte: null, correcoes: [], destaque: null, vista: null, passo: null }; }
 
   function numero(s) { s = String(s || "").trim(); return s ? M.numeroMetrico(s) : null; }
   function fmt(v, c) { return M.decimal(v, c); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function rolar(el, bloco) { if (el) el.scrollIntoView({ behavior: MENOS_MOVIMENTO ? "auto" : "smooth", block: bloco || "start" }); }
 
   function opcoes() {
     var op = { fonte: estado.fonte, correcoes: estado.correcoes };
@@ -455,18 +664,52 @@ Depois a tabela:
     return op;
   }
 
-  /** Ler o memorial do zero (usarCampos=false) ou recalcular com a partida e o fuso dos campos. */
-  function ler(usarCampos) {
-    if (usarCampos) estado.campos = true;
-    else estado = { campos: false, fonte: null, correcoes: [], destaque: null };
+  /**
+   * Ler o memorial do zero (usarCampos=false) ou recalcular com a partida e o fuso dos campos.
+   * `irAoResultado` leva a tela até o resumo (botões); a leitura ao vivo não mexe na rolagem.
+   */
+  function ler(usarCampos, irAoResultado) {
+    pararPercurso();
+    if (usarCampos) { estado.campos = true; estado.passo = null; }
+    else { var campos = estado.campos; estado = novoEstado(); estado.campos = campos && irAoResultado === "vivo"; }
     var op = opcoes(), r = M.analisar($("texto").value, op);
-    if (!usarCampos) preencherPartida(r);
-    else $("partida-info").textContent = "Partida e fuso informados por você: E " + fmt(op.e != null ? op.e : 0, 2) + ", N " + fmt(op.n != null ? op.n : 0, 2) + ", fuso " + op.fuso + " S.";
+    if (!estado.campos) preencherPartida(r);
+    else if (usarCampos) $("partida-info").textContent = "Partida e fuso informados por você: E " + fmt(op.e != null ? op.e : 0, 2) + ", N " + fmt(op.n != null ? op.n : 0, 2) + ", fuso " + op.fuso + " S.";
     mostrar(r);
+    statusAoVivo(r);
+    if (irAoResultado === true) {
+      var alvo = r.poligonal ? $("o-fecho") : $("o-erro-msg");
+      rolar(alvo);
+      if (alvo) alvo.focus({ preventScroll: true });
+    }
   }
 
   /** Refaz o cálculo com o mesmo texto e as escolhas de agora (fonte, correção em teste). */
   function refazer() { mostrar(M.analisar($("texto").value, opcoes())); }
+
+  // ------------------------------------------------------------ leitura ao vivo
+
+  var espera = null;
+  function statusAoVivo(r) {
+    var box = $("aovivo"), t = $("aovivo-txt");
+    if (!$("texto").value.trim()) { box.dataset.estado = ""; t.textContent = "Leitura automática: cole o texto e o resultado aparece logo abaixo."; return; }
+    if (r.poligonal) {
+      var p = r.poligonal;
+      box.dataset.estado = "ok";
+      t.textContent = p.fonte === "coordenadas"
+        ? "Lido: " + p.vertices.length + " vértices com coordenada, fuso " + p.fuso + " S. O resultado está abaixo."
+        : "Lido: " + r.lados.length + " lados e a partida (E " + fmt(p.vertices[0][0], 2) + ", N " + fmt(p.vertices[0][1], 2) + ", fuso " + p.fuso + " S). O resultado está abaixo.";
+    } else {
+      box.dataset.estado = "erro";
+      t.textContent = r.lados.length ? "Lidos " + r.lados.length + " lados, mas falta algo: " + r.erro : r.erro;
+    }
+  }
+  $("texto").addEventListener("input", function () {
+    $("aovivo").dataset.estado = "lendo";
+    $("aovivo-txt").textContent = "Lendo…";
+    clearTimeout(espera);
+    espera = setTimeout(function () { ler(false, "vivo"); }, 450);
+  });
 
   function preencherPartida(r) {
     var p = r.partidaLida, info = $("partida-info");
@@ -484,14 +727,16 @@ Depois a tabela:
     }
   }
 
+  // ------------------------------------------------------------ resultado
+
   function mostrar(r) {
     atual = r.poligonal ? r : null;
     var msg = $("o-erro-msg");
-    $("vazio").hidden = true;
+    $("vazio").hidden = !!r.poligonal || !!$("texto").value.trim();
     if (!r.poligonal) {
       $("saida").hidden = true;
-      msg.hidden = false;
-      msg.innerHTML = "<b>Não deu para montar a poligonal.</b> " + esc(r.erro) +
+      msg.hidden = !$("texto").value.trim();
+      msg.innerHTML = "<b>Ainda não deu para montar a poligonal.</b> " + esc(r.erro || "") +
         (r.lados.length ? " Lados reconhecidos até aqui: " + r.lados.length + "." : "") +
         r.avisos.map(function (a) { return "<br>" + esc(a); }).join("");
       return;
@@ -501,6 +746,7 @@ Depois a tabela:
     var p = r.poligonal;
     var porCoord = p.fonte === "coordenadas";
     if (estado.destaque != null && estado.destaque >= p.vertices.length) estado.destaque = null;
+    if (estado.passo != null && estado.passo >= p.vertices.length) estado.passo = null;
     $("o-n").innerHTML = p.vertices.length + "<small>" + (porCoord ? "lidos das coordenadas" : r.lados.length + " lados lidos" +
       (r.lados.some(function (l) { return l.deRumo; }) ? ", com rumos" : "")) + "</small>";
     $("o-per").innerHTML = fmt(p.perimetroM, 2) + " m<small>soma dos lados</small>";
@@ -511,16 +757,31 @@ Depois a tabela:
     fonte.hidden = r.fontes.length < 2;
     fonte.querySelectorAll("input").forEach(function (i) { i.checked = i.value === r.fonte; });
     $("o-sis").innerHTML = esc((r.datum || "SIRGAS 2000 (não citado)") + " · UTM " + p.fuso + " S") + "<small>EPSG " + M.epsg(p.fuso) + " no shapefile</small>";
-    var f = $("o-fecho");
-    f.className = "fecho fecho--" + p.qualidade.nivel;
-    f.textContent = p.qualidade.texto;
+    resumo(r);
     var itens = r.avisos.map(function (a) { return { nivel: "atencao", texto: a }; }).concat(r.conferencias.slice(1));
     $("o-conf").innerHTML = itens.map(function (c) {
       return '<li class="confere--' + c.nivel + '"><span>' + (c.nivel === "ok" ? "OK" : c.nivel === "info" ? "Nota" : "Atenção") + "</span>" + esc(c.texto) + "</li>";
     }).join("");
     diagnostico(r);
     tabela(r);
+    marcarTexto(r);
     desenhar(r);
+    legendaPercurso(r);
+  }
+
+  /** O resultado numa frase, antes dos números: o que é, quanto mede e se fecha. */
+  function resumo(r) {
+    var p = r.poligonal, f = $("o-fecho"), q = p.qualidade, porCoord = p.fonte === "coordenadas";
+    var nivel = porCoord ? (q.nivel === "ok" ? "ok" : "info") : q.nivel;
+    var titulo = porCoord ? "Desenhado pelas coordenadas" : { ok: "Fecha bem", atencao: "Fecha com folga", ruim: "Não fecha" }[nivel];
+    var icone = { ok: "✓", atencao: "!", ruim: "×", info: "i" }[nivel];
+    var frase = "Polígono de " + p.vertices.length + " vértices, " + fmt(p.areaM2 / 10000, 4) + " ha e " + fmt(p.perimetroM, 2) + " m de perímetro. ";
+    if (porCoord) frase += "Cada vértice tem a coordenada escrita no texto; os lados saem delas.";
+    else if (nivel === "ok") frase += "O último lado chega a " + M.metros(p.erroFechamentoM) + " do ponto de partida: a descrição é coerente. Confira no SIG e leve o arquivo.";
+    else if (nivel === "atencao") frase += "O último lado para a " + M.metros(p.erroFechamentoM) + " do ponto de partida. Veja abaixo onde pode estar a diferença.";
+    else frase += "O último lado para a " + M.metros(p.erroFechamentoM) + " do ponto de partida. Veja abaixo por que não fecha antes de usar o desenho.";
+    f.className = "fecho fecho--" + nivel;
+    f.innerHTML = '<span class="fecho__ic" aria-hidden="true">' + icone + '</span><div><p class="fecho__t">' + esc(titulo) + "</p><p>" + esc(frase) + "</p><small>" + esc(q.texto) + "</small></div>";
   }
 
   /** Quadro "Por que não fecha?": hipóteses de um erro só, com "Ver no mapa" e "Testar". */
@@ -563,33 +824,71 @@ Depois a tabela:
     }).join("");
   }
 
+  /** O texto (já normalizado) com cada lado lido marcado pelo número, e a partida com P. */
+  function marcarTexto(r) {
+    var p = r.poligonal, t = r.texto, faixas = [];
+    p.lados.forEach(function (l, i) { if (l.faixa) faixas.push({ a: l.faixa[0], b: l.faixa[1], i: i }); });
+    if (p.fonte === "azimute" && r.partidaLida && !estado.campos) faixas.push({ a: r.partidaLida.ini, b: r.partidaLida.ini + r.partidaLida.txt.length, i: "P" });
+    faixas.sort(function (x, y) { return x.a - y.a; });
+    var h = "", pos = 0, n = 0;
+    faixas.forEach(function (f) {
+      if (f.a < pos) return; // sobreposta: fica a primeira
+      h += esc(t.slice(pos, f.a));
+      var partida = f.i === "P";
+      if (!partida) n++;
+      h += '<mark class="lido__m' + (partida ? " lido__m--partida" : "") + (estado.destaque === f.i ? " sel" : "") + '"' + (partida ? "" : ' data-lado="' + f.i + '" tabindex="0" role="button" aria-label="Lado ' + (f.i + 1) + ': ver no mapa"') +
+        "><b>" + (partida ? "P" : f.i + 1) + "</b>" + esc(t.slice(f.a, f.b)) + "</mark>";
+      pos = f.b;
+    });
+    h += esc(t.slice(pos));
+    $("o-lido-texto").innerHTML = h;
+    $("o-lido-n").textContent = "(" + n + (p.fonte === "coordenadas" ? " vértices" : " lados") + " marcados)";
+  }
+
   // ------------------------------------------------------------ mapa (Web Mercator, blocos OSM opcionais)
 
-  var W = 800, H = 520, TILE = 256;
+  var W = 800, H = 520, TILE = 256, ZMAX = 19, ZMIN = 3;
+  /** Em tela estreita o mapa fica mais alto (800 × 680) e os textos do SVG crescem na mesma proporção que ele encolhe. */
+  function medirMapa() {
+    var svg = $("mapa"), larg = svg.getBoundingClientRect().width || W;
+    var h = larg < 560 ? 680 : 520;
+    if (h !== H) { H = h; svg.setAttribute("viewBox", "0 0 " + W + " " + H); }
+    svg.style.setProperty("--k", Math.max(1, Math.min(2.6, W / larg)).toFixed(2));
+  }
+  var girou = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(girou);
+    girou = setTimeout(function () { if (atual) desenhar(atual); }, 200);
+  });
   function px(lat, lon, z) {
     var s = TILE * Math.pow(2, z), la = lat * Math.PI / 180;
     return [(lon + 180) / 360 * s, (1 - Math.log(Math.tan(la) + 1 / Math.cos(la)) / Math.PI) / 2 * s];
   }
-  function desenhar(r) {
-    var p = r.poligonal, svg = $("mapa");
-    var pts = p.geo.slice(), chegada = M.inverter(p.chegada[0], p.chegada[1], p.fuso, true);
-    var z = 18, xy, x0, y0;
-    for (; z > 1; z--) {
+  /** Zoom e centro (em pixels do mundo naquele zoom) que mostram o polígono inteiro. */
+  function enquadramento(pts) {
+    var z = 18, xy;
+    for (; z > ZMIN; z--) {
       xy = pts.map(function (g) { return px(g[0], g[1], z); });
       var xs = xy.map(function (a) { return a[0]; }), ys = xy.map(function (a) { return a[1]; });
-      var bw = Math.max.apply(null, xs) - Math.min.apply(null, xs), bh = Math.max.apply(null, ys) - Math.min.apply(null, ys);
-      if (bw <= W - 120 && bh <= H - 110) break;
+      if (Math.max.apply(null, xs) - Math.min.apply(null, xs) <= W - 120 && Math.max.apply(null, ys) - Math.min.apply(null, ys) <= H - 110) break;
     }
     xy = pts.map(function (g) { return px(g[0], g[1], z); });
-    var cx = (Math.max.apply(null, xy.map(function (a) { return a[0]; })) + Math.min.apply(null, xy.map(function (a) { return a[0]; }))) / 2;
-    var cy = (Math.max.apply(null, xy.map(function (a) { return a[1]; })) + Math.min.apply(null, xy.map(function (a) { return a[1]; }))) / 2;
-    x0 = cx - W / 2; y0 = cy - H / 2;
+    var xs2 = xy.map(function (a) { return a[0]; }), ys2 = xy.map(function (a) { return a[1]; });
+    return { z: z, cx: (Math.max.apply(null, xs2) + Math.min.apply(null, xs2)) / 2, cy: (Math.max.apply(null, ys2) + Math.min.apply(null, ys2)) / 2 };
+  }
+
+  function desenhar(r) {
+    medirMapa();
+    var p = r.poligonal, svg = $("mapa");
+    var pts = p.geo.slice(), chegada = M.inverter(p.chegada[0], p.chegada[1], p.fuso, true);
+    var v = estado.vista || enquadramento(pts), z = v.z, x0 = v.cx - W / 2, y0 = v.cy - H / 2;
     function tela(lat, lon) { var a = px(lat, lon, z); return [a[0] - x0, a[1] - y0]; }
-    var h = [];
+    function xy(q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }
+    var h = [], fixo = [];
 
     // Fundo: blocos do OSM (só com internet e com a caixa marcada).
     var querFundo = $("fundo").checked && navigator.onLine !== false;
-    h.push('<rect class="m-fundo" x="0" y="0" width="' + W + '" height="' + H + '"/>');
+    h.push('<rect class="m-fundo" x="' + (-W) + '" y="' + (-H) + '" width="' + 3 * W + '" height="' + 3 * H + '"/>');
     if (querFundo) {
       var n = Math.pow(2, z), tiles = [];
       for (var tx = Math.floor(x0 / TILE); tx <= Math.floor((x0 + W) / TILE); tx++) {
@@ -605,8 +904,7 @@ Depois a tabela:
     // Grade UTM do fuso, em linhas projetadas (não é paralela à borda: o norte da quadrícula gira um pouco).
     var cantos = [[0, 0], [W, 0], [0, H], [W, H]].map(function (c) {
       var s = TILE * Math.pow(2, z), X = (c[0] + x0) / s * 360 - 180, Y = Math.PI * (1 - 2 * (c[1] + y0) / s);
-      var la = Math.atan(Math.sinh(Y)) * 180 / Math.PI;
-      return M.projetar(la, X, p.fuso, true);
+      return M.projetar(Math.atan(Math.sinh(Y)) * 180 / Math.PI, X, p.fuso, true);
     });
     var Emin = Math.min.apply(null, cantos.map(function (c) { return c.e; })), Emax = Math.max.apply(null, cantos.map(function (c) { return c.e; }));
     var Nmin = Math.min.apply(null, cantos.map(function (c) { return c.n; })), Nmax = Math.max.apply(null, cantos.map(function (c) { return c.n; }));
@@ -626,41 +924,71 @@ Depois a tabela:
     }
     h.push('<g class="m-grade">' + g.join("") + "</g>");
 
-    // Polígono, vértices e, se não fecha, a chegada do último lado.
-    var tp = pts.map(function (q) { return tela(q[0], q[1]); });
-    h.push('<polygon class="m-pol" points="' + tp.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" ") + '"/>');
-    var tc2 = tela(chegada[0], chegada[1]), tl = tp[tp.length - 1], t0 = tp[0];
-    if (Math.hypot(tc2[0] - t0[0], tc2[1] - t0[1]) > 3) {
-      h.push('<line class="m-gap" x1="' + tl[0].toFixed(1) + '" y1="' + tl[1].toFixed(1) + '" x2="' + tc2[0].toFixed(1) + '" y2="' + tc2[1].toFixed(1) + '"/>' +
-        '<circle class="m-chegada" cx="' + tc2[0].toFixed(1) + '" cy="' + tc2[1].toFixed(1) + '" r="5"/><text class="m-rot m-rot--gap" x="' + (tc2[0] + 8).toFixed(1) + '" y="' + (tc2[1] - 8).toFixed(1) + '">chegada do último lado</text>');
+    var tp = pts.map(function (q) { return tela(q[0], q[1]); }), nv = tp.length;
+    var tc2 = tela(chegada[0], chegada[1]), tl = tp[nv - 1], t0 = tp[0];
+    if (r.outra) h.push('<polygon class="m-outra" points="' + r.outra.geo.map(function (q) { return xy(tela(q[0], q[1])); }).join(" ") + '"/>');
+
+    if (estado.passo == null) {
+      // Polígono, vértices e, se não fecha, a chegada do último lado.
+      h.push('<polygon class="m-pol" points="' + tp.map(xy).join(" ") + '"/>');
+      if (Math.hypot(tc2[0] - t0[0], tc2[1] - t0[1]) > 3) {
+        h.push('<line class="m-gap" x1="' + tl[0].toFixed(1) + '" y1="' + tl[1].toFixed(1) + '" x2="' + tc2[0].toFixed(1) + '" y2="' + tc2[1].toFixed(1) + '"/>' +
+          '<circle class="m-chegada" cx="' + tc2[0].toFixed(1) + '" cy="' + tc2[1].toFixed(1) + '" r="5"/><text class="m-rot m-rot--gap" x="' + (tc2[0] + 8).toFixed(1) + '" y="' + (tc2[1] - 8).toFixed(1) + '">chegada do último lado</text>');
+      }
+      if (estado.destaque != null && tp[estado.destaque]) {
+        var da = tp[estado.destaque], db = tp[(estado.destaque + 1) % nv];
+        h.push('<line class="m-destaque" x1="' + da[0].toFixed(1) + '" y1="' + da[1].toFixed(1) + '" x2="' + db[0].toFixed(1) + '" y2="' + db[1].toFixed(1) + '"/>');
+      }
+    } else {
+      // Percurso: o contorno inteiro em tracejado, o caminho feito até aqui e o lado da vez com o norte e o azimute.
+      var k = estado.passo, fim = k === nv - 1 ? tc2 : tp[k + 1], ini = tp[k];
+      h.push('<polygon class="m-pol--fantasma" points="' + tp.map(xy).join(" ") + '"/>');
+      var feito = tp.slice(0, k + 1);
+      if (feito.length > 1) h.push('<polyline class="m-feito" points="' + feito.map(xy).join(" ") + '"/>');
+      h.push('<defs><marker id="seta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="m-seta" d="M0 0 10 5 0 10z"/></marker></defs>');
+      h.push('<line class="m-passo" x1="' + ini[0].toFixed(1) + '" y1="' + ini[1].toFixed(1) + '" x2="' + fim[0].toFixed(1) + '" y2="' + fim[1].toFixed(1) + '" marker-end="url(#seta)"/>');
+      if (k === nv - 1 && Math.hypot(tc2[0] - t0[0], tc2[1] - t0[1]) > 3) {
+        h.push('<line class="m-gap" x1="' + tc2[0].toFixed(1) + '" y1="' + tc2[1].toFixed(1) + '" x2="' + t0[0].toFixed(1) + '" y2="' + t0[1].toFixed(1) + '"/>');
+      }
+      // Norte da quadrícula no vértice de saída e o arco do azimute, no sentido do relógio.
+      var vu = p.vertices[k], gn = M.inverter(vu[0], vu[1] + 100, p.fuso, true), tn = tela(gn[0], gn[1]);
+      var dn = [tn[0] - ini[0], tn[1] - ini[1]], ln = Math.hypot(dn[0], dn[1]) || 1;
+      dn = [dn[0] / ln, dn[1] / ln];
+      var az = p.lados[k].azimuteGraus, ang0 = Math.atan2(dn[1], dn[0]), raio = 34;
+      var ang1 = ang0 + az * Math.PI / 180, angm = ang0 + az * Math.PI / 360;
+      var pn = [ini[0] + dn[0] * 62, ini[1] + dn[1] * 62];
+      h.push('<line class="m-norte-q" x1="' + ini[0].toFixed(1) + '" y1="' + ini[1].toFixed(1) + '" x2="' + pn[0].toFixed(1) + '" y2="' + pn[1].toFixed(1) + '"/>' +
+        '<text class="m-norte-q-t" x="' + (pn[0] + dn[0] * 10).toFixed(1) + '" y="' + (pn[1] + dn[1] * 10 + 4).toFixed(1) + '" text-anchor="middle">N</text>');
+      if (az > 0.01) {
+        var a0 = [ini[0] + raio * Math.cos(ang0), ini[1] + raio * Math.sin(ang0)], a1 = [ini[0] + raio * Math.cos(ang1), ini[1] + raio * Math.sin(ang1)];
+        h.push('<path class="m-arco" d="M' + xy(a0) + " A" + raio + " " + raio + " 0 " + (az > 180 ? 1 : 0) + " 1 " + xy(a1) + '"/>');
+      }
+      var cm = Math.cos(angm), ancora = cm > 0.25 ? "start" : cm < -0.25 ? "end" : "middle";
+      h.push('<text class="m-arco-t" x="' + (ini[0] + (raio + 10) * cm).toFixed(1) + '" y="' + (ini[1] + (raio + 10) * Math.sin(angm) + 4).toFixed(1) +
+        '" text-anchor="' + ancora + '">' + M.dms(az) + "</text>");
     }
-    if (r.outra) {
-      var to = r.outra.geo.map(function (q) { return tela(q[0], q[1]); });
-      h.push('<polygon class="m-outra" points="' + to.map(function (q) { return q[0].toFixed(1) + "," + q[1].toFixed(1); }).join(" ") + '"/>');
-    }
-    if (estado.destaque != null && tp[estado.destaque]) {
-      var da = tp[estado.destaque], db = tp[(estado.destaque + 1) % tp.length];
-      h.push('<line class="m-destaque" x1="' + da[0].toFixed(1) + '" y1="' + da[1].toFixed(1) + '" x2="' + db[0].toFixed(1) + '" y2="' + db[1].toFixed(1) + '"/>');
-    }
-    var rotular = tp.length <= 45;
+    var rotular = nv <= 45;
     tp.forEach(function (q, i) {
+      if (estado.passo != null && i > estado.passo + 1) return;
       h.push('<circle class="m-v' + (i === 0 ? " m-v0" : "") + '" cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="' + (i === 0 ? 5 : 3) + '"/>');
       if (rotular || i === 0) h.push('<text class="m-nome" x="' + (q[0] + 6).toFixed(1) + '" y="' + (q[1] - 5).toFixed(1) + '">' + esc(p.nomes[i]) + "</text>");
     });
 
-    // Norte e escala.
-    h.push('<g class="m-norte" transform="translate(' + (W - 34) + ',18)"><path d="M0 0 L9 26 L0 20 L-9 26 Z"/><text x="0" y="40" text-anchor="middle">N</text></g>');
+    // Norte e escala ficam fixos na tela (fora do grupo que se move ao arrastar).
+    fixo.push('<g class="m-norte" transform="translate(' + (W - 34) + ',18)"><path d="M0 0 L9 26 L0 20 L-9 26 Z"/><text x="0" y="40" text-anchor="middle">N</text></g>');
     var latc = pts.reduce(function (s, q) { return s + q[0]; }, 0) / pts.length;
     var mpp = Math.cos(latc * Math.PI / 180) * 2 * Math.PI * 6378137 / (TILE * Math.pow(2, z));
-    var esc_m = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000].filter(function (s) { return s / mpp <= 180; }).pop() || 10;
-    var len = esc_m / mpp;
-    h.push('<g class="m-escala" transform="translate(' + (W - 30 - len).toFixed(1) + "," + (H - 36) + ')"><rect x="-6" y="-16" width="' + (len + 12).toFixed(1) + '" height="26" rx="2"/>' +
-      '<path d="M0 0 v6 h' + len.toFixed(1) + ' v-6"/><text x="' + (len / 2).toFixed(1) + '" y="-4" text-anchor="middle">' + (esc_m >= 1000 ? esc_m / 1000 + " km" : esc_m + " m") + "</text></g>");
-    svg.innerHTML = h.join("");
+    var escM = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000].filter(function (s) { return s / mpp <= 180; }).pop() || 1;
+    var len = escM / mpp;
+    fixo.push('<g class="m-escala" transform="translate(' + (W - 30 - len).toFixed(1) + "," + (H - 36) + ')"><rect x="-6" y="-16" width="' + (len + 12).toFixed(1) + '" height="26" rx="2"/>' +
+      '<path d="M0 0 v6 h' + len.toFixed(1) + ' v-6"/><text x="' + (len / 2).toFixed(1) + '" y="-4" text-anchor="middle">' + (escM >= 1000 ? escM / 1000 + " km" : escM + " m") + "</text></g>");
+    svg.innerHTML = '<g id="mover">' + h.join("") + "</g>" + fixo.join("");
+    svg.dataset.zoom = z;
 
     $("attr").hidden = !querFundo;
-    $("mapa-info").textContent = (querFundo ? "" : (navigator.onLine === false ? "Sem internet: desenho com a grade UTM (" + passo + " m) e o norte." : "Grade UTM de " + passo + " m e norte verdadeiro para cima.")) +
-      (r.outra ? " Tracejado verde: a leitura pelas " + (r.outra.fonte === "coordenadas" ? "coordenadas dos vértices." : "lados (azimute e distância).") : "");
+    $("mapa-info").textContent = (querFundo ? "Arraste para mover; dois toques ou cliques aproximam. " : (navigator.onLine === false ? "Sem internet: desenho com a grade UTM (" + passo + " m) e o norte. " : "Grade UTM de " + passo + " m e norte verdadeiro para cima. ")) +
+      (r.outra ? "Tracejado verde: a leitura pelas " + (r.outra.fonte === "coordenadas" ? "coordenadas dos vértices." : "lados (azimute e distância).") : "");
+    document.querySelectorAll("[data-zoom]").forEach(function (b) { b.disabled = (b.dataset.zoom === "1" && z >= ZMAX) || (b.dataset.zoom === "-1" && z <= ZMIN); });
     if (querFundo) {
       var imgs = svg.querySelectorAll(".m-tile"), falhas = 0;
       Array.prototype.forEach.call(imgs, function (im) {
@@ -671,6 +999,136 @@ Depois a tabela:
       });
     }
   }
+
+  /** Aproxima (+1) ou afasta (-1), mantendo o ponto (sx, sy) da tela no lugar. Sem ponto, o centro. */
+  function zoom(passo, sx, sy) {
+    if (!atual) return;
+    var v = estado.vista || enquadramento(atual.poligonal.geo), z = Math.max(ZMIN, Math.min(ZMAX, v.z + passo));
+    if (z === v.z) return;
+    var f = Math.pow(2, z - v.z), ox = sx == null ? 0 : sx - W / 2, oy = sy == null ? 0 : sy - H / 2;
+    estado.vista = { z: z, cx: (v.cx + ox) * f - ox, cy: (v.cy + oy) * f - oy };
+    desenhar(atual);
+  }
+  document.querySelectorAll("[data-zoom]").forEach(function (b) { b.addEventListener("click", function () { zoom(Number(b.dataset.zoom)); }); });
+  $("enquadrar").addEventListener("click", function () { if (!atual) return; estado.vista = null; desenhar(atual); });
+
+  // Arrastar o mapa: o grupo anda junto com o dedo ou o mouse e o mapa se redesenha ao soltar.
+  (function () {
+    var svg = $("mapa"), ini = null, mov = [0, 0];
+    function escala() { return W / (svg.getBoundingClientRect().width || W); }
+    svg.addEventListener("pointerdown", function (ev) {
+      if (!atual || ev.button > 0) return;
+      ini = [ev.clientX, ev.clientY]; mov = [0, 0];
+      svg.setPointerCapture(ev.pointerId);
+    });
+    svg.addEventListener("pointermove", function (ev) {
+      if (!ini) return;
+      mov = [(ev.clientX - ini[0]) * escala(), (ev.clientY - ini[1]) * escala()];
+      if (Math.abs(mov[0]) + Math.abs(mov[1]) > 3) svg.classList.add("arrastando");
+      var g = $("mover");
+      if (g) g.setAttribute("transform", "translate(" + mov[0].toFixed(1) + "," + mov[1].toFixed(1) + ")");
+    });
+    function soltar() {
+      if (!ini) return;
+      ini = null;
+      svg.classList.remove("arrastando");
+      if (Math.abs(mov[0]) + Math.abs(mov[1]) <= 3) { var g = $("mover"); if (g) g.removeAttribute("transform"); return; }
+      var v = estado.vista || enquadramento(atual.poligonal.geo);
+      estado.vista = { z: v.z, cx: v.cx - mov[0], cy: v.cy - mov[1] };
+      desenhar(atual);
+    }
+    svg.addEventListener("pointerup", soltar);
+    svg.addEventListener("pointercancel", soltar);
+    svg.addEventListener("dblclick", function (ev) {
+      var b = svg.getBoundingClientRect(), k = W / b.width;
+      zoom(1, (ev.clientX - b.left) * k, (ev.clientY - b.top) * k);
+    });
+  })();
+
+  // Tela cheia: o bloco do mapa (barra, desenho e percurso), bom para mostrar num telão.
+  (function () {
+    var bloco = $("mapa-bloco"), bt = $("tela-cheia");
+    var pode = document.fullscreenEnabled || document.webkitFullscreenEnabled;
+    if (!pode) { bt.hidden = true; return; }
+    bt.addEventListener("click", function () {
+      var dentro = document.fullscreenElement || document.webkitFullscreenElement;
+      if (dentro) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      else (bloco.requestFullscreen || bloco.webkitRequestFullscreen).call(bloco);
+    });
+    document.addEventListener("fullscreenchange", function () {
+      var dentro = !!document.fullscreenElement;
+      bt.setAttribute("aria-label", dentro ? "Sair da tela cheia" : "Tela cheia");
+      bt.title = dentro ? "Sair da tela cheia" : "Tela cheia";
+    });
+  })();
+
+  // ------------------------------------------------------------ percurso lado a lado
+
+  var tocando = null, seguir = false;
+  function pararPercurso() {
+    if (tocando) { clearInterval(tocando); tocando = null; }
+    var b = $("percurso-play");
+    if (b) b.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11L13 8z"/></svg><span>Reproduzir</span>';
+  }
+  function irPara(k) {
+    if (!atual) return;
+    var p = atual.poligonal, n = p.vertices.length;
+    estado.passo = Math.max(0, Math.min(n - 1, k));
+    estado.destaque = estado.passo;
+    if (seguir) {
+      // Em tela estreita, o polígono inteiro fica pequeno demais: o mapa segue o lado, com até 2 níveis a mais de zoom.
+      var fim = estado.passo === n - 1 ? M.inverter(p.chegada[0], p.chegada[1], p.fuso, true) : p.geo[estado.passo + 1];
+      var todo = enquadramento(p.geo), lado = enquadramento([p.geo[estado.passo], fim]), z = Math.max(todo.z, Math.min(todo.z + 2, lado.z - 1));
+      var f = Math.pow(2, z - lado.z);
+      estado.vista = { z: z, cx: lado.cx * f, cy: lado.cy * f };
+    }
+    tabela(atual); marcarTexto(atual); desenhar(atual); legendaPercurso(atual);
+  }
+  function legendaPercurso(r) {
+    var dentro = estado.passo != null && r && r.poligonal;
+    $("percorrer").hidden = !!dentro;
+    $("percurso-barra").hidden = !dentro;
+    $("percurso-txt").hidden = !dentro;
+    if (!dentro) return;
+    var p = r.poligonal, k = estado.passo, n = p.vertices.length, l = p.lados[k];
+    $("percurso-n").textContent = (k + 1) + " de " + n;
+    var de = p.nomes[k], para = k === n - 1 ? p.nomes[0] : p.nomes[k + 1];
+    var leitura = l.deRumo ? "Rumo " + M.rumoTexto(l.azimuteGraus) + ", que é o azimute " + M.dms(l.azimuteGraus) : "Azimute " + M.dms(l.azimuteGraus);
+    var t = "<b>Lado " + (k + 1) + " de " + n + "</b>: de " + esc(de) + " a " + esc(para) + ". " + esc(leitura) + " e " + fmt(l.distanciaM, 2) + " m.";
+    if (l.trecho) t += " No texto: <q>" + esc(l.trecho.length > 120 ? l.trecho.slice(0, 120) + "…" : l.trecho) + "</q>";
+    if (k === n - 1 && p.fonte === "azimute") {
+      t += p.erroFechamentoM < 0.01 ? " <b>Fim:</b> o último lado volta à partida." :
+        " <b>Fim:</b> o último lado chega a " + esc(M.metros(p.erroFechamentoM)) + " da partida; essa sobra é o erro de fechamento.";
+    }
+    $("percurso-txt").innerHTML = t;
+    document.querySelectorAll('[data-passo="-1"],[data-passo="inicio"]').forEach(function (b) { b.disabled = k === 0; });
+    document.querySelector('[data-passo="1"]').disabled = k === n - 1;
+  }
+  $("percorrer").addEventListener("click", function () {
+    if (!atual) return;
+    estado.vista = null;
+    seguir = ($("mapa").getBoundingClientRect().width || W) < 560;
+    irPara(0);
+    rolar($("mapa-bloco"), "start");
+  });
+  $("percurso-barra").addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-passo]");
+    if (!b || !atual) return;
+    var acao = b.dataset.passo, n = atual.poligonal.vertices.length;
+    if (acao === "sair") { pararPercurso(); estado.passo = null; estado.destaque = null; if (seguir) estado.vista = null; seguir = false; mostrar(atual); $("percorrer").focus(); return; }
+    if (acao === "play") {
+      if (tocando) { pararPercurso(); return; }
+      if (estado.passo >= n - 1) irPara(0);
+      b.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"/></svg><span>Pausar</span>';
+      tocando = setInterval(function () {
+        if (estado.passo == null || estado.passo >= n - 1) { pararPercurso(); return; }
+        irPara(estado.passo + 1);
+      }, MENOS_MOVIMENTO ? 1600 : 1100);
+      return;
+    }
+    pararPercurso();
+    irPara(acao === "inicio" ? 0 : estado.passo + Number(acao));
+  });
 
   // ------------------------------------------------------------ arquivos
 
@@ -701,58 +1159,99 @@ Depois a tabela:
 
   // ------------------------------------------------------------ botões
 
-  $("ler").addEventListener("click", function () { ler(false); });
-  $("recalcular").addEventListener("click", function () { ler(true); });
-  $("exemplo").addEventListener("click", function () { $("texto").value = EXEMPLO; $("nome").value = "Fazenda Vereda do Exemplo (ficticia)"; ler(false); });
-  // O mesmo exemplo com um erro de digitação de propósito (742,69 escrito 724,69), para ver o diagnóstico.
-  $("exemplo-erro").addEventListener("click", function () {
-    $("texto").value = EXEMPLO.replace("SÓ PARA DEMONSTRAÇÃO", "SÓ PARA DEMONSTRAÇÃO, COM UM ERRO DE DIGITAÇÃO DE PROPÓSITO").replace("742,69", "724,69");
+  function carregarExemplo(comErro) {
+    $("texto").value = comErro
+      ? EXEMPLO.replace("SÓ PARA DEMONSTRAÇÃO", "SÓ PARA DEMONSTRAÇÃO, COM UM ERRO DE DIGITAÇÃO DE PROPÓSITO").replace("742,69", "724,69")
+      : EXEMPLO;
     $("nome").value = "Fazenda Vereda do Exemplo (ficticia)";
-    ler(false);
-  });
+    estado.campos = false;
+    ler(false, true);
+  }
+  $("ler").addEventListener("click", function () { clearTimeout(espera); ler(false, true); });
+  $("recalcular").addEventListener("click", function () { ler(true, true); });
+  $("exemplo").addEventListener("click", function () { carregarExemplo(false); });
+  // O mesmo exemplo com um erro de digitação de propósito (742,69 escrito 724,69), para ver o diagnóstico.
+  $("exemplo-erro").addEventListener("click", function () { carregarExemplo(true); });
+  $("exemplo-topo").addEventListener("click", function () { carregarExemplo(false); });
   $("limpar").addEventListener("click", function () {
+    clearTimeout(espera); pararPercurso();
     $("texto").value = ""; $("pe").value = ""; $("pn").value = ""; atual = null;
-    estado = { campos: false, fonte: null, correcoes: [], destaque: null };
+    estado = novoEstado();
     $("saida").hidden = true; $("o-erro-msg").hidden = true; $("vazio").hidden = false;
+    statusAoVivo({ lados: [] });
     $("partida-info").textContent = "A coordenada de partida e o fuso vêm do texto. Se não vierem, ou vierem errados, corrija aqui e toque em “Recalcular”.";
     $("texto").focus();
   });
   $("fundo").addEventListener("change", function () { if (atual) desenhar(atual); });
-  $("o-fonte").addEventListener("change", function (ev) { estado.fonte = ev.target.value; estado.destaque = null; refazer(); });
+  window.addEventListener("online", function () { if (atual) desenhar(atual); });
+  window.addEventListener("offline", function () { if (atual) desenhar(atual); });
+  $("o-fonte").addEventListener("change", function (ev) { estado.fonte = ev.target.value; estado.destaque = null; estado.passo = null; estado.vista = null; pararPercurso(); refazer(); });
   $("o-diag").addEventListener("click", function (ev) {
     var b = ev.target.closest("button");
     if (!b || !atual) return;
+    pararPercurso(); estado.passo = null;
     if (b.hasAttribute("data-desfazer")) { estado.correcoes = []; estado.destaque = null; refazer(); return; }
-    if (b.dataset.ver != null) { estado.destaque = Number(b.dataset.ver); tabela(atual); desenhar(atual); $("mapa").scrollIntoView({ block: "center" }); return; }
+    if (b.dataset.ver != null) { estado.destaque = Number(b.dataset.ver); tabela(atual); marcarTexto(atual); desenhar(atual); legendaPercurso(atual); rolar($("mapa"), "center"); return; }
     var h = atual.diagnostico && atual.diagnostico.hipoteses[Number(b.dataset.testar)];
     if (!h) return;
     estado.correcoes = [h.tipo === "extra" ? { lado: h.lado, remover: true } : { lado: h.lado, az: h.proposta.az, d: h.proposta.d }];
     estado.destaque = h.tipo === "extra" ? null : h.lado;
     refazer();
   });
+  function destacar(i) {
+    pararPercurso(); estado.passo = null;
+    estado.destaque = estado.destaque === i ? null : i;
+    tabela(atual); marcarTexto(atual); desenhar(atual); legendaPercurso(atual);
+  }
   $("o-tab").addEventListener("click", function (ev) {
     var tr = ev.target.closest("tbody tr");
-    if (!tr || !atual) return;
-    var i = Number(tr.dataset.i);
-    estado.destaque = estado.destaque === i ? null : i;
-    tabela(atual); desenhar(atual);
+    if (tr && atual) destacar(Number(tr.dataset.i));
+  });
+  function marcaEscolhida(ev) {
+    var m = ev.target.closest("[data-lado]");
+    if (!m || !atual) return;
+    if (ev.type === "keydown") { if (ev.key !== "Enter" && ev.key !== " ") return; ev.preventDefault(); }
+    destacar(Number(m.dataset.lado));
+    if (estado.destaque != null) rolar($("mapa"), "center");
+  }
+  $("o-lido-texto").addEventListener("click", marcaEscolhida);
+  $("o-lido-texto").addEventListener("keydown", marcaEscolhida);
+  // "?" dos números: abre e fecha a explicação logo abaixo do valor.
+  document.querySelectorAll(".ajuda").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var txt = b.closest("div").querySelector(".ajuda__txt"), aberto = b.getAttribute("aria-expanded") === "true";
+      b.setAttribute("aria-expanded", aberto ? "false" : "true");
+      txt.hidden = aberto;
+    });
+  });
+  // Links dentro da página rolam até a seção (no HTML único o <base> mandaria para o site).
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (ev) {
+      var alvo = document.getElementById(a.getAttribute("href").slice(1));
+      if (!alvo) return;
+      ev.preventDefault();
+      rolar(alvo);
+    });
   });
   $("copiar-memorial").addEventListener("click", function () {
     if (!atual) return;
     var t = M.memorialTexto(atual.poligonal, ($("nome").value || "Imóvel do memorial").trim());
-    var fim = function (ok) { $("copiado-memorial").textContent = ok ? "Memorial copiado." : "Não deu para copiar: use \u201cBaixar o memorial (.txt)\u201d."; };
+    var fim = function (ok) { $("copiado-memorial").textContent = ok ? "Memorial copiado." : "Não deu para copiar: use “Memorial (.txt)”."; };
     if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { fim(true); }, function () { fim(false); }); else fim(false);
   });
   /** Linha do topo do relatório impresso: nome, data e de onde saiu (também no Ctrl+P). */
+  var abertosAntes = [];
   function cabecalhoImpressao() {
     var d = new Date(), dia = String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear();
     $("impresso-em").textContent = ($("nome").value || "Imóvel do memorial").trim() + " · relatório gerado em " + dia +
       " em www.oanalistaambiental.com/memorial-geo.html · reconstrução do texto do memorial: confira no SIG e no original.";
+    // Os limites recolhidos também vão para o papel.
+    abertosAntes = [];
+    document.querySelectorAll(".limite details").forEach(function (d) { abertosAntes.push([d, d.open]); d.open = true; });
   }
   window.addEventListener("beforeprint", cabecalhoImpressao);
+  window.addEventListener("afterprint", function () { abertosAntes.forEach(function (x) { x[0].open = x[1]; }); });
   $("imprimir").addEventListener("click", function () { cabecalhoImpressao(); window.print(); });
-  window.addEventListener("online", function () { if (atual) desenhar(atual); });
-  window.addEventListener("offline", function () { if (atual) desenhar(atual); });
 
   $("copiar-ia").addEventListener("click", function () {
     var t = $("pedido-ia").textContent;

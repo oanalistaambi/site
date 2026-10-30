@@ -163,7 +163,9 @@
       if (!md) return;
       var d = numeroMetrico(md[1]);
       if (d == null || d <= 0 || d > 100000) return;
-      out.push(lado(a.az, d, a.rumo, a.ini, (a.txt + trecho.substring(0, md.index + md[0].length)).replace(/\s+/g, " ").trim()));
+      var l = lado(a.az, d, a.rumo, a.ini, (a.txt + trecho.substring(0, md.index + md[0].length)).replace(/\s+/g, " ").trim());
+      l.faixa = [a.ini, a.fim + md.index + md[0].length]; // onde o lado está no texto normalizado (do ângulo ao fim da distância)
+      out.push(l);
     });
     return out;
   }
@@ -217,7 +219,9 @@
       if (!md) return;
       var d = numeroMetrico(md[1]);
       if (d == null || d <= 0 || d > 100000) return;
-      out.push(lado(a.az, d, deRumo, inicio + a.ini, linha.trim()));
+      var l = lado(a.az, d, deRumo, inicio + a.ini, linha.trim());
+      l.faixa = [inicio, inicio + linha.length];
+      out.push(l);
     });
     return out;
   }
@@ -249,7 +253,9 @@
         if (!dm) continue;
         var d = numeroMetrico(dm[1]);
         if (d == null || d <= 0 || d > 100000) continue;
-        out.push(lado(az, d, deRumo, inicio, linha.trim()));
+        var l = lado(az, d, deRumo, inicio, linha.trim());
+        l.faixa = [inicio, inicio + linha.length];
+        out.push(l);
         return;
       }
     });
@@ -513,7 +519,9 @@
     var ls = vs.map(function (a, i) {
       var b = vs[(i + 1) % vs.length], d = Math.hypot(b[0] - a[0], b[1] - a[1]);
       per += d;
-      return lado(azimuteDe([b[0] - a[0], b[1] - a[1]]), d, false, seq.vertices[i].ini, seq.vertices[i].txt);
+      var l = lado(azimuteDe([b[0] - a[0], b[1] - a[1]]), d, false, seq.vertices[i].ini, seq.vertices[i].txt);
+      l.faixa = [seq.vertices[i].ini, seq.vertices[i].fim];
+      return l;
     });
     return { vertices: vs, chegada: vs[0], lados: ls, perimetroM: per, erroFechamentoM: null, precisaoRelativa: null,
       areaM2: areaPlana(vs), fonte: "coordenadas", fechadoNoTexto: seq.fechado };
@@ -744,7 +752,7 @@
   function analisar(texto, opcoes) {
     opcoes = opcoes || {};
     var t = normalizar(texto);
-    var r = { lados: lados(t), datum: datumCitado(t), fusoTexto: fusoCitado(t), avisos: [], conferencias: [], correcoes: [] };
+    var r = { texto: t, lados: lados(t), datum: datumCitado(t), fusoTexto: fusoCitado(t), avisos: [], conferencias: [], correcoes: [] };
     r.partidaLida = partidaDoTexto(t, r.fusoTexto);
     var p = r.partidaLida ? { e: r.partidaLida.e, n: r.partidaLida.n, fuso: r.partidaLida.fuso } : {};
     if (opcoes.e != null && opcoes.n != null) { p.e = opcoes.e; p.n = opcoes.n; }
@@ -764,6 +772,7 @@
       if (c.remover) { r.correcoes.push({ lado: c.lado, remover: true, original: l }); return; }
       var novo = lado(c.az != null ? c.az : l.azimuteGraus, c.d != null ? c.d : l.distanciaM, l.deRumo, l.posicao, l.trecho);
       novo.corrigido = { az: l.azimuteGraus, d: l.distanciaM };
+      novo.faixa = l.faixa;
       r.correcoes.push({ lado: c.lado, original: l, novo: novo });
       r.lados[c.lado] = novo;
     });

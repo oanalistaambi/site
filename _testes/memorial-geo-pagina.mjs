@@ -2,6 +2,8 @@
 // lateral, diagnóstico do fechamento com "Testar" e "Desfazer", memorial por coordenadas, destaque do lado
 // no mapa, os downloads (o .zip com os quatro arquivos do shapefile, DXF, CSV e o memorial em texto),
 // relatório para imprimir, funcionamento sem internet depois do primeiro carregamento e o HTML único.
+// Desde a v3: "Ver um exemplo pronto" no topo, leitura ao vivo, resumo em linguagem simples, "?" nos números,
+// marcas no texto lido, percurso lado a lado, aproximar, arrastar e enquadrar, "Entenda em 1 minuto".
 // Uso: python3 -m http.server 8765 (na raiz do site) e, em outro terminal,
 //      BASE=http://127.0.0.1:8765 node _testes/memorial-geo-pagina.mjs
 import { createRequire } from "node:module";
@@ -51,8 +53,12 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   const r = await pg.goto(BASE + "/memorial-geo.html", { waitUntil: "load" });
   ok(r.status() === 200, `${larg}px: abre`);
 
-  await pg.click("#exemplo");
+  ok(await pg.isVisible("#vazio") && await pg.locator(".como li").count() === 3, `${larg}px: estado vazio e "como funciona" em 3 passos`);
+  await pg.click("#exemplo-topo");
   await pg.waitForSelector("#saida:not([hidden])");
+  await pg.waitForFunction(() => { const r = document.getElementById("o-fecho").getBoundingClientRect(); return r.top >= 0 && r.top < innerHeight / 2; }, null, { timeout: 4000 });
+  ok(true, `${larg}px: "Ver um exemplo pronto" leva a tela até o resultado`);
+  ok(/Fecha bem/.test(await pg.textContent("#o-fecho")) && /30 vértices, 2\.324,0124 ha/.test(await pg.textContent("#o-fecho")), `${larg}px: resumo em linguagem simples`);
   const n = await pg.textContent("#o-n");
   ok(/^30/.test(n), `${larg}px: exemplo com 30 vértices (${n.trim()})`);
   ok(/ha/.test(await pg.textContent("#o-area")), `${larg}px: área em ha (${(await pg.textContent("#o-area")).trim()})`);
@@ -71,7 +77,59 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   }
   await pg.screenshot({ path: join(SAIDA, `memorial-geo-${larg}.png`), fullPage: true });
 
+  // "?" dos números.
+  await pg.click('.ajuda[aria-label="O que é erro de fechamento?"]');
+  ok(await pg.isVisible("#o-erro + .ajuda__txt") && /último deveria voltar/.test(await pg.textContent("#o-erro + .ajuda__txt")), `${larg}px: "?" explica o erro de fechamento`);
+
+  // O que foi lido, marcado no texto.
+  await pg.click("#o-lido summary");
+  ok(await pg.locator("#o-lido-texto mark[data-lado]").count() === 30 && await pg.locator("#o-lido-texto .lido__m--partida").count() === 1 && /30 lados marcados/.test(await pg.textContent("#o-lido-n")),
+    `${larg}px: 30 lados e a partida marcados no texto`);
+  await pg.click('#o-lido-texto mark[data-lado="4"]');
+  ok(await pg.getAttribute("#o-tab tbody tr.sel", "data-i") === "4" && await pg.locator("#mapa .m-destaque").count() === 1, `${larg}px: tocar na marca destaca o lado na tabela e no mapa`);
+
+  // Mapa: aproximar, arrastar e enquadrar.
+  const z0 = Number(await pg.getAttribute("#mapa", "data-zoom")), cx0 = Number(await pg.getAttribute("#mapa .m-v0", "cx"));
+  await pg.click('[data-zoom="1"]');
+  ok(Number(await pg.getAttribute("#mapa", "data-zoom")) === z0 + 1, `${larg}px: aproximar (zoom ${z0} → ${z0 + 1})`);
+  const antes = Number(await pg.getAttribute("#mapa .m-v0", "cx"));
+  const caixa = await pg.locator("#mapa").boundingBox();
+  await pg.mouse.move(caixa.x + caixa.width / 2, caixa.y + caixa.height / 2);
+  await pg.mouse.down();
+  await pg.mouse.move(caixa.x + caixa.width / 2 + 60, caixa.y + caixa.height / 2, { steps: 5 });
+  await pg.mouse.up();
+  const depois = Number(await pg.getAttribute("#mapa .m-v0", "cx"));
+  ok(depois - antes > 40, `${larg}px: arrastar move o mapa (${antes.toFixed(0)} → ${depois.toFixed(0)})`);
+  await pg.click("#enquadrar");
+  ok(Number(await pg.getAttribute("#mapa", "data-zoom")) === z0 && Number(await pg.getAttribute("#mapa .m-v0", "cx")) === cx0, `${larg}px: enquadrar volta ao polígono inteiro`);
+
+  // Percurso lado a lado.
+  await pg.click("#percorrer");
+  ok(await pg.isVisible("#percurso-barra") && /Lado 1 de 30/.test(await pg.textContent("#percurso-txt")) && await pg.locator("#mapa .m-passo").count() === 1 &&
+    await pg.locator("#mapa .m-norte-q").count() === 1, `${larg}px: percurso começa no lado 1, com o norte e o lado da vez`);
+  await pg.click('[data-passo="1"]');
+  await pg.click('[data-passo="1"]');
+  ok(/Lado 3 de 30/.test(await pg.textContent("#percurso-txt")) && /67°58'10"/.test(await pg.textContent("#percurso-txt")) && await pg.locator("#mapa .m-arco").count() === 1 &&
+    await pg.getAttribute("#o-tab tbody tr.sel", "data-i") === "2", `${larg}px: próximo lado, com o arco do azimute e a linha da tabela`);
+  await pg.click("#percurso-play");
+  await pg.waitForFunction(() => /Lado [4-9] de 30/.test(document.getElementById("percurso-txt").textContent), null, { timeout: 5000 });
+  ok(/Pausar/.test(await pg.textContent("#percurso-play")), `${larg}px: "Reproduzir" avança sozinho e vira "Pausar"`);
+  await pg.click('[data-passo="sair"]');
+  ok(await pg.isHidden("#percurso-barra") && await pg.locator("#mapa polygon.m-pol").count() === 1, `${larg}px: sair do percurso volta ao polígono`);
+
+  // Leitura ao vivo: colar o texto, sem tocar em botão.
+  await pg.fill("#texto", "E=612000,00 N=7795000,00 fuso 23\nV1; 90°; 100\nV2; 180°; 100\nV3; 270°; 100\nV4; 0°; 100");
+  await pg.waitForFunction(() => /1,0000 ha/.test(document.getElementById("o-area").textContent), null, { timeout: 4000 });
+  ok(/Lido: 4 lados e a partida/.test(await pg.textContent("#aovivo")), `${larg}px: leitura ao vivo, sem tocar em botão`);
+
+  // "Entenda em 1 minuto" e os limites.
+  await pg.click('a[href="#entenda"]');
+  await pg.waitForFunction(() => { const r = document.getElementById("entenda").getBoundingClientRect(); return r.top >= -5 && r.top < innerHeight; }, null, { timeout: 4000 });
+  ok(await pg.locator("#entenda .ent svg").count() === 3, `${larg}px: "Entenda em 1 minuto" com os três desenhos`);
+  ok(await pg.isVisible("#limite") && await pg.locator("#limite > ul > li").count() >= 6 && await pg.locator(".limite__mais li").count() === 3, `${larg}px: limites à vista e mais 3 num clique`);
+
   // Fechamento ruim: um lado a menos no exemplo.
+  await pg.click("#exemplo");
   await pg.evaluate(() => { const t = document.getElementById("texto"); t.value = t.value.replace(/; deste, segue com azimute de [^;]*?até o vértice V-12/, ""); });
   await pg.click("#ler");
   ok(/ruim/.test(await pg.textContent("#o-fecho")), `${larg}px: lado faltando dá fechamento ruim com aviso`);
@@ -139,6 +197,7 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   ok(/^MEMORIAL DESCRITIVO RECONSTRUÍDO/.test(await pg.evaluate(() => navigator.clipboard.readText())), `${larg}px: copia o memorial com coordenadas`);
   await pg.emulateMedia({ media: "print" });
   await pg.evaluate(() => window.dispatchEvent(new Event("beforeprint")));
+  ok(await pg.evaluate(() => document.querySelector(".limite__mais").open) && await pg.isHidden("#percorrer") && await pg.isHidden(".como"), `${larg}px: impressão abre os limites recolhidos e esconde os controles`);
   ok(await pg.isHidden("header.nav") && await pg.isHidden("#texto") && await pg.isHidden("#pedido-ia") && await pg.isVisible("#mapa") && await pg.isVisible("#o-tab") && await pg.isVisible("#limite"),
     `${larg}px: impressão só com o resultado, o mapa, a tabela e os limites`);
   ok(/relatório gerado em \d{2}\/\d{2}\/\d{4}/.test(await pg.textContent("#impresso-em")) && await pg.isVisible("#impresso-em"), `${larg}px: impressão com data e origem no topo`);
