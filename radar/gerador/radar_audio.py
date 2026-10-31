@@ -383,7 +383,92 @@ def sintetizar_episodio(ep, destino, chave):
     for c, ini in zip(ep["capitulos"], inicios):
         c["inicio_s"] = ini
     ep["duracao_s"] = round(_dur(destino))
+    ep["bytes"] = Path(destino).stat().st_size
+    ep["publicado_em"] = dt.datetime.now(dt.timezone(dt.timedelta(hours=-3))).isoformat(timespec="seconds")
     return sum(len(f) for f in falas)
+
+
+SITE = "https://www.oanalistaambiental.com/"
+PODCAST = {
+    "titulo": "Radar Ambiental do Diário Oficial",
+    "autor": "O Analista Ambiental",
+    "email": "contato@oanalistaambiental.com",
+    "pagina": SITE + "radar-audio.html",
+    "capa": SITE + "radar/podcast-capa.jpg",
+    "descricao": ("Os destaques ambientais do Diário Oficial da União, todo dia útil, em poucos minutos: o que muda, para quem e "
+                  "quando entra em vigor. Licenciamento, água e outorga, fiscalização, flora e unidades de conservação, fauna e "
+                  "pesca, mineração e barragens, Conama, Ibama, ICMBio, ANA e MMA. Resumo e voz gerados por inteligência "
+                  "artificial a partir do texto publicado; confira sempre o texto oficial pelos links de cada episódio. "
+                  "Conteúdo informativo, sem dados pessoais."),
+}
+
+
+def gerar_feed(eps, destino):
+    """RSS de podcast (Spotify, YouTube/YouTube Music, Apple Podcasts, Amazon) com os episódios que têm áudio."""
+    from email.utils import format_datetime
+    from xml.sax.saxutils import escape
+    q = lambda s: escape(str(s), {'"': "&quot;"})
+    agora = dt.datetime.now(dt.timezone(dt.timedelta(hours=-3)))
+    itens = []
+    for ep in sorted(eps, key=lambda e: e["data"], reverse=True):
+        if not ep.get("audio"):
+            continue
+        url = ep["audio"] if ep["audio"].startswith("http") else SITE + ep["audio"]
+        local = Path(ep["audio"])
+        tam = local.stat().st_size if local.exists() else ep.get("bytes") or 0
+        quando = dt.datetime.fromisoformat(ep.get("publicado_em") or ep["data"] + "T07:00:00-03:00")
+        d = dt.date.fromisoformat(ep["data"])
+        caps = [c for c in ep["capitulos"]]
+        # linhas "0:00 título" viram capítulos no YouTube; os links levam ao texto oficial
+        linhas = [f"{int(c.get('inicio_s') or 0) // 60}:{int(c.get('inicio_s') or 0) % 60:02d} {c['titulo']}" for c in caps]
+        html = [f"<p>{q(ep['titulo'])}.</p>", "<p>" + "<br>".join(q(x) for x in linhas) + "</p>", "<p>Textos oficiais:</p><ul>"]
+        texto = [ep["titulo"] + ".", "", *linhas, "", "Textos oficiais:"]
+        for c in caps:
+            for a in c.get("atos", []):
+                html.append(f'<li><a href="{q(a["link"])}">{q(a["titulo"])}</a> (vigência: {q(a.get("vigencia") or "confira no texto")})</li>')
+                texto.append(f"- {a['titulo']}: {a['link']}")
+        aviso = ("Resumo e voz gerados por inteligência artificial a partir do texto publicado. "
+                 "Antes de aplicar qualquer regra, confira o texto oficial. Página: " + PODCAST["pagina"])
+        html += ["</ul>", f"<p>{q(aviso)}</p>"]
+        texto += ["", aviso]
+        itens.append(f"""  <item>
+    <title>{q(f"DOU de {d.day:02d}/{d.month:02d}/{d.year}: {ep['titulo']}")}</title>
+    <description><![CDATA[{"".join(html)}]]></description>
+    <itunes:summary>{q(chr(10).join(texto))}</itunes:summary>
+    <link>{q(PODCAST["pagina"])}</link>
+    <guid isPermaLink="false">oanalistaambiental-{q(ep["id"])}</guid>
+    <pubDate>{format_datetime(quando)}</pubDate>
+    <enclosure url="{q(url)}" length="{tam}" type="audio/mpeg"/>
+    <itunes:duration>{int(ep.get("duracao_s") or 0)}</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="{q(PODCAST["capa"])}"/>
+  </item>""")
+    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>{q(PODCAST["titulo"])}</title>
+  <link>{q(PODCAST["pagina"])}</link>
+  <atom:link href="{SITE}radar/podcast.xml" rel="self" type="application/rss+xml"/>
+  <language>pt-br</language>
+  <copyright>O Analista Ambiental</copyright>
+  <description>{q(PODCAST["descricao"])}</description>
+  <itunes:summary>{q(PODCAST["descricao"])}</itunes:summary>
+  <itunes:author>{q(PODCAST["autor"])}</itunes:author>
+  <itunes:owner><itunes:name>{q(PODCAST["autor"])}</itunes:name><itunes:email>{q(PODCAST["email"])}</itunes:email></itunes:owner>
+  <itunes:image href="{q(PODCAST["capa"])}"/>
+  <image><url>{q(PODCAST["capa"])}</url><title>{q(PODCAST["titulo"])}</title><link>{q(PODCAST["pagina"])}</link></image>
+  <itunes:category text="News"><itunes:category text="Daily News"/></itunes:category>
+  <itunes:category text="Government"/>
+  <itunes:explicit>false</itunes:explicit>
+  <itunes:type>episodic</itunes:type>
+  <lastBuildDate>{format_datetime(agora)}</lastBuildDate>
+{chr(10).join(itens)}
+</channel>
+</rss>
+"""
+    Path(destino).write_text(xml, encoding="utf-8")
+    return len(itens)
 
 
 def hash_episodio(ep):
@@ -449,6 +534,7 @@ def main():
     ap.add_argument("--gravar-no-repo", action="store_true",
                     help="grava os MP3 novos na pasta do site (--no-repo) em vez de --audios (para a release)")
     ap.add_argument("--episodios", default="radar/episodios", help="pasta dos episódios diários do DOU (ficam no site)")
+    ap.add_argument("--feed", default="radar/podcast.xml", help="RSS do podcast (só o federal)")
     ap.add_argument("--hoje", default=dt.date.today().isoformat())
     a = ap.parse_args()
     url_repo = Path(a.no_repo).as_posix().rstrip("/") + "/"
@@ -519,6 +605,9 @@ def main():
              "dias": DIAS, "voz": {"nome": VOZ["nome"] + " (voz sintética do ElevenLabs)", "modelo": VOZ["modelo"]},
              "fontes": fontes}
     Path(a.saida).write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding="utf-8")
+    dou = next((f for f in fontes if f["id"] == "dou"), None)
+    if dou and dou.get("episodios") is not None:
+        print(f"{a.feed}: {gerar_feed(dou['episodios'], a.feed)} episódio(s) no podcast")
     print(f"{a.saida}: {sum(len(f['temas']) for f in fontes)} tema(s); {enviados} caracteres enviados ao ElevenLabs")
     return 0
 
