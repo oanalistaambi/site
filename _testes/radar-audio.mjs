@@ -70,6 +70,20 @@ const txt = await pg.locator("main").innerText() + JSON.stringify(dados);
 ok(!/\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}|\d{5}\.\d{6}\/\d{4}-\d{2}/.test(txt), "sem CPF, CNPJ ou processo (tela e dados)");
 await pg.goto(BASE + "/radar-audio.html#mg", { waitUntil: "networkidle" });
 ok(await pg.locator('#aba-mg[aria-selected="true"]').count() === 1, "#mg abre direto na aba Minas Gerais");
+// podcast: bloco na página, RSS válido e arquivos que os apps vão baixar
+await pg.click("#aba-federal");
+ok(await pg.locator(".ra-pod [data-copiar]").count() === 1, "bloco do podcast com o link do RSS");
+const rss = await (await ctx.request.get(BASE + "/radar/podcast.xml")).text();
+const itens = [...rss.matchAll(/<enclosure url="https:\/\/www\.oanalistaambiental\.com\/([^"]+)" length="(\d+)" type="audio\/mpeg"\/>/g)];
+ok(/<itunes:owner>/.test(rss) && /<itunes:image href="https:\/\/www\.oanalistaambiental\.com\/radar\/podcast-capa\.jpg"\/>/.test(rss), "RSS com dono e capa");
+ok(itens.length === dou.episodios.filter(e => e.audio).length, `RSS com ${itens.length} episódio(s)`);
+for (const [, arq, tam] of itens) {
+  const r = await ctx.request.get(BASE + "/" + arq);
+  ok(r.status() === 200 && (await r.body()).length === +tam, `RSS: ${arq} existe com ${tam} bytes`);
+}
+const capa = await (await ctx.request.get(BASE + "/radar/podcast-capa.jpg")).body();
+const sof = capa.indexOf(Buffer.from([0xff, 0xc0])) >= 0 ? capa.indexOf(Buffer.from([0xff, 0xc0])) : capa.indexOf(Buffer.from([0xff, 0xc2]));
+ok(capa.readUInt16BE(sof + 5) === 3000 && capa.readUInt16BE(sof + 7) === 3000, "capa do podcast em 3000×3000");
 ok(erros.length === 0, "sem erro de console " + erros.join(" | "));
 for (const p of ["/index.html", "/radar.html", "/ferramentas.html", "/sitemap.xml"]) {
   const t = await (await ctx.request.get(BASE + p)).text();

@@ -5,8 +5,8 @@ name: Radar em áudio (MG e DOU)
 # - Federal: um episódio por dia (até ~5 min, com capítulos), para as 4 últimas edições com destaque. Cada episódio fica
 #   salvo em radar/episodios/ e não é refeito (pode ser revisado à mão); os mais velhos saem sozinhos.
 # - Minas Gerais: um áudio curto por tema, com os 2 últimos dias de jornal.
-# Os MP3 ficam como arquivos da release fixa "radar-audios" (não entram no histórico do git) e os antigos são apagados.
-# Áudios gravados fora do workflow (quando o segredo ainda não existe) ficam em radar/audios/ e saem quando deixam a página.
+# Os MP3 ficam em radar/audios/ no próprio site (servidos como audio/mpeg, com avanço e retrocesso, como os apps de podcast
+# exigem) e saem quando deixam a página. O podcast (radar/podcast.xml) é o RSS lido por Spotify, YouTube e Apple Podcasts.
 # LGPD: nada de nome, CPF, CNPJ ou número de processo.
 #
 # PARA DESLIGAR: mude RADAR_AUDIO_LIGADO para "nao", ou deixe a data-limite passar (RADAR_AUDIO_ATE).
@@ -68,7 +68,7 @@ jobs:
           mkdir -p /tmp/mg /tmp/dou /tmp/mp3
           python3 -I radar/gerador/radar_audio.py --mg /tmp/mg --dou /tmp/dou --saida radar/audio.json --audios /tmp/mp3 \
             --existentes /tmp/existentes.txt --hoje ${{ steps.ligado.outputs.hoje }} \
-            --base-url "https://github.com/${{ github.repository }}/releases/download/$RELEASE/"
+            --base-url "https://github.com/${{ github.repository }}/releases/download/$RELEASE/" --gravar-no-repo
           if ls /tmp/mp3/*.mp3 >/dev/null 2>&1; then gh release upload "$RELEASE" /tmp/mp3/*.mp3 --clobber; fi
       - name: Publicar se mudou
         if: steps.ligado.outputs.roda == 'sim'
@@ -82,7 +82,7 @@ jobs:
               grep -qF "\"$f\"" radar/audio.json || git rm -q "$f"
             done
           fi
-          git add -A radar/audio.json radar/episodios
+          git add -A radar/audio.json radar/episodios radar/audios radar/podcast.xml
           if ! git diff --cached --quiet; then
             git commit -m "Radar em áudio: atualização automática"
             for i in 1 2 3; do git pull --rebase -q origin main && git push && break; sleep 5; done

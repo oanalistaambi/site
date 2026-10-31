@@ -6,6 +6,7 @@
 <title>Diário Oficial em áudio — O Analista Ambiental</title>
 <meta name="description" content="O Diário Oficial ambiental em áudio: episódios diários do Diário Oficial da União, com capítulos por destaque, e áudios por tema do Diário Oficial de Minas Gerais, sempre com o link do texto oficial.">
 <meta name="robots" content="noindex">
+<link rel="alternate" type="application/rss+xml" title="Radar Ambiental do Diário Oficial (podcast)" href="https://www.oanalistaambiental.com/radar/podcast.xml">
 <link rel="canonical" href="https://www.oanalistaambiental.com/radar-audio.html">
 <link rel="icon" href="assets/logo.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,6 +117,13 @@
 .ra-mg .ra-ep h3{font-size:1.15rem}
 .ra-vazio{color:var(--text-soft);font-style:italic}
 .ra-legenda{display:flex;flex-wrap:wrap;gap:.35rem;margin:.6rem 0 0}
+.ra-pod{display:grid;gap:.7rem;background:#0E1512;color:#E7EDE6;border-radius:16px;padding:1rem 1.1rem;margin-top:1rem;grid-template-columns:auto 1fr;align-items:center}
+.ra-pod img{width:76px;height:76px;border-radius:10px}
+.ra-pod b{font-family:var(--f-display);font-size:1.08rem}
+.ra-pod p{margin:.2rem 0 0;color:#C9D4CB;font-size:.95rem;line-height:1.4}
+.ra-pod__btns{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:.45rem}
+.ra-pod__btns a,.ra-pod__btns button{font:inherit;font-size:.9rem;font-weight:600;border-radius:999px;padding:.45rem .95rem;border:1px solid #3A4E40;background:transparent;color:#E7EDE6;text-decoration:none;cursor:pointer;min-height:40px;display:inline-flex;align-items:center}
+.ra-pod__btns a.ra-pod__pri{background:#E3C06A;color:#0E1512;border-color:#E3C06A}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .ra-tema{color:#0E1512}}
 @media(max-width:520px){.ra-cap{grid-template-columns:1fr}.ra-cap__corpo{grid-column:1}.ra-cap__t{justify-self:start}.ra-ctrl .ra-baixar{margin-left:0}}
 </style>
@@ -218,6 +226,14 @@
     h+='<details class="ra-transc"><summary>Ler o texto do áudio</summary><p>'+esc(t.roteiro)+'</p></details>';
     return h+'</article>';
   }
+  var links={}, RSS='https://www.oanalistaambiental.com/radar/podcast.xml';
+  var NOMES=[['spotify','Spotify'],['youtube_music','YouTube Music'],['youtube','YouTube'],['apple','Apple Podcasts'],['amazon','Amazon Music']];
+  function podcast(){
+    var bt=NOMES.filter(function(n){return /^https:\/\//.test(links[n[0]]||'')}).map(function(n,i){return '<a class="'+(i===0?'ra-pod__pri':'')+'" href="'+esc(links[n[0]])+'" target="_blank" rel="noopener">Ouvir no '+n[1]+'</a>'}).join('');
+    return '<div class="ra-pod"><img src="radar/podcast-capa.jpg" alt="" width="76" height="76"><div><b>Ouça no carro: assine o podcast</b>'+
+      '<p>'+(bt?'O episódio novo chega sozinho no seu app todo dia útil.':'Em breve no Spotify e no YouTube. Já dá para assinar em qualquer app que aceite o link do RSS (Pocket Casts, AntennaPod, Apple Podcasts).')+'</p></div>'+
+      '<div class="ra-pod__btns">'+bt+'<button type="button" data-copiar="'+RSS+'">Copiar link do RSS</button><a href="radar/podcast.xml" target="_blank" rel="noopener">Abrir o RSS</a></div></div>';
+  }
   function render(fid){
     document.querySelectorAll('.ra-abas button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.fonte===fid)});
     var painel=document.getElementById('ra-painel');
@@ -232,7 +248,8 @@
     var h='';
     if(fid==='dou'){
       var eps=f.episodios||[];
-      if(!eps.length)h='<p class="ra-vazio">Nenhum destaque ambiental nas últimas edições do DOU.</p>';
+      h=podcast();
+      if(!eps.length)h+='<p class="ra-vazio">Nenhum destaque ambiental nas últimas edições do DOU.</p>';
       eps.forEach(function(ep,i){if(i===1)h+='<h2 class="ra-anteriores">Edições anteriores</h2>';h+=episodio(ep,i)});
     }else{
       h='<p class="ra-info" style="margin-top:.8rem">Um áudio curto por tema, com os atos de '+(f.janela||[]).map(function(d){return dataLonga(d)}).join(' e ')+'.</p>';
@@ -254,12 +271,15 @@
   document.querySelector('.ra-abas').addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;history.replaceState(null,'',b.dataset.fonte==='mg'?'#mg':'#federal');render(b.dataset.fonte)});
   painel.addEventListener('click',function(ev){
     var b=ev.target.closest('.ra-ouvir');if(b){ouvir(b,b.dataset.fala);return}
+    var cp=ev.target.closest('[data-copiar]');
+    if(cp){var ok=function(){cp.textContent='Link copiado!';setTimeout(function(){cp.textContent='Copiar link do RSS'},2500)};
+      if(navigator.clipboard)navigator.clipboard.writeText(cp.dataset.copiar).then(ok,function(){prompt('Copie o link do RSS:',cp.dataset.copiar)});else prompt('Copie o link do RSS:',cp.dataset.copiar);return}
     var ir=ev.target.closest('[data-ir]');
     if(ir){var l=ir.closest('.ra-caps'),a=document.getElementById(l.dataset.audio);if(a){a.currentTime=+ir.dataset.ir;a.play()}return}
     var v=ev.target.closest('[data-vel]');
     if(v){var c=v.closest('.ra-ctrl'),au=document.getElementById(c.dataset.audio);au.playbackRate=+v.dataset.vel;c.querySelectorAll('[data-vel]').forEach(function(x){x.setAttribute('aria-pressed',x===v)})}
   });
-  fetch('radar/audio.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+  fetch('radar/podcast-links.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{}}).catch(function(){return {}}).then(function(l){links=l||{};return fetch('radar/audio.json',{cache:'no-store'})}).then(function(r){return r.json()}).then(function(d){
     dados=d;render(/(^|#)mg$/.test(location.hash)?'mg':'dou');
   }).catch(function(){document.getElementById('ra-info').textContent='Não foi possível carregar o radar em áudio agora.'});
 })();
