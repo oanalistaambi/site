@@ -262,6 +262,52 @@ const exemplo = JSON.parse(readFileSync(new URL("../memorial-geo.html", import.m
   ok(/^E 610\.100,00 m e N 7\.800\.000,00$/.test(c.texto.slice(c.poligonal.lados[1].faixa[0], c.poligonal.lados[1].faixa[1])), "no memorial por coordenadas, o vértice marca a coordenada");
 }
 
+// ---- Certidão que copia o memorial do SIGEF (exemplo fictício): "azimute plano e distância: AZ e DIST",
+// sem "m" na distância, e cada vértice com "N -lat m e E -long m" em grau decimal.
+{
+  // Polígono fictício em MG (fuso 23): vértices em grau decimal, com 5 casas como na certidão.
+  const geo = [[-18.10000, -44.50000], [-18.10150, -44.49800], [-18.10400, -44.49900], [-18.10450, -44.50250], [-18.10200, -44.50300]];
+  const utm = geo.map(([la, lo]) => M.projetar(la, lo, 23, true));
+  const az = (a, b) => { let x = Math.atan2(b.e - a.e, b.n - a.n) * 180 / Math.PI; return x < 0 ? x + 360 : x; };
+  const dms = g => { const t = Math.round(g * 360000); const d = Math.floor(t / 360000), m = Math.floor(t % 360000 / 6000), s = (t % 6000) / 100;
+    return `${d}°${String(m).padStart(2, "0")}'${s.toFixed(2).padStart(5, "0")}"`; };
+  const br = v => v.toFixed(2).replace(".", ",");
+  const area = M.areaPlana(utm.map(u => [u.e, u.n])) / 10000;
+  const certidao = (distancia) => {
+    let t = `ÁREA: ${area.toFixed(4).replace(".", ",")} ha\nInicia-se a descrição deste perímetro no vértice XYZ-V-0001, de coordenadas N ${geo[0][0].toFixed(5)} m e E ${geo[0][1].toFixed(5)} m, Datum\nSIRGAS 2000 com Meridiano Central -45; `;
+    for (let i = 0; i < geo.length; i++) {
+      const a = utm[i], b = utm[(i + 1) % geo.length], d = distancia(i, Math.hypot(b.e - a.e, b.n - a.n));
+      const [la, lo] = geo[(i + 1) % geo.length];
+      // O 3º lado quebra no rodapé da página, entre "azimute plano e" e "distância:".
+      const par = i === 2 ? `azimute plano e\nRua Fictícia, nº 1 - Centro\n\n— página 2 de 2 (lida por imagem) —\nCNM: 000000.0.0000000-00\ndistância:` : "azimute plano e distância:";
+      t += `deste, segue confrontando com Fazenda Fictícia, com os seguintes ${par}${dms(az(a, b))} e ${br(d)}; até o vértice V, de coordenadas N ${la.toFixed(5)} m${i === 1 ? "e" : " e"}\nE ${lo.toFixed(5)} m; `;
+    }
+    return t + "encerrando esta descrição.";
+  };
+  let r = M.analisar(certidao((i, d) => d));
+  ok(r.lados.length === 5 && r.lados.every(l => !l.deRumo), `SIGEF na certidão: "azimute plano e distância: 128°42'38.07" e 185,69" vira lado, também partido no rodapé (${r.lados.length} lados)`);
+  ok(r.partidaLida && r.partidaLida.origem === "geo" && r.fusoTexto === 23, "SIGEF na certidão: partida em grau decimal escrita como \"N -18.10000 m e E -44.50000 m\", fuso pelo meridiano central -45");
+  ok(r.sequencia && r.sequencia.vertices.length === 5 && r.sequencia.fechado, "SIGEF na certidão: as 5 coordenadas dos vértices são lidas, também com quebra de linha e \"me\" grudado");
+  ok(r.fonte === "azimute" && r.poligonal.qualidade.nivel === "ok", `SIGEF na certidão: lados e coordenadas batem, o desenho sai dos lados (${r.poligonal.qualidade.texto})`);
+  r = M.analisar(certidao((i, d) => i === 1 ? d + 80 : d));
+  ok(r.fonte === "coordenadas" && r.trocouFonte && r.trocouFonte.areaConfere, "distância escrita errada e coordenadas que conferem com a área: o desenho sai das coordenadas");
+  ok(r.conferencias.some(c => /Desenho pelas coordenadas/.test(c.texto)) && r.conferencias.some(c => /^1 de 5 distâncias escritas não batem/.test(c.texto)),
+    "e a página diz por que trocou e qual lado não bate");
+  ok(M.analisar(certidao((i, d) => i === 1 ? d + 80 : d), { fonte: "azimute" }).fonte === "azimute", "a pessoa ainda pode escolher a leitura pelos lados");
+}
+
+// ---- OCR: carimbo vertical da margem
+{
+  const linha = (y, palavras) => ({ words: palavras.map(([text, x0, x1]) => ({ text, bbox: { x0, x1, y0: y, y1: y + 20 } })) });
+  const corpo = y => [["azimute", 100, 200], ["122°40'59.02\"", 210, 380], ["e", 390, 400]];
+  const linhas = [0, 1, 2, 3, 4, 5].map(k => linha(100 + 30 * k, corpo().concat([["3", 1900, 1915]])));
+  const p = M.pedacosDoOcr(linhas, 2000);
+  ok(p.length === 6 && p.every(x => x.texto === "azimute 122°40'59.02\" e" && x.x1 === 400), "carimbo da margem (letra solta no fim de 5 linhas ou mais) sai do OCR");
+  const poucas = M.pedacosDoOcr(linhas.slice(0, 2), 2000);
+  ok(poucas.every(x => /   3$/.test(x.texto)), "letra no fim de só 2 linhas fica (pode ser coluna de tabela)");
+  ok(M.limparOcr("distância:119º2516.52\" e 458,98") === "distância:119°25'16.52\" e 458,98", "OCR: apóstrofo dos minutos que sumiu (119°2516.52\" → 119°25'16.52\")");
+}
+
 // ---- Texto vindo de PDF e de OCR
 {
   // OrdemLinhasTest do app: OCR de tabela em colunas volta a sair linha a linha.

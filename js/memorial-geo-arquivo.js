@@ -197,14 +197,11 @@
     }));
     if (sinal && sinal.parado) throw Falha("Leitura interrompida.");
     var r = await espera(w.recognize(new Uint8Array(png), {}, { text: true, blocks: true }));
-    var pedacos = [];
+    var linhas = [];
     (r.data.blocks || []).forEach(function (b) {
-      (b.paragraphs || []).forEach(function (p) {
-        (p.lines || []).forEach(function (l) {
-          pedacos.push({ texto: l.text.replace(/\s+$/, ""), x0: l.bbox.x0, x1: l.bbox.x1, y0: l.bbox.y0, y1: l.bbox.y1 });
-        });
-      });
+      (b.paragraphs || []).forEach(function (p) { linhas.push.apply(linhas, p.lines || []); });
     });
+    var pedacos = M.pedacosDoOcr(linhas, canvas.width);
     return M.limparOcr(pedacos.length ? M.montarLinhas(pedacos) : r.data.text || "");
   }
 
