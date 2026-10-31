@@ -242,6 +242,31 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   await ctx.close();
 }
 
+// Sem polígono: os pontos lidos vão para o mapa e para o KML.
+{
+  const ctx = await nav.newContext({ viewport: { width: 390, height: 844 }, acceptDownloads: true });
+  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, r => r.abort());
+  const pg = await ctx.newPage();
+  const erros = [];
+  pg.on("pageerror", e => erros.push(String(e)));
+  await pg.goto(BASE + "/memorial-geo.html", { waitUntil: "load" });
+  await pg.fill("#texto", `Inicia-se no vértice V1, de coordenadas E 612.000,00 m e N 7.795.000,00 m, fuso 23 S; deste segue com azimute de 120°15'30" e distância de 85,40 m até V2; deste com rumo S 12°00' W e distância de 230,50 m até V3`);
+  await pg.click("#ler");
+  await pg.waitForSelector("#saida:not([hidden])");
+  ok(/Só os pontos/.test(await pg.textContent("#o-fecho")) && await pg.locator("#mapa circle.m-v").count() === 3 && await pg.locator("#mapa polygon.m-pol").count() === 0,
+    "sem polígono: os 3 pontos (partida e fim de cada lado) no mapa, sem polígono");
+  ok(await pg.isHidden('[data-baixar="shp"]') && await pg.isHidden("#percorrer") && await pg.isVisible('[data-baixar="kml"]'), "sem polígono: KML à mão; shapefile e percurso ficam de fora");
+  const [d] = await Promise.all([pg.waitForEvent("download"), pg.click('[data-baixar="kml"]')]);
+  const k = join(SAIDA, "pontos.kml"); await d.saveAs(k);
+  ok((readFileSync(k, "utf8").match(/<Point>/g) || []).length === 3, "sem polígono: o KML traz os 3 pontos");
+  await pg.fill("#texto", "Marco de referência: N -18.10000 m e E -44.50000 m, SIRGAS 2000.");
+  await pg.click("#ler");
+  await pg.waitForFunction(() => document.querySelectorAll("#mapa circle.m-v").length === 1);
+  ok(/o ponto lido/.test(await pg.textContent("#o-fecho")), "uma coordenada só: 1 ponto no mapa");
+  ok(erros.length === 0, "sem polígono: sem erro de JavaScript " + erros.join(" | "));
+  await ctx.close();
+}
+
 // Leitura de arquivo: PDF com texto, PDF escaneado (OCR), "Parar" e tipo não aceito.
 for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   const ctx = await nav.newContext({ viewport: { width: larg, height: alt } });
