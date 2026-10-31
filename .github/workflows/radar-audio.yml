@@ -79,6 +79,7 @@ jobs:
           if [ -d radar/audios ]; then
             for f in radar/audios/*.mp3; do
               [ -e "$f" ] || continue
+              case "$f" in radar/audios/palestra-*) continue ;; esac  # áudio fixo do slide da palestra (kit do DAE)
               grep -qF "\"$f\"" radar/audio.json || git rm -q "$f"
             done
           fi
