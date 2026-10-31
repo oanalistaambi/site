@@ -51,6 +51,14 @@ ok(await pg.$eval(`#ep-${dou.episodios[1].data}`, el => !el.paused), "ao termina
 await pg.$$eval("#ra-painel audio", as => as.forEach(a => a.pause()));
 const assinar = await pg.$$eval("#assinar a", as => as.map(a => a.getAttribute("href")));
 ok(assinar.some(h => /^pktc:\/\/subscribe\/www\.oanalistaambiental\.com\/radar\/podcast\.xml$/.test(h)), "botão de assinar no app de podcast");
+{ // no Android, Pocket Casts e Podcast Addict abrem o app ou a Play Store
+  const and = await (await nav.newContext({ viewport: { width: 390, height: 844 }, userAgent: "Mozilla/5.0 (Linux; Android 14; SM-S911B) AppleWebKit/537.36 Chrome/126 Mobile Safari/537.36" })).newPage();
+  await and.route(/^https?:\/\/(?!127\.0\.0\.1)/, r => r.abort());
+  await and.goto(BASE + "/radar-audio.html", { waitUntil: "networkidle" });
+  const hs = await and.$$eval("#assinar a", as => as.map(a => a.getAttribute("href")));
+  ok(hs.some(h => /^https:\/\/antennapod\.org\/deeplink\/subscribe\//.test(h)) && hs.filter(h => /^intent:\/\/.*S\.browser_fallback_url=https%3A%2F%2Fplay\.google\.com/.test(h)).length === 2, "Android: AntennaPod, e Pocket Casts e Podcast Addict com volta para a Play Store");
+  await and.close();
+}
 // pular para o 2º destaque do episódio mais recente
 const ep0 = dou.episodios[0];
 const alvo = ep0.capitulos.filter(c => c.atos.length)[0];

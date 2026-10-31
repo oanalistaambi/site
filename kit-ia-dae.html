@@ -67,6 +67,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--ouro);outline-offse
 .material a{display:flex;flex-direction:column;gap:2px;min-height:56px;justify-content:center;background:var(--folha);border:1px solid var(--linha);border-left:6px solid var(--ouro);border-radius:12px;padding:14px 16px;color:var(--tinta);text-decoration:none;font-weight:800;font-size:17px}
 .material a span{font-weight:400;font-size:14px;color:var(--suave)}
 .material a:hover{border-color:var(--ouro)}
+.ouca{background:var(--folha);border:2px solid var(--musgo);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.ouca h2{display:flex;align-items:center;gap:8px}
+.ouca .faixa{display:flex;flex-direction:column;gap:6px}
+.ouca .faixa b{color:var(--tinta);font-size:16px}
+.ouca .faixa span{font-size:14px;color:var(--suave)}
+.ouca audio{width:100%}
+.ouca .mais{display:inline-flex;align-items:center;min-height:44px;font-weight:800;color:var(--musgo)}
 .passos{margin:4px 0 0;padding:0;list-style:none;counter-reset:passo;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
 .passos li{counter-increment:passo;display:flex;gap:10px;align-items:baseline;background:var(--folha);border:1px solid var(--linha);border-radius:10px;padding:10px 12px;font-size:15px}
 .passos li::before{content:counter(passo);font-family:var(--f-mono);font-weight:600;color:var(--papel);background:var(--musgo);border-radius:50%;min-width:24px;height:24px;display:inline-grid;place-items:center;font-size:13px}
@@ -91,7 +98,7 @@ mark.campo{background:var(--amar-f);color:inherit;border-radius:3px;padding:0 1p
 .rodape a{color:var(--musgo)}
 @media (max-width:480px){.ficha{padding:16px}.caixa{padding:16px}pre{padding:12px;font-size:13px}.estrutura dl{grid-template-columns:1fr}.estrutura dd{margin-bottom:6px}}
 @media print{
-  .busca,.filtros,.indice-caixa,.material,.caixa-material,[data-copia],.pedido>summary,.vazio{display:none!important}
+  .busca,.filtros,.indice-caixa,.material,.caixa-material,.ouca,[data-copia],.pedido>summary,.vazio{display:none!important}
   [hidden]{display:flex!important}
   body{background:#fff;color:#000;font-size:12pt}
   .ficha{break-inside:avoid;border:1px solid #999}
@@ -113,6 +120,16 @@ mark.campo{background:var(--amar-f);color:inherit;border-radius:3px;padding:0 1p
 <li><span><b>Anexe</b> o material e confira as páginas que a IA citar.</span></li>
 </ol>
 </header>
+
+<section class="ouca" aria-labelledby="ouca-t" id="ouvir">
+<h2 id="ouca-t">▶ Ouça agora: o Diário Oficial em áudio</h2>
+<div class="faixa"><b>O áudio do slide: Resolução Conama nº 517/2026</b><span>DOU, edição extra de 16/10/2026 · licenciamento da aquicultura · 30 s</span>
+<audio controls preload="metadata" src="radar/audios/palestra-conama-517.mp3"></audio></div>
+<div class="faixa" id="ouca-ep" hidden><b id="ouca-ep-t">Episódio mais recente do DOU</b><span id="ouca-ep-s"></span>
+<audio controls preload="metadata" id="ouca-ep-a"></audio></div>
+<a class="mais" href="radar-audio.html#federal">Todos os episódios, capítulos e como assinar o podcast →</a>
+<p class="dica" style="margin:0">Resumo e voz gerados por IA a partir do texto publicado. Confira sempre o texto oficial.</p>
+</section>
 
 <nav aria-label="Material da palestra" class="caixa-material">
 <h2>Material da palestra</h2>
@@ -777,6 +794,19 @@ SAÍDA
 
 <p class="rodape">Material de apoio do workshop "Como utilizar a IA para acelerar o trabalho dos servidores públicos na análise de processos ambientais", DAE 2026, Florianópolis. Nomes de ferramentas e sistemas aparecem só como exemplo. Preparado com apoio de IA e revisado pelo autor. Opiniões pessoais, sem representar órgão público. <a href="https://www.oanalistaambiental.com/">oanalistaambiental.com</a></p>
 </div>
+<script>
+// Episódio mais recente do podcast (radar/audio.json), tocado aqui mesmo
+fetch('radar/audio.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+  var f=(d.fontes||[]).find(function(x){return x.id==='dou'}),e=((f&&f.episodios)||[]).filter(function(x){return /^radar\/audios\/[\w.-]+\.mp3$/.test(x.audio||'')})[0];
+  if(!e)return;
+  var p=e.data.split('-'),m=Math.floor((e.duracao_s||0)/60),s=(e.duracao_s||0)%60;
+  document.getElementById('ouca-ep-a').src=e.audio;
+  document.getElementById('ouca-ep-t').textContent='Episódio mais recente: '+e.titulo;
+  document.getElementById('ouca-ep-s').textContent='DOU de '+p[2]+'/'+p[1]+'/'+p[0]+(e.duracao_s?' · '+(m?m+' min ':'')+(s?s+' s':''):'');
+  document.getElementById('ouca-ep').hidden=false;
+}).catch(function(){});
+document.addEventListener('play',function(ev){document.querySelectorAll('.ouca audio').forEach(function(a){if(a!==ev.target)a.pause()})},true);
+</script>
 <script>
 document.querySelectorAll('[data-copia]').forEach(b => b.addEventListener('click', async () => {
   const el = document.getElementById(b.dataset.copia);

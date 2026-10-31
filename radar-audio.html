@@ -240,12 +240,14 @@
   var NOMES=[['spotify','Spotify'],['youtube_music','YouTube Music'],['youtube','YouTube'],['apple','Apple Podcasts'],['amazon','Amazon Music']];
   var UA=navigator.userAgent||'', IOS=/iPhone|iPad|iPod|Macintosh/.test(UA)&&!/Android/.test(UA), ANDROID=/Android/.test(UA);
   var SEM=RSS.replace(/^https:\/\//,''), ENC=encodeURIComponent(RSS);
+  // Android: sem o app instalado, o navegador cai na página do app na Play Store (em vez de não fazer nada)
+  var PLAY=function(pk){return encodeURIComponent('https://play.google.com/store/apps/details?id='+pk)};
   var APPS=[ // abrem o app já na tela de assinar o podcast (link do RSS)
     {n:'Apple Podcasts',u:'podcasts://'+SEM,so:'ios'},
     {n:'Overcast',u:'overcast://x-callback-url/add?url='+ENC,so:'ios'},
     {n:'AntennaPod',u:'https://antennapod.org/deeplink/subscribe/?url='+ENC+'&title='+encodeURIComponent('Radar Ambiental do Diário Oficial'),so:'android'},
-    {n:'Podcast Addict',u:'podcastaddict://'+SEM,so:'android'},
-    {n:'Pocket Casts',u:'pktc://subscribe/'+SEM,so:'todos'}];
+    {n:'Podcast Addict',u:'intent://'+SEM+'#Intent;scheme=podcastaddict;package=com.bambuna.podcastaddict;S.browser_fallback_url='+PLAY('com.bambuna.podcastaddict')+';end',so:'android'},
+    {n:'Pocket Casts',u:ANDROID?'intent://subscribe/'+SEM+'#Intent;scheme=pktc;package=au.com.shiftyjelly.pocketcasts;S.browser_fallback_url='+PLAY('au.com.shiftyjelly.pocketcasts')+';end':'pktc://subscribe/'+SEM,so:'todos'}];
   function podcast(){
     var bt=NOMES.filter(function(n){return /^https:\/\//.test(links[n[0]]||'')}).map(function(n,i){return '<a class="'+(i===0?'ra-pod__pri':'')+'" href="'+esc(links[n[0]])+'" target="_blank" rel="noopener">Ouvir no '+n[1]+'</a>'}).join('');
     var meus=APPS.filter(function(a){return a.so==='todos'||(IOS&&a.so==='ios')||(ANDROID&&a.so==='android')||(!IOS&&!ANDROID)});
@@ -253,7 +255,7 @@
     return '<div class="ra-pod" id="assinar"><img src="radar/podcast-capa.jpg" alt="" width="76" height="76"><div><b>Ouça no carro: assine o podcast</b>'+
       '<p>Assinando, o episódio novo chega sozinho no seu app todo dia útil, para ouvir no carro ou no fone.'+(bt?'':' Spotify e YouTube Music: em cadastro.')+'</p></div>'+
       (bt?'<p class="ra-pod__lbl">Nas plataformas</p><div class="ra-pod__btns">'+bt+'</div>':'')+
-      '<p class="ra-pod__lbl">No seu app de podcast</p><div class="ra-pod__btns">'+apps+'</div>'+
+      '<p class="ra-pod__lbl">No seu app de podcast'+(ANDROID?' (sem o app, abre a Play Store)':IOS?' (precisa do app instalado)':'')+'</p><div class="ra-pod__btns">'+apps+'</div>'+
       '<p class="ra-pod__lbl">Outro app</p><div class="ra-pod__btns"><button type="button" data-copiar="'+RSS+'">Copiar o link do RSS</button><a href="radar/podcast.xml" target="_blank" rel="noopener">Abrir o RSS</a></div></div>';
   }
   function render(fid){
