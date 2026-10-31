@@ -308,6 +308,27 @@ const exemplo = JSON.parse(readFileSync(new URL("../memorial-geo.html", import.m
   ok(M.limparOcr("distância:119º2516.52\" e 458,98") === "distância:119°25'16.52\" e 458,98", "OCR: apóstrofo dos minutos que sumiu (119°2516.52\" → 119°25'16.52\")");
 }
 
+// ---- Sem polígono: os pontos que deu para ler (mapa e KML), em vez de nada
+{
+  let r = M.analisar("Imóvel fictício. Marco de referência: N -18.10000 m e E -44.50000 m, SIRGAS 2000.");
+  ok(r.erro && r.fonte === "pontos" && r.poligonal.vertices.length === 1 && r.poligonal.areaM2 === 0, "uma coordenada só: 1 ponto, sem área");
+  let k = M.kml(r.poligonal, "Teste");
+  ok((k.match(/<Point>/g) || []).length === 1 && !/<Polygon>/.test(k) && /-44\.50000000,-18\.10000000,0/.test(k), "KML do ponto (sem polígono)");
+  r = M.analisar("V1 E 612.000,00 m e N 7.795.000,00 m, fuso 23; V2 E 612.100,00 m e N 7.795.050,00 m");
+  ok(r.fonte === "pontos" && r.poligonal.origemPontos === "coordenadas" && r.poligonal.vertices.length === 2 && perto(r.poligonal.perimetroM, Math.hypot(100, 50), 1e-6),
+    "duas coordenadas: 2 pontos, com a distância entre eles");
+  ok(JSON.parse(M.geojson(r.poligonal, "Teste")).features.every(f => f.geometry.type === "Point"), "GeoJSON só com pontos");
+  const csv = M.csv(r.poligonal).trim().split("\r\n");
+  ok(csv.length === 3 && /;;;$/.test(csv[2]), "CSV: o último ponto não liga a nada");
+  ok(!/POLYLINE/.test(M.dxf(r.poligonal, "Teste")) && (M.dxf(r.poligonal, "Teste").match(/\r\nPOINT\r\n/g) || []).length === 2, "DXF só com os pontos");
+  r = M.analisar(`Inicia-se no vértice V1, de coordenadas E 612.000,00 m e N 7.795.000,00 m, fuso 23 S; deste segue com azimute de 90°00'00" e distância de 100,00 m até V2; deste com rumo S 00°00' E e distância de 50,00 m até V3`);
+  ok(r.fonte === "pontos" && r.poligonal.origemPontos === "lados" && r.poligonal.vertices.length === 3 &&
+    perto(r.poligonal.vertices[1][0], 612100, 1e-6) && perto(r.poligonal.vertices[2][1], 7794950, 1e-6), "2 lados e a partida: a partida e o fim de cada lado, sem fechar");
+  k = M.kml(r.poligonal, "Teste");
+  ok((k.match(/<Point>/g) || []).length === 3 && /<LineString>/.test(k), "KML com os 3 pontos e o caminho aberto");
+  ok(M.analisar("texto sem coordenada nem lado").poligonal == null, "sem coordenada nenhuma: nada a desenhar");
+}
+
 // ---- Texto vindo de PDF e de OCR
 {
   // OrdemLinhasTest do app: OCR de tabela em colunas volta a sair linha a linha.

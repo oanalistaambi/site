@@ -861,6 +861,58 @@
   var RE_MARCADOR_PAGINA = /^[-—] página \d+ de \d+(?: \([^)\n]*\))? [-—][ \t]*$/gm; // o "—" vira "-" na normalização
   function semMarcadores(t) { return t.replace(RE_MARCADOR_PAGINA, function (m) { return " ".repeat(m.length); }); }
 
+  /**
+   * Os pontos que deu para ler quando o polígono não fecha: as coordenadas escritas no texto (uma
+   * ou mais, na ordem); sem elas, a partida e o caminho dos lados lidos (aberto); sem lados, só a
+   * partida. Volta no mesmo formato da poligonal, com fonte "pontos", área zero e sem fechamento.
+   */
+  function pontosSoltos(t, r, p, fuso) {
+    if (!fuso) return null;
+    var vs = [], nomes = [], trechos = [], faixas = [], origem;
+    var cs = coordenadasDoTexto(t, fuso).filter(function (c, i, todas) {
+      return !i || Math.hypot(c.e - todas[i - 1].e, c.n - todas[i - 1].n) >= 1; // o mesmo ponto escrito duas vezes seguidas conta uma
+    });
+    if (cs.length >= 2 || (cs.length && !(r.partida && r.lados.length))) {
+      origem = "coordenadas";
+      cs.forEach(function (c, i) {
+        vs.push([c.e, c.n]); trechos.push(c.txt); faixas.push([c.ini, c.fim]);
+        nomes.push(rotuloDaCoordenada(t, c, i ? cs[i - 1].fim : 0));
+      });
+    } else if (r.partida) {
+      origem = r.lados.length ? "lados" : "partida";
+      var cam = percorrer(p.e, p.n, r.lados);
+      vs = cam.vertices.concat([cam.chegada]);
+      nomes = vs.map(function (_, i) { return i ? "fim do lado " + i : "partida"; });
+      trechos = vs.map(function (_, i) { return i ? r.lados[i - 1].trecho : r.partidaLida ? r.partidaLida.txt : ""; });
+      faixas = vs.map(function (_, i) { return i ? r.lados[i - 1].faixa : null; });
+      if (!r.lados.length) { vs = [vs[0]]; nomes = ["partida"]; }
+    } else return null;
+    var usados = {};
+    nomes = nomes.map(function (nome, i) {
+      if (!nome || usados[nome]) nome = "P" + (i + 1);
+      usados[nome] = true;
+      return nome;
+    });
+    var per = 0, ls = [];
+    for (var i = 0; i + 1 < vs.length; i++) {
+      var a = vs[i], b = vs[i + 1], d = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      per += d;
+      var l = lado(azimuteDe([b[0] - a[0], b[1] - a[1]]), d, false, 0, trechos[i] || "");
+      if (faixas[i]) l.faixa = faixas[i];
+      ls.push(l);
+    }
+    var n = vs.length;
+    return {
+      fonte: "pontos", origemPontos: origem, vertices: vs, chegada: vs[n - 1], lados: ls, perimetroM: per, areaM2: 0,
+      erroFechamentoM: null, precisaoRelativa: null, nomes: nomes, fuso: fuso,
+      geo: vs.map(function (v) { return inverter(v[0], v[1], fuso, true); }),
+      qualidade: { nivel: "info", texto: origem === "coordenadas"
+        ? (n === 1 ? "1 ponto com coordenada no texto." : n + " pontos com coordenada no texto, na ordem em que aparecem.") + " Estão no mapa e podem ser baixados em KML, GeoJSON, CSV ou DXF."
+        : origem === "lados" ? "A partida e o caminho dos " + r.lados.length + " lado(s) lido(s), sem fechar: " + n + " pontos no mapa, para baixar em KML, GeoJSON, CSV ou DXF."
+          : "Só a coordenada de partida: 1 ponto no mapa, para baixar em KML, GeoJSON, CSV ou DXF." }
+    };
+  }
+
   // ------------------------------------------------------------------ análise completa
 
   /**
@@ -912,6 +964,15 @@
         r.lados.length ? "Só " + r.lados.length + " lado(s) reconhecido(s): são precisos pelo menos 3, ou a coordenada de cada vértice." :
           "Nenhum lado reconhecido. Cada lado precisa de azimute (ex.: 120°15'30\") ou rumo (ex.: N 45°30' E) e de distância em metros; " +
           "ou cole a tabela com a coordenada de cada vértice.";
+      // Sem polígono, ainda assim os pontos que deu para ler vão para o mapa e para os arquivos.
+      var pts = pontosSoltos(t, r, p, fuso || r.fusoTexto);
+      if (pts) {
+        r.fonte = "pontos";
+        r.poligonal = pts;
+        r.conferencias.push({ nivel: "atencao", texto: pts.qualidade.texto });
+        r.conferencias.push({ nivel: "atencao", texto: "Não deu para fechar o polígono: " + r.erro });
+        if (!pts.geo.some(function (g) { return emMg(g[0], g[1]); })) r.conferencias.push({ nivel: "atencao", texto: "Os pontos caem fora de Minas Gerais. Confira o fuso e o datum." });
+      }
       return r;
     }
     r.fonte = r.fontes.indexOf(opcoes.fonte) >= 0 ? opcoes.fonte : r.fontes[0];
@@ -1082,7 +1143,9 @@
     function campo(v) { v = String(v); return /[;"\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
     var linhas = ["vertice;e_m;n_m;latitude;longitude;azimute_ate_o_proximo;azimute_graus_decimais;distancia_ate_o_proximo_m"];
     pol.vertices.forEach(function (v, i) {
-      linhas.push([campo(pol.nomes[i]), f(v[0], 3), f(v[1], 3), f(pol.geo[i][0], 8), f(pol.geo[i][1], 8), campo(dms(lg[i].az)), f(lg[i].az, 6), f(lg[i].d, 2)].join(";"));
+      // Só pontos: o último não liga a nada (não há polígono para fechar).
+      var semProximo = pol.fonte === "pontos" && i === pol.vertices.length - 1;
+      linhas.push([campo(pol.nomes[i]), f(v[0], 3), f(v[1], 3), f(pol.geo[i][0], 8), f(pol.geo[i][1], 8)].concat(semProximo ? ["", "", ""] : [campo(dms(lg[i].az)), f(lg[i].az, 6), f(lg[i].d, 2)]).join(";"));
     });
     return "﻿" + linhas.join("\r\n") + "\r\n";
   }
@@ -1103,9 +1166,11 @@
     g(9, "$EXTMAX"); xy([Math.max.apply(null, xs), Math.max.apply(null, ys)]);
     g(0, "ENDSEC");
     g(0, "SECTION"); g(2, "ENTITIES");
-    g(0, "POLYLINE"); g(8, "POLIGONO"); g(66, 1); g(10, "0.0"); g(20, "0.0"); g(30, "0.0"); g(70, 1);
-    v.forEach(function (p) { g(0, "VERTEX"); g(8, "POLIGONO"); xy(p); });
-    g(0, "SEQEND"); g(8, "POLIGONO");
+    if (pol.fonte !== "pontos") {
+      g(0, "POLYLINE"); g(8, "POLIGONO"); g(66, 1); g(10, "0.0"); g(20, "0.0"); g(30, "0.0"); g(70, 1);
+      v.forEach(function (p) { g(0, "VERTEX"); g(8, "POLIGONO"); xy(p); });
+      g(0, "SEQEND"); g(8, "POLIGONO");
+    }
     v.forEach(function (p, i) {
       g(0, "POINT"); g(8, "VERTICES"); xy(p);
       g(0, "TEXT"); g(8, "NOMES"); g(10, (p[0] + h / 2).toFixed(3)); g(20, (p[1] + h / 2).toFixed(3)); g(30, "0.0"); g(40, h); g(1, semAcento(pol.nomes[i]));
@@ -1145,6 +1210,18 @@
 
   /** GeoJSON (RFC 7946): longitude e latitude em graus, anel externo anti-horário. */
   function geojson(pol, nome) {
+    if (pol.fonte === "pontos") {
+      var aviso = "Só pontos: o memorial não deu um polígono fechado. Confira no original.";
+      var fs = pol.geo.map(function (g, i) {
+        return { type: "Feature", properties: { ponto: pol.nomes[i], e: +pol.vertices[i][0].toFixed(3), n: +pol.vertices[i][1].toFixed(3), fuso: pol.fuso, datum: "SIRGAS 2000", aviso: aviso },
+          geometry: { type: "Point", coordinates: [+g[1].toFixed(8), +g[0].toFixed(8)] } };
+      });
+      if (pol.origemPontos === "lados" && pol.geo.length > 1) {
+        fs.push({ type: "Feature", properties: { nome: "Caminho dos lados lidos (aberto)", aviso: aviso },
+          geometry: { type: "LineString", coordinates: pol.geo.map(function (g) { return [+g[1].toFixed(8), +g[0].toFixed(8)]; }) } });
+      }
+      return JSON.stringify({ type: "FeatureCollection", name: nome, features: fs }, null, 1);
+    }
     var feats = [{ type: "Feature", properties: propriedades(pol, nome), geometry: { type: "Polygon", coordinates: [anelGeo(pol, false).map(function (c) { return [+c[0].toFixed(8), +c[1].toFixed(8)]; })] } }];
     pol.geo.forEach(function (g, i) {
       feats.push({ type: "Feature", properties: { vertice: pol.nomes[i], e: +pol.vertices[i][0].toFixed(3), n: +pol.vertices[i][1].toFixed(3) },
@@ -1157,6 +1234,20 @@
 
   /** KML 2.2 (OGC): o polígono e os vértices numa pasta. */
   function kml(pol, nome) {
+    if (pol.fonte === "pontos") {
+      var lista = pol.geo.map(function (g, i) {
+        return "<Placemark><name>" + xml(pol.nomes[i]) + "</name><description>" + xml("E " + decimal(pol.vertices[i][0], 2) + " m, N " + decimal(pol.vertices[i][1], 2) + " m, SIRGAS 2000, UTM " + pol.fuso + "S") +
+          "</description><styleUrl>#v</styleUrl><Point><coordinates>" + g[1].toFixed(8) + "," + g[0].toFixed(8) + ",0</coordinates></Point></Placemark>";
+      }).join("\n");
+      var linha = pol.origemPontos === "lados" && pol.geo.length > 1
+        ? "<Placemark><name>Caminho dos lados lidos (aberto)</name><styleUrl>#p</styleUrl><LineString><coordinates>" +
+          pol.geo.map(function (g) { return g[1].toFixed(8) + "," + g[0].toFixed(8) + ",0"; }).join(" ") + "</coordinates></LineString></Placemark>\n" : "";
+      return '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n<name>' + xml(nome) + "</name>\n<description>" +
+        xml("Só pontos: o memorial não deu um polígono fechado. Confira no original. SIRGAS 2000, UTM " + pol.fuso + "S.") + "</description>\n" +
+        '<Style id="p"><LineStyle><color>ff2a45a8</color><width>2.5</width></LineStyle></Style>\n' +
+        '<Style id="v"><IconStyle><scale>0.8</scale></IconStyle><LabelStyle><scale>0.8</scale></LabelStyle></Style>\n' +
+        linha + "<Folder><name>Pontos</name>\n" + lista + "\n</Folder>\n</Document>\n</kml>\n";
+    }
     var pr = propriedades(pol, nome);
     var coords = anelGeo(pol, false).map(function (c) { return c[0].toFixed(8) + "," + c[1].toFixed(8) + ",0"; }).join(" ");
     var desc = "Área: " + decimal(pol.areaM2 / 10000, 4) + " ha. Perímetro: " + decimal(pol.perimetroM, 2) + " m. " + resumoFechamento(pol) +

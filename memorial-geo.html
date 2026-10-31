@@ -202,6 +202,7 @@
   .percurso__txt q{ font-family:var(--f-mono); font-size:.8rem; color:var(--text-soft); }
   .m-pol--fantasma{ fill:none; stroke:var(--text-faint); stroke-width:1.2; stroke-dasharray:4 4; opacity:.8; }
   .m-feito{ fill:none; stroke:var(--ochre); stroke-width:2.6; stroke-linejoin:round; stroke-linecap:round; }
+  .m-aberto{ stroke-dasharray:7 5; }
   .m-passo{ stroke:var(--focus); stroke-width:5; stroke-linecap:round; }
   .m-seta{ fill:var(--focus); }
   .m-norte-q{ stroke:var(--accent); stroke-width:1.8; stroke-dasharray:5 3; }
@@ -752,7 +753,10 @@ Depois a tabela:
   function statusAoVivo(r) {
     var box = $("aovivo"), t = $("aovivo-txt");
     if (!$("texto").value.trim()) { box.dataset.estado = ""; t.textContent = "Leitura automática: cole o texto e o resultado aparece logo abaixo."; return; }
-    if (r.poligonal) {
+    if (r.poligonal && r.poligonal.fonte === "pontos") {
+      box.dataset.estado = "erro";
+      t.textContent = "Sem polígono fechado: " + r.erro + " Os " + r.poligonal.vertices.length + " ponto(s) lido(s) estão no mapa, abaixo.";
+    } else if (r.poligonal) {
       var p = r.poligonal;
       box.dataset.estado = "ok";
       t.textContent = p.fonte === "coordenadas"
@@ -803,19 +807,22 @@ Depois a tabela:
     msg.hidden = true;
     $("saida").hidden = false;
     var p = r.poligonal;
-    var porCoord = p.fonte === "coordenadas";
+    var porCoord = p.fonte === "coordenadas", soPontos = p.fonte === "pontos";
+    // Só pontos: sem área nem fechamento; os arquivos de polígono (shapefile e memorial) ficam de fora.
+    document.querySelectorAll("[data-baixar]").forEach(function (b) { b.hidden = soPontos && (b.dataset.baixar === "shp" || b.dataset.baixar === "txt"); });
+    $("copiar-memorial").hidden = soPontos;
     if (estado.destaque != null && estado.destaque >= p.vertices.length) estado.destaque = null;
     if (estado.passo != null && estado.passo >= p.vertices.length) estado.passo = null;
-    $("o-n").innerHTML = p.vertices.length + "<small>" + (porCoord ? "lidos das coordenadas" : r.lados.length + " lados lidos" +
-      (r.lados.some(function (l) { return l.deRumo; }) ? ", com rumos" : "")) + "</small>";
-    $("o-per").innerHTML = fmt(p.perimetroM, 2) + " m<small>soma dos lados</small>";
-    $("o-area").innerHTML = fmt(p.areaM2 / 10000, 4) + " ha<small>" + fmt(p.areaM2, 2) + " m² no plano UTM</small>";
-    $("o-erro").innerHTML = porCoord ? "—<small>não se aplica: cada vértice tem coordenada</small>" : fmt(p.erroFechamentoM, 3) + " m<small>entre a chegada do último lado e a partida</small>";
-    $("o-prec").innerHTML = porCoord ? "—<small>não se aplica</small>" : (p.precisaoRelativa ? "1:" + M.inteiro(Math.floor(p.precisaoRelativa + 1e-6)) : "exato") + "<small>perímetro &divide; erro</small>";
+    $("o-n").innerHTML = p.vertices.length + "<small>" + (soPontos ? (p.origemPontos === "coordenadas" ? "pontos com coordenada" : "pontos: a partida e o fim de cada lado") :
+      porCoord ? "lidos das coordenadas" : r.lados.length + " lados lidos" + (r.lados.some(function (l) { return l.deRumo; }) ? ", com rumos" : "")) + "</small>";
+    $("o-per").innerHTML = soPontos ? (p.vertices.length > 1 ? fmt(p.perimetroM, 2) + " m<small>de ponto a ponto, sem fechar</small>" : "—<small>um ponto só</small>") : fmt(p.perimetroM, 2) + " m<small>soma dos lados</small>";
+    $("o-area").innerHTML = soPontos ? "—<small>sem polígono fechado</small>" : fmt(p.areaM2 / 10000, 4) + " ha<small>" + fmt(p.areaM2, 2) + " m² no plano UTM</small>";
+    $("o-erro").innerHTML = soPontos ? "—<small>sem polígono fechado</small>" : porCoord ? "—<small>não se aplica: cada vértice tem coordenada</small>" : fmt(p.erroFechamentoM, 3) + " m<small>entre a chegada do último lado e a partida</small>";
+    $("o-prec").innerHTML = porCoord || soPontos ? "—<small>não se aplica</small>" : (p.precisaoRelativa ? "1:" + M.inteiro(Math.floor(p.precisaoRelativa + 1e-6)) : "exato") + "<small>perímetro &divide; erro</small>";
     var fonte = $("o-fonte");
     fonte.hidden = r.fontes.length < 2;
     fonte.querySelectorAll("input").forEach(function (i) { i.checked = i.value === r.fonte; });
-    $("o-sis").innerHTML = esc((r.datum || "SIRGAS 2000 (não citado)") + " · UTM " + p.fuso + " S") + "<small>EPSG " + M.epsg(p.fuso) + " no shapefile</small>";
+    $("o-sis").innerHTML = esc((r.datum || "SIRGAS 2000 (não citado)") + " · UTM " + p.fuso + " S") + "<small>EPSG " + M.epsg(p.fuso) + (soPontos ? "" : " no shapefile") + "</small>";
     resumo(r);
     var itens = r.avisos.map(function (a) { return { nivel: "atencao", texto: a }; }).concat(r.conferencias.slice(1));
     $("o-conf").innerHTML = itens.map(function (c) {
@@ -831,6 +838,14 @@ Depois a tabela:
   /** O resultado numa frase, antes dos números: o que é, quanto mede e se fecha. */
   function resumo(r) {
     var p = r.poligonal, f = $("o-fecho"), q = p.qualidade, porCoord = p.fonte === "coordenadas";
+    if (p.fonte === "pontos") {
+      var n = p.vertices.length;
+      f.className = "fecho fecho--atencao";
+      f.innerHTML = '<span class="fecho__ic" aria-hidden="true">!</span><div><p class="fecho__t">Só os pontos, sem polígono</p><p>' +
+        esc("Não deu para fechar o polígono, mas " + (n === 1 ? "o ponto lido está" : "os " + n + " pontos lidos estão") + " no mapa e na tabela, e dá para baixar em KML (Google Earth), GeoJSON, CSV ou DXF, mais abaixo.") +
+        "</p><small>" + esc(r.erro || "") + "</small></div>";
+      return;
+    }
     var nivel = porCoord ? (q.nivel === "ok" ? "ok" : "info") : q.nivel;
     var titulo = porCoord ? "Desenhado pelas coordenadas" : { ok: "Fecha bem", atencao: "Fecha com folga", ruim: "Não fecha" }[nivel];
     var icone = { ok: "✓", atencao: "!", ruim: "×", info: "i" }[nivel];
@@ -877,8 +892,9 @@ Depois a tabela:
     var p = r.poligonal;
     $("o-tab").querySelector("tbody").innerHTML = p.vertices.map(function (v, i) {
       var l = p.lados[i];
+      if (!l) l = { azimuteGraus: null, distanciaM: null, trecho: "" }; // só pontos: o último não liga a nada
       return '<tr data-i="' + i + '"' + (estado.destaque === i ? ' class="sel"' : "") + "><td>" + esc(p.nomes[i]) + "</td><td>" + fmt(v[0], 2) + "</td><td>" + fmt(v[1], 2) + "</td><td>" + p.geo[i][0].toFixed(7) +
-        "</td><td>" + p.geo[i][1].toFixed(7) + "</td><td>" + M.dms(l.azimuteGraus) + (l.deRumo ? ' <small>(rumo)</small>' : "") + "</td><td>" + fmt(l.distanciaM, 2) +
+        "</td><td>" + p.geo[i][1].toFixed(7) + "</td><td>" + (l.azimuteGraus == null ? "—" : M.dms(l.azimuteGraus)) + (l.deRumo ? ' <small>(rumo)</small>' : "") + "</td><td>" + (l.distanciaM == null ? "—" : fmt(l.distanciaM, 2)) +
         '</td><td class="trecho">' + esc(l.trecho.length > 140 ? l.trecho.slice(0, 140) + "…" : l.trecho) + "</td></tr>";
     }).join("");
   }
@@ -989,7 +1005,10 @@ Depois a tabela:
     var tc2 = tela(chegada[0], chegada[1]), tl = tp[nv - 1], t0 = tp[0];
     if (r.outra) h.push('<polygon class="m-outra" points="' + r.outra.geo.map(function (q) { return xy(tela(q[0], q[1])); }).join(" ") + '"/>');
 
-    if (estado.passo == null) {
+    if (p.fonte === "pontos") {
+      // Só pontos: sem polígono; o caminho dos lados lidos (aberto) em tracejado, quando os pontos vêm deles.
+      if (p.origemPontos === "lados" && nv > 1) h.push('<polyline class="m-feito m-aberto" points="' + tp.map(xy).join(" ") + '"/>');
+    } else if (estado.passo == null) {
       // Polígono, vértices e, se não fecha, a chegada do último lado.
       h.push('<polygon class="m-pol" points="' + tp.map(xy).join(" ") + '"/>');
       if (Math.hypot(tc2[0] - t0[0], tc2[1] - t0[1]) > 3) {
@@ -1032,7 +1051,7 @@ Depois a tabela:
     var rotular = nv <= 45;
     tp.forEach(function (q, i) {
       if (estado.passo != null && i > estado.passo + 1) return;
-      h.push('<circle class="m-v' + (i === 0 ? " m-v0" : "") + '" cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="' + (i === 0 ? 5 : 3) + '"/>');
+      h.push('<circle class="m-v' + (i === 0 ? " m-v0" : "") + '" cx="' + q[0].toFixed(1) + '" cy="' + q[1].toFixed(1) + '" r="' + (p.fonte === "pontos" ? 6 : i === 0 ? 5 : 3) + '"/>');
       if (rotular || i === 0) h.push('<text class="m-nome" x="' + (q[0] + 6).toFixed(1) + '" y="' + (q[1] - 5).toFixed(1) + '">' + esc(p.nomes[i]) + "</text>");
     });
 
@@ -1148,7 +1167,7 @@ Depois a tabela:
   }
   function legendaPercurso(r) {
     var dentro = estado.passo != null && r && r.poligonal;
-    $("percorrer").hidden = !!dentro;
+    $("percorrer").hidden = !!dentro || !!(r && r.poligonal && r.poligonal.fonte === "pontos");
     $("percurso-barra").hidden = !dentro;
     $("percurso-txt").hidden = !dentro;
     if (!dentro) return;
@@ -1351,8 +1370,13 @@ Depois a tabela:
       }
       if (res.semOcr) partes.push(res.semOcr + (res.semOcr > 1 ? " páginas escaneadas" : " página escaneada") + " depois da 40ª ficou sem leitura.");
       if (res.segundaLeitura) partes.push("A leitura por imagem foi feita duas vezes, em tamanhos diferentes, e ficou a que fecha melhor.");
-      var lidos = atual ? (atual.poligonal.fonte === "coordenadas" ? atual.poligonal.vertices.length + " vértices com coordenada" : atual.lados.length + " lados") : null;
-      if (lidos) {
+      var soPontos = atual && atual.poligonal.fonte === "pontos";
+      var lidos = atual && !soPontos ? (atual.poligonal.fonte === "coordenadas" ? atual.poligonal.vertices.length + " vértices com coordenada" : atual.lados.length + " lados") : null;
+      if (soPontos) {
+        var np = atual.poligonal.vertices.length;
+        partes.push("Não deu para fechar o polígono (" + atual.erro + "), mas " + (np === 1 ? "achei 1 ponto" : "achei " + np + " pontos") +
+          ": " + (np === 1 ? "está" : "estão") + " no mapa do Passo 3 e dá para baixar em KML. O texto lido está no campo abaixo, para conferir.");
+      } else if (lidos) {
         partes.push("Achei " + lidos + ": o resultado está no Passo 3, e o texto lido está no campo abaixo, para conferir e corrigir.");
         if (res.ocr) partes.push("A leitura por imagem pode trocar um número: confira em “Ver no texto o que a página leu”.");
       } else {
@@ -1360,8 +1384,8 @@ Depois a tabela:
           ? "Não achei azimute, rumo nem coordenadas suficientes no texto lido. Ele está no campo abaixo: se a cópia está ruim, tente uma foto mais nítida, a opção de ler por imagem ou o pedido para IA, mais abaixo."
           : "O arquivo não tem texto que dê para ler.");
       }
-      mostrarLeitura(lidos ? (res.ocr ? "aviso" : "") : "erro", nome, partes.join(" "), null, false);
-      $("leitura-ver").hidden = !lidos;
+      mostrarLeitura(lidos ? (res.ocr ? "aviso" : "") : soPontos ? "aviso" : "erro", nome, partes.join(" "), null, false);
+      $("leitura-ver").hidden = !lidos && !soPontos;
     } catch (e) {
       mostrarLeitura("erro", nome, e && e.falha ? e.message : "Não deu para ler o arquivo: " + (e && e.message || e) + ". Copie o texto e cole no campo abaixo.", null, false);
     } finally { sinalLeitura = null; }
