@@ -22,6 +22,8 @@
   var VENDOR = new URL("js/vendor/", document.baseURI).href;
   var PDFJS = VENDOR + "pdfjs-6.4.299/";
   var TESS = VENDOR + "tesseract-7.0.0/";
+  /** Página aberta do disco (file://, ou content:// no Android): sem origem própria. */
+  var SEM_ORIGEM = !/^https?:$/.test(location.protocol);
   /** Acima disto, página escaneada fica sem OCR (a mesma regra do app). */
   var LIMITE_OCR = 40;
   /**
@@ -55,14 +57,35 @@
   function encerrar(w) { try { var p = w.terminate(); if (p && p.catch) p.catch(function () {}); } catch (e) { /* já encerrado */ } }
   function blobUrl(codigo) { return URL.createObjectURL(new Blob([codigo], { type: "text/javascript" })); }
 
+  /**
+   * Worker do tipo módulo funciona aqui? Não funciona numa página sem origem (o HTML único aberto do
+   * disco, file:// ou content:// no Android): o worker morre calado e o pdf.js esperaria para sempre.
+   */
+  function workerModuloFunciona() {
+    return new Promise(function (ok) {
+      var w;
+      try { w = new Worker(blobUrl("postMessage(1)"), { type: "module" }); } catch (e) { ok(false); return; }
+      var fim = function (v) { clearTimeout(relogio); w.terminate(); ok(v); };
+      var relogio = setTimeout(function () { fim(false); }, 4000);
+      w.onmessage = function () { fim(true); };
+      w.onerror = function () { fim(false); };
+    });
+  }
+
   var pdfjsPromessa = null;
-  /** pdf.js, importado de um blob (não depende do tipo que o servidor dá ao .mjs) e com o worker já criado. */
+  /**
+   * pdf.js, importado de um blob (não depende do tipo que o servidor dá ao .mjs) e com o worker já criado.
+   * Sem worker de módulo, o pdf.js roda na própria página (mais lento num PDF grande, mas lê).
+   */
   function pdfjs() {
     if (!pdfjsPromessa) {
-      pdfjsPromessa = Promise.all([baixar(PDFJS + "pdf.min.mjs", "texto"), baixar(PDFJS + "pdf.worker.min.mjs", "texto")]).then(function (c) {
+      pdfjsPromessa = Promise.all([baixar(PDFJS + "pdf.min.mjs", "texto"), baixar(PDFJS + "pdf.worker.min.mjs", "texto"), workerModuloFunciona()]).then(function (c) {
         return import(blobUrl(c[0])).then(function (lib) {
-          lib.GlobalWorkerOptions.workerPort = new Worker(blobUrl(c[1]), { type: "module" });
-          return lib;
+          if (c[2]) {
+            lib.GlobalWorkerOptions.workerPort = new Worker(blobUrl(c[1]), { type: "module" });
+            return lib;
+          }
+          return import(blobUrl(c[1])).then(function (trabalho) { raiz.pdfjsWorker = trabalho; return lib; });
         });
       }).catch(function (e) { pdfjsPromessa = null; throw e.falha ? e : Falha("Este navegador não conseguiu abrir o leitor de PDF (" + (e && e.message || e) + ")."); });
     }
@@ -127,26 +150,36 @@
     aoProgresso = aoProgresso || function () {};
     aoProgresso(0, "Preparando o leitor de imagem (na primeira vez baixa cerca de 5 MB)…");
     var T = await tesseract();
-    var partes = await Promise.all([
-      baixar(TESS + "worker.min.js", "texto"),
-      baixar(TESS + "core/" + versaoDoMotor(), "texto"),
-      baixar(TESS + "lang/por.traineddata.gz", "binario")
-    ]);
-    await gravarModelo(partes[2]);
+    var motor = TESS + "core/" + versaoDoMotor();
+    var op;
+    if (SEM_ORIGEM) {
+      // HTML único aberto do disco: o worker não enxerga os blobs da página nem o IndexedDB dela, então
+      // ele mesmo busca o motor e o modelo no site (precisa de internet, como a página avisa).
+      op = { workerPath: blobUrl(await baixar(TESS + "worker.min.js", "texto")), workerBlobURL: false,
+        langPath: TESS + "lang", corePath: motor, cacheMethod: "none" };
+    } else {
+      var partes = await Promise.all([
+        baixar(TESS + "worker.min.js", "texto"),
+        baixar(motor, "texto"),
+        baixar(TESS + "lang/por.traineddata.gz", "binario")
+      ]);
+      await gravarModelo(partes[2]);
+      op = {
+        workerPath: blobUrl(partes[0]),
+        workerBlobURL: false,
+        langPath: TESS + "lang",
+        cachePath: CACHE_TESS,
+        // O Tesseract.js só usa o endereço como arquivo se ele terminar em "js"; o "#…" não muda o blob.
+        corePath: blobUrl(partes[1]) + "#motor.js",
+        cacheMethod: "readOnly"
+      };
+    }
     var fase = "";
-    var w = await T.createWorker("por", 1, {
-      workerPath: blobUrl(partes[0]),
-      workerBlobURL: false,
-      langPath: TESS + "lang",
-      cachePath: CACHE_TESS,
-      // O Tesseract.js só usa o endereço como arquivo se ele terminar em "js"; o "#…" não muda o blob.
-      corePath: blobUrl(partes[1]) + "#motor.js",
-      cacheMethod: "readOnly",
-      logger: function (m) {
-        if (m.status === "recognizing text") aoProgresso(m.progress, "Reconhecendo o texto da imagem…", true);
-        else if (m.status !== fase) { fase = m.status; aoProgresso(0, "Preparando o leitor de imagem…"); }
-      }
-    });
+    op.logger = function (m) {
+      if (m.status === "recognizing text") aoProgresso(m.progress, "Reconhecendo o texto da imagem…", true);
+      else if (m.status !== fase) { fase = m.status; aoProgresso(0, "Preparando o leitor de imagem…"); }
+    };
+    var w = await T.createWorker("por", 1, op);
     await w.setParameters({ preserve_interword_spaces: "1" });
     return w;
   }
@@ -270,13 +303,18 @@
     if (tipo !== "application/pdf" && !/\.pdf$/i.test(nome)) {
       throw Falha("Este tipo de arquivo não é lido aqui. Envie PDF, JPG ou PNG, ou copie o texto e cole no campo.");
     }
+    prog(0, "Preparando o leitor de PDF (na primeira vez baixa cerca de 2 MB)…");
+    var lib = await Promise.race([pdfjs(), sinal.cancelado]);
     prog(0, "Abrindo o PDF…");
-    var lib = await pdfjs();
     var doc, tarefa = lib.getDocument({ data: new Uint8Array(await arquivo.arrayBuffer()), wasmUrl: PDFJS + "wasm/", enableXfa: false });
     try {
-      doc = await tarefa.promise;
+      var relogio, demorou = new Promise(function (_, erro) {
+        relogio = setTimeout(function () { erro(Falha("O PDF não abriu em 1 minuto. Tente de novo, ou abra a página no site: oanalistaambiental.com/memorial-geo.html")); }, 60000);
+      });
+      try { doc = await Promise.race([tarefa.promise, demorou, sinal.cancelado]); } finally { clearTimeout(relogio); }
     } catch (e) {
       tarefa.destroy();
+      if (e && e.falha) throw e;
       if (e && e.name === "PasswordException") throw Falha("O PDF está protegido por senha. Abra no leitor de PDF, salve uma cópia sem senha e tente de novo.");
       if (e && e.name === "InvalidPDFException") throw Falha("O arquivo não parece ser um PDF válido.");
       throw Falha("Não deu para abrir o PDF: " + (e && e.message || e));

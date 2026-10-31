@@ -339,6 +339,26 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   ok(/internet/.test(avisoUnico) && /precisa de internet/.test(await p2.textContent("#envio-ajuda")), `HTML único sem rede: ler PDF avisa que precisa de internet (${avisoUnico.slice(0, 60)})`);
   ok(e2.length === 0, "HTML único: sem erro de JavaScript " + e2.join(" | "));
   await c2.close();
+
+  // O HTML único aberto do disco, com rede (é como o celular abre o arquivo baixado: file:// ou
+  // content://, página sem origem). As bibliotecas vêm do site; aqui, da cópia local.
+  const c3 = await nav.newContext();
+  await c3.route(/^https:\/\/www\.oanalistaambiental\.com\/js\/vendor\//, async r => {
+    const resp = await c3.request.get(BASE + new URL(r.request().url()).pathname);
+    await r.fulfill({ response: resp, headers: { ...resp.headers(), "access-control-allow-origin": "*" } });
+  });
+  await c3.route(/^https?:\/\/(?!127\.0\.0\.1|www\.oanalistaambiental\.com\/js\/vendor\/)/, r => r.abort());
+  const p3 = await c3.newPage();
+  const e3 = [];
+  p3.on("pageerror", e => e3.push(String(e)));
+  await p3.goto("file://" + unico, { waitUntil: "load" });
+  for (const [arq, nome] of [["certidao-texto.pdf", "PDF com texto"], ["certidao-escaneada.pdf", "PDF escaneado"], ["foto-certidao.png", "foto"]]) {
+    await p3.setInputFiles("#arquivo", join(SAIDA, arq));
+    const lido = await fimDaLeitura(p3, 120000);
+    ok(/Achei 30 lados/.test(lido) && /Fecha bem/.test(await p3.textContent("#o-fecho")), `HTML único aberto do disco, com rede: ${nome} lido (${lido.slice(0, 50)})`);
+  }
+  ok(e3.length === 0, "HTML único com rede: sem erro de JavaScript " + e3.join(" | "));
+  await c3.close();
 }
 
 await nav.close();
