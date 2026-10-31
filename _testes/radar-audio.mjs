@@ -16,6 +16,7 @@ const nav = await chromium.launch({ args: ["--no-proxy-server", "--autoplay-poli
 const ctx = await nav.newContext({ viewport: { width: 390, height: 844 } });
 await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, r => r.abort());
 const pg = await ctx.newPage();
+await pg.addInitScript(() => { HTMLMediaElement.prototype.play = function () { Object.defineProperty(this, "paused", { value: false, configurable: true }); this.dispatchEvent(new Event("play")); return Promise.resolve(); }; HTMLMediaElement.prototype.pause = function () { Object.defineProperty(this, "paused", { value: true, configurable: true }); }; });
 const erros = [];
 pg.on("console", m => { if (m.type() === "error" && !/net::ERR_FAILED|Failed to load resource/.test(m.text())) erros.push(m.text()); });
 pg.on("pageerror", e => erros.push(String(e)));
@@ -38,6 +39,18 @@ for (const [i, a] of audios.entries()) {
 for (const ep of dou.episodios) {
   ok(ep.capitulos.every((c, k) => k === 0 || c.inicio_s > ep.capitulos[k - 1].inicio_s), `${ep.id}: capítulos em ordem de tempo`);
 }
+// "Ouvir agora": toca o episódio mais recente; ao terminar, segue para o anterior; tela bloqueada recebe título e capa
+await pg.waitForFunction(() => !document.getElementById("ra-agora").disabled);
+await pg.click("#ra-agora");
+await pg.waitForTimeout(700);
+ok(await pg.$eval(`#ep-${dou.episodios[0].data}`, el => !el.paused), "Ouvir agora toca o episódio mais recente");
+ok(/DOU de/.test(await pg.evaluate(() => navigator.mediaSession && navigator.mediaSession.metadata ? navigator.mediaSession.metadata.title : "")), "título e capa vão para a tela bloqueada");
+await pg.$eval(`#ep-${dou.episodios[0].data}`, el => el.dispatchEvent(new Event("ended")));
+await pg.waitForTimeout(700);
+ok(await pg.$eval(`#ep-${dou.episodios[1].data}`, el => !el.paused), "ao terminar, segue para a edição anterior");
+await pg.$$eval("#ra-painel audio", as => as.forEach(a => a.pause()));
+const assinar = await pg.$$eval("#assinar a", as => as.map(a => a.getAttribute("href")));
+ok(assinar.some(h => /^pktc:\/\/subscribe\/www\.oanalistaambiental\.com\/radar\/podcast\.xml$/.test(h)), "botão de assinar no app de podcast");
 // pular para o 2º destaque do episódio mais recente
 const ep0 = dou.episodios[0];
 const alvo = ep0.capitulos.filter(c => c.atos.length)[0];
