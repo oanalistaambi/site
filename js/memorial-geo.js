@@ -69,11 +69,15 @@
 
   var ANGULO = "(\\d{1,3}(?:[.,]\\d+)?)\\s*°\\s*(?:(\\d{1,2})\\s*'\\s*(?:(\\d{1,2}(?:[.,]\\d+)?)\\s*\"?)?)?";
 
-  var RE_AZIMUTE = new RegExp("\\b(?:azimute|az\\.?)(?:\\s+(?:plano|de\\s+quadr[íi]cula|verdadeiro|magn[ée]tico))?(?:\\s+de)?\\s*[:=]?\\s*" + ANGULO, "gi");
+  // "azimute plano e distância: 128°42'38.07" e 185,69" (certidões com memorial do SIGEF): as duas palavras antes dos dois números.
+  var RE_AZIMUTE = new RegExp("\\b(?:azimute|az\\.?)(?:\\s+(?:plano|de\\s+quadr[íi]cula|verdadeiro|magn[ée]tico))?(\\s+e\\s+dist[âa]ncia)?(?:\\s+de)?\\s*[:=]?\\s*" + ANGULO, "gi");
+  /** "distância: 305°39'5.47" e 102,53": o par sem a palavra "azimute" (ela ficou na página anterior, antes do rodapé). */
+  var RE_DISTANCIA_ANGULO = new RegExp("\\bdist[âa]ncia\\s*:\\s*" + ANGULO, "gi");
   var RE_RUMO = new RegExp("\\brumo(?:\\s+de)?\\s*[:=]?\\s*([NS][EWOL]?)?\\s*" + ANGULO + "\\s*([NS]?[EWOL])?(?![a-zà-ú])", "gi");
   /** Rumo sem a palavra "rumo": "N 45°30' E", "S 12° W". Só com as duas letras do quadrante. */
   var RE_RUMO_SOLTO = new RegExp("(?<![\\wÀ-ú])([NS])\\s*" + ANGULO + "\\s*([EWOL])(?![\\wà-ú])", "g");
   var RE_DISTANCIA = /(\d{1,3}(?:\.\d{3})+(?:,\d{1,3})?|\d+(?:[.,]\d{1,3})?)\s*(?:m\b|metros\b)/i;
+  var RE_DISTANCIA_PAR = /^\s*["']?\s*e\s+(?:[^\d\s]{1,2}\s+)?(\d{1,3}(?:\.\d{3})+(?:,\d{1,3})?|\d+(?:[.,]\d{1,3})?)(?![\d°'])(?:\s*(?:m\b|metros\b))?/i;
   var RE_CABECALHO_TABELA = /\b(?:azimutes?|rumos?)\b.*\bdist(?:[âa]ncias?\b|\.)|\bdist(?:[âa]ncias?\b|\.).*\b(?:azimutes?|rumos?)\b/i;
   var RE_NUMERO = /(\d{1,3}(?:\.\d{3})+(?:,\d{1,3})?|\d+(?:[.,]\d{1,3})?)(?!\s*[°\d'])/;
 
@@ -135,8 +139,12 @@
     var angulos = [];
     function sobrepoe(ini, fim) { return angulos.some(function (a) { return a.ini < fim && ini < a.fim; }); }
     todos(RE_AZIMUTE, texto).forEach(function (m) {
+      var az = graus(m, 2);
+      if (az != null && az < 360) angulos.push({ ini: m.index, fim: m.index + m[0].length, az: az, rumo: false, txt: m[0], par: !!m[1] });
+    });
+    todos(RE_DISTANCIA_ANGULO, texto).forEach(function (m) {
       var az = graus(m, 1);
-      if (az != null && az < 360) angulos.push({ ini: m.index, fim: m.index + m[0].length, az: az, rumo: false, txt: m[0] });
+      if (az != null && az < 360 && !sobrepoe(m.index, m.index + m[0].length)) angulos.push({ ini: m.index, fim: m.index + m[0].length, az: az, rumo: false, txt: m[0], par: true });
     });
     todos(RE_RUMO, texto).forEach(function (m) {
       var r = graus(m, 2);
@@ -160,6 +168,8 @@
       var limite = Math.max(a.fim, Math.min(prox, a.fim + 160));
       var trecho = texto.substring(a.fim, limite);
       var md = RE_DISTANCIA.exec(trecho);
+      // "azimute e distância: 128°42'38" e 185,69": a unidade vem só nas palavras, e a distância logo depois do "e".
+      if (a.par && (!md || md.index > 20)) md = RE_DISTANCIA_PAR.exec(trecho) || (md && md.index <= 20 ? md : null);
       if (!md) return;
       var d = numeroMetrico(md[1]);
       if (d == null || d <= 0 || d > 100000) return;
@@ -681,6 +691,14 @@
       if (/[WOEL]/.test(a.h) || /[NS]/.test(b.h) || (!a.h && !b.h && Math.abs(a.v) > Math.abs(b.v))) { lat = b.v; lon = a.v; }
       if (noBrasil(lat, lon)) out.push({ ini: m.index, fim: m.index + m[0].length, lat: lat, lon: lon, txt: m[0] });
     });
+    // "N -16.81452 m e E -45.10942 m" (certidões com memorial do SIGEF): grau decimal com rótulo N/E e um "m" que sobrou.
+    var reRotulo = /\b(N|E|[Ll]at(?:itude)?|[Ll]ong(?:itude)?)\s*[:=]?\s*(-\s?\d{1,3}[.,]\d{4,})\s*°?(?:\s*m(?![a-df-zà-ú]))?[^\d-]{0,14}?\b(N|E|[Ll]at(?:itude)?|[Ll]ong(?:itude)?)\s*[:=]?\s*(-\s?\d{1,3}[.,]\d{4,})(?:\s*°)?(?:\s*m\b)?/g;
+    todos(reRotulo, t).forEach(function (m) {
+      var a = num(m[2].replace(/\s/g, "")), b = num(m[4].replace(/\s/g, "")), primeiroLat = /^(n|lat)/i.test(m[1]);
+      if (primeiroLat === /^(n|lat)/i.test(m[3])) return;
+      var lat = primeiroLat ? a : b, lon = primeiroLat ? b : a;
+      if (noBrasil(lat, lon)) out.push({ ini: m.index, fim: m.index + m[0].length, lat: lat, lon: lon, txt: m[0] });
+    });
     var reDec = /(?<![\d.,])(-\s?\d{1,2}[.,]\d{4,})\s*°?\s*[,;/|]?\s*(?:e\s+|long(?:itude)?\.?\s*[:=]?\s*)?(-\s?\d{2}[.,]\d{4,})\s*°?(?!\d)/gi;
     todos(reDec, t).forEach(function (m) {
       var a = num(m[1].replace(/\s/g, "")), b = num(m[2].replace(/\s/g, ""));
@@ -776,9 +794,48 @@
   }
 
   /**
+   * Linhas do OCR (cada uma com as palavras e a posição delas) em pedaços para montarLinhas, sem o
+   * carimbo da margem: o texto vertical na lateral da certidão ("Documento assinado no Assinador…")
+   * vira letras soltas no fim (ou no começo) de cada linha ("124°   2" no lugar de "124°"). Conta
+   * como carimbo a palavra curta (até 3 letras), longe da vizinha (mais de 1,5 altura de letra) e
+   * na faixa de 15% da borda; e só quando isso se repete em 5 linhas ou mais, como faz um carimbo.
+   * Entre as palavras que ficam: um espaço, ou três quando o vão é de coluna de tabela.
+   */
+  function pedacosDoOcr(linhas, largura) {
+    var ls = linhas.map(function (l) {
+      return (l.words || []).filter(function (w) { return w.text && w.text.trim(); })
+        .map(function (w) { return { texto: w.text.trim(), x0: w.bbox.x0, x1: w.bbox.x1, y0: w.bbox.y0, y1: w.bbox.y1 }; })
+        .sort(function (a, b) { return a.x0 - b.x0; });
+    });
+    function altura(ws) { return ws.reduce(function (s, w) { return s + (w.y1 - w.y0); }, 0) / ws.length; }
+    var fim = [], inicio = [];
+    ls.forEach(function (ws, k) {
+      if (ws.length < 3) return;
+      var h = altura(ws), u = ws[ws.length - 1], p = ws[0];
+      if (u.texto.length <= 3 && u.x0 > 0.85 * largura && u.x0 - ws[ws.length - 2].x1 > 1.5 * h) fim.push(k);
+      if (p.texto.length <= 3 && p.x1 < 0.15 * largura && ws[1].x0 - p.x1 > 1.5 * h) inicio.push(k);
+    });
+    if (fim.length >= 5) fim.forEach(function (k) { ls[k].pop(); });
+    if (inicio.length >= 5) inicio.forEach(function (k) { ls[k].shift(); });
+    var out = [];
+    ls.forEach(function (ws, k) {
+      if (!ws.length) {
+        var l = linhas[k];
+        if (!(l.words || []).length && l.text && l.text.trim()) out.push({ texto: l.text.replace(/\s+$/, ""), x0: l.bbox.x0, x1: l.bbox.x1, y0: l.bbox.y0, y1: l.bbox.y1 });
+        return;
+      }
+      var h = altura(ws), s = ws[0].texto;
+      for (var i = 1; i < ws.length; i++) s += (ws[i].x0 - ws[i - 1].x1 > 1.2 * h ? "   " : " ") + ws[i].texto;
+      out.push({ texto: s, x0: ws[0].x0, x1: ws[ws.length - 1].x1,
+        y0: Math.min.apply(null, ws.map(function (w) { return w.y0; })), y1: Math.max.apply(null, ws.map(function (w) { return w.y1; })) });
+    });
+    return out;
+  }
+
+  /**
    * Correções conservadoras do texto que vem do OCR, antes de ler os lados: o grau lido como "º",
    * "o", "O" ou "*" logo antes dos minutos; o apóstrofo dos minutos lido como "/" ou "|"; letra O ou
-   * o entre algarismos (zero); l ou I entre
+   * o entre algarismos (zero); o apóstrofo dos minutos que sumiu ("119°2516.52"" → 119°25'16.52"); l ou I entre
    * algarismos (um); "rn" no lugar de "m" depois de número; o quadrante colado no "e" seguinte
    * ("15" We distância" → "15" W e distância"). Nada além disso: o resto a pessoa
    * confere no texto, e o diagnóstico do fechamento aponta o dígito trocado.
@@ -787,6 +844,7 @@
     return String(t || "")
       .replace(/(\d{1,3})\s?[º°oO*]\s?(?=\d{1,2}\s?['’´`])/g, "$1°")
       .replace(/(\d{1,3})\s?[º°oO*]\s?(\d{1,2})\s?[\/|]\s?(?=\d{1,2}(?:[.,]\d+)?\s?["”'’]{1,2})/g, "$1°$2'")
+      .replace(/(\d{1,3})\s?[º°]\s?([0-5]\d)([0-5]\d[.,]\d+)\s?(?=["”])/g, "$1°$2'$3")
       .replace(/(?<=\d)[Oo](?=\d|[.,]\d)/g, "0")
       .replace(/(?<=\d[.,]\d{0,2})[Oo](?![\wà-ú])/g, "0")
       .replace(/(?<=\d)[lI](?=\d)/g, "1")
@@ -857,6 +915,7 @@
       return r;
     }
     r.fonte = r.fontes.indexOf(opcoes.fonte) >= 0 ? opcoes.fonte : r.fontes[0];
+    var escritas = todos(RE_AREA_ESCRITA, t).map(function (m) { return { valor: m[1].trim(), m2: areaEmM2(m[1]) }; }).filter(function (x) { return x.m2; });
 
     function montar(fonte) {
       var pol;
@@ -883,12 +942,30 @@
       return pol;
     }
     var pol = montar(r.fonte);
+    // Sem escolha da pessoa e com as duas leituras: se os lados não fecham e as coordenadas conferem
+    // com a área escrita (ou voltam ao vértice inicial), o desenho sai das coordenadas. Acontece na
+    // certidão que copia o memorial do SIGEF com a distância de algum lado trocada.
+    r.trocouFonte = null;
+    if (!opcoes.fonte && r.fontes.length === 2 && r.fonte === "azimute" && pol.qualidade.nivel !== "ok") {
+      var co = montar("coordenadas");
+      var confere = function (q) { return escritas.some(function (x) { return Math.abs(x.m2 - q.areaM2) <= 0.02 * x.m2; }); };
+      if (confere(co) || (!escritas.length && co.fechadoNoTexto)) {
+        r.trocouFonte = { erroM: pol.erroFechamentoM, precisao: pol.precisaoRelativa, areaConfere: confere(co) };
+        r.fonte = "coordenadas";
+        pol = co;
+      }
+    }
     r.poligonal = pol;
     if (r.correcoes.length && pol.fonte === "azimute") pol.correcaoDeTeste = "Correção só para teste aplicada em " + r.correcoes.length + " lado(s): o texto original é diferente.";
     if (r.fontes.length === 2) r.outra = montar(r.fonte === "azimute" ? "coordenadas" : "azimute");
 
     var c = r.conferencias;
     c.push({ nivel: pol.qualidade.nivel === "ruim" || pol.qualidade.nivel === "atencao" ? "atencao" : pol.qualidade.nivel, texto: pol.qualidade.texto });
+    if (r.trocouFonte) {
+      c.push({ nivel: "atencao", texto: "Desenho pelas coordenadas dos vértices: pelos lados (azimute e distância) o polígono não fecha (" +
+        metros(r.trocouFonte.erroM) + " de erro), e as coordenadas " + (r.trocouFonte.areaConfere ? "conferem com a área escrita." : "voltam ao vértice inicial.") +
+        " Alguma distância ou azimute do texto não bate com as coordenadas: confira na matrícula. Para ver a leitura pelos lados, troque abaixo." });
+    }
     if (r.correcoes.length) {
       r.correcoes.forEach(function (k) {
         var trecho = k.original.trecho || "", nomeLado = "lado " + (trecho ? "lido como \u201c" + (trecho.length > 70 ? trecho.slice(0, 70) + "…" : trecho) + "\u201d" : "nº " + (k.lado + 1));
@@ -905,6 +982,18 @@
         az.vertices.forEach(function (v, i) { var d = Math.hypot(v[0] - co.vertices[i][0], v[1] - co.vertices[i][1]); if (d > maior) { maior = d; k = i; } });
         c.push({ nivel: "info", texto: "O texto traz os lados e também a coordenada de cada vértice. Comparados vértice a vértice, a maior diferença é de " +
           metros(maior) + " (" + co.nomes[k] + ")." });
+        // Lado a lado: a distância escrita contra a que sai das coordenadas (folga de 1 m e 2%, o arredondamento da coordenada).
+        var difs = [];
+        az.lados.forEach(function (l, i) {
+          var dc = co.lados[i].distanciaM;
+          if (Math.abs(l.distanciaM - dc) > 1 + 0.02 * dc) difs.push({ i: i, escrita: l.distanciaM, coord: dc });
+        });
+        if (difs.length) {
+          var nome = function (i) { return co.nomes[i] + "–" + co.nomes[(i + 1) % co.nomes.length]; };
+          c.push({ nivel: "atencao", texto: difs.length + " de " + az.lados.length + " distâncias escritas não batem com as coordenadas dos vértices: " +
+            difs.slice(0, 4).map(function (x) { return nome(x.i) + " com " + decimal(x.escrita, 2) + " m no texto e " + decimal(x.coord, 2) + " m pelas coordenadas"; }).join("; ") +
+            (difs.length > 4 ? "; e mais " + (difs.length - 4) : "") + "." });
+        }
       } else {
         c.push({ nivel: "atencao", texto: "O texto traz " + az.lados.length + " lados e " + co.vertices.length + " vértices com coordenada: as duas leituras não batem. Confira no original." });
       }
@@ -920,7 +1009,6 @@
         "). Costuma ser lado fora de ordem, quadrante de rumo trocado ou azimute lido errado." });
     }
     if (pol.fonte === "azimute" && r.lados.some(function (l) { return l.deRumo; })) c.push({ nivel: "info", texto: "Rumos convertidos em azimute pelo quadrante (NE, SE, SW, NW)." });
-    var escritas = todos(RE_AREA_ESCRITA, t).map(function (m) { return { valor: m[1].trim(), m2: areaEmM2(m[1]) }; }).filter(function (x) { return x.m2; });
     if (escritas.length && pol.areaM2 > 0) {
       var perto = escritas.reduce(function (a, b) { return Math.abs(b.m2 - pol.areaM2) < Math.abs(a.m2 - pol.areaM2) ? b : a; });
       var dif = Math.abs(perto.m2 - pol.areaM2) / pol.areaM2;
@@ -1225,7 +1313,7 @@
     datumCitado: datumCitado, fusoCitado: fusoCitado, partidaDoTexto: partidaDoTexto, analisar: analisar,
     diagnosticar: diagnosticar, textoHipotese: textoHipotese, rumoTexto: rumoTexto, variacoesDigitos: variacoesDigitos,
     coordenadasDoTexto: coordenadasDoTexto, sequenciaDeCoordenadas: sequenciaDeCoordenadas, verticesForaDoLugar: verticesForaDoLugar,
-    montarLinhas: montarLinhas, limparOcr: limparOcr, semMarcadores: semMarcadores,
+    montarLinhas: montarLinhas, pedacosDoOcr: pedacosDoOcr, limparOcr: limparOcr, semMarcadores: semMarcadores,
     decimal: decimal, inteiro: inteiro, metros: metros, dms: dms, resumoFechamento: resumoFechamento,
     geojson: geojson, kml: kml, csv: csv, dxf: dxf, memorialTexto: memorialTexto, prj: prj, epsg: epsg, shapefile: shapefile, shapefileZip: shapefileZip, zip: zip, crc32: crc32
   };
