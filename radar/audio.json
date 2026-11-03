@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-02T18:49-03:00",
+ "gerado_em": "2026-11-03T16:39-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -61,16 +61,7 @@
     "2026-10-29"
    ],
    "temas": [],
-   "internos": [
-    {
-     "data": "2026-10-29",
-     "orgao": "Ibama",
-     "titulo": "Portaria conjunta Ibama/PFE-IBAMA nº 7, de 20 de outubro de 2026",
-     "ementa": "Altera o art. 34 da Portaria Conjunta Ibama/PFE-Ibama nº 3, de 6 de julho de 2022, que aprovou o Regimento Interno da Procuradoria Federal Especializada junto ao Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis.",
-     "link": "https://www.in.gov.br/web/dou/-/portaria-conjunta-ibama/pfe-ibama-n-7-de-20-de-outubro-de-2026-741103885",
-     "referencia": "DOU de 29/10/2026, Seção: 1, p. 47"
-    }
-   ],
+   "internos": [],
    "nome": "Federal (DOU)",
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
