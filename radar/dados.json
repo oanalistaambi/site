@@ -694,59 +694,6 @@
      }
     }
    ]
-  },
-  {
-   "data": "2026-10-17",
-   "atos": [],
-   "movimento": [
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 7,
-     "processos": 22,
-     "decisoes": {
-      "arquivamentos": 2,
-      "requerimentos": 3,
-      "deferimentos/concessões": 6,
-      "revogações/cancelamentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Ato sobre empresa/empreendimento específico",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {}
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 1,
-     "processos": 2,
-     "decisoes": {
-      "requerimentos": 1,
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 2,
-     "processos": 7,
-     "decisoes": {
-      "deferimentos/concessões": 2
-     }
-    }
-   ]
   }
  ]
 }
