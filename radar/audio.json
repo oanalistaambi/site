@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-03T16:39-03:00",
+ "gerado_em": "2026-11-04T16:57-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,41 +9,29 @@
   {
    "id": "mg",
    "janela": [
-    "2026-10-29",
-    "2026-10-30"
+    "2026-10-30",
+    "2026-11-04"
    ],
    "temas": [
     {
      "id": "agua",
      "nome": "Água, outorga e saneamento",
-     "roteiro": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução ARSAE-MG N° 238, de 22 de outubro de 2026, publicada em 29 de outubro. Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais – GASMIG. A data de vigência não foi identificada automaticamente. Também saiu: Resolução ARSAE-MG nº 240. Confira o texto oficial no link da página.",
-     "fala": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução Arsae-MG número 238, de 22 de outubro de 2026, publicada em 29 de outubro. Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais, GASMIG. A data de vigência não foi identificada automaticamente. Também saiu: Resolução Arsae-MG número 240. Confira o texto oficial no link da página.",
-     "audio": "radar/audios/mg-agua-41af0289fb.mp3",
-     "duracao_s": 30,
+     "roteiro": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Portaria Igam nº 18, de 03 de novembro de 2026, publicada em 4 de novembro. Convoca os empreendimentos e atividades que especifica para formalização de processo de outorga de lançamento de efluentes, e dá outras providências. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Portaria Igam número 18, de 03 de novembro de 2026, publicada em 4 de novembro. Convoca os empreendimentos e atividades que especifica para formalização de processo de outorga de lançamento de efluentes, e dá outras providências. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
      "atos": [
       {
-       "data": "2026-10-29",
-       "orgao": "Arsae",
-       "titulo": "Resolução ARSAE-MG N° 238, de 22 de outubro de 2026",
-       "ementa": "Aprova os valores das tarifas de gás natural para os fornecimentos realizados pela Companhia de Gás de Minas Gerais – GASMIG.",
+       "data": "2026-11-04",
+       "orgao": "Igam",
+       "titulo": "Portaria Igam nº 18, de 03 de novembro de 2026",
+       "ementa": "Convoca os empreendimentos e atividades que especifica para formalização de processo de outorga de lançamento de efluentes, e dá outras providências.",
        "trechos": {
-        "vigencia": null,
+        "vigencia": "Esta portaria entra em vigor na data de sua publicação",
         "revoga": null
        },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-29T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A15%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 29/10/2026, p. 15, código de autenticidade 3202610291025995615"
-      },
-      {
-       "data": "2026-10-29",
-       "orgao": "Arsae",
-       "titulo": "Resolução ARSAE-MG nº 240, de 28 de outubro de 2026",
-       "ementa": "Aprova a Agenda Regulatória da Agência Reguladora de Saneamento e Energia de Minas Gerais – Arsae-MG – para o biênio de 2027-2028.",
-       "trechos": {
-        "vigencia": "Esta Resolução entra em vigor no dia 01 de janeiro de 2027",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-10-29T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A15%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 29/10/2026, p. 15, código de autenticidade 3202610291025995615"
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-04T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A16%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 04/11/2026, p. 16, código de autenticidade 3202611044081920216"
       }
      ]
     }
