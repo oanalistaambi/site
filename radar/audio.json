@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-04T16:57-03:00",
+ "gerado_em": "2026-11-05T06:13-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,8 +9,8 @@
   {
    "id": "mg",
    "janela": [
-    "2026-10-30",
-    "2026-11-04"
+    "2026-11-04",
+    "2026-11-05"
    ],
    "temas": [
     {
@@ -34,6 +34,40 @@
        "referencia": "Jornal Minas Gerais, Diário do Executivo de 04/11/2026, p. 16, código de autenticidade 3202611044081920216"
       }
      ]
+    },
+    {
+     "id": "flora",
+     "nome": "Flora, florestas e unidades de conservação",
+     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad/IEF nº 3.437, de 3 de novembro de 2026, publicada em 5 de novembro. A ementa é longa; leia o resumo completo no texto oficial. Esta Resolução Conjunta entra em vigor na data de sua publicação. Também saiu: Portaria IEF nº 88. Confira o texto oficial no link da página.",
+     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad IEF número três mil quatrocentos e trinta e sete, de 3 de novembro de 2026, publicada em 5 de novembro. A ementa é longa; leia o resumo completo no texto oficial. Esta Resolução Conjunta entra em vigor na data de sua publicação. Também saiu: Portaria IEF número 88. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
+      {
+       "data": "2026-11-05",
+       "orgao": "IEF",
+       "titulo": "Resolução conjunta Semad/IEF nº 3.437, de 3 de novembro de 2026",
+       "ementa": "Estabelece a transição do Sistema de Controle de Atividades Florestais – CAF/SIAM para o módulo Controle de Carvão Vegetal – CCV do sistema MG Florestas e revoga a Resolução Conjunta SEMAD/IEF Nº 2.248, de 30 de dezembro de 2014 e a Resolução Conjunta SEMAD/IEF Nº 2.691, de 14 de setembro de 2018.",
+       "trechos": {
+        "vigencia": "Esta Resolução Conjunta entra em vigor na data de sua publicação",
+        "revoga": null
+       },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-05T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A8%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 05/11/2026, p. 8, código de autenticidade 320261105950034058"
+      },
+      {
+       "data": "2026-11-05",
+       "orgao": "IEF",
+       "titulo": "Portaria IEF nº 88, de 03 de novembro de 2026",
+       "ementa": "Estabelece diretrizes para o controle do transporte,armazenamento, consumo e uso de carvão vegetalde espécies exóticas no Estado de Minas Gerais.",
+       "trechos": {
+        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
+        "revoga": null
+       },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-05T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A9%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 05/11/2026, p. 9, código de autenticidade 320261105950034059"
+      }
+     ]
     }
    ],
    "internos": [],
@@ -43,16 +77,114 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-26",
-    "2026-10-27",
     "2026-10-28",
-    "2026-10-29"
+    "2026-10-29",
+    "2026-11-04",
+    "2026-11-05"
    ],
    "temas": [],
    "internos": [],
    "nome": "Federal (DOU)",
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
+    {
+     "id": "dou-2026-11-05",
+     "fonte": "dou",
+     "data": "2026-11-05",
+     "dia_semana": "quinta-feira",
+     "titulo": "Mineração revisa a agenda regulatória; conselho da APA da Serra da Meruoca",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quinta-feira, 5 de novembro de 2026. Hoje são dois destaques: a revisão da agenda regulatória da mineração e o conselho de uma área de proteção ambiental.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "ANM revisa a agenda regulatória da mineração",
+       "tema": "Mineração e barragens",
+       "atos": [
+        {
+         "titulo": "Resolução ANM nº 251, de 4 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/resolucao-anm-n-251-de-4-de-novembro-de-2026-741842919",
+         "referencia": "DOU de 05/11/2026, Seção 1, p. 54",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Resolução número 251, da Agência Nacional de Mineração, aprova a terceira revisão extraordinária da agenda regulatória da agência para 2025 a 2027, a lista de temas que ela pretende regulamentar. A nova redação inclui a regulamentação do prazo de quatro anos para a pesquisa mineral, previsto na Lei 14.514, de 2022, e requisitos de conformidade e de combate a ilicitudes nas outorgas de títulos minerários. Também prevê simplificar os formulários de análise do Plano de Aproveitamento Econômico, na concessão de lavra, e a cessão e o arrendamento de direitos minerários. Um item da lista anterior foi revogado. Está em vigor desde a publicação.",
+       "inicio_s": 16.9
+      },
+      {
+       "titulo": "Conselho consultivo da APA da Serra da Meruoca",
+       "tema": "Flora e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria ICMBio nº 4.993, de 23 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-4.993-de-23-de-outubro-de-2026-741861211",
+         "referencia": "DOU de 05/11/2026, Seção 1, p. 54",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Portaria número 4.993, do ICMBio, modifica a composição do conselho consultivo da Área de Proteção Ambiental da Serra da Meruoca. O conselho é paritário: de um lado, setores da sociedade civil, como associações comunitárias, agricultura e turismo; de outro, setores do poder público, como meio ambiente, ensino e pesquisa e recursos hídricos. As vagas de cada setor são definidas pelo próprio conselho. Em vigor desde a publicação.",
+       "inicio_s": 60.5
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+       "inicio_s": 91.8
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-05-a0ec8329f3.mp3",
+     "duracao_s": 110,
+     "bytes": 1325471,
+     "publicado_em": "2026-11-05T06:12:02-03:00"
+    },
+    {
+     "id": "dou-2026-11-04",
+     "fonte": "dou",
+     "data": "2026-11-04",
+     "dia_semana": "quarta-feira",
+     "titulo": "Decreto define os critérios dos minerais críticos e estratégicos",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quarta-feira, 4 de novembro de 2026. O destaque saiu numa edição extra: um decreto sobre minerais críticos e estratégicos.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Critérios para os minerais críticos e estratégicos",
+       "tema": "Mineração e barragens",
+       "atos": [
+        {
+         "titulo": "Decreto nº 13.146, de 4 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/decreto-n-13.146-de-4-de-novembro-de-2026-741839252",
+         "referencia": "DOU de 04/11/2026, Seção 1, Extra B, p. 3",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "O Decreto número 13.146 estabelece critérios econômicos, socioambientais e climáticos para definir quais substâncias são minerais críticos e quais são minerais estratégicos. Mineral crítico é o necessário para setores-chave da economia, com oferta vulnerável e risco de escassez; na análise entram também a disponibilidade de água, os impactos sobre territórios e comunidades e a exposição a eventos climáticos. Mineral estratégico é o que tem reservas relevantes no país e é essencial para a balança comercial, a tecnologia, o desenvolvimento regional ou a redução de emissões. As substâncias podem ser organizadas em três classes de prioridade. A lista será definida e atualizada por resolução do conselho nacional do setor, a partir de proposta do Ministério de Minas e Energia, com revisão a cada quatro anos. O decreto está em vigor desde a publicação.",
+       "inicio_s": 15.1
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração e autorizações de pesca. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+       "inicio_s": 73.6
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-04-21a772a7b6.mp3",
+     "duracao_s": 94,
+     "bytes": 1133001,
+     "publicado_em": "2026-11-05T06:12:45-03:00"
+    },
     {
      "id": "dou-2026-10-29",
      "fonte": "dou",
@@ -160,128 +292,6 @@
      ],
      "audio": "radar/audios/dou-2026-10-28-085bb5e16c.mp3",
      "duracao_s": 176
-    },
-    {
-     "id": "dou-2026-10-27",
-     "fonte": "dou",
-     "data": "2026-10-27",
-     "dia_semana": "terça-feira",
-     "titulo": "Mosaico Mata Atlântica Central Fluminense atualizado",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de terça-feira, 27 de outubro de 2026. Hoje é um dia mais curto, com um destaque sobre unidades de conservação da Mata Atlântica, no Rio de Janeiro.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Mosaico Mata Atlântica Central Fluminense: a nova composição",
-       "tema": "Flora e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Portaria GM/MMA nº 1.809, de 26 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.809-de-26-de-outubro-de-2026-740420292",
-         "referencia": "DOU de 27/10/2026, Seção 1, p. 66",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "A Portaria número 1.809, do Ministério do Meio Ambiente, altera a portaria de 2006 que reconhece o Mosaico Mata Atlântica Central Fluminense. Um mosaico reúne unidades de conservação próximas para que sejam geridas de forma integrada. A nova redação lista quem faz parte: unidades do ICMBio, como o Parque Nacional da Serra dos Órgãos e a Reserva Biológica do Tinguá; unidades do Instituto Estadual do Ambiente, como o Parque Estadual dos Três Picos; unidades de vários municípios fluminenses; e reservas particulares do patrimônio natural. A lista inclui ainda dois territórios quilombolas, um em Petrópolis e outro em Areal. A portaria também define a composição do conselho consultivo, com gestores das unidades, sociedade civil, reservas particulares, povos e comunidades tradicionais, os quilombos e quatro comitês de bacias hidrográficas. O conselho poderá ser presidido por um chefe de unidade de conservação ou por um representante dos territórios quilombolas. Está em vigor desde a publicação.",
-       "inicio_s": 16.9
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "No mesmo dia saíram atos de organização interna, como o regimento da Secretaria Nacional de Mudança do Clima, e dezenas de despachos de mineração sobre casos específicos, que não detalhamos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
-       "inicio_s": 80.7
-      }
-     ],
-     "audio": "radar/audios/dou-2026-10-27-98fa4267d5.mp3",
-     "duracao_s": 105
-    },
-    {
-     "id": "dou-2026-10-26",
-     "fonte": "dou",
-     "data": "2026-10-26",
-     "dia_semana": "segunda-feira",
-     "titulo": "Pesca em rios e lagos com novas regras, foz do Rio Doce e consulta pública",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Você está ouvindo o Radar Ambiental do Diário Oficial da União, edição de segunda-feira, 26 de outubro de 2026. Hoje o assunto é pesca, com quatro destaques: novas regras para os barcos de pesca comercial em rios, lagos e represas; o ordenamento da pesca no mar em frente à foz do Rio Doce, no Espírito Santo; uma consulta pública do Ministério da Pesca; e um novo grupo de trabalho no Ministério do Meio Ambiente. Vamos aos detalhes.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Barcos de pesca em águas continentais: a nova matriz de permissionamento",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria Interministerial MPA/MMA nº 73, de 23 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-73-de-23-de-outubro-de-2026-740414104",
-         "referencia": "DOU de 26/10/2026, Seção 1, Extra B, p. 3",
-         "vigencia": "30 dias após a publicação"
-        }
-       ],
-       "fala": "Primeiro destaque: a Portaria Interministerial número 73, do Ministério da Pesca e Aquicultura e do Ministério do Meio Ambiente. Ela aprova a matriz de permissionamento das embarcações de pesca em águas continentais, ou seja, rios, lagos, lagoas, açudes e represas. O que muda: a autorização de cada barco passa a seguir modalidades organizadas por região hidrográfica, com área de operação, petrecho, espécies permitidas e espécies não permitidas. Vale apenas para a pesca comercial feita com embarcação, e cada barco pode pedir até duas modalidades, em regiões hidrográficas vizinhas. Espécies não permitidas, se capturadas, devem ser soltas vivas ou descartadas na área de pesca, e a captura e a venda de espécies da lista oficial de ameaçadas continuam proibidas, salvo autorização do órgão ambiental. Prazos: o Ministério da Pesca tem noventa dias, contados da entrada em vigor, para publicar o cronograma de adequação dos barcos, e a portaria será revisada em dois anos. Quem descumprir responde pela Lei de Crimes Ambientais e pelo Decreto 6.514, de 2008. A portaria entra em vigor trinta dias após a publicação.",
-       "inicio_s": 28.0
-      },
-      {
-       "titulo": "Foz do Rio Doce: ordenamento da pesca no mar do Espírito Santo",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria Interministerial MPA/MMA nº 75, de 26 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-75-de-26-de-outubro-de-2026-740332704",
-         "referencia": "DOU de 26/10/2026, Seção 1, Extra A, p. 1",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Segundo destaque: a Portaria Interministerial número 75 estabelece o ordenamento da pesca na área marinha em frente à foz do Rio Doce, no Espírito Santo: a faixa entre Barra do Riacho, em Aracruz, e Degredo, em Linhares, até vinte metros de profundidade. Ali, só podem exercer a pesca profissional pescadores e embarcações regularizados, quando a lei exigir, e valem as normas já existentes de defeso, áreas restritas, espécies protegidas, tamanhos permitidos e petrechos, listadas na própria portaria. As decisões futuras de abrir, manter, suspender ou fechar a pesca serão baseadas em dados atualizados sobre a região, e as medidas seguem um Plano de Ação Integrado, que será divulgado nos sites dos dois ministérios. A portaria deixa claro que não afasta as obrigações de reparação do acordo judicial sobre o rompimento da Barragem de Fundão. Está em vigor desde a publicação.",
-       "inicio_s": 104.1
-      },
-      {
-       "titulo": "Consulta pública: registro de barcos de pesca em águas continentais",
-       "tema": "Consulta pública",
-       "atos": [
-        {
-         "titulo": "Portaria MPA nº 779, de 23 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-779-de-23-de-outubro-de-2026-740304990",
-         "referencia": "DOU de 26/10/2026, Seção 1, p. 68",
-         "vigencia": "na data da publicação; consulta aberta por 45 dias corridos"
-        }
-       ],
-       "fala": "Terceiro destaque, para quem quer participar: a Portaria número 779, do Ministério da Pesca e Aquicultura, abre consulta pública sobre a proposta de critérios e procedimentos para inscrever embarcações de pesca de águas continentais no Registro Geral da Atividade Pesqueira, o RGP. A proposta se apoia na matriz de permissionamento que acabamos de ver. As contribuições são feitas apenas pela plataforma Brasil Participativo, no prazo de quarenta e cinco dias corridos, contados da publicação.",
-       "inicio_s": 163.8
-      },
-      {
-       "titulo": "Novo grupo de trabalho sobre recursos pesqueiros no Meio Ambiente",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria GM/MMA nº 1.807, de 22 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.807-de-22-de-outubro-de-2026-740357477",
-         "referencia": "DOU de 26/10/2026, Seção 1, p. 56",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Por fim, a Portaria número 1.807, do Ministério do Meio Ambiente, cria o GTPESC, um grupo de trabalho permanente com representantes do ministério, do Ibama e do ICMBio. Ele vai dar suporte técnico às posições do Meio Ambiente sobre as normas de uso dos recursos pesqueiros discutidas com o Ministério da Pesca. Quando a medida tratar de espécie ameaçada de extinção, a manifestação formal da presidência do ICMBio passa a ser obrigatória. O grupo se reúne todo mês.",
-       "inicio_s": 194.9
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Além desses destaques, os órgãos ambientais federais publicaram outros atos sobre casos específicos, a maioria despachos de mineração, que não detalhamos porque envolvem empresas e pessoas. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
-       "inicio_s": 225.3
-      }
-     ],
-     "audio": "radar/audios/dou-2026-10-26-45dc14055b.mp3",
-     "duracao_s": 250
     }
    ]
   }
