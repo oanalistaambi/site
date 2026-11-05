@@ -1,7 +1,109 @@
 {
- "atualizado_em": "2026-11-04",
+ "atualizado_em": "2026-11-05",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-11-05",
+   "atos": [
+    {
+     "orgao": "IEF",
+     "tipo": "Resolução conjunta",
+     "numero": "3.437",
+     "titulo": "RESOLUÇÃO CONJUNTA SEMAD/IEF Nº 3.437, 3 DE NOVEMBRO DE 2026",
+     "ementa": "Estabelece a transição do Sistema de Controle de Atividades Florestais – CAF/SIAM para o módulo Controle de Carvão Vegetal – CCV do sistema MG Florestas e revoga a Resolução Conjunta SEMAD/IEF Nº 2.248, de 30 de dezembro de 2014 e a Resolução Conjunta SEMAD/IEF Nº 2.691, de 14 de setembro de 2018.",
+     "relevancia": "mudança de procedimento",
+     "trilha": "Trilha 6 · Flora",
+     "pagina": 8,
+     "autenticidade": "320261105950034058"
+    },
+    {
+     "orgao": "IEF",
+     "tipo": "Portaria",
+     "numero": "88",
+     "titulo": "PORTARIA IEF Nº 88, DE 03 DE NOVEMBRO DE 2026.",
+     "ementa": "Estabelece diretrizes para o controle do transporte,armazenamento, consumo e uso de carvão vegetalde espécies exóticas no Estado de Minas Gerais.",
+     "relevancia": "nova regra",
+     "trilha": "Trilha 5 · Água",
+     "pagina": 9,
+     "autenticidade": "320261105950034059"
+    }
+   ],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 12,
+     "processos": 22,
+     "decisoes": {
+      "deferimentos/concessões": 8,
+      "requerimentos": 4,
+      "revogações/cancelamentos": 2
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "requerimentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 2,
+     "processos": 5,
+     "decisoes": {
+      "deferimentos/concessões": 2,
+      "indeferimentos": 2,
+      "arquivamentos": 1,
+      "requerimentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 5,
+     "processos": 54,
+     "decisoes": {
+      "deferimentos/concessões": 4,
+      "indeferimentos": 2,
+      "arquivamentos": 3
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {}
+    }
+   ]
+  },
   {
    "data": "2026-11-04",
    "atos": [
@@ -366,118 +468,6 @@
    ]
   },
   {
-   "data": "2026-10-24",
-   "atos": [
-    {
-     "orgao": "Outro órgão (Secretaria de Estado de Infraestrutura, Mobilidade e Parcerias)",
-     "tipo": "Resolução",
-     "numero": "59/2026",
-     "titulo": "RESOLUÇÃO SEINFRA N° 59/2026, DE 23 DE OUTUBRO DE 2026",
-     "ementa": "59/2026, DE 23 DE OUTUBRO DE 2026 Declara de utilidade pública para as áreas necessárias às obras de melhoria da infraestrutura viária entre os distritos de Capitão Felizardo e Costa Sena, pertencentes ao município de Conceição do Mato Dentro, ao município de Congonhas do Norte. O Secretário de Estado de Infraestrutura, Mobilidade e Parcerias, no uso das atribuições que lhe conferem o inciso III,",
-     "relevancia": "notícia",
-     "trilha": "Trilha 5 · Água",
-     "pagina": 6,
-     "autenticidade": "320261024872126316"
-    },
-    {
-     "orgao": "IEF",
-     "tipo": "Resolução conjunta",
-     "numero": "3.434",
-     "titulo": "RESOLUÇÃO CONJUNTA SEMAD/IEF Nº 3.434, 23 DE OUTUBRO DE 2026.",
-     "ementa": "Revoga a Resolução Conjunta SEMAD/IEF nº 3.433 de 22 de outubro de 2026,que estabelece a transição do Sistema de Controle de Atividades Florestais – CAF/SIAM para o módulo Controle de Carvão Vegetal – CCV do sistema MG Florestas e revoga a Resolução Conjunta SEMAD/IEF Nº 2.248, de 30 de dezembro de 2014 e a Resolução Conjunta SEMAD/IEF Nº 2.691, de 14 de setembro de 2018.",
-     "relevancia": "mudança de procedimento",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 8,
-     "autenticidade": "320261024872126318"
-    },
-    {
-     "orgao": "IEF",
-     "tipo": "Portaria",
-     "numero": "85",
-     "titulo": "PORTARIA IEF Nº 85, 22 DE OUTUBRO DE 2026",
-     "ementa": "Estabelece normas, procedimentos e orientações para o planejamento e a implementação da gestão de segurança da visitação nas unidades de conservação estaduais administradas pelo Instituto Estadual de Florestas de Minas Gerais.",
-     "relevancia": "mudança de procedimento",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 9,
-     "autenticidade": "320261024872126319"
-    },
-    {
-     "orgao": "IEF",
-     "tipo": "Portaria",
-     "numero": "86",
-     "titulo": "PORTARIA IEF Nº 86 DE 23 DE OUTUBRO DE 2026",
-     "ementa": "Revoga a Portaria IEF nº 84, de 21 de outubro de 2026, que estabelece diretrizes para o controle do transporte, armazenamento, consumo e uso de carvão vegetal de espécies exóticas no Estado de Minas Gerais.",
-     "relevancia": "mudança de procedimento",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 9,
-     "autenticidade": "320261024872126319"
-    }
-   ],
-   "movimento": [
-    {
-     "orgao": "Copam",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 2,
-     "processos": 3,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 11,
-     "processos": 20,
-     "decisoes": {
-      "deferimentos/concessões": 10,
-      "requerimentos": 3,
-      "indeferimentos": 1,
-      "arquivamentos": 1,
-      "transferências de titularidade": 1,
-      "revogações/cancelamentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 2,
-     "processos": 6,
-     "decisoes": {
-      "requerimentos": 2,
-      "deferimentos/concessões": 1,
-      "indeferimentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 3,
-     "processos": 6,
-     "decisoes": {
-      "deferimentos/concessões": 3
-     }
-    }
-   ]
-  },
-  {
    "data": "2026-10-23",
    "atos": [],
    "movimento": [
@@ -631,69 +621,6 @@
      "grupo": "Auto de infração / sanção",
      "publicacoes": 2,
      "processos": 2,
-     "decisoes": {}
-    }
-   ]
-  },
-  {
-   "data": "2026-10-21",
-   "atos": [],
-   "movimento": [
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 6,
-     "processos": 12,
-     "decisoes": {
-      "requerimentos": 3,
-      "deferimentos/concessões": 4,
-      "revogações/cancelamentos": 1,
-      "transferências de titularidade": 2
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {}
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 3,
-     "processos": 5,
-     "decisoes": {
-      "requerimentos": 3
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 2,
-     "processos": 4,
-     "decisoes": {
-      "deferimentos/concessões": 2,
-      "indeferimentos": 1,
-      "arquivamentos": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 5,
-     "processos": 32,
-     "decisoes": {
-      "deferimentos/concessões": 4,
-      "arquivamentos": 3,
-      "indeferimentos": 2
-     }
-    },
-    {
-     "orgao": "Semad",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 1,
-     "processos": 1,
      "decisoes": {}
     }
    ]
