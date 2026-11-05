@@ -1,0 +1,56 @@
+{
+ "id": "dou-2026-11-05",
+ "fonte": "dou",
+ "data": "2026-11-05",
+ "dia_semana": "quinta-feira",
+ "titulo": "Mineração revisa a agenda regulatória; conselho da APA da Serra da Meruoca",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quinta-feira, 5 de novembro de 2026. Hoje são dois destaques: a revisão da agenda regulatória da mineração e o conselho de uma área de proteção ambiental.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "ANM revisa a agenda regulatória da mineração",
+   "tema": "Mineração e barragens",
+   "atos": [
+    {
+     "titulo": "Resolução ANM nº 251, de 4 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/resolucao-anm-n-251-de-4-de-novembro-de-2026-741842919",
+     "referencia": "DOU de 05/11/2026, Seção 1, p. 54",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "A Resolução número 251, da Agência Nacional de Mineração, aprova a terceira revisão extraordinária da agenda regulatória da agência para 2025 a 2027, a lista de temas que ela pretende regulamentar. A nova redação inclui a regulamentação do prazo de quatro anos para a pesquisa mineral, previsto na Lei 14.514, de 2022, e requisitos de conformidade e de combate a ilicitudes nas outorgas de títulos minerários. Também prevê simplificar os formulários de análise do Plano de Aproveitamento Econômico, na concessão de lavra, e a cessão e o arrendamento de direitos minerários. Um item da lista anterior foi revogado. Está em vigor desde a publicação.",
+   "inicio_s": 16.9
+  },
+  {
+   "titulo": "Conselho consultivo da APA da Serra da Meruoca",
+   "tema": "Flora e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria ICMBio nº 4.993, de 23 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-4.993-de-23-de-outubro-de-2026-741861211",
+     "referencia": "DOU de 05/11/2026, Seção 1, p. 54",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "A Portaria número 4.993, do ICMBio, modifica a composição do conselho consultivo da Área de Proteção Ambiental da Serra da Meruoca. O conselho é paritário: de um lado, setores da sociedade civil, como associações comunitárias, agricultura e turismo; de outro, setores do poder público, como meio ambiente, ensino e pesquisa e recursos hídricos. As vagas de cada setor são definidas pelo próprio conselho. Em vigor desde a publicação.",
+   "inicio_s": 60.5
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+   "inicio_s": 91.8
+  }
+ ],
+ "audio": "radar/audios/dou-2026-11-05-a0ec8329f3.mp3",
+ "duracao_s": 110,
+ "bytes": 1325471,
+ "publicado_em": "2026-11-05T06:12:02-03:00"
+}
