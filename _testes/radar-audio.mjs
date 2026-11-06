@@ -10,6 +10,7 @@ const ok = (c, m) => { if (!c) { falhas++; console.log("FALHA:", m); } else cons
 const OFICIAL = /^https:\/\/(www\.in\.gov\.br|www\.jornalminasgerais\.mg\.gov\.br)\//;
 const dados = JSON.parse(readFileSync("radar/audio.json", "utf8"));
 const dou = dados.fontes.find(f => f.id === "dou");
+const comAudio = dou.episodios.filter(e => e.audio); // episódio sem crédito de voz sai sem MP3 (voz do navegador)
 const mg = dados.fontes.find(f => f.id === "mg");
 
 const nav = await chromium.launch({ args: ["--no-proxy-server", "--autoplay-policy=no-user-gesture-required"] });
@@ -33,21 +34,21 @@ const audios = await pg.$$("#ra-painel audio");
 ok(audios.length === dou.episodios.filter(e => e.audio).length, `${audios.length} episódio(s) com player`);
 for (const [i, a] of audios.entries()) {
   const dur = await a.evaluate(el => new Promise(res => { if (el.readyState >= 1) return res(el.duration); el.onloadedmetadata = () => res(el.duration); el.onerror = () => res(-1); el.load(); }));
-  const esperado = dou.episodios[i].duracao_s;
-  ok(Math.abs(dur - esperado) < 3 && dur <= 300, `${dou.episodios[i].id}: MP3 carrega (${dur.toFixed(0)} s, até 5 min)`);
+  const esperado = comAudio[i].duracao_s;
+  ok(Math.abs(dur - esperado) < 3 && dur <= 300, `${comAudio[i].id}: MP3 carrega (${dur.toFixed(0)} s, até 5 min)`);
 }
-for (const ep of dou.episodios) {
+for (const ep of comAudio) {
   ok(ep.capitulos.every((c, k) => k === 0 || c.inicio_s > ep.capitulos[k - 1].inicio_s), `${ep.id}: capítulos em ordem de tempo`);
 }
 // "Ouvir agora": toca o episódio mais recente; ao terminar, segue para o anterior; tela bloqueada recebe título e capa
 await pg.waitForFunction(() => !document.getElementById("ra-agora").disabled);
 await pg.click("#ra-agora");
 await pg.waitForTimeout(700);
-ok(await pg.$eval(`#ep-${dou.episodios[0].data}`, el => !el.paused), "Ouvir agora toca o episódio mais recente");
+ok(await pg.$eval(`#ep-${comAudio[0].data}`, el => !el.paused), "Ouvir agora toca o episódio mais recente com áudio");
 ok(/DOU de/.test(await pg.evaluate(() => navigator.mediaSession && navigator.mediaSession.metadata ? navigator.mediaSession.metadata.title : "")), "título e capa vão para a tela bloqueada");
-await pg.$eval(`#ep-${dou.episodios[0].data}`, el => el.dispatchEvent(new Event("ended")));
+await pg.$eval(`#ep-${comAudio[0].data}`, el => el.dispatchEvent(new Event("ended")));
 await pg.waitForTimeout(700);
-ok(await pg.$eval(`#ep-${dou.episodios[1].data}`, el => !el.paused), "ao terminar, segue para a edição anterior");
+ok(await pg.$eval(`#ep-${comAudio[1].data}`, el => !el.paused), "ao terminar, segue para a edição anterior");
 await pg.$$eval("#ra-painel audio", as => as.forEach(a => a.pause()));
 const assinar = await pg.$$eval("#assinar a", as => as.map(a => a.getAttribute("href")));
 ok(assinar.some(h => /^pktc:\/\/subscribe\/www\.oanalistaambiental\.com\/radar\/podcast\.xml$/.test(h)), "botão de assinar no app de podcast");
@@ -60,16 +61,18 @@ ok(assinar.some(h => /^pktc:\/\/subscribe\/www\.oanalistaambiental\.com\/radar\/
   await and.close();
 }
 // pular para o 2º destaque do episódio mais recente
-const ep0 = dou.episodios[0];
+const ep0 = comAudio[0];
 const alvo = ep0.capitulos.filter(c => c.atos.length)[0];
 // pular no áudio exige servidor com Range (o GitHub Pages tem; o http.server do Python, não)
 const range = (await ctx.request.get(BASE + "/" + ep0.audio, { headers: { Range: "bytes=0-99" } })).status() === 206;
-await pg.locator(".ra-ep--destaque .ra-cap__t").first().click();
+const art0 = pg.locator(`article:has(#ep-${ep0.data})`);
+if (!(await art0.locator(".ra-cap__t").first().isVisible())) await art0.locator("details summary").first().click();
+await art0.locator(".ra-cap__t").first().click();
 await pg.waitForTimeout(800);
 const t = await pg.$eval(`#ep-${ep0.data}`, el => el.currentTime);
 if (range) ok(Math.abs(t - alvo.inicio_s) < 1.5, `capítulo pula para ${alvo.inicio_s} s (${t.toFixed(1)})`);
 else console.log(`(pulado: o servidor de teste não aceita Range; o salto de capítulo é conferido no site publicado)`);
-await pg.locator(".ra-ep--destaque [data-vel='1.5']").click();
+await art0.locator("[data-vel='1.5']").click();
 ok(await pg.$eval(`#ep-${ep0.data}`, el => el.playbackRate) === 1.5, "velocidade 1,5×");
 await pg.$eval(`#ep-${ep0.data}`, el => el.pause());
 let links = await pg.$$eval("#ra-painel .ra-ato a", as => as.map(a => a.href));

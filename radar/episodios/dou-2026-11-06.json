@@ -1,0 +1,63 @@
+{
+ "id": "dou-2026-11-06",
+ "fonte": "dou",
+ "data": "2026-11-06",
+ "dia_semana": "sexta-feira",
+ "titulo": "ANA aprova a norma de reúso de água do esgoto; Ibama muda regra de peixes ornamentais",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de sexta-feira, 6 de novembro de 2026. Hoje são três destaques: a norma da ANA para o reúso de água vinda do esgoto tratado, uma mudança do Ibama nas regras de peixes ornamentais, publicada numa edição extra de ontem, e o conselho da Reserva Biológica de Sooretama, no Espírito Santo."
+  },
+  {
+   "titulo": "ANA aprova a norma de referência para o reúso não potável de água",
+   "tema": "Água, outorga e saneamento",
+   "atos": [
+    {
+     "titulo": "Resolução ANA nº 309, de 5 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-309-de-5-de-novembro-de-2026-742131339",
+     "referencia": "DOU de 06/11/2026, Seção 1, p. 69",
+     "vigencia": "4 de janeiro de 2027"
+    }
+   ],
+   "fala": "A Resolução número 309, da ANA, aprova a Norma de Referência 17, de 2026, com diretrizes para o reúso não potável de água vinda do esgoto dos serviços públicos de saneamento. Ela vale para agências reguladoras, titulares e prestadores dos serviços, produtores e distribuidores de água de reúso e usuários. Não se aplica ao reúso potável, ao aproveitamento de água de chuva nem ao reúso dentro da própria edificação. Os titulares devem incluir ações e metas de reúso nos contratos e nos planos de saneamento. Na seleção dos municípios, entram obrigatoriamente os situados em bacias cujos planos de recursos hídricos prevejam reúso; podem entrar também municípios com escassez de água, com balanço hídrico crítico, com estações de tratamento ainda em projeto ou com usuários potenciais perto das estações. Nos municípios selecionados, os prestadores devem fazer estudos de viabilidade técnico-econômica, começando por um chamamento público de interessados, com horizonte mínimo de dez anos. A resolução entra em vigor em 4 de janeiro de 2027."
+  },
+  {
+   "titulo": "Ibama muda a regra de peixes ornamentais",
+   "tema": "Fauna, pesca e aquicultura",
+   "atos": [
+    {
+     "titulo": "Portaria Ibama nº 205, de 3 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-205-de-3-de-novembro-de-2026-742123764",
+     "referencia": "DOU de 05/11/2026, Seção 1, Extra B, p. 2",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "A Portaria número 205, do Ibama, publicada numa edição extra de 5 de novembro, altera a portaria de 2022 sobre exportação e importação de peixes ornamentais e de aquariofilia. Passa a constar que manter vivo um exemplar das espécies do anexo três dessa portaria sujeita o infrator às sanções do artigo 25 do Decreto 6.514, de 2008, salvo quando houver abate logo após a captura ou entrega voluntária ao órgão ambiental. A portaria também ajusta outro parágrafo; confira o texto oficial. Está em vigor desde a publicação."
+  },
+  {
+   "titulo": "Conselho consultivo da Reserva Biológica de Sooretama",
+   "tema": "Flora e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria ICMBio nº 5.092, de 4 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.092-de-4-de-novembro-de-2026-742140853",
+     "referencia": "DOU de 06/11/2026, Seção 1, p. 89",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Por fim, a Portaria número 5.092, do ICMBio, modifica a composição do conselho consultivo da Reserva Biológica de Sooretama, no Espírito Santo. O conselho é paritário, com setores como órgãos ambientais, agricultura e manejo florestal, recursos hídricos e saneamento, conservação, infraestrutura, educação e pesquisa. As vagas de cada setor são definidas pelo próprio conselho."
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração, ou da organização interna dos órgãos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!"
+  }
+ ],
+ "audio": null,
+ "duracao_s": null
+}

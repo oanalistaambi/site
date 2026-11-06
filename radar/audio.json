@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-05T17:10-03:00",
+ "gerado_em": "2026-11-06T06:13-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,32 +9,10 @@
   {
    "id": "mg",
    "janela": [
-    "2026-11-04",
-    "2026-11-05"
+    "2026-11-05",
+    "2026-11-06"
    ],
    "temas": [
-    {
-     "id": "agua",
-     "nome": "Água, outorga e saneamento",
-     "roteiro": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Portaria Igam nº 18, de 03 de novembro de 2026, publicada em 4 de novembro. Convoca os empreendimentos e atividades que especifica para formalização de processo de outorga de lançamento de efluentes, e dá outras providências. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "fala": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Portaria Igam número 18, de 03 de novembro de 2026, publicada em 4 de novembro. Convoca os empreendimentos e atividades que especifica para formalização de processo de outorga de lançamento de efluentes, e dá outras providências. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-11-04",
-       "orgao": "Igam",
-       "titulo": "Portaria Igam nº 18, de 03 de novembro de 2026",
-       "ementa": "Convoca os empreendimentos e atividades que especifica para formalização de processo de outorga de lançamento de efluentes, e dá outras providências.",
-       "trechos": {
-        "vigencia": "Esta portaria entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-04T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A16%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 04/11/2026, p. 16, código de autenticidade 3202611044081920216"
-      }
-     ]
-    },
     {
      "id": "flora",
      "nome": "Flora, florestas e unidades de conservação",
@@ -77,16 +55,88 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-28",
     "2026-10-29",
     "2026-11-04",
-    "2026-11-05"
+    "2026-11-05",
+    "2026-11-06"
    ],
    "temas": [],
-   "internos": [],
+   "internos": [
+    {
+     "data": "2026-11-05",
+     "orgao": "Ministério do Meio Ambiente",
+     "titulo": "Portaria GM/MMA nº 1.813, de 4 de novembro de 2026",
+     "ementa": "Institui o Grupo de Trabalho de Planejamento Estratégico do Programa Bolsa Verde.",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.813-de-4-de-novembro-de-2026-742053326",
+     "referencia": "DOU de 05/11/2026, Seção: 1 - Extra B, p. 1"
+    }
+   ],
    "nome": "Federal (DOU)",
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
+    {
+     "id": "dou-2026-11-06",
+     "fonte": "dou",
+     "data": "2026-11-06",
+     "dia_semana": "sexta-feira",
+     "titulo": "ANA aprova a norma de reúso de água do esgoto; Ibama muda regra de peixes ornamentais",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de sexta-feira, 6 de novembro de 2026. Hoje são três destaques: a norma da ANA para o reúso de água vinda do esgoto tratado, uma mudança do Ibama nas regras de peixes ornamentais, publicada numa edição extra de ontem, e o conselho da Reserva Biológica de Sooretama, no Espírito Santo."
+      },
+      {
+       "titulo": "ANA aprova a norma de referência para o reúso não potável de água",
+       "tema": "Água, outorga e saneamento",
+       "atos": [
+        {
+         "titulo": "Resolução ANA nº 309, de 5 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-309-de-5-de-novembro-de-2026-742131339",
+         "referencia": "DOU de 06/11/2026, Seção 1, p. 69",
+         "vigencia": "4 de janeiro de 2027"
+        }
+       ],
+       "fala": "A Resolução número 309, da ANA, aprova a Norma de Referência 17, de 2026, com diretrizes para o reúso não potável de água vinda do esgoto dos serviços públicos de saneamento. Ela vale para agências reguladoras, titulares e prestadores dos serviços, produtores e distribuidores de água de reúso e usuários. Não se aplica ao reúso potável, ao aproveitamento de água de chuva nem ao reúso dentro da própria edificação. Os titulares devem incluir ações e metas de reúso nos contratos e nos planos de saneamento. Na seleção dos municípios, entram obrigatoriamente os situados em bacias cujos planos de recursos hídricos prevejam reúso; podem entrar também municípios com escassez de água, com balanço hídrico crítico, com estações de tratamento ainda em projeto ou com usuários potenciais perto das estações. Nos municípios selecionados, os prestadores devem fazer estudos de viabilidade técnico-econômica, começando por um chamamento público de interessados, com horizonte mínimo de dez anos. A resolução entra em vigor em 4 de janeiro de 2027."
+      },
+      {
+       "titulo": "Ibama muda a regra de peixes ornamentais",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria Ibama nº 205, de 3 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-205-de-3-de-novembro-de-2026-742123764",
+         "referencia": "DOU de 05/11/2026, Seção 1, Extra B, p. 2",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Portaria número 205, do Ibama, publicada numa edição extra de 5 de novembro, altera a portaria de 2022 sobre exportação e importação de peixes ornamentais e de aquariofilia. Passa a constar que manter vivo um exemplar das espécies do anexo três dessa portaria sujeita o infrator às sanções do artigo 25 do Decreto 6.514, de 2008, salvo quando houver abate logo após a captura ou entrega voluntária ao órgão ambiental. A portaria também ajusta outro parágrafo; confira o texto oficial. Está em vigor desde a publicação."
+      },
+      {
+       "titulo": "Conselho consultivo da Reserva Biológica de Sooretama",
+       "tema": "Flora e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria ICMBio nº 5.092, de 4 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.092-de-4-de-novembro-de-2026-742140853",
+         "referencia": "DOU de 06/11/2026, Seção 1, p. 89",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Por fim, a Portaria número 5.092, do ICMBio, modifica a composição do conselho consultivo da Reserva Biológica de Sooretama, no Espírito Santo. O conselho é paritário, com setores como órgãos ambientais, agricultura e manejo florestal, recursos hídricos e saneamento, conservação, infraestrutura, educação e pesquisa. As vagas de cada setor são definidas pelo próprio conselho."
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração, ou da organização interna dos órgãos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!"
+      }
+     ],
+     "audio": null,
+     "duracao_s": null
+    },
     {
      "id": "dou-2026-11-05",
      "fonte": "dou",
@@ -224,74 +274,6 @@
      ],
      "audio": "radar/audios/dou-2026-10-29-e3cdfe38ae.mp3",
      "duracao_s": 82
-    },
-    {
-     "id": "dou-2026-10-28",
-     "fonte": "dou",
-     "data": "2026-10-28",
-     "dia_semana": "quarta-feira",
-     "titulo": "Nova lista da flora ameaçada, consulta do Ibama sobre o Proconve e tarifas de água na reforma tributária",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quarta-feira, 28 de outubro de 2026. O grande destaque do dia é a nova Lista Nacional Oficial das Espécies da Flora Ameaçadas de Extinção. Depois, uma consulta pública do Ibama sobre a poluição de veículos pesados e uma orientação da ANA sobre as tarifas de água e esgoto na reforma tributária.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Nova Lista Nacional da Flora Ameaçada de Extinção",
-       "tema": "Flora e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Portaria GM/MMA nº 1.783, de 26 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.783-de-26-de-outubro-de-2026-740664196",
-         "referencia": "DOU de 28/10/2026, Seção 1, p. 55",
-         "vigencia": "na data da publicação; revoga a Portaria MMA nº 148/2022"
-        }
-       ],
-       "fala": "A Portaria número 1.783, do Ministério do Meio Ambiente, dá nova redação ao anexo da Portaria 443, de 2014, que é a Lista Nacional Oficial das Espécies da Flora Ameaçadas de Extinção. Os números, contados no anexo publicado: são 3.730 espécies. 730 estão criticamente em perigo, duas delas possivelmente extintas; 2.162 estão em perigo; e 838 são vulneráveis. Das 3.730, 595 não constavam da lista anterior, de 2022, e aparecem marcadas com asterisco no anexo. A portaria revoga a Portaria 148, de 2022, e está em vigor desde a publicação. Para quem trabalha com inventário florestal e pedidos de supressão de vegetação, vale conferir na nova lista a situação de cada espécie do seu levantamento.",
-       "inicio_s": 26.4
-      },
-      {
-       "titulo": "Consulta pública do Ibama: Proconve, fase P8",
-       "tema": "Consulta pública",
-       "atos": [
-        {
-         "titulo": "Portaria Ibama nº 201, de 23 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-n-201-de-23-de-outubro-de-2026-740877650",
-         "referencia": "DOU de 28/10/2026, Seção 1, Extra A, p. 47",
-         "vigencia": "na data da publicação; consulta aberta por 15 dias corridos"
-        }
-       ],
-       "fala": "Segundo destaque: a Portaria número 201, do Ibama, abre consulta pública por quinze dias corridos, a partir da publicação, sobre uma mudança na Instrução Normativa 20, de 2020, que trata da fase P8 do Proconve, o programa de controle da poluição do ar por veículos. A proposta inclui a metodologia e os requisitos de verificação e controle de qualidade dos equipamentos contadores de partículas usados nos ensaios de emissões de veículos pesados novos. As contribuições vão pelo portal Brasil Participativo.",
-       "inicio_s": 78.9
-      },
-      {
-       "titulo": "ANA orienta tarifas de água e esgoto para a reforma tributária",
-       "tema": "Água, outorga e saneamento",
-       "atos": [
-        {
-         "titulo": "Resolução ANA nº 307, de 26 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-307-de-26-de-outubro-de-2026-740661871",
-         "referencia": "DOU de 28/10/2026, Seção 1, p. 43",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Terceiro destaque: a Resolução número 307, da ANA, divulga a Nota Técnica 40, de 2026, com orientações às agências reguladoras de estados e municípios sobre as tabelas de tarifas de água e esgoto. Em primeiro de janeiro de 2027, o PIS/Pasep e a Cofins deixam de existir e passa a valer a CBS. Segundo a nota, os tributos antigos estão hoje embutidos na tarifa, enquanto a CBS e o IBS são cobrados por fora, destacados na conta. Se a tarifa não for ajustada antes, o usuário pagaria a parcela do tributo antigo e a do novo ao mesmo tempo. A nota é apenas orientativa: não é norma de referência e não tira a competência das agências locais.",
-       "inicio_s": 112.1
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do dia tratam de casos específicos ou da organização interna dos órgãos. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
-       "inicio_s": 156.9
-      }
-     ],
-     "audio": "radar/audios/dou-2026-10-28-085bb5e16c.mp3",
-     "duracao_s": 176
     }
    ]
   }
