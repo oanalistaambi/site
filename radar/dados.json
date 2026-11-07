@@ -1,7 +1,72 @@
 {
- "atualizado_em": "2026-11-06",
+ "atualizado_em": "2026-11-07",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-11-07",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "indeferimentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 7,
+     "processos": 16,
+     "decisoes": {
+      "requerimentos": 4,
+      "deferimentos/concessões": 6,
+      "arquivamentos": 2,
+      "transferências de titularidade": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 3,
+     "processos": 16,
+     "decisoes": {
+      "requerimentos": 3,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 3,
+     "processos": 8,
+     "decisoes": {
+      "deferimentos/concessões": 3,
+      "indeferimentos": 1,
+      "arquivamentos": 2
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {}
+    }
+   ]
+  },
   {
    "data": "2026-11-06",
    "atos": [
@@ -543,73 +608,6 @@
      "publicacoes": 2,
      "processos": 2,
      "decisoes": {}
-    }
-   ]
-  },
-  {
-   "data": "2026-10-23",
-   "atos": [],
-   "movimento": [
-    {
-     "orgao": "Copam",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 1,
-     "processos": 2,
-     "decisoes": {
-      "deferimentos/concessões": 1,
-      "indeferimentos": 1
-     }
-    },
-    {
-     "orgao": "Copam",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 3,
-     "processos": 18,
-     "decisoes": {
-      "deferimentos/concessões": 3,
-      "indeferimentos": 1
-     }
-    },
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 8,
-     "processos": 9,
-     "decisoes": {
-      "deferimentos/concessões": 5,
-      "requerimentos": 4,
-      "transferências de titularidade": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "arquivamentos": 1,
-      "revogações/cancelamentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 3,
-     "processos": 36,
-     "decisoes": {
-      "deferimentos/concessões": 3,
-      "arquivamentos": 2,
-      "indeferimentos": 1
-     }
     }
    ]
   }
