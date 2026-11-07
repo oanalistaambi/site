@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-06T16:34-03:00",
+ "gerado_em": "2026-11-07T14:50-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,45 +9,10 @@
   {
    "id": "mg",
    "janela": [
-    "2026-11-05",
-    "2026-11-06"
+    "2026-11-06",
+    "2026-11-07"
    ],
-   "temas": [
-    {
-     "id": "flora",
-     "nome": "Flora, florestas e unidades de conservação",
-     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad/IEF nº 3.437, de 3 de novembro de 2026, publicada em 5 de novembro. A ementa é longa; leia o resumo completo no texto oficial. Esta Resolução Conjunta entra em vigor na data de sua publicação. Também saiu: Portaria IEF nº 88. Confira o texto oficial no link da página.",
-     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Resolução conjunta Semad IEF número três mil quatrocentos e trinta e sete, de 3 de novembro de 2026, publicada em 5 de novembro. A ementa é longa; leia o resumo completo no texto oficial. Esta Resolução Conjunta entra em vigor na data de sua publicação. Também saiu: Portaria IEF número 88. Confira o texto oficial no link da página.",
-     "audio": null,
-     "duracao_s": null,
-     "atos": [
-      {
-       "data": "2026-11-05",
-       "orgao": "IEF",
-       "titulo": "Resolução conjunta Semad/IEF nº 3.437, de 3 de novembro de 2026",
-       "ementa": "Estabelece a transição do Sistema de Controle de Atividades Florestais – CAF/SIAM para o módulo Controle de Carvão Vegetal – CCV do sistema MG Florestas e revoga a Resolução Conjunta SEMAD/IEF Nº 2.248, de 30 de dezembro de 2014 e a Resolução Conjunta SEMAD/IEF Nº 2.691, de 14 de setembro de 2018.",
-       "trechos": {
-        "vigencia": "Esta Resolução Conjunta entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-05T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A8%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 05/11/2026, p. 8, código de autenticidade 320261105950034058"
-      },
-      {
-       "data": "2026-11-05",
-       "orgao": "IEF",
-       "titulo": "Portaria IEF nº 88, de 03 de novembro de 2026",
-       "ementa": "Estabelece diretrizes para o controle do transporte,armazenamento, consumo e uso de carvão vegetalde espécies exóticas no Estado de Minas Gerais.",
-       "trechos": {
-        "vigencia": "Esta Portaria entra em vigor na data de sua publicação",
-        "revoga": null
-       },
-       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-05T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A9%7D",
-       "referencia": "Jornal Minas Gerais, Diário do Executivo de 05/11/2026, p. 9, código de autenticidade 320261105950034059"
-      }
-     ]
-    }
-   ],
+   "temas": [],
    "internos": [],
    "nome": "Minas Gerais",
    "jornal": "Jornal Minas Gerais, Diário do Executivo"
