@@ -18,7 +18,7 @@ on:
 
 env:
   RADAR_AUDIO_LIGADO: "sim"
-  RADAR_AUDIO_ATE: "2026-11-07"   # último dia em que roda sozinho
+  RADAR_AUDIO_ATE: "2026-11-30"   # último dia em que roda sozinho
   RELEASE: radar-audios
 
 permissions:
