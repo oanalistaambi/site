@@ -99,6 +99,7 @@ await pg.click("#aba-federal");
 ok(await pg.locator(".ra-pod [data-copiar]").count() === 1, "bloco do podcast com o link do RSS");
 const rss = await (await ctx.request.get(BASE + "/radar/podcast.xml")).text();
 const itens = [...rss.matchAll(/<enclosure url="https:\/\/www\.oanalistaambiental\.com\/([^"]+)" length="(\d+)" type="audio\/mpeg"\/>/g)];
+ok(/<title>Ambiental Inteligência<\/title>/.test(rss), "podcast se chama Ambiental Inteligência");
 ok(/<itunes:owner>/.test(rss) && /<itunes:image href="https:\/\/www\.oanalistaambiental\.com\/radar\/podcast-capa\.jpg"\/>/.test(rss), "RSS com dono e capa");
 ok(itens.length === dou.episodios.filter(e => e.audio).length, `RSS com ${itens.length} episódio(s)`);
 for (const [, arq, tam] of itens) {

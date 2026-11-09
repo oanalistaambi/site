@@ -307,7 +307,7 @@ def episodio_auto(data, atos):
     quando = f"{DIAS_SEMANA[d.weekday()]}, {data_extenso(data)} de {d.year}"
     atos = sorted(atos, key=peso)
     caps, usadas = [], 0
-    abre = (f"Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de {quando}. "
+    abre = (f"Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de {quando}. "
             f"Hoje {'é um destaque' if len(atos) == 1 else f'são {len(atos)} destaques'} da área ambiental.")
     caps.append({"titulo": "Abertura", "tema": None, "atos": [], "fala": abre})
     usadas += len(abre.split()) + 45  # reserva para o fechamento
@@ -378,7 +378,7 @@ def sintetizar_episodio(ep, destino, chave):
         lista.write_text("".join(f"file '{p}'\n" for p in partes))
         subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lista),
                         "-ac", "1", "-ar", "44100", "-b:a", "96k", "-id3v2_version", "3",
-                        "-metadata", f"title=Radar Ambiental do DOU, {ep['data']}", "-metadata", "artist=O Analista Ambiental",
+                        "-metadata", f"title=Ambiental Inteligência, DOU de {ep['data']}", "-metadata", "artist=O Analista Ambiental",
                         str(destino)], check=True)
     for c, ini in zip(ep["capitulos"], inicios):
         c["inicio_s"] = ini
@@ -390,12 +390,12 @@ def sintetizar_episodio(ep, destino, chave):
 
 SITE = "https://www.oanalistaambiental.com/"
 PODCAST = {
-    "titulo": "Radar Ambiental do Diário Oficial",
+    "titulo": "Ambiental Inteligência",
     "autor": "O Analista Ambiental",
     "email": "contato@oanalistaambiental.com",
     "pagina": SITE + "radar-audio.html",
     "capa": SITE + "radar/podcast-capa.jpg",
-    "descricao": ("Os destaques ambientais do Diário Oficial da União, todo dia útil, em poucos minutos: o que muda, para quem e "
+    "descricao": ("O Ambiental Inteligência traz os destaques ambientais do Diário Oficial da União, todo dia útil, em poucos minutos: o que muda, para quem e "
                   "quando entra em vigor. Licenciamento, água e outorga, fiscalização, flora e unidades de conservação, fauna e "
                   "pesca, mineração e barragens, Conama, Ibama, ICMBio, ANA e MMA. Resumo e voz gerados por inteligência "
                   "artificial a partir do texto publicado; confira sempre o texto oficial pelos links de cada episódio. "
