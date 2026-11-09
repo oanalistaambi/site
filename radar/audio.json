@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-07T14:50-03:00",
+ "gerado_em": "2026-11-09T19:32-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -26,16 +26,7 @@
     "2026-11-06"
    ],
    "temas": [],
-   "internos": [
-    {
-     "data": "2026-11-05",
-     "orgao": "Ministério do Meio Ambiente",
-     "titulo": "Portaria GM/MMA nº 1.813, de 4 de novembro de 2026",
-     "ementa": "Institui o Grupo de Trabalho de Planejamento Estratégico do Programa Bolsa Verde.",
-     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.813-de-4-de-novembro-de-2026-742053326",
-     "referencia": "DOU de 05/11/2026, Seção: 1 - Extra B, p. 1"
-    }
-   ],
+   "internos": [],
    "nome": "Federal (DOU)",
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
