@@ -1,0 +1,27 @@
+[
+ {"cena":"chegada","cap":"1 · No rio","falas":[
+  ["lambi","Ei, vocês aí em cima! Essa água que sai do cano vem direto pra minha casa!"],
+  ["ze","Calma, Lambi! Ela sai tratada. Bom dia, Ana!"],
+  ["ana","Bom dia, Seu Zé! Bom dia, Lambi! Saiu novidade no Diário Oficial de Minas justamente sobre essa água."]]},
+ {"cena":"esquema","cap":"2 · O que é","falas":[
+  ["ze","Mas se a água já sai tratada, precisa de mais papel?"],
+  ["ana","Precisa da outorga de lançamento: a autorização do Igam para devolver o efluente tratado ao rio."],
+  ["lambi","Ou seja: alguém vai olhar o que chega aqui embaixo. Gostei!"]]},
+ {"cena":"escritorio","cap":"3 · O que saiu","falas":[
+  ["ana","A Portaria dezoito do Igam, publicada no dia quatro de novembro, convoca as estações de tratamento de esgoto que lançam em rio estadual a fazer esse pedido."]]},
+ {"cena":"prazos","cap":"4 · Prazos","falas":[
+  ["ze","E qual é o prazo?"],
+  ["ana","Depende da bacia. Doce e São Francisco: o ano todo de dois mil e vinte e sete. Paranaíba e Paraíba do Sul: dois mil e vinte e oito. Grande, Jequitinhonha e Pardo: dois mil e vinte e nove."],
+  ["ze","Aqui é bacia do Doce. Então é no ano que vem!"]]},
+ {"cena":"medicao","cap":"5 · O que fazer","falas":[
+  ["ana","Então vamos começar já: medir a vazão e coletar amostras do efluente. O pedido é feito no SOUT, o sistema de outorga do Igam."],
+  ["ze","Deixa comigo: balde de dez litros e cronômetro!"],
+  ["lambi","Ei! Eu não sou amostra, não!"],
+  ["ze","Volta pro rio, Lambi!"]]},
+ {"cena":"alerta","cap":"6 · Atenção","falas":[
+  ["ana","E atenção: quem perder o período da sua bacia fica sujeito às sanções do Decreto quarenta e sete mil trezentos e oitenta e três."],
+  ["lambi","Então nada de deixar pra última hora, hein!"]]},
+ {"cena":"fim","cap":"","falas":[
+  ["ana","O link do texto oficial está na descrição."],
+  ["todos","Até a próxima!"]]}
+]
