@@ -1,0 +1,63 @@
+{
+ "id": "dou-2026-11-09",
+ "fonte": "dou",
+ "data": "2026-11-09",
+ "dia_semana": "segunda-feira",
+ "titulo": "Fauna, pesca e aquicultura · Flora, florestas e unidades de conservação · Consulta pública: 3 destaques",
+ "origem": "automatico",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 9 de novembro de 2026. Hoje são 3 destaques da área ambiental."
+  },
+  {
+   "titulo": "Portaria MPA nº 787, de 4 de novembro de 2026",
+   "tema": "Fauna, pesca e aquicultura",
+   "fala": "Primeiro destaque: Portaria MPA nº 787, de 4 de novembro de 2026, publicada em 9 de novembro. Institui a Plataforma Nacional da Aquicultura no âmbito do Ministério da Pesca e Aquicultura. Esta Portaria entra em vigor na data de sua publicação.",
+   "atos": [
+    {
+     "titulo": "Portaria MPA nº 787, de 4 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-787-de-4-de-novembro-de-2026-743191211",
+     "referencia": "DOU de 09/11/2026, Seção: 1 - Extra A, p. 22",
+     "vigencia": "Esta Portaria entra em vigor na data de sua publicação"
+    }
+   ]
+  },
+  {
+   "titulo": "Portaria ICMBio nº 5.112, de 5 de novembro de 2026",
+   "tema": "Flora, florestas e unidades de conservação",
+   "fala": "Segundo destaque: Portaria ICMBio nº 5.112, de 5 de novembro de 2026, publicada em 9 de novembro. Institui o Programa de Educação Ambiental para as Juventudes em Unidades de Conservação federais. Esta Portaria entra em vigor na data de sua publicação.",
+   "atos": [
+    {
+     "titulo": "Portaria ICMBio nº 5.112, de 5 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.112-de-5-de-novembro-de-2026-743191361",
+     "referencia": "DOU de 09/11/2026, Seção: 1 - Extra A, p. 20",
+     "vigencia": "Esta Portaria entra em vigor na data de sua publicação"
+    }
+   ]
+  },
+  {
+   "titulo": "Portaria MPA nº 782, de 23 de outubro de 2026",
+   "tema": "Consulta pública",
+   "fala": "Terceiro destaque: Portaria MPA nº 782, de 23 de outubro de 2026, publicada em 9 de novembro. Submete à consulta pública proposta de ato normativo que altera a Portaria nº 174, de 26 de dezembro de 2023, do Ministério da Pesca e Aquicultura. Esta Portaria entra em vigor na data de sua publicação.",
+   "atos": [
+    {
+     "titulo": "Portaria MPA nº 782, de 23 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-782-de-23-de-outubro-de-2026-743190636",
+     "referencia": "DOU de 09/11/2026, Seção: 1 - Extra A, p. 23",
+     "vigencia": "Esta Portaria entra em vigor na data de sua publicação"
+    }
+   ]
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Este resumo foi montado automaticamente a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!"
+  }
+ ],
+ "audio": null,
+ "duracao_s": null
+}
