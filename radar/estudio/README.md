@@ -12,3 +12,10 @@ Nada de áudio ou vídeo fica no git (regra do repositório): os arquivos gerado
 
 Regras: dados normativos só do texto publicado, link para o ato oficial, aviso de que personagens e vozes são IA,
 sem CPF ou CNPJ, sem voz clonada do dono.
+
+## Narrativa com personagem (pasta `narrativa/`)
+
+Vídeo vertical com a consultora Ana (personagem original, estilo "boneco"), cenas que mudam conforme a fala
+(rio, cano de lançamento, celular com o Diário, estrada dos prazos, medição, alerta) e legenda que pinta a palavra falada.
+`narrar.py` gera a narração cena a cena com o tempo de cada palavra; `anim.html` desenha as cenas; `render.mjs` grava o MP4.
+Para outro ato: escrever novas cenas em `cenas-*.json` e, se preciso, novos desenhos em `anim.html`.

@@ -1,0 +1,146 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><style>
+@font-face{font-family:Archivo;src:url(../Archivo.ttf)}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f3ead7;font-family:Archivo,sans-serif}
+svg{position:absolute;inset:0}
+#leg{position:absolute;left:60px;right:60px;top:250px;text-align:center;font-size:76px;font-weight:800;line-height:1.1;color:#fff;
+ -webkit-text-stroke:12px #111;paint-order:stroke fill;letter-spacing:-.5px}
+#leg .on{color:#7BEA4E}
+#marca{position:absolute;left:0;right:0;top:70px;text-align:center;font-size:30px;font-weight:800;letter-spacing:.2em;color:#2b3a2f;opacity:.85}
+#ia{position:absolute;left:0;right:0;bottom:46px;text-align:center;font-size:26px;color:#4a4a44;font-weight:600}
+#veu{position:absolute;inset:0;background:#f3ead7;opacity:0}
+</style></head><body>
+<svg id="cena" viewBox="0 0 1080 1920"></svg>
+<div id="marca">AMBIENTAL INTELIGÊNCIA</div>
+<div id="leg"></div>
+<div id="ia">Personagem e voz gerados por IA · confira o texto oficial</div>
+<div id="veu"></div>
+<script>
+const D = window.DADOS; // {cenas:[{id,a,b,palavras:[[ini,fim,txt]] (tempo global)}], dur}
+const L = "#2b2a26", LW = 6;
+const lerp=(a,b,p)=>a+(b-a)*p, cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+
+// ---------- personagem original: Ana, consultora ambiental ----------
+function ana(o){
+  const {x=0,y=0,s=1,passo=null,bracoD=10,bracoE=-10,rosto="sorri",olhar=0,prancheta=false,celular=false,frasco=false,acena=0}=o;
+  const fase = passo===null?0:Math.sin(passo);
+  const pernaD = passo===null?3:fase*24, pernaE = passo===null?-3:-fase*24;
+  const quica = passo===null?0:Math.abs(Math.cos(passo))*8;
+  const perna=(ang,cor)=>`<g transform="rotate(${ang} 0 -250)"><path d="M-22 -250 L-26 -30 L26 -30 L22 -250Z" fill="#3c4f6e" stroke="${L}" stroke-width="${LW}" stroke-linejoin="round"/>
+     <path d="M-30 -40 L-34 0 Q-34 10 -20 10 L44 10 Q58 10 54 -6 L40 -24 L30 -40Z" fill="#6b4a2f" stroke="${L}" stroke-width="${LW}" stroke-linejoin="round"/></g>`;
+  const braco=(ang,lado,extra="")=>`<g transform="rotate(${ang} ${lado*58} -420)"><path d="M${lado*58-16} -420 L${lado*58-14} -280 L${lado*58+14} -280 L${lado*58+16} -420Z" fill="#f4f1ea" stroke="${L}" stroke-width="${LW}" stroke-linejoin="round"/>
+     <circle cx="${lado*58}" cy="-268" r="20" fill="#fff" stroke="${L}" stroke-width="${LW}"/>${extra}</g>`;
+  const boca = rosto==="preocupa"?`<path d="M-24 22 Q0 8 24 22" fill="none" stroke="${L}" stroke-width="6" stroke-linecap="round"/>`:
+               rosto==="fala"?`<ellipse cx="0" cy="20" rx="16" ry="12" fill="${L}"/>`:
+               `<path d="M-26 12 Q0 34 26 12" fill="none" stroke="${L}" stroke-width="6" stroke-linecap="round"/>`;
+  const sobr = rosto==="preocupa"?`<path d="M-48 -44 L-18 -34 M48 -44 L18 -34" stroke="${L}" stroke-width="6" stroke-linecap="round"/>`:
+               `<path d="M-46 -40 Q-32 -50 -18 -42 M46 -40 Q32 -50 18 -42" stroke="${L}" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+  const itemD = prancheta?`<g transform="translate(70 -300) rotate(-12)"><rect x="-6" y="-60" width="70" height="92" rx="8" fill="#c8a86b" stroke="${L}" stroke-width="5"/><rect x="6" y="-48" width="46" height="66" fill="#fff" stroke="${L}" stroke-width="3"/></g>`:
+                frasco?`<g transform="translate(58 -262)"><rect x="-16" y="-10" width="32" height="56" rx="8" fill="#bfe6f2" stroke="${L}" stroke-width="5"/><rect x="-12" y="-24" width="24" height="16" fill="#e2574c" stroke="${L}" stroke-width="4"/></g>`:"";
+  const itemE = celular?`<g transform="translate(-58 -262)"><rect x="-22" y="-44" width="44" height="76" rx="8" fill="#22262b" stroke="${L}" stroke-width="5"/><rect x="-15" y="-36" width="30" height="58" rx="3" fill="#8fd3ff"/></g>`:"";
+  return `<g transform="translate(${x} ${y-quica}) scale(${s})">
+   ${perna(pernaE)}${perna(pernaD)}
+   ${braco(bracoE - acena, -1, itemE)}
+   <path d="M-62 -440 Q-66 -330 -58 -240 L58 -240 Q66 -330 62 -440 Q0 -462 -62 -440Z" fill="#f4f1ea" stroke="${L}" stroke-width="${LW}" stroke-linejoin="round"/>
+   <path d="M-60 -436 L-44 -246 L-8 -246 L-14 -444Z M60 -436 L44 -246 L8 -246 L14 -444Z" fill="#6f8b4a" stroke="${L}" stroke-width="5" stroke-linejoin="round"/>
+   <path d="M-56 -300 L-12 -300 M56 -300 L12 -300" stroke="#e9d84a" stroke-width="10"/>
+   <path d="M-40 -440 L40 -250" stroke="#7a5a35" stroke-width="10"/>
+   ${braco(bracoD, 1, itemD)}
+   <g transform="translate(0 -520) rotate(${olhar})">
+     <path d="M48 -30 Q110 -10 92 60 Q86 20 50 0Z" fill="#5b3a26" stroke="${L}" stroke-width="5" stroke-linejoin="round"/>
+     <circle r="78" fill="#fff" stroke="${L}" stroke-width="${LW}"/>
+     <path d="M-80 -16 Q-76 -86 0 -88 Q76 -86 80 -16 Q40 -40 0 -40 Q-40 -40 -80 -16Z" fill="#2f8f83" stroke="${L}" stroke-width="5" stroke-linejoin="round"/>
+     <path d="M-10 -26 Q-90 -30 -120 -10 Q-80 -8 -10 -12Z" fill="#2f8f83" stroke="${L}" stroke-width="5" stroke-linejoin="round"/>
+     ${sobr}
+     <ellipse cx="-24" cy="-14" rx="9" ry="14" fill="${L}"/><ellipse cx="24" cy="-14" rx="9" ry="14" fill="${L}"/>
+     ${boca}
+   </g></g>`;
+}
+// ---------- elementos de cenário ----------
+const arvore=(x,y,s=1,c="#7fae5a")=>`<g transform="translate(${x} ${y}) scale(${s})"><rect x="-14" y="-120" width="28" height="120" fill="#8a6a45" stroke="${L}" stroke-width="5"/><circle cy="-170" r="80" fill="${c}" stroke="${L}" stroke-width="5"/><circle cx="-50" cy="-140" r="50" fill="${c}" stroke="${L}" stroke-width="5"/><circle cx="52" cy="-136" r="52" fill="${c}" stroke="${L}" stroke-width="5"/></g>`;
+const ceu=(c1="#cfe6ee",c2="#f3ead7")=>`<defs><linearGradient id="ceu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs><rect width="1080" height="1920" fill="url(#ceu)"/>`;
+const nuvem=(x,y)=>`<g transform="translate(${x} ${y})" fill="#fff" opacity=".9"><ellipse rx="90" ry="34"/><ellipse cx="60" cy="-18" rx="60" ry="34"/><ellipse cx="-50" cy="-12" rx="50" ry="28"/></g>`;
+function rio(y,h,t){let s=`<rect x="-20" y="${y}" width="1120" height="${h}" fill="#6fb4d6" stroke="${L}" stroke-width="5"/>`;
+  for(let i=0;i<14;i++){const xx=((i*167+t*90)%1300)-120, yy=y+20+(i*37)%(h-40);s+=`<path d="M${xx} ${yy} q20 -10 40 0 q20 10 40 0" stroke="#e8f6fb" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/>`}return s}
+function cano(x,y,s,t){let w="";for(let i=0;i<5;i++){const o=(t*260+i*40)%200;w+=`<path d="M${-20+i*10} ${o} q10 30 0 60" stroke="#dff3fb" stroke-width="6" fill="none" stroke-linecap="round"/>`}
+  return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="0" y="-60" width="220" height="120" fill="#9aa0a6" stroke="${L}" stroke-width="6"/>
+  <ellipse cx="0" cy="0" rx="34" ry="62" fill="#5d6268" stroke="${L}" stroke-width="6"/>
+  <path d="M-10 30 Q-60 120 -40 240 L20 240 Q-10 120 10 40Z" fill="#a9d3e6" stroke="${L}" stroke-width="5" opacity=".95"/>
+  <g transform="translate(-30 40)">${w}</g></g>`;}
+function chao(c="#c9b27c",y=1180){return `<path d="M-20 ${y} Q540 ${y-40} 1100 ${y} L1100 1940 L-20 1940Z" fill="${c}" stroke="${L}" stroke-width="5"/>`}
+function placa(x,y,ano,txt,on,s=1){return `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-10" y="-20" width="20" height="230" fill="#8a6a45" stroke="${L}" stroke-width="5"/>
+  <rect x="-170" y="-200" width="340" height="190" rx="18" fill="${on?"#ffe27a":"#f4f1ea"}" stroke="${L}" stroke-width="6"/>
+  <text y="-128" text-anchor="middle" font-size="64" font-weight="800" fill="${L}" font-family="Archivo">${ano}</text>
+  ${txt.map((l,i)=>`<text y="${-80+i*34}" text-anchor="middle" font-size="28" font-weight="700" fill="#4a4a44" font-family="Archivo">${l}</text>`).join("")}</g>`}
+function tempoPalavra(c, alvo){const w=c.palavras.find(p=>p[2].toLowerCase().startsWith(alvo.toLowerCase()));return w?w[0]:c.b}
+// ---------- cenas ----------
+const CENA = {
+ rio:(c,t,p)=>{const cam=lerp(0,-120,ease(p));return ceu()+nuvem(200+t*8,300)+nuvem(800-t*6,420)+
+   `<g transform="translate(${cam} 0)"><path d="M-200 1050 Q200 900 600 1020 T1400 980 L1400 1200 L-200 1200Z" fill="#9cc47a" stroke="${L}" stroke-width="5"/>`+
+   arvore(80,1080,1.1)+arvore(1180,1060,1.2,"#6c9e4b")+chao("#b9cf8a",1150)+rio(1360,260,t)+cano(1040,1330,.9,t)+
+   ana({x:lerp(-80,560,cl(p*1.25)),y:1340,s:1.05,passo:p<.8?t*7:null,prancheta:true})+`</g>`},
+ cano:(c,t,p)=>ceu("#d7ecf2")+chao("#b9cf8a",1050)+rio(1250,420,t)+cano(780,1180,1.5,t)+
+   ana({x:300,y:1260,s:1.1,bracoD:lerp(10,-110,cl(p*4)),rosto:"fala",olhar:6})+
+   `<g opacity="${cl((p-.25)*5)}"><rect x="520" y="820" width="460" height="130" rx="24" fill="#fff" stroke="${L}" stroke-width="6"/>
+    <text x="750" y="878" text-anchor="middle" font-size="42" font-weight="800" fill="${L}">lançamento</text><text x="750" y="924" text-anchor="middle" font-size="38" font-weight="700" fill="#2f8f83">do efluente</text>
+    <path d="M760 950 L800 1080" stroke="${L}" stroke-width="8" marker-end="url(#)"/><path d="M780 1050 L802 1086 L818 1046" fill="none" stroke="${L}" stroke-width="8"/></g>`,
+ celular:(c,t,p)=>{const z=lerp(1,1.06,p);return `<rect width="1080" height="1920" fill="#dfe9d6"/><g opacity=".5">${arvore(150,1250,1.3)}${arvore(950,1250,1.4,"#6c9e4b")}</g>`+
+   `<g transform="translate(540 960) scale(${z}) translate(-540 -960)">`+ana({x:300,y:1900,s:1.5,celular:true,bracoE:-28,olhar:-8,rosto:p>.5?"fala":"sorri"})+
+   `<g transform="translate(${lerp(1200,620,ease(cl(p*3)))} 760)"><rect x="-230" y="-330" width="460" height="760" rx="56" fill="#22262b" stroke="${L}" stroke-width="8"/>
+    <rect x="-200" y="-290" width="400" height="680" rx="22" fill="#fff"/>
+    <rect x="-200" y="-290" width="400" height="96" rx="22" fill="#2f6d52"/><text y="-252" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">JORNAL MINAS GERAIS</text><text y="-218" text-anchor="middle" font-size="22" fill="#d9efe3">Diário do Executivo · 04/11/2026</text>
+    <text y="-130" text-anchor="middle" font-size="40" font-weight="800" fill="${L}">PORTARIA IGAM</text><text y="-82" text-anchor="middle" font-size="40" font-weight="800" fill="${L}">Nº 18/2026</text>
+    ${[0,1,2,3].map(i=>`<rect x="-160" y="${-40+i*36}" width="${i==3?200:320}" height="14" rx="7" fill="#d5d8d2"/>`).join("")}
+    <g opacity="${cl((p-.45)*4)}"><rect x="-176" y="130" width="352" height="210" rx="18" fill="#fff4c9" stroke="#e3b23c" stroke-width="5"/>
+    <text y="180" text-anchor="middle" font-size="30" font-weight="800" fill="${L}">Convoca as ETEs</text><text y="222" text-anchor="middle" font-size="27" fill="${L}">que lançam em rio estadual</text>
+    <text y="270" text-anchor="middle" font-size="30" font-weight="800" fill="#2f6d52">→ outorga de</text><text y="308" text-anchor="middle" font-size="30" font-weight="800" fill="#2f6d52">lançamento</text></g></g></g>`},
+ estrada:(c,t,p)=>{const t1=tempoPalavra(c,"Doce"),t2=tempoPalavra(c,"Paranaíba"),t3=tempoPalavra(c,"Grande");const T=c.a+t;
+   const cam=lerp(0,-1500,ease(cl((T-t1+0.6)/(c.b-t1))));
+   return ceu("#f7d9a8","#f3ead7")+`<circle cx="860" cy="520" r="90" fill="#ffd36b" stroke="${L}" stroke-width="5"/>`+
+   `<g transform="translate(${cam} 0)"><path d="M-200 1100 L3000 1100 L3000 1940 L-200 1940Z" fill="#b9cf8a" stroke="${L}" stroke-width="5"/>
+    <path d="M-200 1380 L3000 1380 L3000 1600 L-200 1600Z" fill="#d9b98a" stroke="${L}" stroke-width="5"/>
+    ${[0,1,2,3,4,5,6,7,8,9,10,11,12].map(i=>`<rect x="${i*240}" y="1484" width="120" height="14" rx="7" fill="#f4f1ea"/>`).join("")}
+    ${arvore(200,1110,.9)}${arvore(1150,1110,1)}${arvore(1900,1110,.9,"#6c9e4b")}${arvore(2600,1110,1)}
+    ${placa(560,1360,"2027",["Doce · São Francisco","Itapemirim · São Mateus","Mucuri"],T>=t1&&T<t2)}
+    ${placa(1360,1360,"2028",["Paranaíba","Paraíba do Sul","Itabapoana"],T>=t2&&T<t3)}
+    ${placa(2160,1360,"2029",["Grande · Jequitinhonha","Pardo · Piracicaba/Jaguari","bacias do leste"],T>=t3)}
+    ${ana({x:lerp(260,2420,ease(cl((T-t1+0.6)/(c.b-t1)))),y:1560,s:.82,passo:t*7})}</g>`},
+ medicao:(c,t,p)=>{const tp=tempoPalavra(c,"pedido"),T=c.a+t;return ceu("#d7ecf2")+chao("#b9cf8a",1050)+rio(1440,330,t)+cano(820,1360,1.3,t)+
+   ana({x:400,y:1420,s:1.0,frasco:true,bracoD:-40,olhar:8})+
+   `<g transform="translate(560 1310)"><path d="M0 0 L120 0 L100 110 L20 110Z" fill="#e9e9e2" stroke="${L}" stroke-width="6"/><text x="60" y="66" text-anchor="middle" font-size="28" font-weight="800" fill="${L}">L/s</text></g>`+
+   `<g opacity="${cl((T-tp+.2)*3)}" transform="translate(540 600) scale(.85)"><rect x="-300" y="-150" width="600" height="330" rx="26" fill="#22262b" stroke="${L}" stroke-width="7"/>
+    <rect x="-272" y="-122" width="544" height="270" rx="12" fill="#f4f8f6"/><rect x="-272" y="-122" width="544" height="56" rx="12" fill="#1f5f8b"/>
+    <text y="-84" text-anchor="middle" font-size="28" font-weight="800" fill="#fff">SOUT · Sistema de Outorga</text>
+    <text x="-240" y="-18" font-size="28" fill="${L}">✓ Vazão do efluente</text><text x="-240" y="30" font-size="28" fill="${L}">✓ Qualidade (amostras)</text><text x="-240" y="78" font-size="28" fill="${L}">✓ Ponto de lançamento</text>
+    <path d="M-340 180 L340 180 L370 210 L-370 210Z" fill="#9aa0a6" stroke="${L}" stroke-width="6"/></g>`},
+ alerta:(c,t,p)=>{const sh=Math.sin(t*18)*cl(1-(t-.2)*2)*6;return `<rect width="1080" height="1920" fill="#f6e3d6"/>`+
+   `<g transform="translate(${720+sh} 800)"><rect x="-230" y="-230" width="460" height="460" rx="30" fill="#fff" stroke="${L}" stroke-width="7"/><rect x="-230" y="-230" width="460" height="110" rx="30" fill="#c8483a" stroke="${L}" stroke-width="7"/>
+    <text y="-160" text-anchor="middle" font-size="44" font-weight="800" fill="#fff">PRAZO DA BACIA</text>
+    ${[0,1,2,3,4,5,6,7,8,9,10,11].map(i=>`<rect x="${-190+(i%4)*100}" y="${-90+Math.floor(i/4)*100}" width="80" height="80" rx="10" fill="#f1ece2"/>`).join("")}
+    <path d="M-60 120 L70 230 M70 120 L-60 230" stroke="#c8483a" stroke-width="22" stroke-linecap="round" opacity="${cl((p-.15)*4)}"/></g>`+
+   `<g transform="translate(250 1180) scale(${lerp(.6,1,ease(cl(p*3)))})"><path d="M0 -150 L140 100 L-140 100Z" fill="#ffd34d" stroke="${L}" stroke-width="8" stroke-linejoin="round"/><text y="70" text-anchor="middle" font-size="150" font-weight="900" fill="${L}">!</text></g>`+
+   ana({x:780,y:1820,s:1.0,rosto:"preocupa",bracoD:-150,bracoE:150})+
+   `<g opacity="${cl((p-.4)*4)}"><rect x="90" y="1360" width="520" height="150" rx="22" fill="#fff" stroke="#c8483a" stroke-width="6"/><text x="350" y="1420" text-anchor="middle" font-size="38" font-weight="800" fill="${L}">Sanções do</text><text x="350" y="1470" text-anchor="middle" font-size="38" font-weight="800" fill="#c8483a">Decreto 47.383/2018</text></g>`},
+ fim:(c,t,p)=>`<rect width="1080" height="1920" fill="#0E1512"/><circle cx="540" cy="900" r="520" fill="#173022"/>`+
+   ana({x:540,y:1500,s:1.1,acena:Math.sin(t*6)*25+40,bracoE:-20})+
+   `<text x="540" y="1640" text-anchor="middle" font-size="40" font-weight="800" fill="#E3C06A" letter-spacing="6">AMBIENTAL INTELIGÊNCIA</text>
+    <text x="540" y="1700" text-anchor="middle" font-size="32" fill="#C9D4CB">Portaria IGAM nº 18/2026 · link na descrição</text>
+    <text x="540" y="1750" text-anchor="middle" font-size="30" fill="#9FB5A6">oanalistaambiental.com/radar-audio</text>`
+};
+// ---------- legenda karaokê ----------
+function legenda(T){
+  const c=D.cenas.find(c=>T>=c.a-0.05&&T<c.b+0.35); if(!c) return "";
+  const ws=c.palavras; if(!ws.length) return "";
+  let k=ws.findIndex(w=>T<w[1]); if(k<0) k=ws.length-1;
+  const ini=Math.floor(k/4)*4, grupo=ws.slice(ini,ini+4);
+  return grupo.map((w,i)=>`<span class="${ini+i===k&&T>=w[0]-0.05?"on":""}">${w[2]}</span>`).join(" ");
+}
+window.render=function(T){
+  const i=Math.max(0,D.cenas.findIndex(c=>T<c.fimBloco)); const c=D.cenas[i===-1?D.cenas.length-1:i];
+  const t=T-c.iniBloco, p=cl(t/(c.fimBloco-c.iniBloco));
+  document.getElementById("cena").innerHTML=CENA[c.id](c,t,p);
+  document.getElementById("leg").innerHTML=c.id==="fim"?"":legenda(T);
+  const dv=Math.min(T-c.iniBloco, c.fimBloco-T); document.getElementById("veu").style.opacity = i===0&&T<c.iniBloco+0.3?1-T/0.3:cl(1-dv/0.18)*.9;
+  document.getElementById("marca").style.color=c.id==="fim"?"#E3C06A":"#2b3a2f";
+  document.getElementById("ia").style.color=c.id==="fim"?"#9FB5A6":"#4a4a44";
+};
+</script></body></html>

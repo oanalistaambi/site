@@ -1,0 +1,9 @@
+[
+ {"id":"rio","fala":"Esta é a Ana, consultora ambiental. Hoje ela veio até o rio, onde sai o cano da estação de tratamento de esgoto de uma cidade do interior."},
+ {"id":"cano","fala":"Este ponto é o lançamento do efluente: a água tratada que volta para o rio."},
+ {"id":"celular","fala":"No dia quatro de novembro, o Diário Oficial de Minas trouxe a Portaria dezoito do Igam. Ela convoca as estações de tratamento de esgoto que lançam em rio estadual a pedir a outorga de lançamento."},
+ {"id":"estrada","fala":"O prazo depende da bacia. Doce e São Francisco: o ano todo de dois mil e vinte e sete. Paranaíba e Paraíba do Sul: dois mil e vinte e oito. Grande, Jequitinhonha e Pardo: dois mil e vinte e nove."},
+ {"id":"medicao","fala":"Por isso, a Ana já está medindo a vazão e coletando amostras do efluente. O pedido é feito no sistema de outorga do Igam."},
+ {"id":"alerta","fala":"Quem perder o período da sua bacia fica sujeito às sanções do Decreto quarenta e sete mil trezentos e oitenta e três."},
+ {"id":"fim","fala":"Este foi o Ambiental Inteligência. Confira o texto oficial pelo link. Personagem e voz gerados por inteligência artificial."}
+]
