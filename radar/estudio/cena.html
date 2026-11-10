@@ -1,0 +1,162 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><style>
+@font-face{font-family:Archivo;src:url(Archivo.ttf)}
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0E1512;font-family:Archivo,sans-serif;color:#EEF0EA}
+#bg{position:absolute;inset:0;background:radial-gradient(circle at 80% 12%,#1f3a2a 0,#0E1512 55%)}
+.topo{position:absolute;left:70px;right:70px;top:70px}
+.kick{font-size:34px;letter-spacing:.16em;font-weight:700;color:#E3C06A;text-transform:uppercase}
+.kick span{color:#9FB5A6;font-weight:600;letter-spacing:.08em}
+h1{margin:18px 0 0;font-size:76px;line-height:1.02;font-weight:800;letter-spacing:-.01em}
+#palco{position:absolute;left:0;top:360px;width:1080px;height:760px}
+.card{position:absolute;left:70px;right:70px;top:1140px;min-height:330px;border-radius:34px;padding:38px 44px;background:#16231c;border:3px solid #2c4436;opacity:0;transform:translateY(30px);transition:none}
+.card h2{margin:0 0 14px;font-size:44px;line-height:1.1}
+.card p{margin:8px 0;font-size:34px;line-height:1.3;color:#C9D4CB}
+.card .tag{display:inline-block;font-size:26px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;border-radius:40px;margin-bottom:16px}
+.ok .tag{background:#5FA96F;color:#0E1512}.al{border-color:#b5523b}.al .tag{background:#E07A5F;color:#0E1512}
+.in .tag{background:#E3C06A;color:#0E1512}
+.anos{display:flex;gap:18px;margin-top:8px}
+.ano{flex:1;background:#0E1512;border-radius:22px;padding:22px 20px;opacity:.12}
+.ano b{display:block;font-size:52px;color:#E3C06A}
+.ano span{font-size:27px;line-height:1.25;color:#C9D4CB}
+#leg{position:absolute;left:70px;right:70px;top:1520px;height:230px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:54px;line-height:1.18;font-weight:800}
+#leg span{padding:6px 18px;border-radius:14px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rod{position:absolute;left:70px;right:70px;bottom:60px;display:flex;justify-content:space-between;font-size:27px;color:#9FB5A6}
+.rod b{color:#E3C06A}
+#vinheta{position:absolute;inset:0;background:#0E1512;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;opacity:0}
+#vinheta .k{font-size:40px;letter-spacing:.2em;color:#E3C06A;font-weight:700}
+#vinheta .t{font-size:110px;font-weight:800;line-height:1;text-align:center}
+#vinheta .s{font-size:36px;color:#C9D4CB}
+#vinheta .onda{display:flex;gap:16px;align-items:center;height:160px}
+#vinheta .onda i{display:block;width:22px;border-radius:11px;background:#5FA96F}
+</style></head><body>
+<div id="bg"></div>
+<div class="topo"><div class="kick">Ambiental Inteligência <span>· Pílula · DOE-MG</span></div>
+<h1>O esgoto entrou na fila da outorga</h1></div>
+<svg id="palco" viewBox="0 0 1080 760">
+ <defs>
+  <linearGradient id="mesa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b4a37"/><stop offset="1" stop-color="#1a2d22"/></linearGradient>
+  <filter id="sombra"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity=".35"/></filter>
+ </defs>
+ <!-- parede do estúdio -->
+ <rect x="40" y="20" width="1000" height="520" rx="40" fill="#13201a" stroke="#22362b" stroke-width="3"/>
+ <g opacity=".5" stroke="#2c4436" stroke-width="3" fill="none">
+  <path d="M90 70h120v120H90z M230 70h120v120H230z M730 70h120v120H730z M870 70h120v120H870z"/>
+ </g>
+ <g id="logo" transform="translate(540 92) scale(.85)"><circle r="78" fill="#0E1512" stroke="#E3C06A" stroke-width="4"/>
+  <text y="-6" text-anchor="middle" font-size="21" font-weight="800" fill="#E3C06A" font-family="Archivo">AMBIENTAL</text>
+  <text y="22" text-anchor="middle" font-size="16" font-weight="700" fill="#EEF0EA" font-family="Archivo">INTELIGÊNCIA</text></g>
+ <!-- personagens -->
+ <g id="p-marina" transform="translate(220 250)"></g>
+ <g id="p-clara" transform="translate(540 250)"></g>
+ <g id="p-bento" transform="translate(860 250)"></g>
+ <!-- mesa -->
+ <path d="M30 560 Q540 500 1050 560 L1050 700 Q540 650 30 700Z" fill="url(#mesa)" filter="url(#sombra)"/>
+ <g id="tags"></g>
+</svg>
+<div class="card in" id="c-abre"><span class="tag">Nesta pílula · 1 min</span>
+ <h2>Estações de esgoto convocadas para a outorga de lançamento</h2>
+ <p>Portaria IGAM nº 18/2026 · Jornal Minas Gerais de 04/11/2026</p></div>
+<div class="card in" id="c-portaria"><span class="tag">Portaria IGAM nº 18 · 03/11/2026</span>
+ <h2>Convocação para a outorga de lançamento de efluentes</h2>
+ <p>Estações de tratamento de esgoto sanitário (DN 217: E-03-06-9) que lançam em rio estadual.</p>
+ <p>Pedido pelo <b>SOUT</b>, o sistema de outorga do Igam.</p></div>
+<div class="card in" id="c-anos"><span class="tag">Prazo por bacia</span>
+ <div class="anos">
+  <div class="ano" id="a27"><b>2027</b><span>Doce, São Francisco, Itapemirim, São Mateus, Mucuri</span></div>
+  <div class="ano" id="a28"><b>2028</b><span>Paranaíba, Paraíba do Sul, Itabapoana</span></div>
+  <div class="ano" id="a29"><b>2029</b><span>Grande, Jequitinhonha, Pardo, Piracicaba/Jaguari e bacias do leste</span></div>
+ </div></div>
+<div class="card al" id="c-sancao"><span class="tag">Atenção</span>
+ <h2>Perdeu o período da sua bacia? Sanções do Decreto 47.383/2018</h2>
+ <p>As demais atividades que lançam efluente serão convocadas em atos posteriores.</p></div>
+<div class="card ok" id="c-dica"><span class="tag">Dica da mesa</span>
+ <h2>Identifique a bacia do ponto de lançamento</h2>
+ <p>E comece já a juntar dados de vazão e de qualidade do efluente.</p></div>
+<div class="card in" id="c-fim"><span class="tag">Texto oficial</span>
+ <h2>Jornal Minas Gerais, 04/11/2026, Diário do Executivo</h2>
+ <p>Link na descrição e em <b>oanalistaambiental.com/radar-audio</b></p></div>
+<div id="leg"></div>
+<div class="rod"><span>Personagens e vozes geradas por IA</span><span><b>Confira sempre o texto oficial</b></span></div>
+<div id="vinheta"><div class="k">PÍLULA</div><div class="t">Ambiental<br>Inteligência</div><div class="onda" id="onda"></div><div class="s">Diário Oficial de Minas Gerais</div></div>
+<script>
+const D = window.DADOS;
+const COR = {clara:"#E3C06A", marina:"#7FC8A9", bento:"#E9A27C"};
+// ---------- personagens (vetor, originais) ----------
+function boneco(id, o){
+  const g = document.getElementById("p-"+id);
+  g.innerHTML = `
+  <g class="corpo">
+   <path d="M-120 330 Q-115 170 0 160 Q115 170 120 330Z" fill="${o.roupa}"/>
+   <path d="M-34 160 L0 210 L34 160Z" fill="${o.gola}"/>
+   ${o.extra||""}
+   <rect x="-26" y="120" width="52" height="50" rx="16" fill="${o.pele2}"/>
+   <g class="cab">
+    ${o.cabeloTras||""}
+    <ellipse cx="0" cy="40" rx="92" ry="104" fill="${o.pele}"/>
+    <ellipse cx="-92" cy="48" rx="14" ry="22" fill="${o.pele2}"/><ellipse cx="92" cy="48" rx="14" ry="22" fill="${o.pele2}"/>
+    ${o.cabelo}
+    <g class="olhos"><ellipse class="olho" cx="-33" cy="34" rx="10" ry="13" fill="#1d1d1b"/><ellipse class="olho" cx="33" cy="34" rx="10" ry="13" fill="#1d1d1b"/>
+    <circle cx="-30" cy="29" r="3.5" fill="#fff"/><circle cx="36" cy="29" r="3.5" fill="#fff"/></g>
+    <path d="M-52 6 q20 -12 40 -2 M12 4 q20 -10 40 2" stroke="${o.sobr}" stroke-width="7" fill="none" stroke-linecap="round" class="sobr"/>
+    ${o.oculos||""}
+    <ellipse cx="-58" cy="74" rx="16" ry="9" fill="#e58f7a" opacity=".35"/><ellipse cx="58" cy="74" rx="16" ry="9" fill="#e58f7a" opacity=".35"/>
+    ${o.barba||""}
+    <ellipse class="boca" cx="0" cy="88" rx="22" ry="5" fill="#5a2a2a"/>
+   </g>
+  </g>
+  <g transform="translate(${o.mic} 210)"><rect x="-6" y="40" width="12" height="110" fill="#30302e"/><rect x="-20" y="-30" width="40" height="78" rx="20" fill="#3b3b39"/>
+   <g class="ondas" fill="none" stroke="${COR[id]}" stroke-width="5" stroke-linecap="round" opacity="0">
+    <path d="M30 -10 q14 18 0 36"/><path d="M44 -24 q26 32 0 64"/></g></g>`;
+}
+boneco("clara",{roupa:"#2f6d52",gola:"#E3C06A",pele:"#f2c7a5",pele2:"#e3ad88",sobr:"#5b3a26",mic:-110,
+  cabeloTras:`<path d="M-100 40 Q-110 -80 0 -76 Q110 -80 100 40 L104 150 Q60 120 70 60 Q0 40 -70 60 Q-60 120 -104 150Z" fill="#5b3a26"/>`,
+  cabelo:`<path d="M-96 20 Q-90 -72 0 -70 Q90 -72 96 20 Q60 -30 0 -26 Q-40 -26 -96 20Z" fill="#6b4630"/>`});
+boneco("marina",{roupa:"#2b5d86",gola:"#d9e6f2",pele:"#a8694a",pele2:"#94593c",sobr:"#2a1a12",mic:120,
+  cabeloTras:`<g fill="#2a1a12"><circle cx="-80" cy="-10" r="52"/><circle cx="80" cy="-10" r="52"/><circle cx="-96" cy="60" r="44"/><circle cx="96" cy="60" r="44"/><circle cx="0" cy="-60" r="62"/><circle cx="-50" cy="-56" r="48"/><circle cx="50" cy="-56" r="48"/></g>`,
+  cabelo:`<path d="M-88 10 Q-70 -50 0 -46 Q70 -50 88 10 Q40 -16 0 -14 Q-40 -16 -88 10Z" fill="#3a2418"/>`,
+  oculos:`<g fill="none" stroke="#1d1d1b" stroke-width="5"><rect x="-62" y="16" width="52" height="38" rx="14"/><rect x="10" y="16" width="52" height="38" rx="14"/><path d="M-10 32h20"/></g>`});
+boneco("bento",{roupa:"#e8e2d4",gola:"#3b5b4a",pele:"#e9b892",pele2:"#d79f78",sobr:"#8a8a86",mic:-120,
+  extra:`<path d="M-120 330 Q-115 180 -40 166 L-20 330Z M120 330 Q115 180 40 166 L20 330Z" fill="#4a5a6a"/>`,
+  cabelo:`<path d="M-92 10 Q-96 -70 0 -66 Q96 -70 92 10 Q86 -26 50 -36 Q0 -50 -50 -36 Q-86 -26 -92 10Z" fill="#b9b7b1"/>`,
+  barba:`<path d="M-80 60 Q-70 150 0 152 Q70 150 80 60 Q60 112 0 112 Q-60 112 -80 60Z" fill="#c9c7c1"/>`});
+// etiquetas na mesa
+document.getElementById("tags").innerHTML = [["marina",220,"MARINA","técnica"],["clara",540,"CLARA","apresentadora"],["bento",860,"BENTO","jurídico"]]
+ .map(([id,x,n,f])=>`<g id="t-${id}" transform="translate(${x} 615)"><rect x="-130" y="-34" width="260" height="76" rx="18" fill="#0E1512" stroke="${COR[id]}" stroke-width="3"/>
+  <text y="-2" text-anchor="middle" font-family="Archivo" font-size="30" font-weight="800" fill="${COR[id]}">${n}</text>
+  <text y="30" text-anchor="middle" font-family="Archivo" font-size="22" fill="#C9D4CB">${f}</text></g>`).join("");
+document.getElementById("onda").innerHTML=[30,70,130,100,150,90,60,120,140,80,40].map(h=>`<i style="height:${h}px"></i>`).join("");
+// ---------- legenda ----------
+function pedacos(txt){const ws=txt.split(" ");const out=[];let cur=[];for(let k=0;k<ws.length;k++){const w=ws[k];cur.push(w);const prox=ws[k+1]||"";const fim=/[.!?:,]$/.test(w)&&cur.join(" ").length>12;if(fim||(cur.join(" ").length>30&&w.length>3)){out.push(cur.join(" "));cur=[]}}if(cur.length){if(cur.join(" ").length<10&&out.length)out[out.length-1]+=" "+cur.join(" ");else out.push(cur.join(" "))}return out}
+const LIN = D.linhas.map(l=>{const ps=pedacos(l.texto||"");const tot=ps.reduce((s,p)=>s+p.length,0)||1;let acc=0;return {...l,ps:ps.map(p=>{const a=acc;acc+=p.length;return {p,ini:l.ini+(l.fim-l.ini)*a/tot,fim:l.ini+(l.fim-l.ini)*acc/tot}})}});
+function quando(i,frac){const l=LIN[i];return l.ini+(l.fim-l.ini)*frac}
+function fracDe(i,trecho){const t=LIN[i].texto;return t.indexOf(trecho)/t.length}
+const CARDS=[["c-abre",LIN[1].ini,LIN[1].fim],["c-portaria",quando(2,.0),quando(2,1)+.3],["c-anos",LIN[4].ini,LIN[4].fim+.3],["c-sancao",LIN[5].ini,LIN[5].fim+.3],["c-dica",LIN[7].ini,LIN[7].fim+.3],["c-fim",LIN[8].ini,LIN[8].fim+1.2]];
+const ANOS=[["a27",quando(4,fracDe(4,"Doce"))],["a28",quando(4,fracDe(4,"Paranaíba"))],["a29",quando(4,fracDe(4,"Grande"))]];
+function pisca(t,s){const c=(t+s)%4.1;return c<.13?.15:1}
+window.render = function(t){
+  const f=Math.min(D.amp.length-1,Math.floor(t*D.fps)); const amp=D.amp[f]||0;
+  const atual=LIN.find(l=>t>=l.ini&&t<=l.fim+.2);
+  const quem=atual&&atual.quem;
+  // vinheta
+  const vin=document.getElementById("vinheta");
+  let vo=0; if(t<2.9) vo=t<2.3?1:1-(t-2.3)/.6; if(t>D.dur-3.0) vo=Math.min(1,(t-(D.dur-3.0))/.5);
+  vin.style.opacity=vo;
+  document.querySelectorAll("#onda i").forEach((el,k)=>{el.style.transform=`scaleY(${.4+.6*Math.abs(Math.sin(t*5+k))})`});
+  for(const id of ["clara","marina","bento"]){
+    const fala = quem===id; const g=document.getElementById("p-"+id);
+    const a = fala?amp:0;
+    g.querySelector(".boca").setAttribute("ry", 4+28*Math.min(1,a));
+    g.querySelector(".boca").setAttribute("rx", 22+6*Math.min(1,a));
+    g.querySelectorAll(".olho").forEach(o=>o.setAttribute("ry",13*pisca(t,{clara:0,marina:1.3,bento:2.6}[id])));
+    const bal = fala? Math.sin(t*3.1)*2.2 : Math.sin(t*1.2+id.length)*1;
+    g.querySelector(".cab").setAttribute("transform",`rotate(${bal}) translate(0 ${fala?-a*4:0})`);
+    g.querySelector(".ondas").setAttribute("opacity", fala?Math.min(1,a*1.4):0);
+    g.style.opacity = quem && !fala && ["clara","marina","bento"].includes(quem) ? .78 : 1;
+    document.getElementById("t-"+id).querySelector("rect").setAttribute("fill", fala?"#24382c":"#0E1512");
+  }
+  for(const [id,a,b] of CARDS){const el=document.getElementById(id);let o=0;if(t>=a&&t<=b+.4)o=Math.min(1,(t-a)/.35,(b+.4-t)/.35);el.style.opacity=o;el.style.transform=`translateY(${(1-o)*30}px)`}
+  for(const [id,a] of ANOS){const el=document.getElementById(id);el.style.opacity=t>=a?1:.12;el.style.outline=t>=a&&t<a+3?"4px solid #E3C06A":"none"}
+  const leg=document.getElementById("leg");
+  if(atual&&atual.ps.length){const p=atual.ps.find(x=>t>=x.ini&&t<=x.fim+.15)||atual.ps[atual.ps.length-1];leg.innerHTML=`<span style="background:${COR[quem]};color:#0E1512">${p.p}</span>`}else leg.innerHTML="";
+};
+</script></body></html>
