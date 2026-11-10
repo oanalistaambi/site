@@ -1,7 +1,51 @@
 {
- "atualizado_em": "2026-11-07",
+ "atualizado_em": "2026-11-10",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-11-10",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 6,
+     "processos": 16,
+     "decisoes": {
+      "requerimentos": 5,
+      "deferimentos/concessões": 5,
+      "transferências de titularidade": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 8,
+     "processos": 40,
+     "decisoes": {
+      "deferimentos/concessões": 7,
+      "indeferimentos": 3,
+      "arquivamentos": 4
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    }
+   ]
+  },
   {
    "data": "2026-11-07",
    "atos": [],
