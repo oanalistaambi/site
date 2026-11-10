@@ -1,0 +1,11 @@
+{
+  "name": "site-oanalistaambiental",
+  "private": true,
+  "description": "Testes automatizados do site oanalistaambiental.com (o site em si é HTML estático, sem build).",
+  "scripts": {
+    "test": "bash _testes/rodar-todos.sh"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
