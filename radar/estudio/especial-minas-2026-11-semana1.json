@@ -1,0 +1,282 @@
+{
+ "titulo": "Ambiental Inteligência — Especial Minas: novembro, semana 1",
+ "fontes": "Diário do Executivo (Jornal Minas Gerais) de 4, 5, 6 e 7 de novembro de 2026",
+ "falas": [
+  [
+   "vinheta",
+   ""
+  ],
+  [
+   "clara",
+   "Olá, olá! Começa agora o Ambiental Inteligência, Especial Minas. Eu sou a Clara Rios, e hoje a mesa está cheia para passar a limpo o que saiu de mais importante no Diário Oficial de Minas Gerais neste comecinho de novembro. Comigo, a Marina Serra, que vive de licenciamento e de água."
+  ],
+  [
+   "marina",
+   "Oi, Clara! Pode me chamar de rato de SOUT e de SLA, que eu não me ofendo."
+  ],
+  [
+   "clara",
+   "O Bento Ipê, nosso homem dos prazos, recursos e multas."
+  ],
+  [
+   "bento",
+   "Boa tarde a todos. E já aviso: prazo não aceita desaforo."
+  ],
+  [
+   "clara",
+   "E o Tião Cerrado, que conhece cada pé de pequi deste estado."
+  ],
+  [
+   "tiao",
+   "Ó, Clara, cada pé não, mas os que dão sombra boa eu conheço tudo."
+  ],
+  [
+   "clara",
+   "Antes de começar, o combinado da casa: nós quatro somos personagens, com vozes geradas por inteligência artificial. Tudo o que for dado normativo sai do texto publicado no Diário Oficial, e os links de cada ato estão na página do programa. Opinião é opinião, e a gente avisa quando for. Bora?"
+  ],
+  [
+   "todos",
+   "Bora!"
+  ],
+  [
+   "clara",
+   "Manchete da semana. Marina, o Igam mexeu num vespeiro antigo: o esgoto."
+  ],
+  [
+   "marina",
+   "Mexeu, e eu achei uma ótima notícia. A Portaria do Igam número dezoito, de três de novembro, convoca as estações de tratamento de esgoto sanitário que lançam efluente em rio de domínio do estado para formalizar a outorga de lançamento de efluentes. É o código E zero três zero seis nove da DN Copam duzentos e dezessete, ou outra tipologia de tratamento de esgoto sanitário."
+  ],
+  [
+   "tiao",
+   "Peraí, Marina. Quer dizer que até hoje o esgoto tratado ia pro rio sem outorga de lançamento?"
+  ],
+  [
+   "marina",
+   "A outorga de captação é velha conhecida. A de lançamento é que agora entra no calendário, e com cronograma por bacia. Doce, Itapemirim, São Mateus, Mucuri e São Francisco: o ano inteiro de dois mil e vinte e sete. Paranaíba, Paraíba do Sul e Itabapoana: dois mil e vinte e oito. Piracicaba e Jaguari, Grande, Jequitinhonha, Pardo e as bacias do leste: dois mil e vinte e nove. Tudo pelo SOUT, o sistema de outorga do Igam."
+  ],
+  [
+   "bento",
+   "E aqui entra o meu pedaço. O artigo segundo diz que quem perder o período da sua bacia fica sujeito às sanções do Decreto quarenta e sete mil trezentos e oitenta e três, de dois mil e dezoito. Ou seja: não é convite para festa, é convocação. E o parágrafo único avisa que as demais atividades que lançam efluente serão chamadas em atos posteriores."
+  ],
+  [
+   "tiao",
+   "Então a indústria, o laticínio, o abatedouro, todo mundo pode ir esquentando o motor."
+  ],
+  [
+   "marina",
+   "Exatamente. Dica rápida para quem é de saneamento ou presta consultoria: descubra hoje em qual bacia está o ponto de lançamento, porque é ela que define o seu ano. E comece a juntar dados de vazão e de qualidade do efluente agora, não em dezembro de dois mil e vinte e seis."
+  ],
+  [
+   "clara",
+   "Avaliação da mesa?"
+  ],
+  [
+   "marina",
+   "Animadora. Dá tempo de se planejar e mostra que o estado vai, enfim, olhar o que volta para o rio."
+  ],
+  [
+   "bento",
+   "Animadora, com um asterisco: vai ter muito município pequeno correndo atrás. Quem tem consórcio de saneamento devia conversar já."
+  ],
+  [
+   "clara",
+   "Segundo assunto, e esse é a cara do Tião: carvão."
+  ],
+  [
+   "tiao",
+   "Ah, finalmente um assunto de churrasco!"
+  ],
+  [
+   "clara",
+   "Mais ou menos, né, Tião?"
+  ],
+  [
+   "tiao",
+   "Mais ou menos. No dia cinco saíram dois atos. Uma Resolução Conjunta da Semád e do Instituto Estadual de Florestas, a três mil quatrocentos e trinta e sete, que tira o controle do carvão vegetal de espécie exótica do velho sistema Cáfi, lá no Siam, e leva para o módulo de Controle de Carvão Vegetal do MG Florestas. E ela revoga duas resoluções antigas, de dois mil e catorze e de dois mil e dezoito."
+  ],
+  [
+   "marina",
+   "E a data da virada? Porque quem opera precisa saber quando muda."
+  ],
+  [
+   "tiao",
+   "A resolução não crava a data. Diz que o Instituto vai divulgar antes, no site oficial, a data, o cronograma e como ficam os saldos e as operações em curso. O que já foi emitido no sistema antigo continua valendo até terminar, e o saldo volumétrico migra, sem duplicar."
+  ],
+  [
+   "bento",
+   "Ponto de atenção jurídico: a revogação já está valendo desde a publicação, mas a operação no sistema novo depende desse aviso do IEF. Fique de olho no site, porque a regra de transição está lá, não no Diário."
+  ],
+  [
+   "clara",
+   "E o segundo ato?"
+  ],
+  [
+   "tiao",
+   "A Portaria número oitenta e oito do Instituto Estadual de Florestas, que cria a Guia de Transporte de Carvão, a GTC. Ela é emitida antes de o caminhão sair e acompanha a carga do começo ao fim. Se a viagem tem até cem quilômetros, a guia vale um dia corrido. Passou de cem, vale três dias. Uma guia para cada nota fiscal, nada de pendurar várias notas numa guia só."
+  ],
+  [
+   "marina",
+   "E tem a tal GTC Direta, que eu achei interessante."
+  ],
+  [
+   "tiao",
+   "Isso. É a guia de quando o destino não controla o produto em sistema, como o consumidor final, e é obrigatória para mandar carvão para outro estado ou para o exterior. Nesse caso o saldo é baixado só na origem."
+  ],
+  [
+   "clara",
+   "E o carvão do meu churrasco, Tião? Aquele do saquinho do supermercado?"
+  ],
+  [
+   "tiao",
+   "Aí vem a parte boa. Para a portaria, carvão empacotado é o que está em embalagem fechada e lacrada, que mostra se alguém abriu, feita para vender direto ao consumidor. Saco de ráfia costurado ou amarrado, mesmo com rótulo, não é empacotado. Big bag, caçamba, nada disso."
+  ],
+  [
+   "bento",
+   "E tem uma frase que eu recomendo grifar: o usuário do sistema é integral e exclusivamente responsável pelo que lança, e a senha é pessoal e intransferível, mesmo dentro da mesma empresa. Aquele hábito de o escritório inteiro usar o login do dono? Acabou."
+  ],
+  [
+   "marina",
+   "Ou seja: cada um com a sua senha, e o representante que se cadastre no CADU como representante, com procuração."
+  ],
+  [
+   "clara",
+   "Avaliação?"
+  ],
+  [
+   "tiao",
+   "Técnica, e eu acho necessária. Rastrear o carvão desde a área de plantio, com as coordenadas geográficas, é bom para todo mundo que trabalha certo."
+  ],
+  [
+   "bento",
+   "E preocupante para quem trabalha no improviso. A guia suspensa por imprevisto tem regra, prova e prazo. Quem não se organizar vai ver carga parada na estrada."
+  ],
+  [
+   "clara",
+   "Vamos para os colegiados do Copam, que tiveram semana movimentada. Bento, começa pelo programa de conversão de multas."
+  ],
+  [
+   "bento",
+   "Na reunião da Unidade Regional Colegiada Sul de Minas, no dia três, foram homologados dois Termos de Composição Administrativa de adesão ao PECMA, o Programa Estadual de Conversão de Multas Ambientais, da Lei vinte e cinco mil cento e quarenta e quatro, de dois mil e vinte e cinco. Um do Frigorífico Vale do Sapucaí, em Itajubá, e um da Copasa, em Santa Rita do Sapucaí."
+  ],
+  [
+   "clara",
+   "Explica para quem está no carro: o que é converter multa?"
+  ],
+  [
+   "bento",
+   "De forma simples: em vez de só pagar, o autuado assume compromissos ambientais previstos no programa, e o colegiado homologa o termo. Opinião minha: é um instrumento que pode render mais para o meio ambiente do que a multa parada na dívida ativa, desde que o compromisso seja fiscalizado de verdade."
+  ],
+  [
+   "tiao",
+   "Na mesma reunião teve um recurso de arquivamento de supressão de dois vírgula seis hectares em Virgínia, e o colegiado indeferiu."
+  ],
+  [
+   "clara",
+   "E no Leste Mineiro?"
+  ],
+  [
+   "tiao",
+   "No dia quatro, a URC Leste aprovou a intervenção pedida pelo Departamento de Estradas de Rodagem para uma estrada em Peçanha: perto de trinta e oito hectares de supressão em Mata Atlântica, mais intervenção em APP e trezentas e setenta árvores isoladas. E o que me animou: o colegiado aprovou a inclusão de condicionantes novas de proteção à fauna, com estudo de passagem de fauna, placa de travessia de animal silvestre e redutor de velocidade nos pontos críticos."
+  ],
+  [
+   "marina",
+   "Isso é aprendizado de colegiado. Estrada que corta mata sem passagem de fauna vira fábrica de atropelamento."
+  ],
+  [
+   "tiao",
+   "Vira mesmo. O lobo-guará, o tamanduá, o gambá. Quem roda à noite no interior sabe."
+  ],
+  [
+   "bento",
+   "No mesmo dia, a URC Leste deferiu o recurso de uma mineradora de pegmatito e gemas em Itabira contra o arquivamento da renovação da licença. Recurso funciona, gente. Prazo e boa fundamentação."
+  ],
+  [
+   "clara",
+   "E no Jequitinhonha?"
+  ],
+  [
+   "bento",
+   "No dia cinco, a URC Jequitinhonha manteve um auto de infração por desmate de Floresta Estacional Semidecidual com destoca, em Setubinha. Recurso indeferido."
+  ],
+  [
+   "tiao",
+   "Destoca, para quem não sabe, é arrancar o toco e a raiz. Aí a mata não rebrota. É o tipo de coisa que pesa na avaliação, e com razão."
+  ],
+  [
+   "clara",
+   "Minuto do prazo! Bento, o relógio é seu."
+  ],
+  [
+   "bento",
+   "Um: auto de infração. Num comunicado da Semád desta semana, quem teve advertência convertida em multa tem vinte dias, contados da publicação, para pagar antes da dívida ativa, e trinta dias para recorrer. Dois: audiência pública. Quando a Fêam publica que recebeu um estudo de impacto, o EIA RIMA, abre quarenta e cinco dias para quem quiser pedir audiência pública, pelo sistema, conforme a DN Copam duzentos e vinte e cinco. Nesta semana apareceram, por exemplo, uma licença corretiva da AngloGold Ashanti em Sabará e Caeté, e um empreendimento agropecuário em Joaquim Felício e Bocaiúva, no Norte de Minas."
+  ],
+  [
+   "marina",
+   "Dica: o prazo corre da data do Diário, não da data em que você ficou sabendo. Anota no calendário no dia em que sai."
+  ],
+  [
+   "bento",
+   "E três: licença concedida tem data de validade publicada. A Vale, por exemplo, teve concedida no dia cinco a licença concomitante da pesquisa mineral Córrego da Onça, em Barão de Cocais, com supressão de menos de um quarto de hectare em Mata Atlântica e validade até dois mil e trinta e seis. Guarde a data, que condicionante tem prazo próprio."
+  ],
+  [
+   "clara",
+   "Agenda e oportunidades. Marina?"
+  ],
+  [
+   "marina",
+   "Dia dezesseis, segunda, tem a reunião da URC Alto São Francisco. Na pauta, um pedido de trinta e dois hectares de supressão em Iguatama, em área prioritária para a biodiversidade, em que o parecer aponta área passível de aprovação igual a zero. Vai ser uma discussão boa. Dia dezessete, a Câmara Normativa e Recursal do Conselho Estadual de Recursos Hídricos analisa duas minutas de deliberação normativa: uma unifica o calendário dos mandatos dos comitês de bacia, e a outra cria um sistema de alerta e flexibilização para as águas subterrâneas do Rio Verde Grande, no Norte de Minas."
+  ],
+  [
+   "tiao",
+   "O Verde Grande é sofrido, Clara. Água subterrânea ali é ouro."
+  ],
+  [
+   "marina",
+   "Por isso vale assistir. As reuniões são abertas e transmitidas no canal oficial."
+  ],
+  [
+   "tiao",
+   "E tem oportunidade boa: o Instituto Estadual de Florestas abriu o edital cinco de dois mil e vinte e seis, do Pólo Mariana, do projeto Rio Doce Mais Vida. É um contrato de gestão de sessenta meses com entidade sem fins lucrativos, para apoiar regularização ambiental de imóvel rural, restauração e pagamento por serviços ambientais. Sessão de esclarecimento dia dezenove de novembro, e as propostas vão de dez a vinte e três de dezembro."
+  ],
+  [
+   "clara",
+   "Para as ONGs e associações da bacia do Doce: é agora."
+  ],
+  [
+   "clara",
+   "Para fechar, os números da semana. Marina?"
+  ],
+  [
+   "marina",
+   "Em quatro edições, o Igam publicou mais de cem decisões de outorga, o Instituto Estadual de Florestas registrou algumas dezenas de pedidos de intervenção ambiental e as unidades regionais da Fêam publicaram algumas dezenas de licenças, entre pedidos, concessões, arquivamentos e transferências. E na URC Central Metropolitana foi apresentada a versão três ponto zero da I Dê É Sisema, a plataforma de mapas do estado."
+  ],
+  [
+   "tiao",
+   "Que é a melhor amiga de quem faz vistoria, diga-se."
+  ],
+  [
+   "clara",
+   "Resumo da mesa em uma frase cada. Marina?"
+  ],
+  [
+   "marina",
+   "Esgoto entrou no radar da outorga: planeje pela sua bacia."
+  ],
+  [
+   "bento",
+   "Carvão tem guia nova e senha pessoal, e prazo conta da publicação."
+  ],
+  [
+   "tiao",
+   "Estrada boa é estrada com passagem de fauna."
+  ],
+  [
+   "clara",
+   "Este foi o Ambiental Inteligência, Especial Minas. Lembrando: somos personagens com vozes de inteligência artificial, e antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima!"
+  ],
+  [
+   "vinheta",
+   ""
+  ]
+ ]
+}
