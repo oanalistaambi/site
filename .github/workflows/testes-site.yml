@@ -1,0 +1,40 @@
+# Testes automatizados do site (curadoria de 10/11/2026, a partir do conselho do Fábio Akita no
+# Flow: "todo bug vira teste" e "roda os testes antes de soltar em produção").
+# Roda todos os _testes/*.mjs em todo PR e em toda mudança no main. Falhou = não mescle.
+name: Testes do site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar o Playwright e o Chromium
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Rodar todos os testes
+        env:
+          SAIDA: ${{ runner.temp }}/saida-testes
+        run: |
+          mkdir -p "$SAIDA"
+          npm test
+      - name: Guardar arquivos e telas dos testes (quando falha)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: saida-testes
+          path: ${{ runner.temp }}/saida-testes
+          retention-days: 7

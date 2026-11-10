@@ -835,7 +835,7 @@
   /**
    * Correções conservadoras do texto que vem do OCR, antes de ler os lados: o grau lido como "º",
    * "o", "O" ou "*" logo antes dos minutos; o apóstrofo dos minutos lido como "/" ou "|"; letra O ou
-   * o entre algarismos (zero); o apóstrofo dos minutos que sumiu ("119°2516.52"" → 119°25'16.52"); l ou I entre
+   * o entre algarismos (zero); o apóstrofo dos minutos que sumiu ("119°2516.52"" ou "115º 1528"" → 119°25'16.52", 115°15'28"); l ou I entre
    * algarismos (um); "rn" no lugar de "m" depois de número; o quadrante colado no "e" seguinte
    * ("15" We distância" → "15" W e distância"). Nada além disso: o resto a pessoa
    * confere no texto, e o diagnóstico do fechamento aponta o dígito trocado.
@@ -844,12 +844,12 @@
     return String(t || "")
       .replace(/(\d{1,3})\s?[º°oO*]\s?(?=\d{1,2}\s?['’´`])/g, "$1°")
       .replace(/(\d{1,3})\s?[º°oO*]\s?(\d{1,2})\s?[\/|]\s?(?=\d{1,2}(?:[.,]\d+)?\s?["”'’]{1,2})/g, "$1°$2'")
-      .replace(/(\d{1,3})\s?[º°]\s?([0-5]\d)([0-5]\d[.,]\d+)\s?(?=["”])/g, "$1°$2'$3")
+      .replace(/(\d{1,3})\s?[º°]\s?([0-5]\d)([0-5]\d(?:[.,]\d+)?)\s?(?=["”])/g, "$1°$2'$3")
       .replace(/(?<=\d)[Oo](?=\d|[.,]\d)/g, "0")
       .replace(/(?<=\d[.,]\d{0,2})[Oo](?![\wà-ú])/g, "0")
       .replace(/(?<=\d)[lI](?=\d)/g, "1")
       .replace(/(\d)\s?rn\b/g, "$1 m")
-      .replace(/(\d\s?["”'’°]\s?)([EWOL])(e)(?=\s)/g, "$1$2 $3")
+      .replace(/(\d\s?["”'’°]\s*)([EWOL])(e)(?=\s)/g, "$1$2 $3")
       .replace(/[ \t]+$/gm, "");
   }
 

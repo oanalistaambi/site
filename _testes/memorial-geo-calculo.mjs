@@ -306,6 +306,11 @@ const exemplo = JSON.parse(readFileSync(new URL("../memorial-geo.html", import.m
   const poucas = M.pedacosDoOcr(linhas.slice(0, 2), 2000);
   ok(poucas.every(x => /   3$/.test(x.texto)), "letra no fim de só 2 linhas fica (pode ser coluna de tabela)");
   ok(M.limparOcr("distância:119º2516.52\" e 458,98") === "distância:119°25'16.52\" e 458,98", "OCR: apóstrofo dos minutos que sumiu (119°2516.52\" → 119°25'16.52\")");
+  // Regressão (10/11/2026): a foto da certidão lida no GitHub perdia um lado. O OCR devolveu
+  // segundos sem decimal com espaço depois do grau, e o quadrante colado no "e" depois de vários espaços.
+  ok(M.limparOcr("azimute de 115º 1528” e distância") === "azimute de 115°15'28” e distância", "OCR: apóstrofo que sumiu com segundos inteiros (115º 1528” → 115°15'28”)");
+  ok(M.limparOcr("rumo S 14°52'15\"   We distância") === "rumo S 14°52'15\"   W e distância", "OCR: quadrante colado no \"e\" depois de vários espaços (15\"   We → W e)");
+  ok(M.limparOcr("área de 2015” e") === "área de 2015” e", "OCR: número sem grau não vira ângulo");
 }
 
 // ---- Sem polígono: os pontos que deu para ler (mapa e KML), em vez de nada
