@@ -19,3 +19,10 @@ Vídeo vertical com a consultora Ana (personagem original, estilo "boneco"), cen
 (rio, cano de lançamento, celular com o Diário, estrada dos prazos, medição, alerta) e legenda que pinta a palavra falada.
 `narrar.py` gera a narração cena a cena com o tempo de cada palavra; `anim.html` desenha as cenas; `render.mjs` grava o MP4.
 Para outro ato: escrever novas cenas em `cenas-*.json` e, se preciso, novos desenhos em `anim.html`.
+
+## Diálogo animado (pasta `dialogo/`)
+
+Ana (consultora) e Seu Zé (operador da estação de esgoto) conversando, com vozes diferentes e boca sincronizada
+pela voz de cada um. Personagens articulados (braços e pernas em dois segmentos, caminhada, piscar, humor no rosto),
+cenário em camadas com câmera, capítulos na tela, esquema, quadro de prazos, checklist e resumo final.
+Ordem: `vozes.py` (falas com tempo de cada palavra) → `linha.py` (linha do tempo, mixagem com trilha e som do rio) → `render.mjs`.
