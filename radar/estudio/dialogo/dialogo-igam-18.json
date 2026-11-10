@@ -1,0 +1,22 @@
+[
+ {"cena":"chegada","cap":"1 · No rio","falas":[
+  ["ze","Bom dia, Ana! Veio ver o nosso cano de novo?"],
+  ["ana","Bom dia, Seu Zé! Vim, sim. Saiu novidade no Diário Oficial de Minas que tem tudo a ver com essa água aí."]]},
+ {"cena":"esquema","cap":"2 · O que é","falas":[
+  ["ze","Mas a água já sai tratada daqui. Precisa de mais papel?"],
+  ["ana","Precisa da outorga de lançamento. É a autorização do Igam para devolver o efluente tratado ao rio."]]},
+ {"cena":"diario","cap":"3 · O que saiu","falas":[
+  ["ana","A Portaria dezoito do Igam, publicada no dia quatro de novembro, convoca as estações de tratamento de esgoto que lançam em rio estadual a fazer esse pedido."]]},
+ {"cena":"prazos","cap":"4 · Prazos","falas":[
+  ["ze","E qual é o prazo?"],
+  ["ana","Depende da bacia. Doce e São Francisco: o ano todo de dois mil e vinte e sete. Paranaíba e Paraíba do Sul: dois mil e vinte e oito. Grande, Jequitinhonha e Pardo: dois mil e vinte e nove."],
+  ["ze","Aqui é bacia do Doce. Então é no ano que vem!"]]},
+ {"cena":"medicao","cap":"5 · O que fazer","falas":[
+  ["ana","Isso. Então vamos medir a vazão e coletar amostras do efluente. O pedido é feito no SOUT, o sistema de outorga do Igam."],
+  ["ze","Deixa comigo o balde e o cronômetro!"]]},
+ {"cena":"alerta","cap":"6 · Atenção","falas":[
+  ["ana","E atenção: quem perder o período da sua bacia fica sujeito às sanções do Decreto quarenta e sete mil trezentos e oitenta e três."],
+  ["ze","Então não dá para deixar para a última hora."]]},
+ {"cena":"fim","cap":"","falas":[
+  ["ana","O link do texto oficial está na descrição. Até a próxima!"]]}
+]

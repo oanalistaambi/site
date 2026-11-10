@@ -1,0 +1,255 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><style>
+@font-face{font-family:Archivo;src:url(../Archivo.ttf)}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#f3ead7;font-family:Archivo,sans-serif}
+#tela{position:absolute;inset:0}
+#topo{position:absolute;left:0;right:0;top:0;height:200px;background:linear-gradient(#0E1512ee,#0E151200);}
+#marca{position:absolute;left:60px;top:54px;font-size:30px;font-weight:800;letter-spacing:.18em;color:#E3C06A}
+#cap{position:absolute;left:60px;top:100px;font-size:34px;font-weight:800;color:#fff;background:#2f8f83;padding:8px 22px;border-radius:40px;opacity:0}
+#leg{position:absolute;left:50px;right:50px;top:250px;text-align:center}
+#quem{display:inline-block;font-size:30px;font-weight:800;letter-spacing:.12em;padding:6px 20px;border-radius:30px;color:#fff;margin-bottom:10px}
+#frase{font-size:72px;font-weight:800;line-height:1.1;color:#fff;-webkit-text-stroke:12px #111;paint-order:stroke fill}
+#frase .on{color:#7BEA4E}
+#ia{position:absolute;left:0;right:0;bottom:40px;text-align:center;font-size:26px;font-weight:700;color:#fff;text-shadow:0 2px 6px #000a}
+#veu{position:absolute;inset:0;background:#0E1512;opacity:0}
+</style></head><body>
+<svg id="tela" viewBox="0 0 1080 1920">
+<defs>
+ <radialGradient id="pele" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#f6f3ec"/><stop offset="1" stop-color="#e2ddd2"/></radialGradient>
+ <radialGradient id="sol" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6c8"/><stop offset=".35" stop-color="#ffe082" stop-opacity=".9"/><stop offset="1" stop-color="#ffe082" stop-opacity="0"/></radialGradient>
+ <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ccbe6"/><stop offset="1" stop-color="#3f8db8"/></linearGradient>
+ <linearGradient id="morroL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8c8a0"/><stop offset="1" stop-color="#cfdcc0"/></linearGradient>
+ <linearGradient id="morroM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86b46a"/><stop offset="1" stop-color="#9cc47e"/></linearGradient>
+ <linearGradient id="chao" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9cf7c"/><stop offset="1" stop-color="#7fae5a"/></linearGradient>
+ <linearGradient id="tanque" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9bfc4"/><stop offset=".5" stop-color="#e3e7ea"/><stop offset="1" stop-color="#9aa2a8"/></linearGradient>
+ <radialGradient id="vinheta" cx=".5" cy=".48" r=".75"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></radialGradient>
+ <filter id="borra"><feGaussianBlur stdDeviation="6"/></filter>
+ <filter id="sombra" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-opacity=".28"/></filter>
+</defs>
+<g id="mundo"></g>
+<g id="hud"></g>
+<rect width="1080" height="1920" fill="url(#vinheta)" pointer-events="none"/>
+</svg>
+<div id="topo"></div><div id="marca">AMBIENTAL INTELIGÊNCIA</div><div id="cap"></div>
+<div id="leg"><div id="quem"></div><div id="frase"></div></div>
+<div id="ia">Personagens e vozes gerados por IA · confira o texto oficial</div>
+<div id="veu"></div>
+<script>
+const D=window.DADOS, L="#2b2a26";
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), lerp=(a,b,p)=>a+(b-a)*p, ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+const COR={ana:"#2f8f83",ze:"#d9822b"}, NOME={ana:"ANA · consultora",ze:"SEU ZÉ · operador da ETE"};
+// ================= PERSONAGENS (originais) =================
+const SPEC={
+ ana:{calca:"#3c5478",calca2:"#2e4260",camisa:"#f4f1ea",camisa2:"#ddd8cc",bota:"#6b4a2f",largura:1},
+ ze:{calca:"#2f4f78",calca2:"#253f60",camisa:"#3f6fa3",camisa2:"#335d8a",bota:"#e5b62e",largura:1.12}
+};
+function membro(x,y,a1,a2,l1,l2,cor,cor2,esp,ponta){ // dois segmentos com contorno
+  return `<g transform="translate(${x} ${y}) rotate(${-a1})">
+   <line x1="0" y1="0" x2="0" y2="${l1}" stroke="${L}" stroke-width="${esp+10}" stroke-linecap="round"/>
+   <line x1="0" y1="0" x2="0" y2="${l1}" stroke="${cor}" stroke-width="${esp}" stroke-linecap="round"/>
+   <g transform="translate(0 ${l1}) rotate(${-a2})">
+    <line x1="0" y1="0" x2="0" y2="${l2}" stroke="${L}" stroke-width="${esp+8}" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="0" y2="${l2}" stroke="${cor2}" stroke-width="${esp-2}" stroke-linecap="round"/>
+    <g transform="translate(0 ${l2})">${ponta}</g></g></g>`;
+}
+const pe=c=>`<path d="M-16 -8 Q-18 14 0 16 L40 16 Q52 16 50 4 Q46 -8 26 -10Z" fill="${c}" stroke="${L}" stroke-width="5" stroke-linejoin="round"/>`;
+const mao=`<circle r="17" fill="url(#pele)" stroke="${L}" stroke-width="5"/>`;
+function boneco(id,o){
+  const S=SPEC[id], {x,y,s=1,vira=1,passo=null,bD=[8,10],bE=[-8,10],incl=0,boca=0,pisca=0,humor="normal",itemD="",itemE="",olha=0}=o;
+  let pD=[4,4],pE=[-4,4],bob=0,bal=0;
+  if(passo!==null){const f=Math.sin(passo);pD=[f*26,Math.max(0,-Math.cos(passo))*38];pE=[-f*26,Math.max(0,Math.cos(passo))*38];bob=Math.abs(Math.cos(passo))*7;bal=f*4}
+  const w=52*S.largura;
+  const torso=id==="ana"?
+   `<path d="M${-w} -460 Q${-w-6} -340 ${-w+4} -250 L${w-4} -250 Q${w+6} -340 ${w} -460 Q0 -482 ${-w} -460Z" fill="${S.camisa}" stroke="${L}" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M${-w+2} -456 L${-w+14} -252 L-10 -252 L-16 -466Z M${w-2} -456 L${w-14} -252 L10 -252 L16 -466Z" fill="#6f8b4a" stroke="${L}" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M${-w+8} -330 L-14 -330 M${w-8} -330 L14 -330" stroke="#f0dd52" stroke-width="10"/>
+    <rect x="${-w+12}" y="-312" width="26" height="30" rx="4" fill="#5f7a3e" stroke="${L}" stroke-width="4"/><rect x="${w-38}" y="-312" width="26" height="30" rx="4" fill="#5f7a3e" stroke="${L}" stroke-width="4"/>
+    <path d="M-40 -458 L36 -256" stroke="#7a5a35" stroke-width="9"/>`:
+   `<path d="M${-w} -460 Q${-w-14} -330 ${-w+2} -250 L${w-2} -250 Q${w+14} -330 ${w} -460 Q0 -482 ${-w} -460Z" fill="${S.camisa}" stroke="${L}" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M0 -470 L0 -252" stroke="${S.camisa2}" stroke-width="5"/>${[0,1,2,3].map(i=>`<circle cx="7" cy="${-430+i*45}" r="4" fill="#e9e6df"/>`).join("")}
+    <rect x="${w-46}" y="-430" width="34" height="40" rx="5" fill="${S.camisa2}" stroke="${L}" stroke-width="4"/>
+    <rect x="${-w+12}" y="-428" width="40" height="22" rx="4" fill="#ffd34d" stroke="${L}" stroke-width="3"/><text transform="translate(${-w+32} -411) scale(${vira} 1)" text-anchor="middle" font-size="15" font-weight="900" fill="${L}">ETE</text>
+    <path d="M${-w} -262 L${w} -262" stroke="#5a3d22" stroke-width="12"/>`;
+  const sombraLado=`<path d="M${w-22} -456 Q${w+4} -340 ${w-6} -252 L${w-22} -252Z" fill="#000" opacity=".08"/>`;
+  // rosto
+  const ab=cl(1-pisca), olho=(cx)=>`<ellipse cx="${cx}" cy="-12" rx="10" ry="${14*ab+1}" fill="${L}"/>${ab>.5?`<circle cx="${cx+3}" cy="-17" r="3.4" fill="#fff"/>`:""}`;
+  const sob={normal:"M-44 -44 Q-30 -54 -16 -46 M44 -44 Q30 -54 16 -46",surpresa:"M-46 -54 Q-30 -66 -14 -56 M46 -54 Q30 -66 14 -56",preocupa:"M-46 -40 L-16 -50 M46 -40 L16 -50",feliz:"M-44 -48 Q-30 -58 -16 -50 M44 -48 Q30 -58 16 -50"}[humor];
+  const m=cl(boca,0,1.2);
+  const bocaSvg = m<.08 ? (humor==="preocupa"?`<path d="M-20 28 Q0 16 20 28" fill="none" stroke="${L}" stroke-width="6" stroke-linecap="round"/>`:`<path d="M-24 18 Q0 38 24 18" fill="none" stroke="${L}" stroke-width="6" stroke-linecap="round"/>`)
+   : `<g transform="translate(0 ${22})"><ellipse rx="${13+8*m}" ry="${4+15*m}" fill="#4a1f1f" stroke="${L}" stroke-width="5"/><ellipse cy="${5+8*m}" rx="${7+4*m}" ry="${2+4*m}" fill="#d9655b"/></g>`;
+  const bochecha=`<ellipse cx="-50" cy="16" rx="15" ry="9" fill="#f08a7a" opacity=".35"/><ellipse cx="50" cy="16" rx="15" ry="9" fill="#f08a7a" opacity=".35"/>`;
+  let atras="",frente="",extra="";
+  if(id==="ana"){
+    atras=`<g transform="translate(56 -34) rotate(${Math.sin((passo||0)*1+olha)*8+10})"><path d="M0 0 Q46 20 30 96 Q22 60 -6 30Z" fill="#5b3a26" stroke="${L}" stroke-width="5" stroke-linejoin="round"/></g>`;
+    frente=`<path d="M-84 -16 Q-80 -92 0 -94 Q80 -92 84 -16 Q46 -44 0 -44 Q-46 -44 -84 -16Z" fill="#2f8f83" stroke="${L}" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M30 -30 Q110 -36 132 -12 Q90 -6 26 -16Z" fill="#267a70" stroke="${L}" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M-6 -78 q10 -14 22 -2 q-10 10 -22 2Z" fill="#9ed36a" stroke="${L}" stroke-width="3"/>
+      <path d="M-82 -10 Q-70 -36 -50 -40 Q-60 -20 -62 2Z" fill="#5b3a26" stroke="${L}" stroke-width="4"/>`;
+  } else {
+    frente=`<ellipse cx="0" cy="-58" rx="150" ry="26" fill="#e2c27a" stroke="${L}" stroke-width="6"/>
+      <path d="M-74 -60 Q-70 -136 0 -138 Q70 -136 74 -60Z" fill="#ecd08c" stroke="${L}" stroke-width="6"/>
+      <path d="M-74 -72 Q0 -86 74 -72 L74 -60 Q0 -74 -74 -60Z" fill="#8a4b2a"/>
+      <path d="M-40 4 Q-20 18 0 8 Q20 18 40 4 Q30 26 0 22 Q-30 26 -40 4Z" fill="#9a958c" stroke="${L}" stroke-width="4"/>`;
+    extra=`<path d="M-58 -20 Q-66 -50 -60 -60 M58 -20 Q66 -50 60 -60" stroke="#b9b5ad" stroke-width="10" stroke-linecap="round"/>`;
+  }
+  const cabeca=`<g transform="translate(0 ${-575}) rotate(${incl})">${atras}
+     <circle r="86" fill="url(#pele)" stroke="${L}" stroke-width="6"/>${extra}
+     <g transform="translate(${olha*6} 0)">${olho(-26)}${olho(26)}<path d="${sob}" stroke="${id==="ze"?"#8f8b84":L}" stroke-width="${id==="ze"?9:6}" fill="none" stroke-linecap="round"/>${bochecha}${bocaSvg}</g>
+     ${frente}</g>`;
+  const pescoco=`<rect x="-18" y="-500" width="36" height="44" rx="12" fill="url(#pele)" stroke="${L}" stroke-width="5"/>`;
+  const brac=(lado,ang,item)=>membro(lado*(w-6),-448,ang[0]*lado,ang[1]*lado,100,92,S.camisa,S.camisa,30,mao+item);
+  return `<g transform="translate(${x} ${y}) scale(${vira*s} ${s})">
+    <ellipse cx="6" cy="10" rx="${80*S.largura}" ry="16" fill="#000" opacity=".18"/>
+    <g transform="translate(0 ${-bob}) rotate(${bal*.3})">
+    ${membro(-20,-255,pE[0],pE[1],124,112,S.calca2,S.calca2,40,pe(S.bota))}
+    ${brac(-1,bE,itemE)}
+    ${membro(20,-255,pD[0],pD[1],124,112,S.calca,S.calca,40,pe(S.bota))}
+    ${pescoco}${torso}${sombraLado}
+    ${brac(1,bD,itemD)}
+    ${cabeca}</g></g>`;
+}
+// itens de mão
+const IT={
+ prancheta:`<g transform="translate(14 -8) rotate(10)"><rect x="-6" y="-62" width="74" height="96" rx="8" fill="#c8a86b" stroke="${L}" stroke-width="5"/><rect x="6" y="-50" width="50" height="70" fill="#fff" stroke="${L}" stroke-width="3"/><path d="M14 -34h34M14 -20h34M14 -6h24" stroke="#bbb" stroke-width="4"/></g>`,
+ celular:`<g transform="translate(0 -30)"><rect x="-26" y="-50" width="52" height="88" rx="9" fill="#22262b" stroke="${L}" stroke-width="5"/><rect x="-18" y="-42" width="36" height="68" rx="3" fill="#8fd3ff"/></g>`,
+ frasco:`<g transform="translate(0 -6)"><rect x="-17" y="-8" width="34" height="58" rx="8" fill="#cfeaf3" stroke="${L}" stroke-width="5"/><rect x="-17" y="18" width="34" height="32" rx="6" fill="#d9cf8f" opacity=".8"/><rect x="-13" y="-24" width="26" height="18" fill="#e2574c" stroke="${L}" stroke-width="4"/></g>`,
+ balde:`<g transform="translate(0 6)"><path d="M-46 0 L46 0 L36 96 L-36 96Z" fill="#e9e9e2" stroke="${L}" stroke-width="6"/><path d="M-46 0 Q0 -60 46 0" fill="none" stroke="${L}" stroke-width="5"/><text y="62" text-anchor="middle" font-size="30" font-weight="900" fill="${L}">10 L</text></g>`,
+ cronometro:t=>`<g transform="translate(0 -20)"><circle r="34" fill="#fff" stroke="${L}" stroke-width="6"/><rect x="-8" y="-50" width="16" height="14" fill="${L}"/><line x1="0" y1="0" x2="${Math.sin(t*3)*24}" y2="${-Math.cos(t*3)*24}" stroke="#c8483a" stroke-width="5" stroke-linecap="round"/></g>`
+};
+// ================= CENÁRIO =================
+function ceu(t,c1="#9fd3ea",c2="#e9f3e4"){return `<rect x="-2000" y="-400" width="5000" height="2600" fill="${c2}"/><rect x="-2000" y="-400" width="5000" height="1300" fill="${c1}" opacity=".9"/>
+ <rect x="-2000" y="600" width="5000" height="500" fill="${c2}" opacity=".7"/>`}
+const solSvg=(x,y)=>`<circle cx="${x}" cy="${y}" r="220" fill="url(#sol)"/><circle cx="${x}" cy="${y}" r="70" fill="#ffe7a0"/>`;
+function nuvem(x,y,s=1){return `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="10" rx="130" ry="38" fill="#d9e8ee"/><ellipse rx="110" ry="40" fill="#fff"/><ellipse cx="70" cy="-26" rx="70" ry="44" fill="#fff"/><ellipse cx="-56" cy="-18" rx="60" ry="36" fill="#fff"/></g>`}
+function passaros(t,x,y){let s="";for(let i=0;i<4;i++){const px=x+((t*60+i*90)%900),py=y+i*28+Math.sin(t*2+i)*10,a=Math.sin(t*12+i*2)*10;s+=`<path d="M${px-16} ${py+a*.4} Q${px-8} ${py-a} ${px} ${py} Q${px+8} ${py-a} ${px+16} ${py+a*.4}" fill="none" stroke="#3a3a36" stroke-width="4" stroke-linecap="round"/>`}return s}
+function morros(){return `<path d="M-2000 900 Q-1400 700 -800 860 T200 780 T1200 840 T2400 760 L3000 760 L3000 1200 L-2000 1200Z" fill="url(#morroL)"/>
+ <path d="M-2000 980 Q-1200 860 -400 960 T900 900 T2200 950 L3000 940 L3000 1300 L-2000 1300Z" fill="url(#morroM)" stroke="${L}" stroke-width="4" stroke-opacity=".35"/>`}
+function arvore(x,y,s=1,tipo=0){const c=["#6fa64e","#5c9644","#7cb35a"][tipo%3];return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-12 0 L-8 -120 L8 -120 L12 0Z" fill="#7a5a3a" stroke="${L}" stroke-width="5"/>
+ <circle cy="-180" r="78" fill="${c}" stroke="${L}" stroke-width="5"/><circle cx="-56" cy="-140" r="52" fill="${c}" stroke="${L}" stroke-width="5"/><circle cx="56" cy="-136" r="54" fill="${c}" stroke="${L}" stroke-width="5"/>
+ <circle cx="-20" cy="-206" r="30" fill="#fff" opacity=".18"/><circle cx="30" cy="-120" r="40" fill="#000" opacity=".08"/></g>`}
+function mata(x0,x1,y){let s="";for(let x=x0,i=0;x<x1;x+=110,i++)s+=arvore(x,y+((i*37)%20),.6+((i*13)%5)/12,i);return s}
+function capim(x,y,t,n=5,c="#5c8f3e"){let s="";for(let i=0;i<n;i++){const a=Math.sin(t*2+x*.01+i)*4;s+=`<path d="M${x+i*8} ${y} Q${x+i*8+a} ${y-30} ${x+i*8+a*2+(i-2)*6} ${y-54}" stroke="${c}" stroke-width="6" fill="none" stroke-linecap="round"/>`}return s}
+function ete(x,y){const tq=(cx,cy,r)=>`<g transform="translate(${cx} ${cy})"><rect x="${-r}" y="-90" width="${2*r}" height="90" fill="url(#tanque)" stroke="${L}" stroke-width="5"/><ellipse cy="0" rx="${r}" ry="${r*.28}" fill="#9aa2a8" stroke="${L}" stroke-width="5"/>
+  <ellipse cy="-90" rx="${r}" ry="${r*.28}" fill="#c9d0d4" stroke="${L}" stroke-width="5"/><ellipse cy="-90" rx="${r-14}" ry="${r*.28-6}" fill="#6a9a7c"/></g>`;
+ return `<g transform="translate(${x} ${y})">${tq(-150,0,110)}${tq(120,-20,90)}
+  <rect x="230" y="-190" width="190" height="190" fill="#f2efe6" stroke="${L}" stroke-width="5"/><path d="M215 -190 L325 -260 L435 -190Z" fill="#c8634a" stroke="${L}" stroke-width="5"/>
+  <rect x="300" y="-90" width="50" height="90" fill="#8a6a45" stroke="${L}" stroke-width="5"/><rect x="250" y="-160" width="40" height="40" fill="#bfe3f2" stroke="${L}" stroke-width="4"/>
+  <rect x="250" y="-236" width="150" height="40" rx="6" fill="#2f6d52" stroke="${L}" stroke-width="4"/><text x="325" y="-206" text-anchor="middle" font-size="26" font-weight="900" fill="#fff">ETE</text></g>`}
+function rioSvg(y,h,t,x0=-1500,x1=2600){let s=`<path d="M${x0} ${y} Q${(x0+x1)/2} ${y-20} ${x1} ${y} L${x1} ${y+h} L${x0} ${y+h}Z" fill="url(#agua)" stroke="${L}" stroke-width="5"/>`;
+ for(let i=0;i<26;i++){const xx=x0+((i*173+t*70)%(x1-x0)),yy=y+24+(i*53)%(h-50);s+=`<path d="M${xx} ${yy} q22 -10 44 0 q22 10 44 0" stroke="#e6f6fc" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>`}
+ for(let i=0;i<10;i++){const xx=x0+i*((x1-x0)/10)+40;s+=`<path d="M${xx} ${y+4} l-10 -60 M${xx+12} ${y+4} l4 -70 M${xx+24} ${y+4} l14 -52" stroke="#4f7f37" stroke-width="6" stroke-linecap="round"/>`}
+ return s}
+function cano(x,y,t,s=1){let fios="";for(let i=0;i<6;i++){const o=(t*300+i*37)%170;fios+=`<path d="M${-34+i*12} ${o} q10 26 0 52" stroke="#eef9fd" stroke-width="6" fill="none" stroke-linecap="round" opacity=".9"/>`}
+ let espuma="";for(let i=0;i<7;i++){const r=10+((t*30+i*13)%22);espuma+=`<circle cx="${-60+i*22}" cy="${226+Math.sin(t*4+i)*4}" r="${r}" fill="#fff" opacity="${.85-r/40}"/>`}
+ return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 -50 L360 -50 L360 50 L0 50Z" fill="#a3a9ae" stroke="${L}" stroke-width="6"/><path d="M0 -50 L360 -50 L360 -20 L0 -20Z" fill="#fff" opacity=".2"/>
+  <ellipse cx="0" cy="0" rx="30" ry="54" fill="#5d6268" stroke="${L}" stroke-width="6"/><path d="M-14 26 Q-56 110 -40 226 L24 226 Q-6 110 14 34Z" fill="#b8def0" stroke="${L}" stroke-width="5" opacity=".95"/>
+  <g transform="translate(-22 40)">${fios}</g>${espuma}</g>`}
+function chaoSvg(y){return `<path d="M-2000 ${y} Q500 ${y-30} 3000 ${y} L3000 2400 L-2000 2400Z" fill="url(#chao)" stroke="${L}" stroke-width="5" stroke-opacity=".4"/>`}
+// ================= HUD didático =================
+const card=(x,y,w,h,inner,op=1,cor="#fff",borda=L)=>`<g opacity="${op}" transform="translate(${x} ${y+(1-op)*30})" filter="url(#sombra)"><rect width="${w}" height="${h}" rx="28" fill="${cor}" stroke="${borda}" stroke-width="6"/>${inner}</g>`;
+const tx=(x,y,s,txt,c=L,w=800,a="start")=>`<text x="${x}" y="${y}" font-size="${s}" font-weight="${w}" fill="${c}" text-anchor="${a}" font-family="Archivo">${txt}</text>`;
+function tempoPal(cena,alvo){for(const f of D.falas)if(f.cena===cena)for(const p of f.pal)if(p[2].toLowerCase().startsWith(alvo.toLowerCase()))return p[0];return 1e9}
+function falaAtual(T){return D.falas.find(f=>T>=f.a-0.02&&T<=f.b+0.12)}
+// ================= CENAS =================
+function atores(T,cena,cfg){
+  const pis=(k)=>{const c=(T+k)%3.7;return c<.12?1:0};
+  const f=falaAtual(T); const env=q=>(D.env[q][Math.floor(T*D.fps)]||0);
+  return [ ["ana",cfg.ana], ["ze",cfg.ze] ].filter(a=>a[1]).map(([id,c])=>{
+    const fala=f&&f.quem===id; const gest=fala?Math.sin(T*2.4)*8:0;
+    return boneco(id,{...c,boca:env(id),pisca:pis(id==="ana"?0:1.6),incl:(c.incl||0)+(fala?Math.sin(T*3)*3:Math.sin(T*.8)*1.2),
+      bD:c.bD?[c.bD[0]+(c.gesto!==false?gest:0),c.bD[1]]:undefined});
+  }).join("");
+}
+const CENAS={
+ chegada:(T,t,p,c)=>{const cam={x:lerp(0,-60,ease(p)),z:lerp(1,1.08,ease(p))};const ap=cl(t/4.2);
+   return {cam,par:(k)=>`${ceu(t)}${solSvg(880,360)}${nuvem(200+t*10,330,1.1)}${nuvem(900-t*7,470,.8)}${passaros(t,-200,420)}`,
+    mundo:`${morros()}${mata(-900,2000,1000)}${ete(-120,1180)}${chaoSvg(1160)}${rioSvg(1480,330,t)}${cano(900,1380,t,.9)}
+     ${atores(T,"chegada",{ana:{x:lerp(-120,380,ease(ap)),y:1420,s:.95,passo:ap<1?t*7.5:null,itemE:IT.prancheta,bD:[10,20],humor:"feliz"},ze:{x:760,y:1420,s:.95,vira:-1,bD:[30,40],bE:[-6,10],humor:"feliz"}})}
+     ${capim(60,1880,t)}${capim(900,1870,t)}${capim(500,1890,t,4)}`}},
+ esquema:(T,t,p,c)=>{const cam={x:-260,y:60,z:1.18};const k=cl((t-0.6)*1.2);
+   return {cam,par:()=>`${ceu(t)}${nuvem(300+t*8,380)}${passaros(t,0,460)}`,
+    mundo:`${morros()}${mata(-600,1800,1000)}${ete(-160,1180)}${chaoSvg(1160)}${rioSvg(1480,330,t)}${cano(900,1380,t,.9)}
+     ${atores(T,"esquema",{ana:{x:420,y:1420,s:.95,bD:[120,-20],gesto:false,olha:1},ze:{x:760,y:1420,s:.95,vira:-1,bD:[20,30],humor:T>tempoPal("esquema","Precisa da")?"surpresa":"normal"}})}`,
+    hud:card(90,450,900,320,
+      `${tx(450,58,34,"COMO FUNCIONA","#2f8f83",900,"middle")}
+       <g transform="translate(40 90)"><rect width="200" height="150" rx="20" fill="#eef4f0" stroke="${L}" stroke-width="4"/>${tx(100,70,40,"🏭".length?"ETE":"",L,900,"middle")}${tx(100,115,24,"trata o esgoto","#555",700,"middle")}</g>
+       <path d="M250 165 L${250+150*k} 165" stroke="#2f8f83" stroke-width="10" stroke-linecap="round"/><path d="M${380*k+20*(1-k)} 145 l26 20 l-26 20" fill="none" stroke="#2f8f83" stroke-width="8" opacity="${k}"/>
+       <g opacity="${cl((t-1.4)*2)}" transform="translate(420 90)"><rect width="140" height="150" rx="20" fill="#e7f4fb" stroke="${L}" stroke-width="4"/><path d="M70 30 Q40 70 40 90 a30 30 0 0 0 60 0 Q100 70 70 30Z" fill="#6fb4d6" stroke="${L}" stroke-width="4"/>${tx(70,140,22,"efluente","#2a5e7a",800,"middle")}</g>
+       <g opacity="${cl((t-2.2)*2)}"><path d="M575 165 L655 165" stroke="#2f8f83" stroke-width="10" stroke-linecap="round"/><path d="M640 145 l26 20 l-26 20" fill="none" stroke="#2f8f83" stroke-width="8"/>
+       <g transform="translate(680 90)"><rect width="180" height="150" rx="20" fill="#e7f4fb" stroke="${L}" stroke-width="4"/><path d="M20 90 q20 -14 40 0 q20 14 40 0 q20 -14 40 0" stroke="#3f8db8" stroke-width="8" fill="none"/>${tx(90,135,26,"RIO","#2a5e7a",900,"middle")}</g></g>
+       <g opacity="${cl((T-tempoPal("esquema","outorga"))*2)}">${tx(450,295,34,"Lançamento → precisa de OUTORGA do Igam","#c8483a",900,"middle")}</g>`,cl(t*2))}},
+ diario:(T,t,p,c)=>{const cam={x:0,y:-80,z:1.1};const k=ease(cl(t/1.2));const h=cl((T-tempoPal("diario","convoca"))*2);
+   return {cam,par:()=>`<g filter="url(#borra)">${ceu(t)}</g>`,
+    mundo:`<g filter="url(#borra)">${morros()}${mata(-600,1800,1000)}${ete(-160,1180)}${chaoSvg(1160)}${rioSvg(1420,330,t)}</g>
+     ${atores(T,"diario",{ana:{x:300,y:1420,s:.95,itemD:IT.celular,bD:[70,60],gesto:false,olha:1},ze:{x:110,y:1420,s:.95,incl:8,olha:1,humor:"surpresa",bD:[10,20]}})}`,
+    hud:`<g transform="translate(${lerp(1300,770,k)} 1000) scale(.78)" filter="url(#sombra)"><rect x="-300" y="-440" width="600" height="860" rx="64" fill="#1d2126" stroke="${L}" stroke-width="8"/>
+     <rect x="-266" y="-400" width="532" height="780" rx="26" fill="#fff"/><rect x="-266" y="-400" width="532" height="120" rx="26" fill="#2f6d52"/><rect x="-266" y="-310" width="532" height="30" fill="#2f6d52"/>
+     ${tx(0,-348,30,"JORNAL MINAS GERAIS","#fff",900,"middle")}${tx(0,-304,24,"Diário do Executivo · 04/11/2026","#d9efe3",600,"middle")}
+     ${tx(0,-210,50,"PORTARIA IGAM",L,900,"middle")}${tx(0,-150,50,"Nº 18/2026",L,900,"middle")}
+     ${[0,1,2].map(i=>`<rect x="-220" y="${-110+i*40}" width="${i==2?260:440}" height="16" rx="8" fill="#dcdfd8"/>`).join("")}
+     <g opacity="${h}"><rect x="-236" y="30" width="472" height="300" rx="22" fill="#fff4c9" stroke="#e3b23c" stroke-width="6"/>
+      ${tx(0,92,36,"CONVOCA as estações",L,900,"middle")}${tx(0,138,36,"de tratamento de esgoto",L,900,"middle")}${tx(0,184,30,"que lançam em rio estadual",L,700,"middle")}
+      ${tx(0,250,36,"→ pedir a outorga","#2f6d52",900,"middle")}${tx(0,296,36,"de lançamento","#2f6d52",900,"middle")}</g></g>`}},
+ prazos:(T,t,p,c)=>{const cam={x:0,y:0,z:1};const t1=tempoPal("prazos","Doce"),t2=tempoPal("prazos","Paranaíba"),t3=tempoPal("prazos","Grande"),t4=tempoPal("prazos","Aqui");
+   const marco=(i,ano,bac,ti)=>{const on=T>=ti, k=cl((T-ti)*3);const x=140+i*280;
+     return `<g transform="translate(${x} 0)"><circle cx="0" cy="120" r="${30+10*k}" fill="${on?"#E3C06A":"#e6e1d4"}" stroke="${L}" stroke-width="6"/>
+      ${tx(0,60,52,ano,on?L:"#b9b4a8",900,"middle")}<g opacity="${.25+.75*k}">${bac.map((b,j)=>tx(0,200+j*38,28,b,"#3d3d38",800,"middle")).join("")}</g></g>`};
+   const selo=cl((T-t4)*2.5);
+   return {cam,par:()=>`${ceu(t,"#f6d9a8","#f3ead7")}${solSvg(860,420)}${nuvem(200+t*6,360,.9)}`,
+    mundo:`${morros()}${mata(-400,1600,1020)}${chaoSvg(1180)}
+     <g transform="translate(90 560)" filter="url(#sombra)"><rect x="-10" y="-20" width="920" height="560" rx="30" fill="#fdfaf2" stroke="#7a5a3a" stroke-width="14"/>
+      ${tx(450,50,38,"PRAZO PARA PEDIR A OUTORGA","#2f6d52",900,"middle")}${tx(450,92,26,"depende da bacia do ponto de lançamento","#666",700,"middle")}
+      <g transform="translate(40 150)"><line x1="100" y1="120" x2="660" y2="120" stroke="#cfc8b6" stroke-width="12" stroke-linecap="round"/>
+       ${marco(0,"2027",["Doce","São Francisco","Itapemirim","São Mateus · Mucuri"],t1)}${marco(1,"2028",["Paranaíba","Paraíba do Sul","Itabapoana"],t2)}${marco(2,"2029",["Grande","Jequitinhonha","Pardo","Piracicaba/Jaguari"],t3)}</g>
+      <g opacity="${selo}" transform="translate(190 500) rotate(-8) scale(${lerp(1.6,1,ease(selo))})"><rect x="-120" y="-40" width="240" height="70" rx="12" fill="none" stroke="#c8483a" stroke-width="7"/>${tx(0,8,30,"ANO QUE VEM!","#c8483a",900,"middle")}</g>
+      <rect x="430" y="540" width="20" height="300" fill="#7a5a3a"/></g>
+     ${atores(T,"prazos",{ana:{x:300,y:1700,s:.8,bD:[150,-10],gesto:false,olha:1},ze:{x:820,y:1700,s:.8,vira:-1,bD:T>t4?[150,-20]:[20,30],gesto:false,humor:T>t4?"feliz":"normal"}})}
+     ${capim(80,1880,t)}${capim(980,1870,t)}`}},
+ medicao:(T,t,p,c)=>{const cam={x:-200,y:120,z:1.2};const itens=[["Vazão (balde + cronômetro)","vazão"],["Amostras do efluente","amostras"],["Ponto de lançamento","pedido"],["Pedido no SOUT (Igam)","SOUT"]];
+   return {cam,par:()=>`${ceu(t)}${nuvem(300+t*8,380)}`,
+    mundo:`${morros()}${mata(-600,1800,1000)}${chaoSvg(1160)}${rioSvg(1480,330,t)}${cano(900,1380,t,.9)}
+     <g transform="translate(876 1500)">${IT.balde}<ellipse cx="0" cy="12" rx="${30+6*Math.sin(t*6)}" ry="7" fill="#b8def0"/></g>${atores(T,"medicao",{ana:{x:430,y:1420,s:.95,itemD:IT.frasco,itemE:IT.prancheta,bD:[40,30],olha:1},ze:{x:700,y:1420,s:.95,vira:-1,itemE:IT.cronometro(t),bE:[150,-10],bD:[20,30],olha:-1}})}`,
+    hud:card(120,450,840,350,`${tx(420,62,36,"CHECKLIST DO PEDIDO","#2f8f83",900,"middle")}
+      ${itens.map(([txt,pal],i)=>{const ok=T>=tempoPal("medicao",pal);return `<g transform="translate(60 ${110+i*56})"><rect width="44" height="44" rx="10" fill="${ok?"#5FA96F":"#fff"}" stroke="${L}" stroke-width="5"/>${ok?`<path d="M10 22 l9 10 l16 -20" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>`:""}${tx(64,34,32,txt,ok?L:"#999",800)}</g>`}).join("")}`,cl(t*2))}},
+ alerta:(T,t,p,c)=>{const cam={x:0,y:0,z:1};const sh=Math.sin(t*20)*cl(1-(t-.3)*2)*8;const xk=cl((t-.6)*3);
+   return {cam,par:()=>`<rect x="-2000" y="-400" width="5000" height="2600" fill="#f6e3d6"/>`,
+    mundo:`<g transform="translate(${560+sh} 820)" filter="url(#sombra)"><rect x="-300" y="-280" width="600" height="560" rx="34" fill="#fff" stroke="${L}" stroke-width="8"/><rect x="-300" y="-280" width="600" height="130" rx="34" fill="#c8483a" stroke="${L}" stroke-width="8"/>
+      ${tx(0,-196,52,"PRAZO DA BACIA","#fff",900,"middle")}${[...Array(12)].map((_,i)=>`<rect x="${-250+(i%4)*130}" y="${-120+Math.floor(i/4)*120}" width="110" height="100" rx="12" fill="#f1ece2"/>`).join("")}
+      <path d="M-80 140 L90 260 M90 140 L-80 260" stroke="#c8483a" stroke-width="28" stroke-linecap="round" opacity="${xk}"/></g>
+     <g transform="translate(220 1240) scale(${lerp(.5,1,ease(cl(t*2)))})"><path d="M0 -150 L150 110 L-150 110Z" fill="#ffd34d" stroke="${L}" stroke-width="9" stroke-linejoin="round"/>${tx(0,80,160,"!",L,900,"middle")}</g>
+     ${card(360,1130,640,170,`${tx(320,70,40,"Sanções do","",900,"middle")}${tx(320,128,44,"Decreto 47.383/2018","#c8483a",900,"middle")}`,cl((T-tempoPal("alerta","sanções"))*2.5),"#fff","#c8483a")}
+     ${atores(T,"alerta",{ana:{x:330,y:1820,s:.75,humor:"preocupa",bD:[40,60]},ze:{x:820,y:1820,s:.75,vira:-1,humor:"preocupa",bD:[160,20],bE:[-20,10],gesto:false}})}`}},
+ fim:(T,t,p,c)=>{const cam={x:0,y:0,z:1};
+   return {cam,par:()=>`<rect x="-2000" y="-400" width="5000" height="2600" fill="#0E1512"/><circle cx="540" cy="1100" r="700" fill="#173022"/>`,
+    mundo:card(90,560,900,560,`${tx(450,70,40,"EM 3 PONTOS","#2f8f83",900,"middle")}
+      ${["ETE que lança em rio estadual|pede a outorga de lançamento","Prazo por bacia:|2027 · 2028 · 2029","Pedido no SOUT. Perdeu o prazo:|sanções (Decreto 47.383/2018)"].map((s,i)=>{const [a,b]=s.split("|");return `<g transform="translate(60 ${130+i*140})" opacity="${cl((t-.3-i*.5)*2)}"><circle cx="30" cy="20" r="30" fill="#E3C06A"/>${tx(30,32,34,i+1,L,900,"middle")}${tx(84,18,32,a,L,900)}${tx(84,60,30,b,"#3d3d38",700)}</g>`}).join("")}`,1)+
+     atores(T,"fim",{ana:{x:330,y:1700,s:.72,bD:[150+Math.sin(t*7)*20,-30],gesto:false,humor:"feliz"},ze:{x:760,y:1700,s:.72,vira:-1,bD:[150+Math.sin(t*7+1)*20,-30],gesto:false,humor:"feliz"}})+
+     tx(540,1790,30,"Portaria IGAM nº 18/2026 · link na descrição","#C9D4CB",700,"middle")+tx(540,1834,28,"oanalistaambiental.com/radar-audio","#9FB5A6",600,"middle")}}
+};
+function grupos(f){ if(f._g) return f._g; const tok=f.txt.split(/\s+/); const ok=tok.length===f.pal.length;
+  const g=[]; let a=0;
+  for(let i=0;i<f.pal.length;i++){ const n=i-a+1, fim=i===f.pal.length-1, pont=ok&&/[.,!?:;]$/.test(tok[i]);
+    if(fim||pont||(n>=4&&!(ok&&i+1<f.pal.length&&/[.,!?:;]$/.test(tok[i+1])&&n<5))){ g.push([a,i+1]); a=i+1; } }
+  return f._g=g; }
+// ================= QUADRO =================
+window.render=function(T){
+  const i=D.cenas.findIndex(c=>T<c.b); const c=D.cenas[i<0?D.cenas.length-1:i];
+  const t=T-c.a, p=cl(t/(c.b-c.a));
+  const r=CENAS[c.id](T,t,p,c); const cam=r.cam; const z=cam.z||1;
+  const tr=`translate(540 960) scale(${z}) translate(${-540+(cam.x||0)} ${-960+(cam.y||0)})`;
+  const trP=`translate(540 960) scale(${1+(z-1)*.4}) translate(${-540+(cam.x||0)*.3} ${-960+(cam.y||0)*.3})`;
+  document.getElementById("mundo").innerHTML=`<g transform="${trP}">${r.par()}</g><g transform="${tr}">${r.mundo}</g>`;
+  document.getElementById("hud").innerHTML=r.hud||"";
+  // capítulo
+  const cap=document.getElementById("cap"); cap.textContent=c.cap; cap.style.opacity=c.cap?cl(t*3)*cl((c.b-T)*3):0;
+  // legenda karaokê com nome de quem fala
+  const f=falaAtual(T)||D.falas.find(f=>T<f.a&&f.a-T<0.3&&f.cena===c.id);
+  const q=document.getElementById("quem"), fr=document.getElementById("frase");
+  if(f&&c.id!=="fim"){q.textContent=NOME[f.quem];q.style.background=COR[f.quem];q.style.display="inline-block";
+    const ws=f.pal;let k=ws.findIndex(w=>T<w[1]);if(k<0)k=ws.length-1;
+    const g=grupos(f); const gr=g.find(x=>k>=x[0]&&k<x[1])||[k,k+1];
+    fr.innerHTML=ws.slice(gr[0],gr[1]).map((w,j)=>`<span class="${gr[0]+j===k&&T>=w[0]-.05?"on":""}">${w[2]}</span>`).join(" ");}
+  else{q.style.display="none";fr.innerHTML=""}
+  // transição entre cenas
+  const d=Math.min(t, c.b-T); document.getElementById("veu").style.opacity = T<0.4?1-T/0.4 : (i>0||t>.3)? cl(1-d/0.16)*.85 : 0;
+};
+</script></body></html>
