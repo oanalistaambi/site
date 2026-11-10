@@ -26,3 +26,14 @@ Ana (consultora) e Seu Zé (operador da estação de esgoto) conversando, com vo
 pela voz de cada um. Personagens articulados (braços e pernas em dois segmentos, caminhada, piscar, humor no rosto),
 cenário em camadas com câmera, capítulos na tela, esquema, quadro de prazos, checklist e resumo final.
 Ordem: `vozes.py` (falas com tempo de cada palavra) → `linha.py` (linha do tempo, mixagem com trilha e som do rio) → `render.mjs`.
+
+## Três personagens com vozes do Google (pasta `tres-personagens/`) — 10/11/2026
+
+Ana, Seu Zé e o lambari Lambi (ver `biblia/biblia-visual.md`). Vozes Google Chirp 3 HD escolhidas por teste objetivo
+(`pronuncia.json`), com glossário fonético (IPA) na síntese. A chave fica só na variável de ambiente `GOOGLE_TTS_API_KEY`.
+Ordem: `vozes.py` → `linha.py` → `render.mjs`.
+
+## Boletim em motion graphics (pasta `boletim/`) — Manim
+
+Outra pegada, sem personagens: locutor (voz Charon) e infográficos animados. `manim -qh -r 1080,1920 boletim.py Boletim`,
+depois juntar a locução (blocos de `blocos.json`) e a trilha com ffmpeg.

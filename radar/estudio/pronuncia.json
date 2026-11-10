@@ -1,27 +1,151 @@
 {
  "_leia": "Glossário de pronúncia das vozes sintéticas (Microsoft/Azure e ElevenLabs). 'falar' é a grafia que vai para a voz; a legenda e a página usam o termo original. status: testado = conferido por transcrição; ouvir = depende de ouvido humano.",
  "termos": [
-  {"termo": "Semad", "falar": "Semáde", "status": "testado", "motivo": "a voz Antonio dizia 'semais'"},
-  {"termo": "Feam", "falar": "Fê-ám", "status": "testado", "motivo": "saía 'Feom'"},
-  {"termo": "IEF", "falar": "Instituto Estadual de Florestas", "status": "testado", "motivo": "lido como a palavra inglesa 'if'"},
-  {"termo": "DER-MG", "falar": "Departamento de Estradas de Rodagem", "status": "testado", "motivo": "saía 'DR'"},
-  {"termo": "URC", "falar": "Unidade Regional Colegiada", "status": "testado", "motivo": "'URC Jequitinhonha' virava 'urcg que Tinonha'"},
-  {"termo": "CAF", "falar": "Cáfi", "status": "testado", "motivo": "saía 'CF'"},
-  {"termo": "minutas", "falar": "propostas", "status": "testado", "motivo": "a voz Thalita diz 'minutos'"},
-  {"termo": "até 100 km", "falar": "até cem quilômetros (frase própria)", "status": "testado", "motivo": "'para até cem' soava 'para trezentos'"},
-  {"termo": "Ô (interjeição)", "falar": "Ó", "status": "testado", "motivo": "Kokoro lia 'o circunflexo'"},
-  {"termo": "com coordenada", "falar": "com as coordenadas geográficas", "status": "testado", "motivo": "virava 'cor de nada'"},
-  {"termo": "técnica e necessária", "falar": "técnica, e eu acho necessária", "status": "testado", "motivo": "soava 'desnecessária'"},
-  {"termo": "Igam", "falar": "Igam", "status": "ouvir", "motivo": "transcrição inconclusiva (nome próprio)"},
-  {"termo": "IDE-Sisema", "falar": "IDE Sisema", "status": "ouvir", "motivo": "transcrição inconclusiva"},
-  {"termo": "Ipê (personagem)", "falar": "Ipê", "status": "ouvir", "motivo": "transcrição inconclusiva"},
-  {"termo": "SOUT", "falar": "SOUT", "status": "testado", "motivo": "'Sóut' piorava"},
-  {"termo": "Polo Mariana", "falar": "Pólo Mariana", "status": "testado", "motivo": "evita 'Paulo Mariana'"}
+  {
+   "termo": "Semad",
+   "falar": "Semáde",
+   "status": "testado",
+   "motivo": "a voz Antonio dizia 'semais'"
+  },
+  {
+   "termo": "Feam",
+   "falar": "Fê-ám",
+   "status": "testado",
+   "motivo": "saía 'Feom'"
+  },
+  {
+   "termo": "IEF",
+   "falar": "Instituto Estadual de Florestas",
+   "status": "testado",
+   "motivo": "lido como a palavra inglesa 'if'"
+  },
+  {
+   "termo": "DER-MG",
+   "falar": "Departamento de Estradas de Rodagem",
+   "status": "testado",
+   "motivo": "saía 'DR'"
+  },
+  {
+   "termo": "URC",
+   "falar": "Unidade Regional Colegiada",
+   "status": "testado",
+   "motivo": "'URC Jequitinhonha' virava 'urcg que Tinonha'"
+  },
+  {
+   "termo": "CAF",
+   "falar": "Cáfi",
+   "status": "testado",
+   "motivo": "saía 'CF'"
+  },
+  {
+   "termo": "minutas",
+   "falar": "propostas",
+   "status": "testado",
+   "motivo": "a voz Thalita diz 'minutos'"
+  },
+  {
+   "termo": "até 100 km",
+   "falar": "até cem quilômetros (frase própria)",
+   "status": "testado",
+   "motivo": "'para até cem' soava 'para trezentos'"
+  },
+  {
+   "termo": "Ô (interjeição)",
+   "falar": "Ó",
+   "status": "testado",
+   "motivo": "Kokoro lia 'o circunflexo'"
+  },
+  {
+   "termo": "com coordenada",
+   "falar": "com as coordenadas geográficas",
+   "status": "testado",
+   "motivo": "virava 'cor de nada'"
+  },
+  {
+   "termo": "técnica e necessária",
+   "falar": "técnica, e eu acho necessária",
+   "status": "testado",
+   "motivo": "soava 'desnecessária'"
+  },
+  {
+   "termo": "Igam",
+   "falar": "Igam",
+   "status": "ouvir",
+   "motivo": "transcrição inconclusiva (nome próprio)"
+  },
+  {
+   "termo": "IDE-Sisema",
+   "falar": "IDE Sisema",
+   "status": "ouvir",
+   "motivo": "transcrição inconclusiva"
+  },
+  {
+   "termo": "Ipê (personagem)",
+   "falar": "Ipê",
+   "status": "ouvir",
+   "motivo": "transcrição inconclusiva"
+  },
+  {
+   "termo": "SOUT",
+   "falar": "SOUT",
+   "status": "testado",
+   "motivo": "'Sóut' piorava"
+  },
+  {
+   "termo": "Polo Mariana",
+   "falar": "Pólo Mariana",
+   "status": "testado",
+   "motivo": "evita 'Paulo Mariana'"
+  }
  ],
  "regras": [
   "Números de normas e datas sempre por extenso no texto da voz (ex.: 'quarenta e sete mil trezentos e oitenta e três').",
   "Siglas de órgão: na primeira menção, nome por extenso; depois, a sigla só se estiver testada aqui.",
   "Evitar frase de uma palavra só no início da fala; a entonação sai melhor em frase completa.",
   "Ritmo: Marina -6% (estava a 168 palavras/min); alvo de 140 a 150 palavras/min para todos."
- ]
+ ],
+ "vozes_google_teste_2026_11_10": {
+  "_leia": "Teste objetivo: as 30 vozes Chirp 3 HD pt-BR leram o mesmo texto com Igam, Feam, Semad, IEF, SOUT, Jequitinhonha, Paranaíba, Itabapoana e número de decreto; transcrição com Whisper e contagem de erros.",
+  "sem_erro": [
+   "Aoede",
+   "Autonoe",
+   "Callirrhoe",
+   "Gacrux",
+   "Leda",
+   "Sulafat",
+   "Vindemiatrix",
+   "Laomedeia",
+   "Achernar",
+   "Erinome",
+   "Zephyr",
+   "Algenib",
+   "Charon",
+   "Enceladus",
+   "Rasalgethi",
+   "Sadachbia",
+   "Zubenelgenubi",
+   "Iapetus",
+   "Algieba",
+   "Alnilam",
+   "Fenrir",
+   "Orus",
+   "Sadaltager",
+   "Umbriel"
+  ],
+  "com_erro_real": {
+   "Kore": "Igam → 'Igão'",
+   "Despina": "Feam → 'Fia'",
+   "Pulcherrima": "SOUT → 'solte', Feam → 'Fia'",
+   "Puck": "repetiu um trecho"
+  },
+  "elenco": {
+   "Ana": "Callirrhoe (205 Hz, a mais expressiva)",
+   "Seu Zé": "Algenib (112 Hz, grave)",
+   "Lambi": "Leda (229 Hz, jovem; velocidade 1,1)",
+   "Locutor do boletim": "Charon (126 Hz, informativo)"
+  },
+  "pronuncia_ipa": {
+   "SOUT": "ˈsowtʃi (sem isso a voz Callirrhoe soletra S-O-U-T)"
+  }
+ }
 }
