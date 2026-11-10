@@ -26,4 +26,15 @@ jobs:
           npm install --no-audit --no-fund
           npx playwright install --with-deps chromium
       - name: Rodar todos os testes
-        run: npm test
+        env:
+          SAIDA: ${{ runner.temp }}/saida-testes
+        run: |
+          mkdir -p "$SAIDA"
+          npm test
+      - name: Guardar arquivos e telas dos testes (quando falha)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: saida-testes
+          path: ${{ runner.temp }}/saida-testes
+          retention-days: 7

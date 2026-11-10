@@ -339,7 +339,7 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   ok(/Sem internet/.test(await pg.textContent("#mapa-info")), "sem internet: aviso no mapa");
   await pg.setInputFiles("#arquivo", join(SAIDA, "foto-certidao.png"));
   let lidoOff = await fimDaLeitura(pg);
-  ok(/Achei 30 lados/.test(lidoOff) && /Fecha bem/.test(await pg.textContent("#o-fecho")), `sem internet: foto da certidão lida por OCR (${lidoOff.slice(0, 50)})`);
+  ok(/Achei 30 lados/.test(lidoOff) && /Fecha bem/.test(await pg.textContent("#o-fecho")), `sem internet: foto da certidão lida por OCR (${lidoOff.slice(0, 300)})`);
   await pg.setInputFiles("#arquivo", join(SAIDA, "certidao-texto.pdf"));
   lidoOff = await fimDaLeitura(pg);
   ok(/Achei 30 lados/.test(lidoOff), "sem internet: PDF com texto lido");
@@ -380,7 +380,7 @@ for (const [larg, alt] of [[1280, 900], [390, 844]]) {
   for (const [arq, nome] of [["certidao-texto.pdf", "PDF com texto"], ["certidao-escaneada.pdf", "PDF escaneado"], ["foto-certidao.png", "foto"]]) {
     await p3.setInputFiles("#arquivo", join(SAIDA, arq));
     const lido = await fimDaLeitura(p3, 120000);
-    ok(/Achei 30 lados/.test(lido) && /Fecha bem/.test(await p3.textContent("#o-fecho")), `HTML único aberto do disco, com rede: ${nome} lido (${lido.slice(0, 50)})`);
+    ok(/Achei 30 lados/.test(lido) && /Fecha bem/.test(await p3.textContent("#o-fecho")), `HTML único aberto do disco, com rede: ${nome} lido (${lido.slice(0, 300)})`);
   }
   ok(e3.length === 0, "HTML único com rede: sem erro de JavaScript " + e3.join(" | "));
   await c3.close();
