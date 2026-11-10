@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-09T19:32-03:00",
+ "gerado_em": "2026-11-10T06:11-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,8 +9,8 @@
   {
    "id": "mg",
    "janela": [
-    "2026-11-06",
-    "2026-11-07"
+    "2026-11-07",
+    "2026-11-10"
    ],
    "temas": [],
    "internos": [],
@@ -20,16 +20,79 @@
   {
    "id": "dou",
    "janela": [
-    "2026-10-29",
     "2026-11-04",
     "2026-11-05",
-    "2026-11-06"
+    "2026-11-06",
+    "2026-11-10"
    ],
    "temas": [],
    "internos": [],
    "nome": "Federal (DOU)",
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
+    {
+     "id": "dou-2026-11-10",
+     "fonte": "dou",
+     "data": "2026-11-10",
+     "dia_semana": "terça-feira",
+     "titulo": "Consulta pública sobre o registro de aquicultor; plataforma da aquicultura; programa do ICMBio para as juventudes",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de terça-feira, 10 de novembro de 2026. Hoje são três destaques, todos de uma edição extra publicada ontem: uma consulta pública sobre o registro de aquicultor, a nova Plataforma Nacional da Aquicultura e um programa do ICMBio de educação ambiental para as juventudes."
+      },
+      {
+       "titulo": "Consulta pública: registro e licença de aquicultor",
+       "tema": "Consulta pública",
+       "atos": [
+        {
+         "titulo": "Portaria MPA nº 782, de 23 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-782-de-23-de-outubro-de-2026-743190636",
+         "referencia": "DOU de 09/11/2026, Seção 1, Extra A, p. 23",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Primeiro destaque. A Portaria número 782, do Ministério da Pesca e Aquicultura, abre consulta pública sobre a revisão da Portaria 174, de 2023. Ela trata da inscrição no Registro Geral da Atividade Pesqueira na categoria de aquicultor, da concessão da Licença de Aquicultor e do monitoramento da aquicultura. A proposta está no site do ministério e na plataforma Brasil Participativo. As contribuições são feitas só por essa plataforma, no prazo de trinta dias corridos, contados da publicação, no dia 9 de novembro. Quem produz peixe, camarão ou outro cultivo aquático com finalidade comercial deve ficar atento."
+      },
+      {
+       "titulo": "Plataforma Nacional da Aquicultura",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria MPA nº 787, de 4 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-787-de-4-de-novembro-de-2026-743191211",
+         "referencia": "DOU de 09/11/2026, Seção 1, Extra A, p. 22",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Segundo destaque. A Portaria número 787, do mesmo ministério, institui a Plataforma Nacional da Aquicultura. É um ambiente digital único para reunir sistemas, cadastros, dados e serviços do setor. A plataforma vai integrar, aos poucos, o registro de aquicultor, o sistema de autorização de uso de águas da União para a aquicultura e o programa Multiplicadores Aquícolas. A finalidade é apoiar o ordenamento, a fiscalização e o monitoramento da atividade, e dar mais transparência e eficiência aos serviços. A portaria vale desde a publicação."
+      },
+      {
+       "titulo": "Educação ambiental para as juventudes em unidades de conservação",
+       "tema": "Flora e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria ICMBio nº 5.112, de 5 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.112-de-5-de-novembro-de-2026-743191361",
+         "referencia": "DOU de 09/11/2026, Seção 1, Extra A, p. 20",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Por fim, a Portaria número 5.112, do ICMBio, cria o Programa de Educação Ambiental para as Juventudes em Unidades de Conservação federais, com atenção especial aos jovens de povos e comunidades tradicionais. Entre os objetivos estão projetos de educação ambiental feitos com os jovens nos territórios, mais participação deles na gestão das unidades e qualificação profissional, com ênfase na sociobiodiversidade e na agroecologia. As linhas de ação incluem formar jovens educadores ambientais e apoiar a participação em pesquisa e ciência cidadã."
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Na edição de hoje, o único outro ato ambiental geral trata da organização interna do Ibama. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!"
+      }
+     ],
+     "audio": null,
+     "duracao_s": null
+    },
     {
      "id": "dou-2026-11-06",
      "fonte": "dou",
@@ -190,46 +253,6 @@
      "duracao_s": 94,
      "bytes": 1133001,
      "publicado_em": "2026-11-05T06:12:45-03:00"
-    },
-    {
-     "id": "dou-2026-10-29",
-     "fonte": "dou",
-     "data": "2026-10-29",
-     "dia_semana": "quinta-feira",
-     "titulo": "ICMBio cria núcleo de gestão para as Florestas Nacionais do Jamari e do Bom Futuro",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quinta-feira, 29 de outubro de 2026. Dia curto, com um destaque sobre unidades de conservação na Amazônia.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Núcleo de Gestão Integrada Vale do Jamari, em Rondônia",
-       "tema": "Flora e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Portaria ICMBio nº 5.050, de 28 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.050-de-28-de-outubro-de-2026-741168209",
-         "referencia": "DOU de 29/10/2026, Seção 1, p. 47",
-         "vigencia": "sete dias úteis após a publicação"
-        }
-       ],
-       "fala": "A Portaria número 5.050, do ICMBio, cria o Núcleo de Gestão Integrada Vale do Jamari, que junta a gestão da Floresta Nacional do Bom Futuro e da Floresta Nacional do Jamari, em Rondônia. A ideia, segundo o texto, é ganhar eficiência com a gestão em conjunto, o uso compartilhado de equipes, instalações e equipamentos, e um planejamento integrado das duas unidades. O núcleo terá sede em Porto Velho e uma base avançada na Floresta Nacional do Jamari, em Itapuã do Oeste. O regimento interno deve ser publicado em até noventa dias. A portaria entra em vigor sete dias úteis após a publicação.",
-       "inicio_s": 13.7
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração e certificados de obras, ou da organização interna dos órgãos. E atenção: em 30 de outubro não houve edição normal do Diário Oficial da União. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
-       "inicio_s": 54.5
-      }
-     ],
-     "audio": "radar/audios/dou-2026-10-29-e3cdfe38ae.mp3",
-     "duracao_s": 82
     }
    ]
   }
