@@ -485,17 +485,25 @@ def episodios_dou(pasta, dir_ep, hoje, atos):
         if a["data"] <= hoje and not INTERNO.search(a["ementa"]) and not LGPD.search(
                 " ".join([a["titulo"], a["ementa"]] + [v or "" for v in a["trechos"].values()])):
             por_dia.setdefault(a["data"], []).append(a)
+    # ato que já está num episódio salvo (ex.: edição extra posta no episódio do dia seguinte) não gera outro episódio
+    ja = {at["link"] for p in dir_ep.glob("dou-20??-??-??.json")
+          for c in json.loads(p.read_text(encoding="utf-8"))["capitulos"] for at in c.get("atos", [])}
     for data, lista in por_dia.items():
         arq = dir_ep / f"dou-{data}.json"
-        if not arq.exists():
+        lista = [a for a in lista if a["link"] not in ja]
+        if lista and not arq.exists():
             arq.write_text(json.dumps(episodio_auto(data, lista), ensure_ascii=False, indent=1), encoding="utf-8")
     eps = sorted((json.loads(p.read_text(encoding="utf-8")) for p in dir_ep.glob("dou-20??-??-??.json")),
                  key=lambda e: e["data"], reverse=True)
     eps = [e for e in eps if e["data"] <= hoje]
-    manter, sair = eps[:DIAS_EPISODIOS], eps[DIAS_EPISODIOS:]
-    for e in sair:
-        (dir_ep / f"{e['id']}.json").unlink()
-    return manter
+    manter = eps[:DIAS_EPISODIOS]
+    # o podcast guarda os DIAS_EPISODIOS episódios mais recentes COM áudio, mesmo que já tenham saído da página
+    podcast = [e for e in eps if e.get("audio")][:DIAS_EPISODIOS]
+    ficam = {e["id"] for e in manter + podcast}
+    for e in eps:
+        if e["id"] not in ficam:
+            (dir_ep / f"{e['id']}.json").unlink()
+    return manter, podcast
 
 
 # ---------------------------------------------------------------- montagem
@@ -557,7 +565,7 @@ def main():
         f = dict(montar_fonte(fid, leitor(pasta), pasta, a.hoje), nome=nome, jornal=jornal)
         if fid == "dou":  # federal: um episódio por dia, no lugar dos áudios curtos por tema
             f["temas"] = []
-            f["episodios"] = episodios_dou(pasta, a.episodios, a.hoje, leitor(pasta))
+            f["episodios"], podcast = episodios_dou(pasta, a.episodios, a.hoje, leitor(pasta))
             f["janela"] = sorted(e["data"] for e in f["episodios"])
             for ep in f["episodios"]:
                 arq = f"{ep['id']}-{hash_episodio(ep)}.mp3"
@@ -580,6 +588,11 @@ def main():
                 print(f"dou/{ep['id']}: {len(ep['capitulos']) - 2} destaque(s), {ep['origem']}, "
                       f"{sum(len(c['fala'].split()) for c in ep['capitulos'])} palavras, áudio {'ok' if ep['audio'] else 'não'}"
                       + (f" ({ep['duracao_s']} s)" if ep.get("duracao_s") else ""))
+        if fid == "dou":  # episódios do podcast: os da página (já atualizados) + os mais antigos que têm áudio
+            pagina = {e["id"]: e for e in f["episodios"]}
+            f["podcast"] = sorted([e for e in f["episodios"] if e.get("audio")] +
+                                  [e for e in podcast if e["id"] not in pagina and e.get("audio")],
+                                  key=lambda e: e["data"], reverse=True)[:DIAS_EPISODIOS]
         for t in f["temas"]:
             h = hashlib.sha1((t["fala"] + VOZ["id"] + VOZ["modelo"]).encode()).hexdigest()[:10]
             arq = f"{fid}-{t['id']}-{h}.mp3"
@@ -607,7 +620,7 @@ def main():
     Path(a.saida).write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding="utf-8")
     dou = next((f for f in fontes if f["id"] == "dou"), None)
     if dou and dou.get("episodios") is not None:
-        print(f"{a.feed}: {gerar_feed(dou['episodios'], a.feed)} episódio(s) no podcast")
+        print(f"{a.feed}: {gerar_feed(dou.get('podcast', dou['episodios']), a.feed)} episódio(s) no podcast")
     print(f"{a.saida}: {sum(len(f['temas']) for f in fontes)} tema(s); {enviados} caracteres enviados ao ElevenLabs")
     return 0
 

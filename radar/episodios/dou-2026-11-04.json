@@ -1,0 +1,42 @@
+{
+ "id": "dou-2026-11-04",
+ "fonte": "dou",
+ "data": "2026-11-04",
+ "dia_semana": "quarta-feira",
+ "titulo": "Decreto define os critérios dos minerais críticos e estratégicos",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quarta-feira, 4 de novembro de 2026. O destaque saiu numa edição extra: um decreto sobre minerais críticos e estratégicos.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Critérios para os minerais críticos e estratégicos",
+   "tema": "Mineração e barragens",
+   "atos": [
+    {
+     "titulo": "Decreto nº 13.146, de 4 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/decreto-n-13.146-de-4-de-novembro-de-2026-741839252",
+     "referencia": "DOU de 04/11/2026, Seção 1, Extra B, p. 3",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "O Decreto número 13.146 estabelece critérios econômicos, socioambientais e climáticos para definir quais substâncias são minerais críticos e quais são minerais estratégicos. Mineral crítico é o necessário para setores-chave da economia, com oferta vulnerável e risco de escassez; na análise entram também a disponibilidade de água, os impactos sobre territórios e comunidades e a exposição a eventos climáticos. Mineral estratégico é o que tem reservas relevantes no país e é essencial para a balança comercial, a tecnologia, o desenvolvimento regional ou a redução de emissões. As substâncias podem ser organizadas em três classes de prioridade. A lista será definida e atualizada por resolução do conselho nacional do setor, a partir de proposta do Ministério de Minas e Energia, com revisão a cada quatro anos. O decreto está em vigor desde a publicação.",
+   "inicio_s": 15.1
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração e autorizações de pesca. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
+   "inicio_s": 73.6
+  }
+ ],
+ "audio": "radar/audios/dou-2026-11-04-21a772a7b6.mp3",
+ "duracao_s": 94,
+ "bytes": 1133001,
+ "publicado_em": "2026-11-05T06:12:45-03:00"
+}

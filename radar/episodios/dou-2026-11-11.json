@@ -1,0 +1,50 @@
+{
+ "id": "dou-2026-11-11",
+ "fonte": "dou",
+ "data": "2026-11-11",
+ "dia_semana": "quarta-feira",
+ "titulo": "ANA orienta tarifas de água e esgoto para a CBS; novas regras para comunidades tradicionais em florestas públicas da Amazônia",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de quarta-feira, 11 de novembro de 2026. Hoje são dois destaques: a ANA atualiza a orientação sobre as tarifas de água e esgoto com a chegada da CBS, e uma portaria do Meio Ambiente e do Desenvolvimento Agrário, publicada numa edição extra de ontem, muda o procedimento para regularizar a ocupação de comunidades tradicionais em florestas públicas da Amazônia."
+  },
+  {
+   "titulo": "Tarifas de água e esgoto e a reforma tributária",
+   "tema": "Água, outorga e saneamento",
+   "atos": [
+    {
+     "titulo": "Resolução ANA nº 312, de 10 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/resolucao-ana-n-312-de-10-de-novembro-de-2026-743592817",
+     "referencia": "DOU de 11/11/2026, Seção 1, p. 229",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Primeiro destaque. A Resolução número 312, da ANA, divulga uma nota técnica que atualiza as orientações às agências reguladoras estaduais e municipais para ajustar as tabelas de tarifas de água e esgoto. O motivo é a reforma tributária: o PIS/Pasep e a Cofins deixam de existir e entra a CBS, a partir de 1º de janeiro de 2027. A atualização veio porque o Tribunal de Contas da União aprovou, em 28 de outubro, a alíquota de referência da CBS para 2027, de 11,3 por cento, acima da estimativa anterior e acima dos 9,25 por cento de PIS e Cofins. A nota é só orientativa: não é norma de referência e não tira a competência das reguladoras locais. A resolução revoga a Resolução 307, de outubro."
+  },
+  {
+   "titulo": "Comunidades tradicionais em florestas públicas da Amazônia",
+   "tema": "Flora e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria MMA/MDA nº 1.768, de 30 de setembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-mma/mda-n-1.768-de-30-de-setembro-de-2026-743556836",
+     "referencia": "DOU de 10/11/2026, Seção 1, Extra A, p. 18",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Segundo destaque. A Portaria Interministerial número 1.768, dos Ministérios do Meio Ambiente e do Desenvolvimento Agrário, altera as regras de 2025 para reconhecer e regularizar o uso tradicional de áreas de florestas públicas federais ainda não destinadas, na Amazônia Legal. Entre as mudanças: a planta e o memorial descritivo da área precisam ser georreferenciados e ter responsável técnico; o relatório de sobreposição deve cruzar a área com o Sigef, os títulos do Incra, as unidades de conservação, as terras indígenas, os assentamentos e os territórios quilombolas; a equipe técnica pode ajudar a comunidade a inscrever a área no Cadastro Ambiental Rural; e a contestação do edital tem pareceres em até trinta dias. O contrato de concessão de direito real de uso passa a ser emitido pelo Desenvolvimento Agrário e assinado pelos dois ministros."
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "O outro ato ambiental do período trata da organização interna do Ibama. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!"
+  }
+ ],
+ "audio": null,
+ "duracao_s": null
+}

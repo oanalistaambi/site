@@ -46,9 +46,11 @@ await pg.click("#ra-agora");
 await pg.waitForTimeout(700);
 ok(await pg.$eval(`#ep-${comAudio[0].data}`, el => !el.paused), "Ouvir agora toca o episódio mais recente com áudio");
 ok(/DOU de/.test(await pg.evaluate(() => navigator.mediaSession && navigator.mediaSession.metadata ? navigator.mediaSession.metadata.title : "")), "título e capa vão para a tela bloqueada");
-await pg.$eval(`#ep-${comAudio[0].data}`, el => el.dispatchEvent(new Event("ended")));
-await pg.waitForTimeout(700);
-ok(await pg.$eval(`#ep-${comAudio[1].data}`, el => !el.paused), "ao terminar, segue para a edição anterior");
+if (comAudio.length >= 2) { // a sequência só existe com dois ou mais episódios com áudio na página
+  await pg.$eval(`#ep-${comAudio[0].data}`, el => el.dispatchEvent(new Event("ended")));
+  await pg.waitForTimeout(700);
+  ok(await pg.$eval(`#ep-${comAudio[1].data}`, el => !el.paused), "ao terminar, segue para a edição anterior");
+} else console.log("(sequência não conferida: só um episódio com áudio na página hoje)");
 await pg.$$eval("#ra-painel audio", as => as.forEach(a => a.pause()));
 const assinar = await pg.$$eval("#assinar a", as => as.map(a => a.getAttribute("href")));
 ok(assinar.some(h => /^pktc:\/\/subscribe\/www\.oanalistaambiental\.com\/radar\/podcast\.xml$/.test(h)), "botão de assinar no app de podcast");
@@ -101,7 +103,7 @@ const rss = await (await ctx.request.get(BASE + "/radar/podcast.xml")).text();
 const itens = [...rss.matchAll(/<enclosure url="https:\/\/www\.oanalistaambiental\.com\/([^"]+)" length="(\d+)" type="audio\/mpeg"\/>/g)];
 ok(/<title>Ambiental Inteligência<\/title>/.test(rss), "podcast se chama Ambiental Inteligência");
 ok(/<itunes:owner>/.test(rss) && /<itunes:image href="https:\/\/www\.oanalistaambiental\.com\/radar\/podcast-capa\.jpg"\/>/.test(rss), "RSS com dono e capa");
-ok(itens.length === dou.episodios.filter(e => e.audio).length, `RSS com ${itens.length} episódio(s)`);
+ok(itens.length === (dou.podcast || dou.episodios).filter(e => e.audio).length && itens.length > 0, `RSS com ${itens.length} episódio(s)`);
 for (const [, arq, tam] of itens) {
   const r = await ctx.request.get(BASE + "/" + arq);
   ok(r.status() === 200 && (await r.body()).length === +tam, `RSS: ${arq} existe com ${tam} bytes`);
