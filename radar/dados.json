@@ -1,7 +1,70 @@
 {
- "atualizado_em": "2026-11-10",
+ "atualizado_em": "2026-11-11",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-11-11",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "requerimentos": 1,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "requerimentos": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 2,
+     "processos": 3,
+     "decisoes": {
+      "deferimentos/concessões": 1,
+      "requerimentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 7,
+     "processos": 29,
+     "decisoes": {
+      "deferimentos/concessões": 6,
+      "indeferimentos": 3,
+      "arquivamentos": 3
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 2,
+     "processos": 2,
+     "decisoes": {}
+    }
+   ]
+  },
   {
    "data": "2026-11-10",
    "atos": [],
@@ -617,41 +680,6 @@
      "decisoes": {
       "arquivamentos": 1
      }
-    }
-   ]
-  },
-  {
-   "data": "2026-10-27",
-   "atos": [],
-   "movimento": [
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 2,
-     "processos": 2,
-     "decisoes": {
-      "requerimentos": 2,
-      "deferimentos/concessões": 1,
-      "transferências de titularidade": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 6,
-     "processos": 39,
-     "decisoes": {
-      "deferimentos/concessões": 6,
-      "arquivamentos": 2,
-      "indeferimentos": 2
-     }
-    },
-    {
-     "orgao": "Semad",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 2,
-     "processos": 2,
-     "decisoes": {}
     }
    ]
   }
