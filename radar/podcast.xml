@@ -16,7 +16,7 @@
   <itunes:category text="Government"/>
   <itunes:explicit>false</itunes:explicit>
   <itunes:type>episodic</itunes:type>
-  <lastBuildDate>Tue, 10 Nov 2026 16:54:01 -0300</lastBuildDate>
+  <lastBuildDate>Wed, 11 Nov 2026 06:11:25 -0300</lastBuildDate>
   <item>
     <title>DOU de 05/11/2026: Mineração revisa a agenda regulatória; conselho da APA da Serra da Meruoca</title>
     <description><![CDATA[<p>Mineração revisa a agenda regulatória; conselho da APA da Serra da Meruoca.</p><p>0:00 Abertura<br>0:16 ANM revisa a agenda regulatória da mineração<br>1:00 Conselho consultivo da APA da Serra da Meruoca<br>1:31 Fechamento</p><p>Textos oficiais:</p><ul><li><a href="https://www.in.gov.br/web/dou/-/resolucao-anm-n-251-de-4-de-novembro-de-2026-741842919">Resolução ANM nº 251, de 4 de novembro de 2026</a> (vigência: na data da publicação)</li><li><a href="https://www.in.gov.br/web/dou/-/portaria-icmbio-n-4.993-de-23-de-outubro-de-2026-741861211">Portaria ICMBio nº 4.993, de 23 de outubro de 2026</a> (vigência: na data da publicação)</li></ul><p>Resumo e voz gerados por inteligência artificial a partir do texto publicado. Antes de aplicar qualquer regra, confira o texto oficial. Página: https://www.oanalistaambiental.com/radar-audio.html</p>]]></description>
@@ -37,6 +37,28 @@ Resumo e voz gerados por inteligência artificial a partir do texto publicado. A
     <pubDate>Thu, 05 Nov 2026 06:12:02 -0300</pubDate>
     <enclosure url="https://www.oanalistaambiental.com/radar/audios/dou-2026-11-05-a0ec8329f3.mp3" length="1325471" type="audio/mpeg"/>
     <itunes:duration>110</itunes:duration>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:image href="https://www.oanalistaambiental.com/radar/podcast-capa.jpg"/>
+  </item>
+  <item>
+    <title>DOU de 04/11/2026: Decreto define os critérios dos minerais críticos e estratégicos</title>
+    <description><![CDATA[<p>Decreto define os critérios dos minerais críticos e estratégicos.</p><p>0:00 Abertura<br>0:15 Critérios para os minerais críticos e estratégicos<br>1:13 Fechamento</p><p>Textos oficiais:</p><ul><li><a href="https://www.in.gov.br/web/dou/-/decreto-n-13.146-de-4-de-novembro-de-2026-741839252">Decreto nº 13.146, de 4 de novembro de 2026</a> (vigência: na data da publicação)</li></ul><p>Resumo e voz gerados por inteligência artificial a partir do texto publicado. Antes de aplicar qualquer regra, confira o texto oficial. Página: https://www.oanalistaambiental.com/radar-audio.html</p>]]></description>
+    <itunes:summary>Decreto define os critérios dos minerais críticos e estratégicos.
+
+0:00 Abertura
+0:15 Critérios para os minerais críticos e estratégicos
+1:13 Fechamento
+
+Textos oficiais:
+- Decreto nº 13.146, de 4 de novembro de 2026: https://www.in.gov.br/web/dou/-/decreto-n-13.146-de-4-de-novembro-de-2026-741839252
+
+Resumo e voz gerados por inteligência artificial a partir do texto publicado. Antes de aplicar qualquer regra, confira o texto oficial. Página: https://www.oanalistaambiental.com/radar-audio.html</itunes:summary>
+    <link>https://www.oanalistaambiental.com/radar-audio.html</link>
+    <guid isPermaLink="false">oanalistaambiental-dou-2026-11-04</guid>
+    <pubDate>Thu, 05 Nov 2026 06:12:45 -0300</pubDate>
+    <enclosure url="https://www.oanalistaambiental.com/radar/audios/dou-2026-11-04-21a772a7b6.mp3" length="1133001" type="audio/mpeg"/>
+    <itunes:duration>94</itunes:duration>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:explicit>false</itunes:explicit>
     <itunes:image href="https://www.oanalistaambiental.com/radar/podcast-capa.jpg"/>
