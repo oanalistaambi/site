@@ -33,6 +33,9 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("diario_mg", os.path.join(AQUI, "diario_mg.py"))
 mg = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(mg)
+_spec = importlib.util.spec_from_file_location("fonetica", os.path.join(AQUI, "fonetica.py"))
+fonetica = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(fonetica)
 
 VOZ = {"id": os.environ.get("RADAR_VOZ_ID", "XMies1moPVDGdidVT4IX"), "nome": "Jerri",
        "modelo": os.environ.get("RADAR_VOZ_MODELO", "eleven_multilingual_v2")}
@@ -135,6 +138,7 @@ def para_fala(t):
     t = re.sub(r"\b([A-Z][A-Za-z]{1,7})/([A-Z][A-Za-z]{1,7})\b", r"\1 \2", t)  # GM/MMA -> GM MMA
     t = re.sub(r"\s+–\s+|\s+-\s+", ", ", t)
     t = re.sub(r"\b(" + "|".join(SIGLAS_FALA) + r")\b", lambda m: SIGLAS_FALA[m.group(1)], t)
+    t = fonetica.para_voz(t)  # siglas com pronúncia testada (DOU, IEF, PISF...)
     return re.sub(r"\s+", " ", t).strip()
 
 
@@ -291,8 +295,9 @@ DIAS_EPISODIOS = 4  # o dia mais recente e pelo menos os 3 anteriores com destaq
 PALAVRAS_EPISODIO = 650  # ~4min40 na voz Jerri
 DIAS_SEMANA = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
 ORDINAIS = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto", "Sexto", "Sétimo", "Oitavo", "Nono", "Décimo"]
-FECHO_AUTO = ("Este resumo foi montado automaticamente a partir do texto publicado e lido por uma voz sintética. "
-              "Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!")
+# Fechamento curto (pedido do Francisco, 12/11/2026): não dizer que a voz é sintética; uma frase só.
+FECHO = "Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!"  # episódio revisado
+FECHO_AUTO = "Resumo montado automaticamente; confira o texto oficial pelos links da página. Até a próxima!"
 
 
 def nome_tema(a):
