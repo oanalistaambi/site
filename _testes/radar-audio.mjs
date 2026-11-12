@@ -17,7 +17,8 @@ const nav = await chromium.launch({ args: ["--no-proxy-server", "--autoplay-poli
 const ctx = await nav.newContext({ viewport: { width: 390, height: 844 } });
 await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, r => r.abort());
 const pg = await ctx.newPage();
-await pg.addInitScript(() => { HTMLMediaElement.prototype.play = function () { Object.defineProperty(this, "paused", { value: false, configurable: true }); this.dispatchEvent(new Event("play")); return Promise.resolve(); }; HTMLMediaElement.prototype.pause = function () { Object.defineProperty(this, "paused", { value: true, configurable: true }); }; });
+await ctx.addInitScript(() => { HTMLMediaElement.prototype.play = function () { Object.defineProperty(this, "paused", { value: false, configurable: true }); this.dispatchEvent(new Event("play")); return Promise.resolve(); }; HTMLMediaElement.prototype.pause = function () { Object.defineProperty(this, "paused", { value: true, configurable: true }); };
+  window.__falas = []; if (window.speechSynthesis) { speechSynthesis.speak = u => window.__falas.push(u.text); speechSynthesis.cancel = () => {}; } });
 const erros = [];
 pg.on("console", m => { if (m.type() === "error" && !/net::ERR_FAILED|Failed to load resource/.test(m.text())) erros.push(m.text()); });
 pg.on("pageerror", e => erros.push(String(e)));
@@ -41,11 +42,16 @@ for (const ep of comAudio) {
   ok(ep.capitulos.every((c, k) => k === 0 || c.inicio_s > ep.capitulos[k - 1].inicio_s), `${ep.id}: capítulos em ordem de tempo`);
 }
 // "Ouvir agora": toca o episódio mais recente; ao terminar, segue para o anterior; tela bloqueada recebe título e capa
-await pg.waitForFunction(() => !document.getElementById("ra-agora").disabled);
+ok(await pg.waitForFunction(() => !document.getElementById("ra-agora").disabled, null, { timeout: 15000 }).then(() => true, () => false), "botão Ouvir agora fica ativo");
 await pg.click("#ra-agora");
 await pg.waitForTimeout(700);
-ok(await pg.$eval(`#ep-${comAudio[0].data}`, el => !el.paused), "Ouvir agora toca o episódio mais recente com áudio");
-ok(/DOU de/.test(await pg.evaluate(() => navigator.mediaSession && navigator.mediaSession.metadata ? navigator.mediaSession.metadata.title : "")), "título e capa vão para a tela bloqueada");
+if (comAudio.length) {
+  ok(await pg.$eval(`#ep-${comAudio[0].data}`, el => !el.paused), "Ouvir agora toca o episódio mais recente com áudio");
+  ok(/DOU de/.test(await pg.evaluate(() => navigator.mediaSession && navigator.mediaSession.metadata ? navigator.mediaSession.metadata.title : "")), "título e capa vão para a tela bloqueada");
+} else {
+  const lido = await pg.evaluate(() => window.__falas.join(" "));
+  ok(lido.includes(dou.episodios[0].capitulos[0].fala.slice(0, 40)), "sem MP3, Ouvir agora lê o episódio mais recente com a voz do navegador");
+}
 if (comAudio.length >= 2) { // a sequência só existe com dois ou mais episódios com áudio na página
   await pg.$eval(`#ep-${comAudio[0].data}`, el => el.dispatchEvent(new Event("ended")));
   await pg.waitForTimeout(700);
@@ -63,6 +69,7 @@ ok(assinar.some(h => /^pktc:\/\/subscribe\/www\.oanalistaambiental\.com\/radar\/
   await and.close();
 }
 // pular para o 2º destaque do episódio mais recente
+if (comAudio.length) {
 const ep0 = comAudio[0];
 const alvo = ep0.capitulos.filter(c => c.atos.length)[0];
 // pular no áudio exige servidor com Range (o GitHub Pages tem; o http.server do Python, não)
@@ -77,6 +84,7 @@ else console.log(`(pulado: o servidor de teste não aceita Range; o salto de cap
 await art0.locator("[data-vel='1.5']").click();
 ok(await pg.$eval(`#ep-${ep0.data}`, el => el.playbackRate) === 1.5, "velocidade 1,5×");
 await pg.$eval(`#ep-${ep0.data}`, el => el.pause());
+} else console.log("(capítulos e velocidade não conferidos: nenhum episódio com MP3 na página hoje)");
 let links = await pg.$$eval("#ra-painel .ra-ato a", as => as.map(a => a.href));
 ok(links.length > 0 && links.every(h => OFICIAL.test(h)), `federal: todo ato com link oficial (${links.length})`);
 ok(await pg.evaluate(() => document.documentElement.scrollWidth) <= 390, "federal: sem rolagem lateral em 390 px");
@@ -115,6 +123,19 @@ ok(erros.length === 0, "sem erro de console " + erros.join(" | "));
 for (const p of ["/index.html", "/radar.html", "/ferramentas.html", "/sitemap.xml"]) {
   const t = await (await ctx.request.get(BASE + p)).text();
   ok(!t.includes("radar-audio"), `${p} não aponta para radar-audio (fora dos menus; o kit do DAE aponta desde o PR #36)`);
+}
+{
+  const semMp3 = JSON.parse(JSON.stringify(dados));
+  semMp3.fontes.forEach(f => (f.episodios || []).forEach(e => { e.audio = null; e.duracao_s = null; }));
+  const p2 = await ctx.newPage();
+  await p2.route(/radar\/audio\.json/, r => r.fulfill({ contentType: "application/json", body: JSON.stringify(semMp3) }));
+  await p2.goto(BASE + "/radar-audio.html", { waitUntil: "networkidle" });
+  const ativo = await p2.waitForFunction(() => !document.getElementById("ra-agora").disabled, null, { timeout: 8000 }).then(() => true, () => false);
+  ok(ativo, "regressão 12/11: sem nenhum MP3, o botão Ouvir agora não fica desativado");
+  if (ativo) { await p2.click("#ra-agora"); await p2.waitForTimeout(400); }
+  ok((await p2.evaluate(() => window.__falas.join(" "))).includes(semMp3.fontes.find(f => f.id === "dou").episodios[0].capitulos[0].fala.slice(0, 40)),
+     "regressão 12/11: e lê o episódio mais recente com a voz do navegador");
+  await p2.close();
 }
 await nav.close();
 console.log(falhas ? `${falhas} falha(s)` : "tudo certo");
