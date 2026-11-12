@@ -1,7 +1,69 @@
 {
- "atualizado_em": "2026-11-11",
+ "atualizado_em": "2026-11-12",
  "fonte": "Jornal Minas Gerais (Imprensa Oficial de MG), Diário do Executivo",
  "edicoes": [
+  {
+   "data": "2026-11-12",
+   "atos": [],
+   "movimento": [
+    {
+     "orgao": "Copam",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    },
+    {
+     "orgao": "Copam",
+     "grupo": "Reunião de colegiado (pauta/decisões)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "deferimentos/concessões": 1
+     }
+    },
+    {
+     "orgao": "Feam/URA",
+     "grupo": "Licenciamento (URAs/Feam/Copam)",
+     "publicacoes": 10,
+     "processos": 17,
+     "decisoes": {
+      "deferimentos/concessões": 8,
+      "revogações/cancelamentos": 2,
+      "requerimentos": 4,
+      "transferências de titularidade": 4,
+      "arquivamentos": 1
+     }
+    },
+    {
+     "orgao": "IEF",
+     "grupo": "Intervenção ambiental / DAIA (IEF)",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {
+      "requerimentos": 1
+     }
+    },
+    {
+     "orgao": "Igam",
+     "grupo": "Outorga de água (Igam)",
+     "publicacoes": 9,
+     "processos": 41,
+     "decisoes": {
+      "deferimentos/concessões": 9,
+      "arquivamentos": 2,
+      "indeferimentos": 1
+     }
+    },
+    {
+     "orgao": "Semad",
+     "grupo": "Auto de infração / sanção",
+     "publicacoes": 1,
+     "processos": 1,
+     "decisoes": {}
+    }
+   ]
+  },
   {
    "data": "2026-11-11",
    "atos": [],
@@ -417,90 +479,6 @@
    ]
   },
   {
-   "data": "2026-10-30",
-   "atos": [
-    {
-     "orgao": "Outro órgão (Secretaria de Estado de Infraestrutura, Mobilidade e Parcerias)",
-     "tipo": "Resolução",
-     "numero": "60/2026",
-     "titulo": "RESOLUÇÃO SEINFRA N° 60/2026, DE 28 DE OUTUBRO DE 2026",
-     "ementa": "60/2026, DE 28 DE OUTUBRO DE 2026 Declara de utilidade pública para fins de intervenções ambientais associadas à implantação do Sistema Viário Estruturante do Município de Conceição do Mato Dentro, composto pelas Alças Leste e Oeste O Secretário de Estado de Infraestrutura, Mobilidade e Parcerias, no uso das atribuições que lhe confere o inciso III do § 1º do art. 93 da Constituição do Estado de M",
-     "relevancia": "mudança de procedimento",
-     "trilha": "Trilha 5 · Água",
-     "pagina": 7,
-     "autenticidade": "320261030287867017"
-    },
-    {
-     "orgao": "Outro órgão (Secretaria de Estado de Infraestrutura, Mobilidade e Parcerias)",
-     "tipo": "Resolução",
-     "numero": "61/2026",
-     "titulo": "RESOLUÇÃO SEINFRA N° 61/2026, DE 28 DE OUTUBRO DE 2026",
-     "ementa": "28 DE OUTUBRO DE 2026 Declara de utilidade pública para as áreas necessárias às Obras de Melhoria e Pavimentação da Rodovia MGC-267, Trecho: Entr.º BR-354 (B) – Caxambu e Entr.º BR-381 – Palmela (3ª Faixa), abrangendo os municípios de Campanha, Cambuquira, Conceição do Rio Verde, Soledade de Minas e Caxambu.",
-     "relevancia": "notícia",
-     "trilha": "Trilha 5 · Água",
-     "pagina": 7,
-     "autenticidade": "320261030287867017"
-    }
-   ],
-   "movimento": [
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 9,
-     "processos": 24,
-     "decisoes": {
-      "deferimentos/concessões": 7,
-      "revogações/cancelamentos": 2,
-      "requerimentos": 2,
-      "transferências de titularidade": 1,
-      "indeferimentos": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 4,
-     "processos": 56,
-     "decisoes": {
-      "requerimentos": 4,
-      "deferimentos/concessões": 3,
-      "indeferimentos": 3,
-      "arquivamentos": 2
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 4,
-     "processos": 11,
-     "decisoes": {
-      "deferimentos/concessões": 3,
-      "indeferimentos": 2,
-      "arquivamentos": 2
-     }
-    },
-    {
-     "orgao": "Semad",
-     "grupo": "Auto de infração / sanção",
-     "publicacoes": 4,
-     "processos": 4,
-     "decisoes": {
-      "deferimentos/concessões": 1,
-      "indeferimentos": 1
-     }
-    }
-   ]
-  },
-  {
    "data": "2026-10-29",
    "atos": [
     {
@@ -594,91 +572,6 @@
       "indeferimentos": 5,
       "arquivamentos": 4,
       "revogações/cancelamentos": 1
-     }
-    }
-   ]
-  },
-  {
-   "data": "2026-10-28",
-   "atos": [
-    {
-     "orgao": "Semad",
-     "tipo": "Resolução conjunta",
-     "numero": null,
-     "titulo": "RESOLUÇÃO CONJUNTA SEMAD/SEAPA/SEDE/SEINFRA",
-     "ementa": "Estabelece normas complementares para o cumprimento do Decreto nº 49.260, de 17 de julho de 2026, que dispõe sobre o procedimento administrativo de declaração de utilidade pública ou de interesse social para fins de autorização de intervenção ambiental.",
-     "relevancia": "mudança de procedimento",
-     "trilha": "Trilha 6 · Flora",
-     "pagina": 26,
-     "autenticidade": "3202610288076470426"
-    },
-    {
-     "orgao": "Arsae",
-     "tipo": "Resolução",
-     "numero": "239",
-     "titulo": "RESOLUÇÃO ARSAE-MG Nº 239, DE 26 DE OUTUBRO DE 2026",
-     "ementa": "Estabelece a desoneração das tabelas tarifárias, das tabelas de preços de serviços complementares e das multas aplicáveis aos usuários dos serviços de abastecimento de água e esgotamento sanitário regulados pela Arsae-MG, para implementação da reforma tributária do consumo.",
-     "relevancia": "nova regra",
-     "trilha": "Trilha 4 · Licenciamento",
-     "pagina": 28,
-     "autenticidade": "3202610288076470428"
-    }
-   ],
-   "movimento": [
-    {
-     "orgao": "Copam",
-     "grupo": "Reunião de colegiado (pauta/decisões)",
-     "publicacoes": 1,
-     "processos": 4,
-     "decisoes": {
-      "deferimentos/concessões": 1
-     }
-    },
-    {
-     "orgao": "Feam/URA",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 10,
-     "processos": 14,
-     "decisoes": {
-      "deferimentos/concessões": 6,
-      "requerimentos": 5,
-      "transferências de titularidade": 1
-     }
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Ato sobre empresa/empreendimento específico",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {}
-    },
-    {
-     "orgao": "IEF",
-     "grupo": "Intervenção ambiental / DAIA (IEF)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "requerimentos": 1
-     }
-    },
-    {
-     "orgao": "Igam",
-     "grupo": "Outorga de água (Igam)",
-     "publicacoes": 6,
-     "processos": 37,
-     "decisoes": {
-      "deferimentos/concessões": 5,
-      "indeferimentos": 2,
-      "arquivamentos": 2
-     }
-    },
-    {
-     "orgao": "Semad",
-     "grupo": "Licenciamento (URAs/Feam/Copam)",
-     "publicacoes": 1,
-     "processos": 1,
-     "decisoes": {
-      "arquivamentos": 1
      }
     }
    ]
