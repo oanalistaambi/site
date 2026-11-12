@@ -291,8 +291,9 @@ DIAS_EPISODIOS = 4  # o dia mais recente e pelo menos os 3 anteriores com destaq
 PALAVRAS_EPISODIO = 650  # ~4min40 na voz Jerri
 DIAS_SEMANA = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
 ORDINAIS = ["Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto", "Sexto", "Sétimo", "Oitavo", "Nono", "Décimo"]
-FECHO_AUTO = ("Este resumo foi montado automaticamente a partir do texto publicado e lido por uma voz sintética. "
-              "Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!")
+# Fechamento curto (pedido do Francisco, 12/11/2026): não dizer que a voz é sintética; uma frase só.
+FECHO = "Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!"  # episódio revisado
+FECHO_AUTO = "Resumo montado automaticamente; confira o texto oficial pelos links da página. Até a próxima!"
 
 
 def nome_tema(a):
