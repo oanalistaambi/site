@@ -313,7 +313,8 @@
   var painel=document.getElementById('ra-painel');
   document.getElementById('ra-agora').addEventListener('click',function(){
     if(document.getElementById('aba-federal').getAttribute('aria-selected')!=='true'){history.replaceState(null,'','#federal');render('dou')}
-    var a=painel.querySelector('audio');if(!a)return;
+    var a=painel.querySelector('audio');
+    if(!a){var b=painel.querySelector('.ra-ouvir');if(b){b.closest('.ra-ep').scrollIntoView({behavior:'smooth',block:'start'});ouvir(b,b.dataset.fala)}return}
     a.closest('.ra-ep').scrollIntoView({behavior:'smooth',block:'start'});a.play();
   });
   document.querySelector('.ra-abas').addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;history.replaceState(null,'',b.dataset.fonte==='mg'?'#mg':'#federal');render(b.dataset.fonte)});
@@ -332,7 +333,10 @@
     var dou=(d.fontes||[]).find(function(x){return x.id==='dou'}),e0=((dou&&dou.episodios)||[]).filter(function(e){return audioOk(e.audio)})[0];
     if(e0){document.getElementById('ra-agora').disabled=false;
       document.getElementById('ra-agora-txt').textContent='DOU de '+(e0.dia_semana||'').replace('-feira','')+', '+br(e0.data)+(e0.duracao_s?' · '+minutos(e0.duracao_s):'')+'. Depois, segue sozinho para as edições anteriores.'}
-    else document.getElementById('ra-agora-txt').textContent='O episódio de hoje ainda está sendo gravado.';
+    else{var u0=((dou&&dou.episodios)||[])[0];
+      if(u0&&fala){document.getElementById('ra-agora').disabled=false;
+        document.getElementById('ra-agora-txt').textContent='DOU de '+(u0.dia_semana||'').replace('-feira','')+', '+br(u0.data)+' · com a voz do navegador (o áudio gravado ainda não está pronto).'}
+      else document.getElementById('ra-agora-txt').textContent='O episódio de hoje ainda está sendo gravado.'}
   }).catch(function(){document.getElementById('ra-info').textContent='Não foi possível carregar o radar em áudio agora.'});
 })();
 </script>
