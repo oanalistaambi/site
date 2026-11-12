@@ -102,7 +102,9 @@
   "Números de normas e datas sempre por extenso no texto da voz (ex.: 'quarenta e sete mil trezentos e oitenta e três').",
   "Siglas de órgão: na primeira menção, nome por extenso; depois, a sigla só se estiver testada aqui.",
   "Evitar frase de uma palavra só no início da fala; a entonação sai melhor em frase completa.",
-  "Ritmo: Marina -6% (estava a 168 palavras/min); alvo de 140 a 150 palavras/min para todos."
+  "Ritmo: Marina -6% (estava a 168 palavras/min); alvo de 140 a 150 palavras/min para todos.",
+  "Nunca escrever nome de letra com acento ('éfe', 'ésse', 'é'): as vozes Google leem 'e acento agudo'. Para soletrar, use pontos (I.E.F.).",
+  "A grafia e a pronúncia de cada sigla ficam em radar/gerador/fonetica.py (TEXTO para qualquer voz; IPA para o Google). Termo novo: testar nas duas vozes e conferir com o Whisper antes de entrar."
  ],
  "vozes_google_teste_2026_11_10": {
   "_leia": "Teste objetivo: as 30 vozes Chirp 3 HD pt-BR leram o mesmo texto com Igam, Feam, Semad, IEF, SOUT, Jequitinhonha, Paranaíba, Itabapoana e número de decreto; transcrição com Whisper e contagem de erros.",
@@ -147,5 +149,139 @@
   "pronuncia_ipa": {
    "SOUT": "ˈsowtʃi (sem isso a voz Callirrhoe soletra S-O-U-T)"
   }
+ },
+ "siglas_google_2026_11_12": {
+  "_leia": "84 termos do DOU, do Jornal Minas Gerais e do licenciamento, lidos por Callirrhoe (feminina) e Charon (masculina) em 'Segundo o TERMO, a regra mudou.' e transcritos pelo Whisper medium. Regra: sigla que forma sílaba se lê como palavra (Ibama, Incra, Copam); as outras, letra por letra (MMA, TCU). Fonte da regra: Correio Braziliense, Dicas de Português, 'Sigla: pronúncia'.",
+  "ajustadas": {
+   "DOU": {
+    "antes": "'DOE' / 'd'",
+    "agora": "D.O.U."
+   },
+   "IEF": {
+    "antes": "'if' (inglês)",
+    "agora": "I.E.F."
+   },
+   "IDE-Sisema": {
+    "antes": "'IDS Sema'",
+    "agora": "I.D.E. Sisema"
+   },
+   "ZEE": {
+    "antes": "'Z'",
+    "agora": "Z.E.E."
+   },
+   "PISF": {
+    "antes": "'PSF'",
+    "agora": "P.I.S.F."
+   },
+   "Sisema": {
+    "antes": "'sistema'",
+    "agora": "IPA siˈzɛmɐ"
+   },
+   "Feam": {
+    "antes": "'fim'",
+    "agora": "IPA feˈɐ̃"
+   },
+   "Igam": {
+    "antes": "'Wigan'",
+    "agora": "IPA iˈɡɐ̃"
+   },
+   "SOUT": {
+    "antes": "'salt'",
+    "agora": "IPA ˈsowtʃi (sôuti)"
+   },
+   "Prevfogo": {
+    "antes": "'prefog'",
+    "agora": "IPA pɾɛviˈfoɡu"
+   },
+   "Arsae": {
+    "antes": "'ar sair'",
+    "agora": "IPA aɾˈsaj"
+   },
+   "EIA": {
+    "antes": "'EA'",
+    "agora": "IPA ˈɛja (éia)"
+   },
+   "PAE": {
+    "antes": "'pai'",
+    "agora": "IPA pe a ˈɛ"
+   },
+   "Sigef": {
+    "antes": "'CGEF'",
+    "agora": "IPA siˈʒɛfi"
+   },
+   "ART": {
+    "antes": "'arte'",
+    "agora": "A.R.T."
+   }
+  },
+  "a_ouvir": {
+   "Seplag": "Whisper ouve 'Cplug' em todas as grafias; IPA seˈplaɡi aplicada, falta ouvido humano",
+   "Copam": "Charon fala 'Copan'; IPA koˈpɐ̃ aplicada",
+   "REDD+": "lido certo como 'REDD mais'; a grafia 'Rédi' NÃO serve (lê 'acento agudo')"
+  },
+  "certas_sem_ajuste": [
+   "ANA",
+   "ICMBio",
+   "Ibama",
+   "MMA",
+   "MDA",
+   "MPA",
+   "Conama",
+   "CBS",
+   "PIS",
+   "Pasep",
+   "Cofins",
+   "TCU",
+   "PAN",
+   "Incra",
+   "Funai",
+   "Inpe",
+   "SFB",
+   "ANM",
+   "CAR",
+   "Sicar",
+   "SNUC",
+   "RPPN",
+   "APA",
+   "APP",
+   "UC",
+   "PRAD",
+   "PTRF",
+   "Rima",
+   "PCA",
+   "RCA",
+   "CTF",
+   "DN",
+   "ABNT",
+   "NBR",
+   "Semad",
+   "Copasa",
+   "Cemig",
+   "URA",
+   "URC",
+   "URGA",
+   "SLA",
+   "SEI",
+   "LAS",
+   "RAS",
+   "LAC",
+   "LP",
+   "LI",
+   "LO",
+   "AIA",
+   "DAIA",
+   "TAC",
+   "TCCF",
+   "UTM",
+   "DER",
+   "CBMM",
+   "CNRH",
+   "CERH",
+   "Supram",
+   "GM",
+   "SNIRH",
+   "PNRH",
+   "IN"
+  ]
  }
 }

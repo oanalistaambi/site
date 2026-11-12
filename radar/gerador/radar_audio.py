@@ -33,6 +33,9 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("diario_mg", os.path.join(AQUI, "diario_mg.py"))
 mg = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(mg)
+_spec = importlib.util.spec_from_file_location("fonetica", os.path.join(AQUI, "fonetica.py"))
+fonetica = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(fonetica)
 
 VOZ = {"id": os.environ.get("RADAR_VOZ_ID", "XMies1moPVDGdidVT4IX"), "nome": "Jerri",
        "modelo": os.environ.get("RADAR_VOZ_MODELO", "eleven_multilingual_v2")}
@@ -135,6 +138,7 @@ def para_fala(t):
     t = re.sub(r"\b([A-Z][A-Za-z]{1,7})/([A-Z][A-Za-z]{1,7})\b", r"\1 \2", t)  # GM/MMA -> GM MMA
     t = re.sub(r"\s+–\s+|\s+-\s+", ", ", t)
     t = re.sub(r"\b(" + "|".join(SIGLAS_FALA) + r")\b", lambda m: SIGLAS_FALA[m.group(1)], t)
+    t = fonetica.para_voz(t)  # siglas com pronúncia testada (DOU, IEF, PISF...)
     return re.sub(r"\s+", " ", t).strip()
 
 
