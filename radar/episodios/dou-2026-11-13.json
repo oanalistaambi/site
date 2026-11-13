@@ -1,0 +1,37 @@
+{
+ "id": "dou-2026-11-13",
+ "fonte": "dou",
+ "data": "2026-11-13",
+ "dia_semana": "sexta-feira",
+ "titulo": "Conama atualiza as regras para episódios críticos de poluição do ar",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de sexta-feira, 13 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: o Conama atualizou as regras para os planos de episódios críticos de poluição do ar."
+  },
+  {
+   "titulo": "Planos para episódios críticos de poluição do ar",
+   "tema": "Outras normas ambientais",
+   "atos": [
+    {
+     "titulo": "Resolução Conama nº 518, de 6 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/resolucao-conama-n-518-de-6-de-novembro-de-2026-744136533",
+     "referencia": "DOU de 12/11/2026, Seção 1, Extra B, p. 14",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "A Resolução número 518, do Conama, estabelece as diretrizes para os Planos para Episódios Críticos de Poluição do Ar e os valores de referência para declarar os estados críticos. São três níveis: atenção, alerta e emergência. No de atenção, intensifica-se a divulgação de informações preventivas; nos de alerta e de emergência, os órgãos responsáveis precisam adotar medidas. Cabe aos órgãos ambientais dos estados e do Distrito Federal elaborar o plano, em até dezoito meses depois da publicação de um guia orientativo, que o Ministério do Meio Ambiente tem dezoito meses para fazer. O plano passa por consulta pública, indica quem declara cada estado e deve divulgar a declaração em sites e aplicativos. Cada órgão também cria um grupo assessor permanente, com saúde, defesa civil, assistência social, cientistas e sociedade civil. Durante alerta e emergência, as fontes de poluição podem sofrer as restrições previstas no plano. O ministério ainda vai criar, no sistema MonitorAr, um alerta para registrar e divulgar esses episódios. A resolução vale desde a publicação e revoga a Resolução 491, de 2018."
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Os demais atos ambientais do período tratam de conselhos de unidades de conservação, de licenças de pesca e da organização interna dos órgãos. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!"
+  }
+ ],
+ "audio": null,
+ "duracao_s": null
+}
