@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-13T16:55-03:00",
+ "gerado_em": "2026-11-14T15:19-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,10 +9,55 @@
   {
    "id": "mg",
    "janela": [
-    "2026-11-12",
-    "2026-11-13"
+    "2026-11-13",
+    "2026-11-14"
    ],
-   "temas": [],
+   "temas": [
+    {
+     "id": "agua",
+     "nome": "Água, outorga e saneamento",
+     "roteiro": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução ARSAE-MG nº 241, de 13 de novembro de 2026, publicada em 14 de novembro. Altera a Resolução Arsae-MG Nº 133, de 9 de dezembro de 2019. Ficam revogados os seguintes dispositivos da Resolução Arsae-MG nº 133, de 9 de dezembro de 2019: I – o § 4º do art. Esta resolução entra em vigor 6 (seis) meses após a sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Água, outorga e saneamento, no Diário Oficial de Minas Gerais. Resolução Arsae-MG número 241, de 13 de novembro de 2026, publicada em 14 de novembro. Altera a Resolução Arsae-MG número 133, de 9 de dezembro de 2019. Ficam revogados os seguintes dispositivos da Resolução Arsae-MG número 133, de 9 de dezembro de 2019: I, o parágrafo 4º do artigo Esta resolução entra em vigor 6 meses após a sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
+      {
+       "data": "2026-11-14",
+       "orgao": "Arsae",
+       "titulo": "Resolução ARSAE-MG nº 241, de 13 de novembro de 2026",
+       "ementa": "Altera a Resolução Arsae-MG Nº 133, de 9 de dezembro de 2019.",
+       "trechos": {
+        "vigencia": "Esta resolução entra em vigor 6 (seis) meses após a sua publicação",
+        "revoga": "Ficam revogados os seguintes dispositivos da Resolução Arsae-MG nº 133, de 9 de dezembro de 2019: I – o § 4º do art"
+       },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-14T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A16%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 14/11/2026, p. 16, código de autenticidade 3202611148241622416"
+      }
+     ]
+    },
+    {
+     "id": "flora",
+     "nome": "Flora, florestas e unidades de conservação",
+     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Portaria IEF nº 90, de 13 de novembro de 2026, publicada em 14 de novembro. Reconhece como Reserva Particular do Patrimônio Natural, a RPPN “Recanto Sereno” de propriedade de Vera Maria Soares e José Benedito Mariano Filho. A ementa continua no texto oficial. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Portaria I.E.F. número 90, de 13 de novembro de 2026, publicada em 14 de novembro. Reconhece como Reserva Particular do Patrimônio Natural, a RPPN “Recanto Sereno” de propriedade de Vera Maria Soares e José Benedito Mariano Filho. A ementa continua no texto oficial. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
+      {
+       "data": "2026-11-14",
+       "orgao": "IEF",
+       "titulo": "Portaria IEF nº 90, de 13 de novembro de 2026",
+       "ementa": "Reconhece como Reserva Particular do Patrimônio Natural, a RPPN “Recanto Sereno” de propriedade de Vera Maria Soares e José Benedito Mariano Filho, localizada no município de Pouso Alto/MG.",
+       "trechos": {
+        "vigencia": "Esta portaria entra em vigor na data de sua publicação",
+        "revoga": null
+       },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-14T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A15%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 14/11/2026, p. 15, código de autenticidade 3202611148241622415"
+      }
+     ]
+    }
+   ],
    "internos": [],
    "nome": "Minas Gerais",
    "jornal": "Jornal Minas Gerais, Diário do Executivo"
