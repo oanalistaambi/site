@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-14T15:19-03:00",
+ "gerado_em": "2026-11-16T06:12-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -65,16 +65,101 @@
   {
    "id": "dou",
    "janela": [
-    "2026-11-10",
     "2026-11-11",
     "2026-11-12",
-    "2026-11-13"
+    "2026-11-13",
+    "2026-11-16"
    ],
    "temas": [],
-   "internos": [],
+   "internos": [
+    {
+     "data": "2026-11-16",
+     "orgao": "Ministério do Meio Ambiente",
+     "titulo": "Portaria GM/MMA nº 1.818, de 12 de novembro de 2026",
+     "ementa": "Aprova o Regimento Interno da Subsecretaria de Planejamento, Orçamento e Administração, unidade organizacional vinculada à Secretaria-Executiva do Ministério do Meio Ambiente e Mudança do Clima.",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.818-de-12-de-novembro-de-2026-744426998",
+     "referencia": "DOU de 16/11/2026, Seção: 1, p. 297"
+    }
+   ],
    "nome": "Federal (DOU)",
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
+    {
+     "id": "dou-2026-11-16",
+     "fonte": "dou",
+     "data": "2026-11-16",
+     "dia_semana": "segunda-feira",
+     "titulo": "Consulta pública do Ibama sobre animais silvestres de estimação; comitê da pesca artesanal; rede de dados da pesca; famílias da Resex da Baía do Tubarão",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 16 de novembro de 2026. Hoje são quatro destaques. Três saíram numa edição extra da última sexta-feira: uma consulta pública do Ibama sobre animais silvestres de estimação e duas portarias da pesca. O quarto é de hoje, sobre as famílias beneficiárias de uma reserva extrativista no Maranhão."
+      },
+      {
+       "titulo": "Consulta pública: animais silvestres de estimação",
+       "tema": "Consulta pública",
+       "atos": [
+        {
+         "titulo": "Portaria Ibama nº 214, de 12 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-214-de-12-de-novembro-de-2026-744398936",
+         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 19",
+         "vigencia": "na data da publicação; contribuições em 30 dias corridos"
+        }
+       ],
+       "fala": "Primeiro destaque. A Portaria número 214, do Ibama, abre consulta pública sobre uma proposta de instrução normativa com a lista das espécies silvestres nativas que poderão ser criadas e vendidas como animais de estimação, e com os padrões mínimos de manutenção. Pela proposta, só as espécies da lista poderão ser vendidas, sempre nascidas em criadouro comercial autorizado, com marcação definitiva e certificado de origem; para espécies ameaçadas, só a partir da segunda geração. O criadouro terá de entregar um manual de guarda responsável, e os recintos devem seguir condições mínimas de bem-estar. Ficam proibidos a reprodução, a soltura na natureza, os passeios públicos e a monetização do animal em redes sociais. Criadores e lojas com espécies fora da lista teriam cento e oitenta dias para se desfazer delas. As contribuições são feitas só pela plataforma Brasil Participativo, em trinta dias corridos, contados da publicação, em 13 de novembro."
+      },
+      {
+       "titulo": "Comitê da Pesca Artesanal",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria MPA nº 789, de 11 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-789-de-11-de-novembro-de-2026-744331727",
+         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 21",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Segundo destaque. A Portaria número 789, do Ministério da Pesca e Aquicultura, cria o Comitê da Pesca Artesanal, permanente, dentro do Conselho Nacional de Aquicultura e Pesca. O comitê vai estudar e propor medidas para a pesca artesanal: gargalos de produção, crédito e comercialização, sustentabilidade, adaptação às mudanças climáticas, boas práticas sanitárias, equidade e melhoria dos dados do setor. As propostas têm caráter só opinativo e vão para o plenário do conselho."
+      },
+      {
+       "titulo": "Rede de dados e estatística pesqueira",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria MPA nº 790, de 11 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-790-de-11-de-novembro-de-2026-744331643",
+         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 22",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Terceiro destaque. A Portaria número 790, do mesmo ministério, cria a Rede Colaborativa de Dados e Estatística Pesqueira. A ideia é que órgãos e instituições que já monitoram a pesca compartilhem seus dados com o ministério, com padronização de método, transparência e uso só para fins estatísticos. A entrada na rede é em fluxo contínuo, por pedido, chamamento ou convite, e a lista de participantes fica no site do ministério."
+      },
+      {
+       "titulo": "Famílias beneficiárias da Resex da Baía do Tubarão",
+       "tema": "Flora, florestas e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria ICMBio nº 5.090, de 4 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.090-de-4-de-novembro-de-2026-744413917",
+         "referencia": "DOU de 16/11/2026, Seção 1, p. 304",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Por fim, a Portaria número 5.090, do ICMBio, aprova o perfil das famílias beneficiárias da Reserva Extrativista da Baía do Tubarão, em Humberto de Campos e Icatu, no Maranhão. São famílias reconhecidas como população tradicional que dependem dos recursos da reserva. Além disso, precisam atender a um destes critérios: morar na reserva ou no entorno há pelo menos cinco anos e viver da pesca artesanal; morar e trabalhar ali em funções importantes para a comunidade, como professores e agentes de saúde; ou ser aposentadas das atividades tradicionais. Famílias de fora precisam da aprovação da comunidade e do conselho da reserva."
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "O outro ato ambiental do período trata da organização interna do Ministério do Meio Ambiente. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!"
+      }
+     ],
+     "audio": null,
+     "duracao_s": null
+    },
     {
      "id": "dou-2026-11-13",
      "fonte": "dou",
@@ -245,69 +330,6 @@
        "tema": null,
        "atos": [],
        "fala": "O outro ato ambiental do período trata da organização interna do Ibama. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!"
-      }
-     ],
-     "audio": null,
-     "duracao_s": null
-    },
-    {
-     "id": "dou-2026-11-10",
-     "fonte": "dou",
-     "data": "2026-11-10",
-     "dia_semana": "terça-feira",
-     "titulo": "Consulta pública sobre o registro de aquicultor; plataforma da aquicultura; programa do ICMBio para as juventudes",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de terça-feira, 10 de novembro de 2026. Hoje são três destaques, todos de uma edição extra publicada ontem: uma consulta pública sobre o registro de aquicultor, a nova Plataforma Nacional da Aquicultura e um programa do ICMBio de educação ambiental para as juventudes."
-      },
-      {
-       "titulo": "Consulta pública: registro e licença de aquicultor",
-       "tema": "Consulta pública",
-       "atos": [
-        {
-         "titulo": "Portaria MPA nº 782, de 23 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-782-de-23-de-outubro-de-2026-743190636",
-         "referencia": "DOU de 09/11/2026, Seção 1, Extra A, p. 23",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Primeiro destaque. A Portaria número 782, do Ministério da Pesca e Aquicultura, abre consulta pública sobre a revisão da Portaria 174, de 2023. Ela trata da inscrição no Registro Geral da Atividade Pesqueira na categoria de aquicultor, da concessão da Licença de Aquicultor e do monitoramento da aquicultura. A proposta está no site do ministério e na plataforma Brasil Participativo. As contribuições são feitas só por essa plataforma, no prazo de trinta dias corridos, contados da publicação, no dia 9 de novembro. Quem produz peixe, camarão ou outro cultivo aquático com finalidade comercial deve ficar atento."
-      },
-      {
-       "titulo": "Plataforma Nacional da Aquicultura",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria MPA nº 787, de 4 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-787-de-4-de-novembro-de-2026-743191211",
-         "referencia": "DOU de 09/11/2026, Seção 1, Extra A, p. 22",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Segundo destaque. A Portaria número 787, do mesmo ministério, institui a Plataforma Nacional da Aquicultura. É um ambiente digital único para reunir sistemas, cadastros, dados e serviços do setor. A plataforma vai integrar, aos poucos, o registro de aquicultor, o sistema de autorização de uso de águas da União para a aquicultura e o programa Multiplicadores Aquícolas. A finalidade é apoiar o ordenamento, a fiscalização e o monitoramento da atividade, e dar mais transparência e eficiência aos serviços. A portaria vale desde a publicação."
-      },
-      {
-       "titulo": "Educação ambiental para as juventudes em unidades de conservação",
-       "tema": "Flora e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Portaria ICMBio nº 5.112, de 5 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.112-de-5-de-novembro-de-2026-743191361",
-         "referencia": "DOU de 09/11/2026, Seção 1, Extra A, p. 20",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Por fim, a Portaria número 5.112, do ICMBio, cria o Programa de Educação Ambiental para as Juventudes em Unidades de Conservação federais, com atenção especial aos jovens de povos e comunidades tradicionais. Entre os objetivos estão projetos de educação ambiental feitos com os jovens nos territórios, mais participação deles na gestão das unidades e qualificação profissional, com ênfase na sociobiodiversidade e na agroecologia. As linhas de ação incluem formar jovens educadores ambientais e apoiar a participação em pesquisa e ciência cidadã."
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Na edição de hoje, o único outro ato ambiental geral trata da organização interna do Ibama. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!"
       }
      ],
      "audio": null,
