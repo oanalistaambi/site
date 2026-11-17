@@ -49,7 +49,7 @@
    "inicio_s": 125.6
   }
  ],
- "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-17-6715a3a183.mp3",
+ "audio": "radar/audios/dou-2026-11-17-6715a3a183.mp3",
  "duracao_s": 132,
  "bytes": 1580686,
  "publicado_em": "2026-11-17T06:20:29-03:00"
