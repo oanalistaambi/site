@@ -1,0 +1,56 @@
+{
+ "id": "dou-2026-11-17",
+ "fonte": "dou",
+ "data": "2026-11-17",
+ "dia_semana": "terça-feira",
+ "titulo": "Consulta pública sobre áreas aquícolas em águas da União; regras da pesca de subsistência no Revis de Santa Cruz",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de terça-feira, 17 de novembro de 2026. Hoje são dois destaques: uma consulta pública do Ministério da Pesca e Aquicultura sobre o uso de águas da União para a aquicultura, publicada numa edição extra de ontem, e as regras da pesca de subsistência no Refúgio de Vida Silvestre de Santa Cruz.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Consulta pública: cessão de águas da União para aquicultura",
+   "tema": "Consulta pública",
+   "atos": [
+    {
+     "titulo": "Portaria MPA nº 788, de 11 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-788-de-11-de-novembro-de-2026-744718406",
+     "referencia": "DOU de 16/11/2026, Seção 1, Extra B, p. 47",
+     "vigencia": "18/11/2026; contribuições em 30 dias corridos a partir daí"
+    }
+   ],
+   "fala": "Primeiro destaque. A Portaria número 788, do Ministério da Pesca e Aquicultura, abre consulta pública sobre uma nova norma para a cessão de uso de espaços em corpos d’água de domínio da União para a aquicultura. Ela vai substituir a Portaria 412, de 2021. Pela proposta, as áreas aquícolas se dividem em três tipos: de interesse econômico, para quem produz pescado para vender; de interesse social, para povos e comunidades tradicionais e programas de inclusão; e de pesquisa ou extensão, para instituições sem fins lucrativos. A cessão é individual, e fica proibido dividir ou arrendar a área. A proposta e a análise de impacto regulatório estão no site do ministério e na plataforma Brasil Participativo, por onde as contribuições são enviadas, em trinta dias corridos, a partir de 18 de novembro.",
+   "inicio_s": 27.0
+  },
+  {
+   "titulo": "Pesca de subsistência no Revis de Santa Cruz",
+   "tema": "Flora, florestas e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria ICMBio nº 5.055, de 28 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.055-de-28-de-outubro-de-2026-744747179",
+     "referencia": "DOU de 17/11/2026, Seção 1, p. 59",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Segundo destaque. A Portaria número 5.055, do ICMBio, define as regras da pesca de subsistência no Refúgio de Vida Silvestre de Santa Cruz. Pode pescar quem mora em bairros a até dois quilômetros dos limites do refúgio e se cadastrar no núcleo de gestão do ICMBio; o formulário sai em até sessenta dias, e o cadastro exige declarar a produção. Só embarcações de até seis metros, sem motor, a até mil metros da praia. Nos recifes, vale a coleta manual, com puçá ou gancho. Até mil metros da praia, só linha de mão, vara, puçá-de-siri e tarrafa. Há tamanhos mínimos para lagostas e polvos, e cada pessoa pode levar no máximo dois petrechos.",
+   "inicio_s": 80.5
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+   "inicio_s": 125.6
+  }
+ ],
+ "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-17-6715a3a183.mp3",
+ "duracao_s": 132,
+ "bytes": 1580686,
+ "publicado_em": "2026-11-17T06:20:29-03:00"
+}
