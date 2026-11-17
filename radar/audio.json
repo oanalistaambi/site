@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-17T06:29-03:00",
+ "gerado_em": "2026-11-17T06:32-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -98,7 +98,7 @@
        "inicio_s": 125.6
       }
      ],
-     "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-17-6715a3a183.mp3",
+     "audio": "radar/audios/dou-2026-11-17-6715a3a183.mp3",
      "duracao_s": 132,
      "bytes": 1580686,
      "publicado_em": "2026-11-17T06:20:29-03:00"
@@ -182,7 +182,7 @@
        "inicio_s": 189.5
       }
      ],
-     "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-16-8892649ef3.mp3",
+     "audio": "radar/audios/dou-2026-11-16-8892649ef3.mp3",
      "duracao_s": 201,
      "bytes": 2409813,
      "publicado_em": "2026-11-17T06:20:52-03:00"
@@ -224,7 +224,7 @@
        "inicio_s": 92.6
       }
      ],
-     "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-13-9a953200de.mp3",
+     "audio": "radar/audios/dou-2026-11-13-9a953200de.mp3",
      "duracao_s": 108,
      "bytes": 1292921,
      "publicado_em": "2026-11-17T06:21:04-03:00"
@@ -370,7 +370,7 @@
        "inicio_s": 125.6
       }
      ],
-     "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-17-6715a3a183.mp3",
+     "audio": "radar/audios/dou-2026-11-17-6715a3a183.mp3",
      "duracao_s": 132,
      "bytes": 1580686,
      "publicado_em": "2026-11-17T06:20:29-03:00"
@@ -454,7 +454,7 @@
        "inicio_s": 189.5
       }
      ],
-     "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-16-8892649ef3.mp3",
+     "audio": "radar/audios/dou-2026-11-16-8892649ef3.mp3",
      "duracao_s": 201,
      "bytes": 2409813,
      "publicado_em": "2026-11-17T06:20:52-03:00"
@@ -496,7 +496,7 @@
        "inicio_s": 92.6
       }
      ],
-     "audio": "https://github.com/oanalistaambi/site/releases/download/radar-audios/dou-2026-11-13-9a953200de.mp3",
+     "audio": "radar/audios/dou-2026-11-13-9a953200de.mp3",
      "duracao_s": 108,
      "bytes": 1292921,
      "publicado_em": "2026-11-17T06:21:04-03:00"
