@@ -1,0 +1,63 @@
+{
+ "id": "dou-2026-11-19",
+ "fonte": "dou",
+ "data": "2026-11-19",
+ "dia_semana": "quinta-feira",
+ "titulo": "ICMBio define como se manifesta sobre crédito rural em unidades de conservação; regras para núcleos de sociobioeconomia do Prospera",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de quinta-feira, 19 de novembro de 2026. Hoje são dois destaques: as regras do ICMBio para analisar pedidos de crédito rural em unidades de conservação federais, publicadas numa edição extra de ontem, e os critérios para reconhecer núcleos de desenvolvimento da sociobioeconomia.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Crédito rural em unidades de conservação federais",
+   "tema": "Flora, florestas e unidades de conservação",
+   "atos": [
+    {
+     "titulo": "Portaria ICMBio nº 5.232, de 13 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.232-de-13-de-novembro-de-2026-745255137",
+     "referencia": "DOU de 18/11/2026, Seção 1, Extra A, p. 9",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Primeiro destaque. A Portaria número 5.232, do ICMBio, define como o instituto se manifesta sobre projetos de atividades rurais que pedem crédito rural dentro de unidades de conservação federais. Quem envia o projeto é a instituição financeira. A equipe da unidade analisa se a atividade é compatível com o ato de criação, a categoria, o plano de manejo e as regras para as populações tradicionais, e verifica se há autos de infração ligados ao interessado ou à área. Se não houver problema, o ICMBio emite uma Declaração de Anuência de Atividade Rural; se houver, envia um ofício de impedimento, e cabe recurso. Atenção: a declaração não atesta a regularidade ambiental e não substitui licenças nem autorizações. Se faltar informação, a instituição financeira tem trinta dias úteis para complementar, sob pena de arquivamento.",
+   "inicio_s": 27.7
+  },
+  {
+   "titulo": "Núcleos de sociobioeconomia no Prospera",
+   "tema": "Outras normas ambientais",
+   "atos": [
+    {
+     "titulo": "Resolução CG-Prospera nº 3, de 9 de outubro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/resolucao-cg-prospera-n-3-de-9-de-outubro-de-2026-745282609",
+     "referencia": "DOU de 19/11/2026, Seção 1, p. 82",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "Segundo destaque. O Comitê Gestor do Programa Nacional de Sociobioeconomia, o Prospera, publicou a Resolução número 3, com os critérios para reconhecer, por adesão, Núcleos de Desenvolvimento da Sociobioeconomia. Podem pedir arranjos locais ou regionais com várias instituições, liderados por um negócio da sociobioeconomia ou por uma organização da sociedade civil. A análise considera, entre outros pontos, a participação efetiva de povos e comunidades tradicionais, os negócios beneficiados, o território de atuação, o histórico e a governança do arranjo. O comitê tem até seis meses para decidir, e cabe recurso em cinco dias úteis contra o indeferimento.",
+   "inicio_s": 84.4
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [
+    {
+     "titulo": "Portaria Ibama nº 213, de 14 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-213-de-14-de-novembro-de-2026-744965705",
+     "referencia": "DOU de 18/11/2026, Seção 1",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "O outro ato ambiental do período trata do horário de atendimento do Ibama em Goiás. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+   "inicio_s": 126.2
+  }
+ ],
+ "audio": "radar/audios/dou-2026-11-19-ab9f75bd87.mp3",
+ "duracao_s": 137,
+ "bytes": 1650276,
+ "publicado_em": "2026-11-19T06:13:02-03:00"
+}
