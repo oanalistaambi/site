@@ -1,0 +1,42 @@
+{
+ "id": "dou-2026-11-23",
+ "fonte": "dou",
+ "data": "2026-11-23",
+ "dia_semana": "segunda-feira",
+ "titulo": "Novas regras para a pesca artesanal de lulas no Sudeste e no Sul",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 23 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra da última quinta-feira: as novas regras para a pesca artesanal de lulas no Sudeste e no Sul do país.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Pesca artesanal de lulas no Sudeste e no Sul",
+   "tema": "Fauna, pesca e aquicultura",
+   "atos": [
+    {
+     "titulo": "Portaria Interministerial MPA/MMA nº 76, de 18 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-76-de-18-de-novembro-de-2026-745538471",
+     "referencia": "DOU de 19/11/2026, Seção 1, Extra C, p. 37",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "A Portaria Interministerial número 76, dos Ministérios da Pesca e do Meio Ambiente, define o ordenamento da pesca artesanal de lulas no mar territorial das regiões Sudeste e Sul. A pesca fica permitida de 1º de novembro a 31 de março de cada ano, para pescadores profissionais artesanais, embarcados ou em terra. As embarcações precisam ter arqueação bruta de até vinte e autorização de pesca em modalidades como emalhe costeiro, arrasto de fundo, pesca diversificada costeira ou arrasto de praia. Os petrechos permitidos são linha de mão com zangarilho ou garateia, arrasto de praia, cerco flutuante e tarrafa com malha mínima de um centímetro e meio; a atração luminosa é permitida. O arrasto de fundo não pode ocorrer no defeso das espécies-alvo de cada modalidade, e, nas unidades de conservação, valem a norma e o plano de manejo da unidade. Na venda, é preciso informar o registro da atividade pesqueira na nota do produtor. A portaria vale desde a publicação e revoga a Portaria Interministerial 14, de 2024.",
+   "inicio_s": 21.2
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Os demais atos ambientais do período tratam de outorgas de água e do conselho de uma unidade de conservação. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+   "inicio_s": 89.4
+  }
+ ],
+ "audio": "radar/audios/dou-2026-11-23-a5cb561f18.mp3",
+ "duracao_s": 102,
+ "bytes": 1222704,
+ "publicado_em": "2026-11-23T06:09:26-03:00"
+}

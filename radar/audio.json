@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-19T06:13-03:00",
+ "gerado_em": "2026-11-23T06:11-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -38,15 +38,16 @@
    ],
    "internos": [],
    "nome": "Minas Gerais",
-   "jornal": "Jornal Minas Gerais, Diário do Executivo"
+   "jornal": "Jornal Minas Gerais, Diário do Executivo",
+   "aviso_leitura": "A leitura de hoje falhou; mostrando a última leitura bem-sucedida."
   },
   {
    "id": "dou",
    "janela": [
-    "2026-11-13",
     "2026-11-16",
     "2026-11-17",
-    "2026-11-19"
+    "2026-11-19",
+    "2026-11-23"
    ],
    "temas": [],
    "internos": [],
@@ -54,6 +55,48 @@
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
     {
+     "id": "dou-2026-11-23",
+     "fonte": "dou",
+     "data": "2026-11-23",
+     "dia_semana": "segunda-feira",
+     "titulo": "Novas regras para a pesca artesanal de lulas no Sudeste e no Sul",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 23 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra da última quinta-feira: as novas regras para a pesca artesanal de lulas no Sudeste e no Sul do país.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Pesca artesanal de lulas no Sudeste e no Sul",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria Interministerial MPA/MMA nº 76, de 18 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-76-de-18-de-novembro-de-2026-745538471",
+         "referencia": "DOU de 19/11/2026, Seção 1, Extra C, p. 37",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Portaria Interministerial número 76, dos Ministérios da Pesca e do Meio Ambiente, define o ordenamento da pesca artesanal de lulas no mar territorial das regiões Sudeste e Sul. A pesca fica permitida de 1º de novembro a 31 de março de cada ano, para pescadores profissionais artesanais, embarcados ou em terra. As embarcações precisam ter arqueação bruta de até vinte e autorização de pesca em modalidades como emalhe costeiro, arrasto de fundo, pesca diversificada costeira ou arrasto de praia. Os petrechos permitidos são linha de mão com zangarilho ou garateia, arrasto de praia, cerco flutuante e tarrafa com malha mínima de um centímetro e meio; a atração luminosa é permitida. O arrasto de fundo não pode ocorrer no defeso das espécies-alvo de cada modalidade, e, nas unidades de conservação, valem a norma e o plano de manejo da unidade. Na venda, é preciso informar o registro da atividade pesqueira na nota do produtor. A portaria vale desde a publicação e revoga a Portaria Interministerial 14, de 2024.",
+       "inicio_s": 21.2
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do período tratam de outorgas de água e do conselho de uma unidade de conservação. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 89.4
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-23-a5cb561f18.mp3",
+     "duracao_s": 102,
+     "bytes": 1222704,
+     "publicado_em": "2026-11-23T06:09:26-03:00"
+    },
+    {
      "id": "dou-2026-11-19",
      "fonte": "dou",
      "data": "2026-11-19",
@@ -255,52 +298,52 @@
      "duracao_s": 201,
      "bytes": 2409813,
      "publicado_em": "2026-11-17T06:20:52-03:00"
-    },
-    {
-     "id": "dou-2026-11-13",
-     "fonte": "dou",
-     "data": "2026-11-13",
-     "dia_semana": "sexta-feira",
-     "titulo": "Conama atualiza as regras para episódios críticos de poluição do ar",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de sexta-feira, 13 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: o Conama atualizou as regras para os planos de episódios críticos de poluição do ar.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Planos para episódios críticos de poluição do ar",
-       "tema": "Outras normas ambientais",
-       "atos": [
-        {
-         "titulo": "Resolução Conama nº 518, de 6 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-conama-n-518-de-6-de-novembro-de-2026-744136533",
-         "referencia": "DOU de 12/11/2026, Seção 1, Extra B, p. 14",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "A Resolução número 518, do Conama, estabelece as diretrizes para os Planos para Episódios Críticos de Poluição do Ar e os valores de referência para declarar os estados críticos. São três níveis: atenção, alerta e emergência. No de atenção, intensifica-se a divulgação de informações preventivas; nos de alerta e de emergência, os órgãos responsáveis precisam adotar medidas. Cabe aos órgãos ambientais dos estados e do Distrito Federal elaborar o plano, em até dezoito meses depois da publicação de um guia orientativo, que o Ministério do Meio Ambiente tem dezoito meses para fazer. O plano passa por consulta pública, indica quem declara cada estado e deve divulgar a declaração em sites e aplicativos. Cada órgão também cria um grupo assessor permanente, com saúde, defesa civil, assistência social, cientistas e sociedade civil. Durante alerta e emergência, as fontes de poluição podem sofrer as restrições previstas no plano. O ministério ainda vai criar, no sistema MonitorAr, um alerta para registrar e divulgar esses episódios. A resolução vale desde a publicação e revoga a Resolução 491, de 2018.",
-       "inicio_s": 20.3
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do período tratam de conselhos de unidades de conservação, de licenças de pesca e da organização interna dos órgãos. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
-       "inicio_s": 92.6
-      }
-     ],
-     "audio": "radar/audios/dou-2026-11-13-9a953200de.mp3",
-     "duracao_s": 108,
-     "bytes": 1292921,
-     "publicado_em": "2026-11-17T06:21:04-03:00"
     }
    ],
    "podcast": [
     {
+     "id": "dou-2026-11-23",
+     "fonte": "dou",
+     "data": "2026-11-23",
+     "dia_semana": "segunda-feira",
+     "titulo": "Novas regras para a pesca artesanal de lulas no Sudeste e no Sul",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 23 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra da última quinta-feira: as novas regras para a pesca artesanal de lulas no Sudeste e no Sul do país.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Pesca artesanal de lulas no Sudeste e no Sul",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria Interministerial MPA/MMA nº 76, de 18 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-76-de-18-de-novembro-de-2026-745538471",
+         "referencia": "DOU de 19/11/2026, Seção 1, Extra C, p. 37",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Portaria Interministerial número 76, dos Ministérios da Pesca e do Meio Ambiente, define o ordenamento da pesca artesanal de lulas no mar territorial das regiões Sudeste e Sul. A pesca fica permitida de 1º de novembro a 31 de março de cada ano, para pescadores profissionais artesanais, embarcados ou em terra. As embarcações precisam ter arqueação bruta de até vinte e autorização de pesca em modalidades como emalhe costeiro, arrasto de fundo, pesca diversificada costeira ou arrasto de praia. Os petrechos permitidos são linha de mão com zangarilho ou garateia, arrasto de praia, cerco flutuante e tarrafa com malha mínima de um centímetro e meio; a atração luminosa é permitida. O arrasto de fundo não pode ocorrer no defeso das espécies-alvo de cada modalidade, e, nas unidades de conservação, valem a norma e o plano de manejo da unidade. Na venda, é preciso informar o registro da atividade pesqueira na nota do produtor. A portaria vale desde a publicação e revoga a Portaria Interministerial 14, de 2024.",
+       "inicio_s": 21.2
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do período tratam de outorgas de água e do conselho de uma unidade de conservação. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 89.4
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-23-a5cb561f18.mp3",
+     "duracao_s": 102,
+     "bytes": 1222704,
+     "publicado_em": "2026-11-23T06:09:26-03:00"
+    },
+    {
      "id": "dou-2026-11-19",
      "fonte": "dou",
      "data": "2026-11-19",
@@ -502,48 +545,6 @@
      "duracao_s": 201,
      "bytes": 2409813,
      "publicado_em": "2026-11-17T06:20:52-03:00"
-    },
-    {
-     "id": "dou-2026-11-13",
-     "fonte": "dou",
-     "data": "2026-11-13",
-     "dia_semana": "sexta-feira",
-     "titulo": "Conama atualiza as regras para episódios críticos de poluição do ar",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de sexta-feira, 13 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: o Conama atualizou as regras para os planos de episódios críticos de poluição do ar.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Planos para episódios críticos de poluição do ar",
-       "tema": "Outras normas ambientais",
-       "atos": [
-        {
-         "titulo": "Resolução Conama nº 518, de 6 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-conama-n-518-de-6-de-novembro-de-2026-744136533",
-         "referencia": "DOU de 12/11/2026, Seção 1, Extra B, p. 14",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "A Resolução número 518, do Conama, estabelece as diretrizes para os Planos para Episódios Críticos de Poluição do Ar e os valores de referência para declarar os estados críticos. São três níveis: atenção, alerta e emergência. No de atenção, intensifica-se a divulgação de informações preventivas; nos de alerta e de emergência, os órgãos responsáveis precisam adotar medidas. Cabe aos órgãos ambientais dos estados e do Distrito Federal elaborar o plano, em até dezoito meses depois da publicação de um guia orientativo, que o Ministério do Meio Ambiente tem dezoito meses para fazer. O plano passa por consulta pública, indica quem declara cada estado e deve divulgar a declaração em sites e aplicativos. Cada órgão também cria um grupo assessor permanente, com saúde, defesa civil, assistência social, cientistas e sociedade civil. Durante alerta e emergência, as fontes de poluição podem sofrer as restrições previstas no plano. O ministério ainda vai criar, no sistema MonitorAr, um alerta para registrar e divulgar esses episódios. A resolução vale desde a publicação e revoga a Resolução 491, de 2018.",
-       "inicio_s": 20.3
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do período tratam de conselhos de unidades de conservação, de licenças de pesca e da organização interna dos órgãos. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
-       "inicio_s": 92.6
-      }
-     ],
-     "audio": "radar/audios/dou-2026-11-13-9a953200de.mp3",
-     "duracao_s": 108,
-     "bytes": 1292921,
-     "publicado_em": "2026-11-17T06:21:04-03:00"
     }
    ]
   }
