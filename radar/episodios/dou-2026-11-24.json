@@ -1,0 +1,42 @@
+{
+ "id": "dou-2026-11-24",
+ "fonte": "dou",
+ "data": "2026-11-24",
+ "dia_semana": "terça-feira",
+ "titulo": "ICMBio cria regras para programas de manejo de espécies ameaçadas",
+ "origem": "revisado",
+ "capitulos": [
+  {
+   "titulo": "Abertura",
+   "tema": null,
+   "atos": [],
+   "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de terça-feira, 24 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: as regras do ICMBio para criar programas de manejo populacional de espécies ameaçadas da fauna brasileira.",
+   "inicio_s": 0.0
+  },
+  {
+   "titulo": "Programas de manejo populacional de espécies ameaçadas",
+   "tema": "Fauna, pesca e aquicultura",
+   "atos": [
+    {
+     "titulo": "Instrução Normativa ICMBio nº 26, de 18 de novembro de 2026",
+     "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-icmbio-n-26-de-18-de-novembro-de-2026-745801553",
+     "referencia": "DOU de 23/11/2026, Seção 1, Extra C, p. 17",
+     "vigencia": "na data da publicação"
+    }
+   ],
+   "fala": "A Instrução Normativa número 26, do ICMBio, define como se criam e funcionam os Programas de Manejo Populacional de Espécies Ameaçadas da Fauna Brasileira. O manejo pode ser na natureza, em cativeiro ou integrado, com ações como captura, translocação, transporte e reprodução. O instituto só pode criar o programa para espécies que tenham plano de ação nacional e dependam desse manejo: quando, sem ele, a extinção é provável em até três gerações, ou quando a população pode cair pelo menos trinta por cento em três gerações. Cada programa é instituído por portaria, tem um grupo de acompanhamento e um relatório anual; sem o relatório, o programa pode ser suspenso. Instituições de manejo em cativeiro, como zoológicos, só participam se estiverem regularizadas e assinarem um termo de adesão. Elas respondem pelas autorizações, licenças e custos, e mover, transferir ou expor animais do programa só vale se seguir as recomendações dele. Os animais do programa não podem ser comercializados em nenhuma hipótese. A norma vale desde a publicação e revoga seis portarias anteriores, de 2013 e 2014.",
+   "inicio_s": 22.4
+  },
+  {
+   "titulo": "Fechamento",
+   "tema": null,
+   "atos": [],
+   "fala": "Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+   "inicio_s": 94.0
+  }
+ ],
+ "audio": "radar/audios/dou-2026-11-24-5f80889bd1.mp3",
+ "duracao_s": 100,
+ "bytes": 1199821,
+ "publicado_em": "2026-11-24T06:09:44-03:00"
+}
