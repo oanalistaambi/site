@@ -36,6 +36,8 @@ ok(r.valores.every(v => !/(^|[\s.])(é|éfe|ésse|érre|éle|ême|êne)(?=[\s.]|
 for (const [nome, f] of [["revisado", r.fecho], ["automático", r.fecho_auto]]) {
   ok(!/sint[ée]tic/i.test(f), `fechamento ${nome} não fala em voz sintética`);
   ok(f.split(/\s+/).length <= 20 && /texto oficial/.test(f), `fechamento ${nome} curto e manda conferir o texto oficial (${f.split(/\s+/).length} palavras)`);
+  // 24/11/2026: o áudio não diz que o resumo é de IA (o aviso fica escrito na página); só manda conferir os links
+  ok(!/intelig[êe]ncia artificial|\bIA\b/i.test(f) && /links/.test(f), `fechamento ${nome} sem falar de IA e com os links`);
 }
 console.log(falhas ? `${falhas} falha(s)` : "tudo certo");
 process.exit(falhas ? 1 : 0);

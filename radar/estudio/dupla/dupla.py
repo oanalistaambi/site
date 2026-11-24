@@ -4,7 +4,8 @@
 Uso:  python3 -I radar/estudio/dupla/dupla.py ROTEIRO.json PASTA_SAIDA [AAAA-MM-DD]
 
 ROTEIRO.json: {"federal": [["f","fala da Clara"],["m","fala do Bento"], ...], "minas": [...]}
-Gera, para cada chave, dupla-CHAVE-DATA.mp3 e .ogg (o .ogg é para o WhatsApp). Não vai para o git (áudio).
+Gera, para cada chave, SÓ dupla-CHAVE-DATA.ogg (pedido do Francisco, 24/11/2026: um formato só, para o WhatsApp). Não vai para o git (áudio).
+Roteiro: sem apresentar os nomes das vozes (nada de "eu sou a Clara") e sem dizer que o resumo é de IA; fechar só com "Confira o texto oficial pelos links."
 A chave do Google vem da variável de ambiente GOOGLE_TTS_API_KEY (nunca imprimir nem gravar em arquivo).
 Pronúncia das siglas: radar/gerador/fonetica.py. Elenco: Clara = Callirrhoe, Bento = Charon.
 Música de fundo sintética bem baixa, com redução automática enquanto alguém fala.
@@ -69,14 +70,15 @@ def main():
             for fr in ac[k % 4]:
                 m += seg * e * (np.sin(2 * np.pi * fr * tt) + 0.25 * np.sin(2 * np.pi * fr * 2 * tt))
         (saida / "v.f32").write_bytes(v.tobytes()); (saida / "m.f32").write_bytes((m / np.abs(m).max() * 0.5).astype(np.float32).tobytes())
-        mp3 = saida / f"dupla-{nome}-{data}.mp3"
+        mp3 = saida / f"_tmp-{nome}.mp3"  # intermediário, apagado no fim
         ff("-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", str(saida / "v.f32"), "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", str(saida / "m.f32"),
            "-filter_complex",
            f"[0]highpass=f=70,acompressor=threshold=-20dB:ratio=2.5:attack=8:release=150,loudnorm=I=-16:TP=-1.5,asplit[v][vs];"
            f"[1]lowpass=f=2000,volume=0.07,afade=t=in:d=0.8,afade=t=out:st={dur - 2.5}:d=2.5[mu];[mu][vs]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=450[md];"
            "[v][md]amix=inputs=2:normalize=0,alimiter=limit=0.95",
            "-ar", str(SR), "-ac", "1", "-b:a", "96k", "-metadata", f"title=Ambiental Inteligência, {nome}, {data} (dupla)", str(mp3))
-        ff("-i", str(mp3), "-c:a", "libopus", "-b:a", "48k", "-ar", "48000", "-ac", "1", str(mp3.with_suffix(".ogg")))
+        ff("-i", str(mp3), "-c:a", "libopus", "-b:a", "48k", "-ar", "48000", "-ac", "1", str(saida / f"dupla-{nome}-{data}.ogg"))
+        mp3.unlink()
         print(nome, round(dur, 1), "s")
 
 
