@@ -1,5 +1,5 @@
 {
- "gerado_em": "2026-11-17T06:32-03:00",
+ "gerado_em": "2026-11-24T06:09-03:00",
  "dias": 2,
  "voz": {
   "nome": "Jerri (voz sintética do ElevenLabs)",
@@ -9,45 +9,199 @@
   {
    "id": "mg",
    "janela": [
-    "2026-11-17"
+    "2026-11-18",
+    "2026-11-19"
    ],
-   "temas": [],
-   "internos": [
+   "temas": [
     {
-     "data": "2026-11-17",
-     "orgao": "Arsae",
-     "titulo": "Portaria ARSAE-MG nº 418, de 13 de novembro de 2026",
-     "ementa": "Altera a Portaria Arsae-MG nº 414, de 30 de setembro de 2026, que dispõe sobre o cronograma de execução do regime de teletrabalho na Agência Reguladora de Saneamento e Energia de Minas Gerais (Arsae-MG), para permitir a flexibilização dos dias de trabalho presencial, e dá outras providências.",
-     "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-17T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A12%7D",
-     "referencia": "Jornal Minas Gerais, Diário do Executivo de 17/11/2026, p. 12, código de autenticidade 3202611166935490612"
+     "id": "flora",
+     "nome": "Flora, florestas e unidades de conservação",
+     "roteiro": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Portaria IEF nº 95, de 18 de novembro 2026, publicada em 19 de novembro. Dispõe sobre a instituição de comissões especiais de inventário. A ementa continua no texto oficial. Fica revogada a Portaria IEF nº 78, de 19 de novembro de 2025. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "fala": "Flora, florestas e unidades de conservação, no Diário Oficial de Minas Gerais. Portaria I.E.F. número 95, de 18 de novembro 2026, publicada em 19 de novembro. Dispõe sobre a instituição de comissões especiais de inventário. A ementa continua no texto oficial. Fica revogada a Portaria I.E.F. número 78, de 19 de novembro de 2025. Esta portaria entra em vigor na data de sua publicação. Confira o texto oficial no link da página.",
+     "audio": null,
+     "duracao_s": null,
+     "atos": [
+      {
+       "data": "2026-11-19",
+       "orgao": "IEF",
+       "titulo": "Portaria IEF nº 95, de 18 de novembro 2026",
+       "ementa": "Dispõe sobre a instituição de comissões especiais de inventário, a que se refere o art. 3º do Decreto nº 49.312, de 14 de novembro de 2026, no âmbito do Instituto Estadual de Florestas.",
+       "trechos": {
+        "vigencia": "Esta portaria entra em vigor na data de sua publicação",
+        "revoga": "Fica revogada a Portaria IEF nº 78, de 19 de novembro de 2025"
+       },
+       "link": "https://www.jornalminasgerais.mg.gov.br/edicao-do-dia?dados=%7B%22dataPublicacaoSelecionada%22%3A%222026-11-19T12%3A00%3A00%22%2C%22paginaSelecionada%22%3A14%7D",
+       "referencia": "Jornal Minas Gerais, Diário do Executivo de 19/11/2026, p. 14, código de autenticidade 3202611192774618214"
+      }
+     ]
     }
    ],
+   "internos": [],
    "nome": "Minas Gerais",
-   "jornal": "Jornal Minas Gerais, Diário do Executivo"
+   "jornal": "Jornal Minas Gerais, Diário do Executivo",
+   "aviso_leitura": "A leitura de hoje falhou; mostrando a última leitura bem-sucedida."
   },
   {
    "id": "dou",
    "janela": [
-    "2026-11-12",
-    "2026-11-13",
-    "2026-11-16",
-    "2026-11-17"
+    "2026-11-17",
+    "2026-11-19",
+    "2026-11-23",
+    "2026-11-24"
    ],
    "temas": [],
-   "internos": [
-    {
-     "data": "2026-11-16",
-     "orgao": "Ministério do Meio Ambiente",
-     "titulo": "Portaria GM/MMA nº 1.818, de 12 de novembro de 2026",
-     "ementa": "Aprova o Regimento Interno da Subsecretaria de Planejamento, Orçamento e Administração, unidade organizacional vinculada à Secretaria-Executiva do Ministério do Meio Ambiente e Mudança do Clima.",
-     "link": "https://www.in.gov.br/web/dou/-/portaria-gm/mma-n-1.818-de-12-de-novembro-de-2026-744426998",
-     "referencia": "DOU de 16/11/2026, Seção: 1, p. 297"
-    }
-   ],
+   "internos": [],
    "nome": "Federal (DOU)",
    "jornal": "Diário Oficial da União, Seção 1",
    "episodios": [
     {
+     "id": "dou-2026-11-24",
+     "fonte": "dou",
+     "data": "2026-11-24",
+     "dia_semana": "terça-feira",
+     "titulo": "ICMBio cria regras para programas de manejo de espécies ameaçadas",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de terça-feira, 24 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: as regras do ICMBio para criar programas de manejo populacional de espécies ameaçadas da fauna brasileira.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Programas de manejo populacional de espécies ameaçadas",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Instrução Normativa ICMBio nº 26, de 18 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-icmbio-n-26-de-18-de-novembro-de-2026-745801553",
+         "referencia": "DOU de 23/11/2026, Seção 1, Extra C, p. 17",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Instrução Normativa número 26, do ICMBio, define como se criam e funcionam os Programas de Manejo Populacional de Espécies Ameaçadas da Fauna Brasileira. O manejo pode ser na natureza, em cativeiro ou integrado, com ações como captura, translocação, transporte e reprodução. O instituto só pode criar o programa para espécies que tenham plano de ação nacional e dependam desse manejo: quando, sem ele, a extinção é provável em até três gerações, ou quando a população pode cair pelo menos trinta por cento em três gerações. Cada programa é instituído por portaria, tem um grupo de acompanhamento e um relatório anual; sem o relatório, o programa pode ser suspenso. Instituições de manejo em cativeiro, como zoológicos, só participam se estiverem regularizadas e assinarem um termo de adesão. Elas respondem pelas autorizações, licenças e custos, e mover, transferir ou expor animais do programa só vale se seguir as recomendações dele. Os animais do programa não podem ser comercializados em nenhuma hipótese. A norma vale desde a publicação e revoga seis portarias anteriores, de 2013 e 2014.",
+       "inicio_s": 22.4
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 94.0
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-24-5f80889bd1.mp3",
+     "duracao_s": 100,
+     "bytes": 1199821,
+     "publicado_em": "2026-11-24T06:09:44-03:00"
+    },
+    {
+     "id": "dou-2026-11-23",
+     "fonte": "dou",
+     "data": "2026-11-23",
+     "dia_semana": "segunda-feira",
+     "titulo": "Novas regras para a pesca artesanal de lulas no Sudeste e no Sul",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 23 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra da última quinta-feira: as novas regras para a pesca artesanal de lulas no Sudeste e no Sul do país.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Pesca artesanal de lulas no Sudeste e no Sul",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria Interministerial MPA/MMA nº 76, de 18 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-76-de-18-de-novembro-de-2026-745538471",
+         "referencia": "DOU de 19/11/2026, Seção 1, Extra C, p. 37",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Portaria Interministerial número 76, dos Ministérios da Pesca e do Meio Ambiente, define o ordenamento da pesca artesanal de lulas no mar territorial das regiões Sudeste e Sul. A pesca fica permitida de 1º de novembro a 31 de março de cada ano, para pescadores profissionais artesanais, embarcados ou em terra. As embarcações precisam ter arqueação bruta de até vinte e autorização de pesca em modalidades como emalhe costeiro, arrasto de fundo, pesca diversificada costeira ou arrasto de praia. Os petrechos permitidos são linha de mão com zangarilho ou garateia, arrasto de praia, cerco flutuante e tarrafa com malha mínima de um centímetro e meio; a atração luminosa é permitida. O arrasto de fundo não pode ocorrer no defeso das espécies-alvo de cada modalidade, e, nas unidades de conservação, valem a norma e o plano de manejo da unidade. Na venda, é preciso informar o registro da atividade pesqueira na nota do produtor. A portaria vale desde a publicação e revoga a Portaria Interministerial 14, de 2024.",
+       "inicio_s": 21.2
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do período tratam de outorgas de água e do conselho de uma unidade de conservação. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 89.4
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-23-a5cb561f18.mp3",
+     "duracao_s": 102,
+     "bytes": 1222704,
+     "publicado_em": "2026-11-23T06:09:26-03:00"
+    },
+    {
+     "id": "dou-2026-11-19",
+     "fonte": "dou",
+     "data": "2026-11-19",
+     "dia_semana": "quinta-feira",
+     "titulo": "ICMBio define como se manifesta sobre crédito rural em unidades de conservação; regras para núcleos de sociobioeconomia do Prospera",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de quinta-feira, 19 de novembro de 2026. Hoje são dois destaques: as regras do ICMBio para analisar pedidos de crédito rural em unidades de conservação federais, publicadas numa edição extra de ontem, e os critérios para reconhecer núcleos de desenvolvimento da sociobioeconomia.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Crédito rural em unidades de conservação federais",
+       "tema": "Flora, florestas e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria ICMBio nº 5.232, de 13 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.232-de-13-de-novembro-de-2026-745255137",
+         "referencia": "DOU de 18/11/2026, Seção 1, Extra A, p. 9",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Primeiro destaque. A Portaria número 5.232, do ICMBio, define como o instituto se manifesta sobre projetos de atividades rurais que pedem crédito rural dentro de unidades de conservação federais. Quem envia o projeto é a instituição financeira. A equipe da unidade analisa se a atividade é compatível com o ato de criação, a categoria, o plano de manejo e as regras para as populações tradicionais, e verifica se há autos de infração ligados ao interessado ou à área. Se não houver problema, o ICMBio emite uma Declaração de Anuência de Atividade Rural; se houver, envia um ofício de impedimento, e cabe recurso. Atenção: a declaração não atesta a regularidade ambiental e não substitui licenças nem autorizações. Se faltar informação, a instituição financeira tem trinta dias úteis para complementar, sob pena de arquivamento.",
+       "inicio_s": 27.7
+      },
+      {
+       "titulo": "Núcleos de sociobioeconomia no Prospera",
+       "tema": "Outras normas ambientais",
+       "atos": [
+        {
+         "titulo": "Resolução CG-Prospera nº 3, de 9 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/resolucao-cg-prospera-n-3-de-9-de-outubro-de-2026-745282609",
+         "referencia": "DOU de 19/11/2026, Seção 1, p. 82",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Segundo destaque. O Comitê Gestor do Programa Nacional de Sociobioeconomia, o Prospera, publicou a Resolução número 3, com os critérios para reconhecer, por adesão, Núcleos de Desenvolvimento da Sociobioeconomia. Podem pedir arranjos locais ou regionais com várias instituições, liderados por um negócio da sociobioeconomia ou por uma organização da sociedade civil. A análise considera, entre outros pontos, a participação efetiva de povos e comunidades tradicionais, os negócios beneficiados, o território de atuação, o histórico e a governança do arranjo. O comitê tem até seis meses para decidir, e cabe recurso em cinco dias úteis contra o indeferimento.",
+       "inicio_s": 84.4
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [
+        {
+         "titulo": "Portaria Ibama nº 213, de 14 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-213-de-14-de-novembro-de-2026-744965705",
+         "referencia": "DOU de 18/11/2026, Seção 1",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "O outro ato ambiental do período trata do horário de atendimento do Ibama em Goiás. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 126.2
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-19-ab9f75bd87.mp3",
+     "duracao_s": 137,
+     "bytes": 1650276,
+     "publicado_em": "2026-11-19T06:13:02-03:00"
+    },
+    {
      "id": "dou-2026-11-17",
      "fonte": "dou",
      "data": "2026-11-17",
@@ -102,224 +256,157 @@
      "duracao_s": 132,
      "bytes": 1580686,
      "publicado_em": "2026-11-17T06:20:29-03:00"
-    },
-    {
-     "id": "dou-2026-11-16",
-     "fonte": "dou",
-     "data": "2026-11-16",
-     "dia_semana": "segunda-feira",
-     "titulo": "Consulta pública do Ibama sobre animais silvestres de estimação; comitê da pesca artesanal; rede de dados da pesca; famílias da Resex da Baía do Tubarão",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 16 de novembro de 2026. Hoje são quatro destaques. Três saíram numa edição extra da última sexta-feira: uma consulta pública do Ibama sobre animais silvestres de estimação e duas portarias da pesca. O quarto é de hoje, sobre as famílias beneficiárias de uma reserva extrativista no Maranhão.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Consulta pública: animais silvestres de estimação",
-       "tema": "Consulta pública",
-       "atos": [
-        {
-         "titulo": "Portaria Ibama nº 214, de 12 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-214-de-12-de-novembro-de-2026-744398936",
-         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 19",
-         "vigencia": "na data da publicação; contribuições em 30 dias corridos"
-        }
-       ],
-       "fala": "Primeiro destaque. A Portaria número 214, do Ibama, abre consulta pública sobre uma proposta de instrução normativa com a lista das espécies silvestres nativas que poderão ser criadas e vendidas como animais de estimação, e com os padrões mínimos de manutenção. Pela proposta, só as espécies da lista poderão ser vendidas, sempre nascidas em criadouro comercial autorizado, com marcação definitiva e certificado de origem; para espécies ameaçadas, só a partir da segunda geração. O criadouro terá de entregar um manual de guarda responsável, e os recintos devem seguir condições mínimas de bem-estar. Ficam proibidos a reprodução, a soltura na natureza, os passeios públicos e a monetização do animal em redes sociais. Criadores e lojas com espécies fora da lista teriam cento e oitenta dias para se desfazer delas. As contribuições são feitas só pela plataforma Brasil Participativo, em trinta dias corridos, contados da publicação, em 13 de novembro.",
-       "inicio_s": 27.4
-      },
-      {
-       "titulo": "Comitê da Pesca Artesanal",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria MPA nº 789, de 11 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-789-de-11-de-novembro-de-2026-744331727",
-         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 21",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Segundo destaque. A Portaria número 789, do Ministério da Pesca e Aquicultura, cria o Comitê da Pesca Artesanal, permanente, dentro do Conselho Nacional de Aquicultura e Pesca. O comitê vai estudar e propor medidas para a pesca artesanal: gargalos de produção, crédito e comercialização, sustentabilidade, adaptação às mudanças climáticas, boas práticas sanitárias, equidade e melhoria dos dados do setor. As propostas têm caráter só opinativo e vão para o plenário do conselho.",
-       "inicio_s": 85.3
-      },
-      {
-       "titulo": "Rede de dados e estatística pesqueira",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria MPA nº 790, de 11 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-790-de-11-de-novembro-de-2026-744331643",
-         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 22",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Terceiro destaque. A Portaria número 790, do mesmo ministério, cria a Rede Colaborativa de Dados e Estatística Pesqueira. A ideia é que órgãos e instituições que já monitoram a pesca compartilhem seus dados com o ministério, com padronização de método, transparência e uso só para fins estatísticos. A entrada na rede é em fluxo contínuo, por pedido, chamamento ou convite, e a lista de participantes fica no site do ministério.",
-       "inicio_s": 118.8
-      },
-      {
-       "titulo": "Famílias beneficiárias da Resex da Baía do Tubarão",
-       "tema": "Flora, florestas e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Portaria ICMBio nº 5.090, de 4 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.090-de-4-de-novembro-de-2026-744413917",
-         "referencia": "DOU de 16/11/2026, Seção 1, p. 304",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Por fim, a Portaria número 5.090, do ICMBio, aprova o perfil das famílias beneficiárias da Reserva Extrativista da Baía do Tubarão, em Humberto de Campos e Icatu, no Maranhão. São famílias reconhecidas como população tradicional que dependem dos recursos da reserva. Além disso, precisam atender a um destes critérios: morar na reserva ou no entorno há pelo menos cinco anos e viver da pesca artesanal; morar e trabalhar ali em funções importantes para a comunidade, como professores e agentes de saúde; ou ser aposentadas das atividades tradicionais. Famílias de fora precisam da aprovação da comunidade e do conselho da reserva.",
-       "inicio_s": 148.0
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "O outro ato ambiental do período trata da organização interna do Ministério do Meio Ambiente. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
-       "inicio_s": 189.5
-      }
-     ],
-     "audio": "radar/audios/dou-2026-11-16-8892649ef3.mp3",
-     "duracao_s": 201,
-     "bytes": 2409813,
-     "publicado_em": "2026-11-17T06:20:52-03:00"
-    },
-    {
-     "id": "dou-2026-11-13",
-     "fonte": "dou",
-     "data": "2026-11-13",
-     "dia_semana": "sexta-feira",
-     "titulo": "Conama atualiza as regras para episódios críticos de poluição do ar",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de sexta-feira, 13 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: o Conama atualizou as regras para os planos de episódios críticos de poluição do ar.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Planos para episódios críticos de poluição do ar",
-       "tema": "Outras normas ambientais",
-       "atos": [
-        {
-         "titulo": "Resolução Conama nº 518, de 6 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-conama-n-518-de-6-de-novembro-de-2026-744136533",
-         "referencia": "DOU de 12/11/2026, Seção 1, Extra B, p. 14",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "A Resolução número 518, do Conama, estabelece as diretrizes para os Planos para Episódios Críticos de Poluição do Ar e os valores de referência para declarar os estados críticos. São três níveis: atenção, alerta e emergência. No de atenção, intensifica-se a divulgação de informações preventivas; nos de alerta e de emergência, os órgãos responsáveis precisam adotar medidas. Cabe aos órgãos ambientais dos estados e do Distrito Federal elaborar o plano, em até dezoito meses depois da publicação de um guia orientativo, que o Ministério do Meio Ambiente tem dezoito meses para fazer. O plano passa por consulta pública, indica quem declara cada estado e deve divulgar a declaração em sites e aplicativos. Cada órgão também cria um grupo assessor permanente, com saúde, defesa civil, assistência social, cientistas e sociedade civil. Durante alerta e emergência, as fontes de poluição podem sofrer as restrições previstas no plano. O ministério ainda vai criar, no sistema MonitorAr, um alerta para registrar e divulgar esses episódios. A resolução vale desde a publicação e revoga a Resolução 491, de 2018.",
-       "inicio_s": 20.3
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do período tratam de conselhos de unidades de conservação, de licenças de pesca e da organização interna dos órgãos. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
-       "inicio_s": 92.6
-      }
-     ],
-     "audio": "radar/audios/dou-2026-11-13-9a953200de.mp3",
-     "duracao_s": 108,
-     "bytes": 1292921,
-     "publicado_em": "2026-11-17T06:21:04-03:00"
-    },
-    {
-     "id": "dou-2026-11-12",
-     "fonte": "dou",
-     "data": "2026-11-12",
-     "dia_semana": "quinta-feira",
-     "titulo": "Plano para as lagoas do Sul; grupos técnicos de REDD+; brigada do Prevfogo em Boa Vista; transposição do São Francisco",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de quinta-feira, 12 de novembro de 2026. Hoje são quatro destaques: o novo plano de conservação das lagoas do Sul do Brasil e três grupos técnicos de REDD+, os dois publicados em edições extras de ontem; uma brigada do Prevfogo em Roraima; e uma revisão no plano de gestão da transposição do São Francisco."
-      },
-      {
-       "titulo": "Plano de ação para as lagoas do Sul",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria ICMBio nº 5.131, de 6 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.131-de-6-de-novembro-de-2026-743853108",
-         "referencia": "DOU de 11/11/2026, Seção 1, Extra A, p. 2",
-         "vigencia": "na data da publicação; plano de 1º/12/2026 a 1º/12/2031"
-        }
-       ],
-       "fala": "Primeiro destaque. A Portaria número 5.131, do ICMBio, aprova o segundo ciclo do Plano de Ação Nacional para a Conservação dos Sistemas Lacustres e Lagunares do Sul do Brasil, o PAN Lagoas do Sul. Ele traz estratégias para noventa e sete espécies da fauna ameaçadas de extinção, entre elas a toninha e o mero, que estão na categoria criticamente em perigo. O objetivo é restaurar e conservar o território, garantindo os modos de vida tradicionais e sustentáveis. O plano vale de 1º de dezembro de 2026 a 1º de dezembro de 2031, com monitoramento anual e avaliação no meio e no fim do ciclo."
-      },
-      {
-       "titulo": "Conaredd+ cria três grupos técnicos",
-       "tema": "Flora, florestas e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Resolução Conaredd+ nº 24, de 30 de julho de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-conaredd-n-24-de-30-de-julho-de-2026-743853888",
-         "referencia": "DOU de 11/11/2026, Seção 1, Extra B, p. 7",
-         "vigencia": "na data da publicação"
-        },
-        {
-         "titulo": "Resolução Conaredd+ nº 25, de 30 de julho de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-conaredd-n-25-de-30-de-julho-de-2026-743853085",
-         "referencia": "DOU de 11/11/2026, Seção 1, Extra A, p. 1",
-         "vigencia": "na data da publicação"
-        },
-        {
-         "titulo": "Resolução Conaredd+ nº 26, de 30 de julho de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-conaredd-n-26-de-30-de-julho-de-2026-743853911",
-         "referencia": "DOU de 11/11/2026, Seção 1, Extra B, p. 8",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Segundo destaque. A Comissão Nacional para REDD+, que cuida da redução de emissões por desmatamento e degradação florestal, criou três grupos de trabalho técnico. Um sobre salvaguardas. Outro sobre mensuração, relatoria e verificação das reduções de emissões. E um terceiro sobre repartição de benefícios, que vai assessorar a comissão na definição do percentual destinado aos entes federativos e na divisão dos benefícios dos programas e projetos de REDD+."
-      },
-      {
-       "titulo": "Brigada do Prevfogo em Boa Vista",
-       "tema": "Outras normas ambientais",
-       "atos": [
-        {
-         "titulo": "Portaria Ibama nº 211, de 10 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-211-de-10-de-novembro-de-2026-743880439",
-         "referencia": "DOU de 12/11/2026, Seção 1, p. 72",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Terceiro destaque. A Portaria número 211, do Ibama, restabelece a redação original de um artigo da portaria que autoriza o Prevfogo a contratar brigadas federais de prevenção e combate a incêndios florestais. Com isso, fica autorizada uma brigada especializada temporária, de pronto emprego, em Boa Vista, Roraima, com dois chefes de brigada, quatro chefes de esquadrão e vinte e quatro brigadistas. A portaria revoga a Portaria 165, de agosto."
-      },
-      {
-       "titulo": "Transposição do São Francisco: revisão do plano anual",
-       "tema": "Água, outorga e saneamento",
-       "atos": [
-        {
-         "titulo": "Portaria Normativa ANA nº 579, de 6 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-normativa-ana-n-579-de-6-de-novembro-de-2026-743868618",
-         "referencia": "DOU de 12/11/2026, Seção 1, p. 68",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Por fim, a Portaria Normativa número 579, da ANA, aprova em parte a sexta revisão do Plano de Gestão Anual de 2026 do Projeto de Integração do Rio São Francisco. Mudam a repartição das vazões e volumes disponibilizados a Pernambuco no Eixo Leste e as condições de bombeamento desse eixo. As tabelas estão no site da ANA."
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do período tratam da organização interna dos órgãos. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!"
-      }
-     ],
-     "audio": null,
-     "duracao_s": null
     }
    ],
    "podcast": [
     {
+     "id": "dou-2026-11-24",
+     "fonte": "dou",
+     "data": "2026-11-24",
+     "dia_semana": "terça-feira",
+     "titulo": "ICMBio cria regras para programas de manejo de espécies ameaçadas",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de terça-feira, 24 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: as regras do ICMBio para criar programas de manejo populacional de espécies ameaçadas da fauna brasileira.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Programas de manejo populacional de espécies ameaçadas",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Instrução Normativa ICMBio nº 26, de 18 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/instrucao-normativa-icmbio-n-26-de-18-de-novembro-de-2026-745801553",
+         "referencia": "DOU de 23/11/2026, Seção 1, Extra C, p. 17",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Instrução Normativa número 26, do ICMBio, define como se criam e funcionam os Programas de Manejo Populacional de Espécies Ameaçadas da Fauna Brasileira. O manejo pode ser na natureza, em cativeiro ou integrado, com ações como captura, translocação, transporte e reprodução. O instituto só pode criar o programa para espécies que tenham plano de ação nacional e dependam desse manejo: quando, sem ele, a extinção é provável em até três gerações, ou quando a população pode cair pelo menos trinta por cento em três gerações. Cada programa é instituído por portaria, tem um grupo de acompanhamento e um relatório anual; sem o relatório, o programa pode ser suspenso. Instituições de manejo em cativeiro, como zoológicos, só participam se estiverem regularizadas e assinarem um termo de adesão. Elas respondem pelas autorizações, licenças e custos, e mover, transferir ou expor animais do programa só vale se seguir as recomendações dele. Os animais do programa não podem ser comercializados em nenhuma hipótese. A norma vale desde a publicação e revoga seis portarias anteriores, de 2013 e 2014.",
+       "inicio_s": 22.4
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 94.0
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-24-5f80889bd1.mp3",
+     "duracao_s": 100,
+     "bytes": 1199821,
+     "publicado_em": "2026-11-24T06:09:44-03:00"
+    },
+    {
+     "id": "dou-2026-11-23",
+     "fonte": "dou",
+     "data": "2026-11-23",
+     "dia_semana": "segunda-feira",
+     "titulo": "Novas regras para a pesca artesanal de lulas no Sudeste e no Sul",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 23 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra da última quinta-feira: as novas regras para a pesca artesanal de lulas no Sudeste e no Sul do país.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Pesca artesanal de lulas no Sudeste e no Sul",
+       "tema": "Fauna, pesca e aquicultura",
+       "atos": [
+        {
+         "titulo": "Portaria Interministerial MPA/MMA nº 76, de 18 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-interministerial-mpa/mma-n-76-de-18-de-novembro-de-2026-745538471",
+         "referencia": "DOU de 19/11/2026, Seção 1, Extra C, p. 37",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "A Portaria Interministerial número 76, dos Ministérios da Pesca e do Meio Ambiente, define o ordenamento da pesca artesanal de lulas no mar territorial das regiões Sudeste e Sul. A pesca fica permitida de 1º de novembro a 31 de março de cada ano, para pescadores profissionais artesanais, embarcados ou em terra. As embarcações precisam ter arqueação bruta de até vinte e autorização de pesca em modalidades como emalhe costeiro, arrasto de fundo, pesca diversificada costeira ou arrasto de praia. Os petrechos permitidos são linha de mão com zangarilho ou garateia, arrasto de praia, cerco flutuante e tarrafa com malha mínima de um centímetro e meio; a atração luminosa é permitida. O arrasto de fundo não pode ocorrer no defeso das espécies-alvo de cada modalidade, e, nas unidades de conservação, valem a norma e o plano de manejo da unidade. Na venda, é preciso informar o registro da atividade pesqueira na nota do produtor. A portaria vale desde a publicação e revoga a Portaria Interministerial 14, de 2024.",
+       "inicio_s": 21.2
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [],
+       "fala": "Os demais atos ambientais do período tratam de outorgas de água e do conselho de uma unidade de conservação. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 89.4
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-23-a5cb561f18.mp3",
+     "duracao_s": 102,
+     "bytes": 1222704,
+     "publicado_em": "2026-11-23T06:09:26-03:00"
+    },
+    {
+     "id": "dou-2026-11-19",
+     "fonte": "dou",
+     "data": "2026-11-19",
+     "dia_semana": "quinta-feira",
+     "titulo": "ICMBio define como se manifesta sobre crédito rural em unidades de conservação; regras para núcleos de sociobioeconomia do Prospera",
+     "origem": "revisado",
+     "capitulos": [
+      {
+       "titulo": "Abertura",
+       "tema": null,
+       "atos": [],
+       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de quinta-feira, 19 de novembro de 2026. Hoje são dois destaques: as regras do ICMBio para analisar pedidos de crédito rural em unidades de conservação federais, publicadas numa edição extra de ontem, e os critérios para reconhecer núcleos de desenvolvimento da sociobioeconomia.",
+       "inicio_s": 0.0
+      },
+      {
+       "titulo": "Crédito rural em unidades de conservação federais",
+       "tema": "Flora, florestas e unidades de conservação",
+       "atos": [
+        {
+         "titulo": "Portaria ICMBio nº 5.232, de 13 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.232-de-13-de-novembro-de-2026-745255137",
+         "referencia": "DOU de 18/11/2026, Seção 1, Extra A, p. 9",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Primeiro destaque. A Portaria número 5.232, do ICMBio, define como o instituto se manifesta sobre projetos de atividades rurais que pedem crédito rural dentro de unidades de conservação federais. Quem envia o projeto é a instituição financeira. A equipe da unidade analisa se a atividade é compatível com o ato de criação, a categoria, o plano de manejo e as regras para as populações tradicionais, e verifica se há autos de infração ligados ao interessado ou à área. Se não houver problema, o ICMBio emite uma Declaração de Anuência de Atividade Rural; se houver, envia um ofício de impedimento, e cabe recurso. Atenção: a declaração não atesta a regularidade ambiental e não substitui licenças nem autorizações. Se faltar informação, a instituição financeira tem trinta dias úteis para complementar, sob pena de arquivamento.",
+       "inicio_s": 27.7
+      },
+      {
+       "titulo": "Núcleos de sociobioeconomia no Prospera",
+       "tema": "Outras normas ambientais",
+       "atos": [
+        {
+         "titulo": "Resolução CG-Prospera nº 3, de 9 de outubro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/resolucao-cg-prospera-n-3-de-9-de-outubro-de-2026-745282609",
+         "referencia": "DOU de 19/11/2026, Seção 1, p. 82",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "Segundo destaque. O Comitê Gestor do Programa Nacional de Sociobioeconomia, o Prospera, publicou a Resolução número 3, com os critérios para reconhecer, por adesão, Núcleos de Desenvolvimento da Sociobioeconomia. Podem pedir arranjos locais ou regionais com várias instituições, liderados por um negócio da sociobioeconomia ou por uma organização da sociedade civil. A análise considera, entre outros pontos, a participação efetiva de povos e comunidades tradicionais, os negócios beneficiados, o território de atuação, o histórico e a governança do arranjo. O comitê tem até seis meses para decidir, e cabe recurso em cinco dias úteis contra o indeferimento.",
+       "inicio_s": 84.4
+      },
+      {
+       "titulo": "Fechamento",
+       "tema": null,
+       "atos": [
+        {
+         "titulo": "Portaria Ibama nº 213, de 14 de novembro de 2026",
+         "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-213-de-14-de-novembro-de-2026-744965705",
+         "referencia": "DOU de 18/11/2026, Seção 1",
+         "vigencia": "na data da publicação"
+        }
+       ],
+       "fala": "O outro ato ambiental do período trata do horário de atendimento do Ibama em Goiás. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
+       "inicio_s": 126.2
+      }
+     ],
+     "audio": "radar/audios/dou-2026-11-19-ab9f75bd87.mp3",
+     "duracao_s": 137,
+     "bytes": 1650276,
+     "publicado_em": "2026-11-19T06:13:02-03:00"
+    },
+    {
      "id": "dou-2026-11-17",
      "fonte": "dou",
      "data": "2026-11-17",
@@ -374,188 +461,6 @@
      "duracao_s": 132,
      "bytes": 1580686,
      "publicado_em": "2026-11-17T06:20:29-03:00"
-    },
-    {
-     "id": "dou-2026-11-16",
-     "fonte": "dou",
-     "data": "2026-11-16",
-     "dia_semana": "segunda-feira",
-     "titulo": "Consulta pública do Ibama sobre animais silvestres de estimação; comitê da pesca artesanal; rede de dados da pesca; famílias da Resex da Baía do Tubarão",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de segunda-feira, 16 de novembro de 2026. Hoje são quatro destaques. Três saíram numa edição extra da última sexta-feira: uma consulta pública do Ibama sobre animais silvestres de estimação e duas portarias da pesca. O quarto é de hoje, sobre as famílias beneficiárias de uma reserva extrativista no Maranhão.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Consulta pública: animais silvestres de estimação",
-       "tema": "Consulta pública",
-       "atos": [
-        {
-         "titulo": "Portaria Ibama nº 214, de 12 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-ibama-n-214-de-12-de-novembro-de-2026-744398936",
-         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 19",
-         "vigencia": "na data da publicação; contribuições em 30 dias corridos"
-        }
-       ],
-       "fala": "Primeiro destaque. A Portaria número 214, do Ibama, abre consulta pública sobre uma proposta de instrução normativa com a lista das espécies silvestres nativas que poderão ser criadas e vendidas como animais de estimação, e com os padrões mínimos de manutenção. Pela proposta, só as espécies da lista poderão ser vendidas, sempre nascidas em criadouro comercial autorizado, com marcação definitiva e certificado de origem; para espécies ameaçadas, só a partir da segunda geração. O criadouro terá de entregar um manual de guarda responsável, e os recintos devem seguir condições mínimas de bem-estar. Ficam proibidos a reprodução, a soltura na natureza, os passeios públicos e a monetização do animal em redes sociais. Criadores e lojas com espécies fora da lista teriam cento e oitenta dias para se desfazer delas. As contribuições são feitas só pela plataforma Brasil Participativo, em trinta dias corridos, contados da publicação, em 13 de novembro.",
-       "inicio_s": 27.4
-      },
-      {
-       "titulo": "Comitê da Pesca Artesanal",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria MPA nº 789, de 11 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-789-de-11-de-novembro-de-2026-744331727",
-         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 21",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Segundo destaque. A Portaria número 789, do Ministério da Pesca e Aquicultura, cria o Comitê da Pesca Artesanal, permanente, dentro do Conselho Nacional de Aquicultura e Pesca. O comitê vai estudar e propor medidas para a pesca artesanal: gargalos de produção, crédito e comercialização, sustentabilidade, adaptação às mudanças climáticas, boas práticas sanitárias, equidade e melhoria dos dados do setor. As propostas têm caráter só opinativo e vão para o plenário do conselho.",
-       "inicio_s": 85.3
-      },
-      {
-       "titulo": "Rede de dados e estatística pesqueira",
-       "tema": "Fauna, pesca e aquicultura",
-       "atos": [
-        {
-         "titulo": "Portaria MPA nº 790, de 11 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-mpa-n-790-de-11-de-novembro-de-2026-744331643",
-         "referencia": "DOU de 13/11/2026, Seção 1, Extra B, p. 22",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Terceiro destaque. A Portaria número 790, do mesmo ministério, cria a Rede Colaborativa de Dados e Estatística Pesqueira. A ideia é que órgãos e instituições que já monitoram a pesca compartilhem seus dados com o ministério, com padronização de método, transparência e uso só para fins estatísticos. A entrada na rede é em fluxo contínuo, por pedido, chamamento ou convite, e a lista de participantes fica no site do ministério.",
-       "inicio_s": 118.8
-      },
-      {
-       "titulo": "Famílias beneficiárias da Resex da Baía do Tubarão",
-       "tema": "Flora, florestas e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Portaria ICMBio nº 5.090, de 4 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-5.090-de-4-de-novembro-de-2026-744413917",
-         "referencia": "DOU de 16/11/2026, Seção 1, p. 304",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "Por fim, a Portaria número 5.090, do ICMBio, aprova o perfil das famílias beneficiárias da Reserva Extrativista da Baía do Tubarão, em Humberto de Campos e Icatu, no Maranhão. São famílias reconhecidas como população tradicional que dependem dos recursos da reserva. Além disso, precisam atender a um destes critérios: morar na reserva ou no entorno há pelo menos cinco anos e viver da pesca artesanal; morar e trabalhar ali em funções importantes para a comunidade, como professores e agentes de saúde; ou ser aposentadas das atividades tradicionais. Famílias de fora precisam da aprovação da comunidade e do conselho da reserva.",
-       "inicio_s": 148.0
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "O outro ato ambiental do período trata da organização interna do Ministério do Meio Ambiente. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
-       "inicio_s": 189.5
-      }
-     ],
-     "audio": "radar/audios/dou-2026-11-16-8892649ef3.mp3",
-     "duracao_s": 201,
-     "bytes": 2409813,
-     "publicado_em": "2026-11-17T06:20:52-03:00"
-    },
-    {
-     "id": "dou-2026-11-13",
-     "fonte": "dou",
-     "data": "2026-11-13",
-     "dia_semana": "sexta-feira",
-     "titulo": "Conama atualiza as regras para episódios críticos de poluição do ar",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Ambiental Inteligência, os destaques ambientais do Diário Oficial da União, edição de sexta-feira, 13 de novembro de 2026. Hoje o destaque é um só, publicado numa edição extra de ontem: o Conama atualizou as regras para os planos de episódios críticos de poluição do ar.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "Planos para episódios críticos de poluição do ar",
-       "tema": "Outras normas ambientais",
-       "atos": [
-        {
-         "titulo": "Resolução Conama nº 518, de 6 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-conama-n-518-de-6-de-novembro-de-2026-744136533",
-         "referencia": "DOU de 12/11/2026, Seção 1, Extra B, p. 14",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "A Resolução número 518, do Conama, estabelece as diretrizes para os Planos para Episódios Críticos de Poluição do Ar e os valores de referência para declarar os estados críticos. São três níveis: atenção, alerta e emergência. No de atenção, intensifica-se a divulgação de informações preventivas; nos de alerta e de emergência, os órgãos responsáveis precisam adotar medidas. Cabe aos órgãos ambientais dos estados e do Distrito Federal elaborar o plano, em até dezoito meses depois da publicação de um guia orientativo, que o Ministério do Meio Ambiente tem dezoito meses para fazer. O plano passa por consulta pública, indica quem declara cada estado e deve divulgar a declaração em sites e aplicativos. Cada órgão também cria um grupo assessor permanente, com saúde, defesa civil, assistência social, cientistas e sociedade civil. Durante alerta e emergência, as fontes de poluição podem sofrer as restrições previstas no plano. O ministério ainda vai criar, no sistema MonitorAr, um alerta para registrar e divulgar esses episódios. A resolução vale desde a publicação e revoga a Resolução 491, de 2018.",
-       "inicio_s": 20.3
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do período tratam de conselhos de unidades de conservação, de licenças de pesca e da organização interna dos órgãos. Resumo feito por inteligência artificial; confira o texto oficial pelos links da página. Até a próxima!",
-       "inicio_s": 92.6
-      }
-     ],
-     "audio": "radar/audios/dou-2026-11-13-9a953200de.mp3",
-     "duracao_s": 108,
-     "bytes": 1292921,
-     "publicado_em": "2026-11-17T06:21:04-03:00"
-    },
-    {
-     "id": "dou-2026-11-05",
-     "fonte": "dou",
-     "data": "2026-11-05",
-     "dia_semana": "quinta-feira",
-     "titulo": "Mineração revisa a agenda regulatória; conselho da APA da Serra da Meruoca",
-     "origem": "revisado",
-     "capitulos": [
-      {
-       "titulo": "Abertura",
-       "tema": null,
-       "atos": [],
-       "fala": "Olá! Este é o Radar Ambiental do Diário Oficial da União, edição de quinta-feira, 5 de novembro de 2026. Hoje são dois destaques: a revisão da agenda regulatória da mineração e o conselho de uma área de proteção ambiental.",
-       "inicio_s": 0.0
-      },
-      {
-       "titulo": "ANM revisa a agenda regulatória da mineração",
-       "tema": "Mineração e barragens",
-       "atos": [
-        {
-         "titulo": "Resolução ANM nº 251, de 4 de novembro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/resolucao-anm-n-251-de-4-de-novembro-de-2026-741842919",
-         "referencia": "DOU de 05/11/2026, Seção 1, p. 54",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "A Resolução número 251, da Agência Nacional de Mineração, aprova a terceira revisão extraordinária da agenda regulatória da agência para 2025 a 2027, a lista de temas que ela pretende regulamentar. A nova redação inclui a regulamentação do prazo de quatro anos para a pesquisa mineral, previsto na Lei 14.514, de 2022, e requisitos de conformidade e de combate a ilicitudes nas outorgas de títulos minerários. Também prevê simplificar os formulários de análise do Plano de Aproveitamento Econômico, na concessão de lavra, e a cessão e o arrendamento de direitos minerários. Um item da lista anterior foi revogado. Está em vigor desde a publicação.",
-       "inicio_s": 16.9
-      },
-      {
-       "titulo": "Conselho consultivo da APA da Serra da Meruoca",
-       "tema": "Flora e unidades de conservação",
-       "atos": [
-        {
-         "titulo": "Portaria ICMBio nº 4.993, de 23 de outubro de 2026",
-         "link": "https://www.in.gov.br/web/dou/-/portaria-icmbio-n-4.993-de-23-de-outubro-de-2026-741861211",
-         "referencia": "DOU de 05/11/2026, Seção 1, p. 54",
-         "vigencia": "na data da publicação"
-        }
-       ],
-       "fala": "A Portaria número 4.993, do ICMBio, modifica a composição do conselho consultivo da Área de Proteção Ambiental da Serra da Meruoca. O conselho é paritário: de um lado, setores da sociedade civil, como associações comunitárias, agricultura e turismo; de outro, setores do poder público, como meio ambiente, ensino e pesquisa e recursos hídricos. As vagas de cada setor são definidas pelo próprio conselho. Em vigor desde a publicação.",
-       "inicio_s": 60.5
-      },
-      {
-       "titulo": "Fechamento",
-       "tema": null,
-       "atos": [],
-       "fala": "Os demais atos ambientais do dia tratam de casos específicos, como despachos de mineração. Este resumo foi escrito por inteligência artificial a partir do texto publicado e lido por uma voz sintética. Antes de aplicar qualquer regra, confira o texto oficial pelos links na página. Até a próxima edição!",
-       "inicio_s": 91.8
-      }
-     ],
-     "audio": "radar/audios/dou-2026-11-05-a0ec8329f3.mp3",
-     "duracao_s": 110,
-     "bytes": 1325471,
-     "publicado_em": "2026-11-05T06:12:02-03:00"
     }
    ]
   }

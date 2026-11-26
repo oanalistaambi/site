@@ -42,6 +42,7 @@ IPA = {
     "Embramine": "ẽbɾaˈmini",
     "Magban": "maɡiˈbɐ̃",
     "estéril": "isˈtɛɾiw",
+    "Agrossilvipastoris": "aɡɾosiwvipastoˈɾis",  # Câmara de Atividades Agrossilvipastoris (Copam)
 }
 
 _LIMITE = r"(?<![\w-]){}(?![\w-])"
